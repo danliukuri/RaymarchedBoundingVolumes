@@ -1,4 +1,4 @@
-﻿#include "SDFCalculators.cginc"
+﻿#include "Calculators/SDFCalculator.cginc"
 
 float3 calculateNormal(const float3 position)
 {
@@ -11,7 +11,7 @@ float3 calculateNormal(const float3 position)
     return normalize(normal);
 }
 
-float3 shade(const float3 position)
+float3 applyShading(const float3 position)
 {
     const float3 normal = calculateNormal(position);
     // Directional light // Lambertian shading // Diffuse
@@ -27,4 +27,9 @@ float3 shade(const float3 position)
     // float ambientOcclusion = applyAmbientOcclusion(position, normal);
 
     return directLight; // + ambientLight * shadow * ambientOcclusion;
+}
+
+fixed4 calculateShadedPixelColor(RaymarchingData data)
+{
+    return fixed4(data.pixelColor * applyShading(data.objectPosition), 1);
 }

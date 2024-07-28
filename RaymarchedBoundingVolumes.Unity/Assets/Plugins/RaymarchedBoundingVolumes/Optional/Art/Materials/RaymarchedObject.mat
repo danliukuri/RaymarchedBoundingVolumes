@@ -29,11 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FarClippingPlane: 20
+    - _FarClippingPlane: 32
     - _HeatmapVisualizationEnabled: 0
     - _MaxDetectionIterations: 36
     - _MaxDetectionOffset: 0.005
     m_Colors:
     - _ObjectColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
-  m_AllowLocking: 1

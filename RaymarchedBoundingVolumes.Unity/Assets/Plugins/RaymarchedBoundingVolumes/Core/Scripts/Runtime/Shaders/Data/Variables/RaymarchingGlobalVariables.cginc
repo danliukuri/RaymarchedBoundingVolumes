@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <HLSLSupport.cginc>
-#include "RaymarchingDataStructures.cginc"
+#include "../Structures/RaymarchingDataStructures.cginc"
 
 // Automatically set from shader properties
 

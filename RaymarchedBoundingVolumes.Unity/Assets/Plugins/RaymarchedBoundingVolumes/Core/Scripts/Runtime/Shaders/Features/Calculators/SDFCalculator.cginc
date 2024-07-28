@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include <UnityShaderVariables.cginc>
-#include "RaymarchingGlobalVariables.cginc"
-#include "RaymarchingDataStructures.cginc"
-#include "DistanceFunctions.cginc"
-#include "BoolianOperators.cginc"
-#include "SmoothBoolianOperators.cginc"
+#include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
+#include "../../Data/Structures/RaymarchingDataStructures.cginc"
+#include "../Functions/SDFs.cginc"
+#include "../Functions/BoolianOperators.cginc"
+#include "../Functions/SmoothBoolianOperators.cginc"
 
 float calculateObjectSDF(const float3 position, const int index)
 {
