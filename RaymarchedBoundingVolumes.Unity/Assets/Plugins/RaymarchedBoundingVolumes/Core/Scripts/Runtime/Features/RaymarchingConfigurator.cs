@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using RaymarchedBoundingVolumes.Data.Dynamic;
+using RaymarchedBoundingVolumes.Data.Static;
+using RaymarchedBoundingVolumes.Utilities.Extensions;
+using RaymarchedBoundingVolumes.Utilities.Wrappers;
 using UnityEngine;
 using static RaymarchedBoundingVolumes.Data.Static.RaymarchedObjectShaderPropertyIds;
 
@@ -22,12 +25,19 @@ namespace RaymarchedBoundingVolumes.Features
         private          List<RaymarchingOperationShaderData> _operationsData;
         private          List<RaymarchedObjectShaderData>     _objectsData;
 
+        private RaymarchingOperationShaderData _unionOperationForTail = new()
+        {
+            _operationType = (int)RaymarchingOperationType.Union,
+            _childCount    = default,
+            _blendStrength = default,
+        };
+
         private bool _isOperationsDataChanged;
         private bool _isObjectsDataChanged;
 
         private void Awake()
         {
-            int operationsBufferSize = operations.Count + dynamicallyCreatedOperationsCount;
+            int operationsBufferSize = operations.Count + dynamicallyCreatedOperationsCount + 1;
             int objectsBufferSize = objects.Count + dynamicallyCreatedObjectsCount;
             if (operationsBufferSize != default)
             {
@@ -45,22 +55,36 @@ namespace RaymarchedBoundingVolumes.Features
         }
         private void InitializeBufferDataLists(int operationsBufferSize, int objectsBufferSize)
         {
+            _objectsData = new List<RaymarchedObjectShaderData>(objectsBufferSize);
+            foreach (RaymarchedObject obj in objects)
+                _objectsData.Add(obj.ShaderData);
+            
             _operationsData = new List<RaymarchingOperationShaderData>(operationsBufferSize);
             foreach (RaymarchingOperation operation in operations)
                 _operationsData.Add(operation.ShaderData);
 
-            _objectsData = new List<RaymarchedObjectShaderData>(objectsBufferSize);
-            foreach (RaymarchedObject obj in objects)
-                _objectsData.Add(obj.ShaderData);
+            AddUnionOperationForObjectsWithNoOperation();
+        }
+
+        private void AddUnionOperationForObjectsWithNoOperation()
+        {
+            if (_unionOperationForTail._childCount > 0)
+            {
+                if (!_operationsData.Contains(_unionOperationForTail))
+                    _operationsData.Add(_unionOperationForTail);
+            }
+            else if (_operationsData.Contains(_unionOperationForTail))
+                    _operationsData.Remove(_unionOperationForTail);
         }
 
         private void OnDestroy() => ReleaseBuffers();
+
         private void ReleaseBuffers()
         {
             _operationsBuffer?.Release();
             _objectsBuffer?.Release();
         }
-        
+
 #if UNITY_EDITOR
         [ContextMenu(nameof(FindAndRegisterAllRaymarchedObjectsAndOperations))]
         public void FindAndRegisterAllRaymarchedObjectsAndOperations()
@@ -69,40 +93,58 @@ namespace RaymarchedBoundingVolumes.Features
             foreach (GameObject rootGameObject in rootGameObjects)
                 RegisterOperationsAndItsObjects(rootGameObject.GetComponentsInChildren<RaymarchingOperation>());
 
+            RegisterObjectWithNoOperation(rootGameObjects);
+
             if (_isOperationsDataChanged || _isObjectsDataChanged)
                 UnityEditor.EditorUtility.SetDirty(this);
+        }
 
-            return;
+        private void RegisterObjectWithNoOperation(GameObject[] rootGameObjects)
+        {
+            foreach (GameObject rootGameObject in rootGameObjects)
+                RegisterObjects(rootGameObject.GetComponentsInChildren<RaymarchedObject>());
+        }
 
-            void RegisterOperationsAndItsObjects(IEnumerable<RaymarchingOperation> newOperations)
+        private void RegisterOperationsAndItsObjects(IEnumerable<RaymarchingOperation> raymarchingOperations)
+        {
+            foreach (RaymarchingOperation newOperation in raymarchingOperations)
+                RegisterOperationAndItsObjects(newOperation);
+        }
+        private void RegisterOperationAndItsObjects(RaymarchingOperation operation)
+        {
+            RegisterOperation(operation);
+            RegisterObjects(operation.GetComponentsInChildren<RaymarchedObject>());
+        }
+        private void RegisterOperation(RaymarchingOperation operation)
+        {
+            if (!operations.Contains(operation))
             {
-                foreach (RaymarchingOperation newOperation in newOperations)
-                    if (!operations.Contains(newOperation))
-                    {
-                        operations.Add(newOperation);
-                        newOperation.Changed += UpdateOperationDataInShader;
-
-                        RegisterObjects(newOperation.GetComponentsInChildren<RaymarchedObject>());
-                        _isOperationsDataChanged = true;
-                        
-                    }
+                operations.Add(operation);
+                operation.Changed     += UpdateOperationDataInShader;
+                _isOperationsDataChanged =  true;
             }
+        }
 
-            void RegisterObjects(IEnumerable<RaymarchedObject> newObjects)
+        private void RegisterObjects(IEnumerable<RaymarchedObject> raymarchedObjects)
+        {
+            foreach (RaymarchedObject raymarchedObject in raymarchedObjects)
+                RegisterObject(raymarchedObject);
+        }
+        private void RegisterObject(RaymarchedObject raymarchedObject)
+        {
+            if (!objects.Contains(raymarchedObject))
             {
-                foreach (RaymarchedObject newObject in newObjects)
-                    if (!objects.Contains(newObject))
-                    {
-                        objects.Add(newObject);
-                        newObject.Changed     += UpdateObjectDataInShader;
-                        _isObjectsDataChanged =  true;
-                    }
+                objects.Add(raymarchedObject);
+                raymarchedObject.Changed       += UpdateObjectDataInShader;
+                raymarchedObject.ParentChanged += HandleObjectParentChange;
+                _isObjectsDataChanged          =  true;
             }
         }
 
         private void OnEnable()
         {
             Awake();
+            UnsubscribeFromChanges();
             SubscribeToChanges();
         }
 
@@ -112,7 +154,11 @@ namespace RaymarchedBoundingVolumes.Features
             UnsubscribeFromChanges();
         }
 #else
-        private void OnEnable() => SubscribeToChanges();
+        private void OnEnable()
+        {
+            UnsubscribeFromChanges();
+            SubscribeToChanges();
+        } 
         
         private void OnDisable() => UnsubscribeFromChanges();
 #endif
@@ -121,16 +167,58 @@ namespace RaymarchedBoundingVolumes.Features
             foreach (RaymarchingOperation operation in operations)
                 operation.Changed += UpdateOperationDataInShader;
             foreach (RaymarchedObject obj in objects)
-                obj.Changed += UpdateObjectDataInShader;
+            {
+                obj.Changed       += UpdateObjectDataInShader;
+                obj.ParentChanged += HandleObjectParentChange;
+            }
         }
+
         private void UnsubscribeFromChanges()
         {
             foreach (RaymarchingOperation operation in operations)
                 operation.Changed -= UpdateOperationDataInShader;
             foreach (RaymarchedObject obj in objects)
-                obj.Changed -= UpdateObjectDataInShader;
+            {
+                obj.Changed       -= UpdateObjectDataInShader;
+                obj.ParentChanged -= HandleObjectParentChange;
+            }
         }
-        
+
+        private void HandleObjectParentChange(RaymarchedObject obj, IChangedValue<Transform> parent)
+        {
+            var oldOperation   = parent.Old?.GetComponentInParent<RaymarchingOperation>();
+            var newOperation   = parent.New?.GetComponentInParent<RaymarchingOperation>();
+            int oldObjectIndex = objects.IndexOf(obj);
+            objects.RemoveAt(oldObjectIndex);
+
+            if (oldOperation != default)
+                UpdateOperationDataInShader(oldOperation);
+            else
+                _unionOperationForTail._childCount = Mathf.Max(default, _unionOperationForTail._childCount - 1);
+
+            int newObjectIndex;
+            if (newOperation != default)
+            {
+                newObjectIndex = default;
+                for (var i = 0; i < operations.IndexOf(newOperation); i++)
+                    newObjectIndex += operations[i].RaymarchedChildCount;
+
+                objects.Insert(newObjectIndex, obj);
+                UpdateOperationDataInShader(newOperation);
+            }
+            else
+            {
+                objects.Add(obj);
+                newObjectIndex = objects.LastIndex();
+                _unionOperationForTail._childCount++;
+            }
+
+            int startIndex = Mathf.Min(oldObjectIndex, newObjectIndex);
+            int endIndex   = Mathf.Max(oldObjectIndex, newObjectIndex);
+            for (int i = startIndex; i <= endIndex; i++)
+                UpdateObjectDataInShader(objects[i]);
+        }
+
         private void UpdateOperationDataInShader(RaymarchingOperation operation)
         {
             if (!_changedOperations.Contains(operation))
@@ -161,7 +249,8 @@ namespace RaymarchedBoundingVolumes.Features
                 _operationsData[index] = changedOperation.ShaderData;
             }
             _changedOperations.Clear();
-
+            AddUnionOperationForObjectsWithNoOperation();
+            
             _operationsBuffer.SetData(_operationsData);
             Shader.SetGlobalInteger(RaymarchingOperationsCount, _operationsData.Count);
             Shader.SetGlobalBuffer (RaymarchingOperations     , _operationsBuffer    );

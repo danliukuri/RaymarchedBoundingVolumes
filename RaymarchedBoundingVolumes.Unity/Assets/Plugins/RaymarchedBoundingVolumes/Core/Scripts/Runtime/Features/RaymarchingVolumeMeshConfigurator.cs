@@ -57,7 +57,8 @@ namespace RaymarchedBoundingVolumes.Features
             return mesh;
         }
 
-        private void ChangeMeshSizeDelayed(Vector3 sizeMultiplier = default) => _isNeededToChangeMeshSize = true;
+        private void ChangeMeshSizeDelayed(ChangedValue<Vector3> sizeMultiplier = default) =>
+            _isNeededToChangeMeshSize = true;
 
         public Vector3 ChangeMeshSize(Vector3 sizeMultiplier)
         {
