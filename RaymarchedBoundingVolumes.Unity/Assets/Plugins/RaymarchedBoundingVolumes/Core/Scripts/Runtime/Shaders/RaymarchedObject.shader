@@ -31,7 +31,6 @@ Shader "RaymarchedBoundingVolumes/Core/RaymarchedObject"
             #include "Data/Structures/RaymarchingDataStructures.cginc"
             #include "Data/Structures/ShaderDataStructures.cginc"
             #include "Data/Variables/RaymarchingGlobalVariables.cginc"
-            #include "Features/Calculators/SDFCalculator.cginc"
             #include "Features/Calculators/RayDataCalculator.cginc"
             #include "Features/Calculators/PixelDepthCalculator.cginc"
             #include "Features/RaymarchingShading.cginc"
@@ -56,7 +55,7 @@ Shader "RaymarchedBoundingVolumes/Core/RaymarchedObject"
                 const float3 rayDirection = calculateRayDirection(input.hitPosition);
                 const RaymarchingData raymarchingData = raymarch(input.hitPosition, rayDirection);
                 const PixelData pixel =
-                    {calculateShadedPixelColor(raymarchingData), calculateDepth(raymarchingData.objectPosition)};
+                    {calculateShadedPixelColor(raymarchingData), calculateDepth(raymarchingData.position)};
 
                 return pixel;
             }

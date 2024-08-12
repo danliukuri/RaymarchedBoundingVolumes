@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 10
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -66,6 +66,9 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -703,8 +706,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337598480}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95393467, b: 0.8283019, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -2870,8 +2874,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: -1
   m_StreamData:
     serializedVersion: 2
@@ -3176,48 +3180,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dynamicallyCreatedOperationsCount: 0
   dynamicallyCreatedObjectsCount: 0
-  operations:
-  - {fileID: 426564252}
-  - {fileID: 44225287}
-  - {fileID: 2101658442}
-  - {fileID: 709094224}
-  - {fileID: 333749350}
-  - {fileID: 1325678838}
-  - {fileID: 481238700}
-  - {fileID: 1736633954}
-  - {fileID: 711984185}
-  - {fileID: 715620515}
-  objects:
-  - {fileID: 2083719478}
-  - {fileID: 1782907284}
-  - {fileID: 2133599420}
-  - {fileID: 1937761974}
-  - {fileID: 2005679500}
-  - {fileID: 1359515292}
-  - {fileID: 205521907}
-  - {fileID: 111168238}
-  - {fileID: 2096843563}
-  - {fileID: 803101049}
-  - {fileID: 99738473}
-  - {fileID: 245270504}
-  - {fileID: 385397209}
-  - {fileID: 1195222786}
-  - {fileID: 1487563230}
-  - {fileID: 1622084155}
-  - {fileID: 1547811493}
-  - {fileID: 946142613}
-  - {fileID: 2116600497}
-  - {fileID: 1423774208}
-  - {fileID: 587786558}
-  - {fileID: 410527503485196987}
-  - {fileID: 1860364562}
-  - {fileID: 1895105097}
-  - {fileID: 100429018}
-  - {fileID: 1855337878}
-  - {fileID: 954668570}
-  - {fileID: 485912671}
-  - {fileID: 326045133}
-  - {fileID: 721390341}
+  data:
+    <Features>k__BackingField:
+    - {fileID: 426564252}
+    - {fileID: 2083719478}
+    - {fileID: 1782907284}
+    - {fileID: 2133599420}
+    - {fileID: 44225287}
+    - {fileID: 1937761974}
+    - {fileID: 2005679500}
+    - {fileID: 1359515292}
+    - {fileID: 2101658442}
+    - {fileID: 205521907}
+    - {fileID: 111168238}
+    - {fileID: 2096843563}
+    - {fileID: 709094224}
+    - {fileID: 803101049}
+    - {fileID: 99738473}
+    - {fileID: 245270504}
+    - {fileID: 333749350}
+    - {fileID: 385397209}
+    - {fileID: 1195222786}
+    - {fileID: 1487563230}
+    - {fileID: 1325678838}
+    - {fileID: 1622084155}
+    - {fileID: 1547811493}
+    - {fileID: 946142613}
+    - {fileID: 481238700}
+    - {fileID: 2116600497}
+    - {fileID: 1423774208}
+    - {fileID: 587786558}
+    - {fileID: 1736633954}
+    - {fileID: 410527503485196987}
+    - {fileID: 1860364562}
+    - {fileID: 1895105097}
+    - {fileID: 711984185}
+    - {fileID: 100429018}
+    - {fileID: 1855337878}
+    - {fileID: 954668570}
+    - {fileID: 715620515}
+    - {fileID: 485912671}
+    - {fileID: 326045133}
+    - {fileID: 721390341}
 --- !u!4 &2131382745
 Transform:
   m_ObjectHideFlags: 0

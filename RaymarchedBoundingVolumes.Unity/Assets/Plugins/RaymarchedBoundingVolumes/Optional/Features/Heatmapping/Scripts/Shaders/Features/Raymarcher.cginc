@@ -7,22 +7,23 @@ sampler2D _HeatmapTexture;
 RaymarchingData raymarch(const float3 rayOrigin, const float3 rayDirection)
 {
     RaymarchingData result;
-    result.objectPosition = rayOrigin;
+    result.position = rayOrigin;
     float traveledDistance = 0;
     int iterationIndex = _MaxDetectionIterations;
 
+    UNITY_LOOP
     for (int i = 0; i < _MaxDetectionIterations; i++)
     {
         const float3 currentPosition = rayOrigin + rayDirection * traveledDistance;
         const SDFData sdf = calculateSDF(currentPosition);
 
-        if (sdf.distanceToObject < _MaxDetectionOffset ||
-            (traveledDistance += sdf.distanceToObject) >= _FarClippingPlane)
+        if (sdf.distance < _MaxDetectionOffset || (traveledDistance += sdf.distance) >= _FarClippingPlane)
         {
             iterationIndex = i + 1;
             break;
         }
     }
-    result.pixelColor = tex2D(_HeatmapTexture, half2((half)iterationIndex / _MaxDetectionIterations, 1));
+
+    result.color = tex2D(_HeatmapTexture, half2((half)iterationIndex / _MaxDetectionIterations, 1));
     return result;
 }

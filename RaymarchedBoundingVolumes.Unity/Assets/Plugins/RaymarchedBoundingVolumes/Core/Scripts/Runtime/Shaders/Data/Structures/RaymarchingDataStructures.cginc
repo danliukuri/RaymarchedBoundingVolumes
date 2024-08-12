@@ -1,17 +1,15 @@
 ﻿#pragma once
 
-#include <HLSLSupport.cginc>
-
 struct SDFData
 {
-    fixed3 pixelColor;
-    float  distanceToObject;
+    fixed3 color;
+    float  distance;
 };
 
 struct RaymarchingData
 {
-    fixed3 pixelColor;
-    float3 objectPosition;
+    fixed3 color;
+    float3 position;
 };
 
 struct ObjectData
@@ -23,6 +21,14 @@ struct ObjectData
 struct OperationData
 {
     int   type;
-    int   childCount;
     float blendStrength;
+};
+
+struct OperationNodeData
+{
+    int childOperationsCount;
+    int childObjectsCount;
+
+    int parentIndex;
+    int layer;
 };

@@ -1,13 +1,11 @@
 ﻿#include "../../Data/Structures/RaymarchingDataStructures.cginc"
 
-SDFData blendSDF(const SDFData object1, const SDFData object2, const float blendFactor)
+SDFData blendSDF(const SDFData sdf1, const SDFData sdf2, const float blendFactor)
 {
-    const float blendWeight =
-        clamp(0.5 + 0.5 * (object2.distanceToObject - object1.distanceToObject) / blendFactor, 0, 1);
+    const float blendWeight = clamp(0.5 + 0.5 * (sdf2.distance - sdf1.distance) / blendFactor, 0, 1);
     SDFData sdf;
-    sdf.pixelColor = lerp(object2.pixelColor, object1.pixelColor, blendWeight);
-    sdf.distanceToObject = lerp(object2.distanceToObject, object1.distanceToObject, blendWeight) -
-        blendFactor * blendWeight * (1 - blendWeight);
+    sdf.color    = lerp(sdf2.color, sdf1.color, blendWeight);
+    sdf.distance = lerp(sdf2.distance, sdf1.distance, blendWeight) - blendFactor * blendWeight * (1 - blendWeight);
     return sdf;
 }
 
