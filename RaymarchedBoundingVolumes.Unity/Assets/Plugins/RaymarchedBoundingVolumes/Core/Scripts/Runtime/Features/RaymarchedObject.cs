@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    public class RaymarchedObject : RaymarchingFeature
+    public partial class RaymarchedObject : RaymarchingFeature
     {
         public event Action<RaymarchedObject>                           Changed;
         public event Action<RaymarchedObject, IChangedValue<Transform>> ParentChanged;
@@ -23,7 +23,9 @@ namespace RaymarchedBoundingVolumes.Features
 
         private void Awake() => Initialize();
 
+#if !UNITY_EDITOR
         private void OnEnable()  => SubscribeToChanges();
+#endif
         private void OnDisable() => UnsubscribeToChanges();
 
         private void Update()
@@ -32,7 +34,7 @@ namespace RaymarchedBoundingVolumes.Features
                 UpdateTransform();
         }
 
-        public void Initialize() => _parent = new ObservableValue<Transform>(transform.parent);
+        private void Initialize() => _parent = new ObservableValue<Transform>(transform.parent);
 
         private void SubscribeToChanges()
         {

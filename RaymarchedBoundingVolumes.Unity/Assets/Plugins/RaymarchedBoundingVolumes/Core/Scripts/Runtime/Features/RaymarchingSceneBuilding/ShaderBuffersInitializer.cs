@@ -7,12 +7,10 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
     public class ShaderBuffersInitializer
     {
-        public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize)
-        {
-            _shaderBuffers?.OperationNodes?.Release();
-            _shaderBuffers?.Operations    ?.Release();
-            _shaderBuffers?.Objects       ?.Release();
-            return _shaderBuffers = new ShaderBuffers
+        private ShaderBuffers _shaderBuffers;
+
+        public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize) =>
+            _shaderBuffers = new ShaderBuffers
             {
                 OperationNodes =
                     new ComputeBuffer(operationsBufferSize, Marshal.SizeOf<RaymarchingOperationNodeShaderData>()),
@@ -21,18 +19,17 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
                 Objects =
                     new ComputeBuffer(objectsBufferSize, Marshal.SizeOf<RaymarchedObjectShaderData>())
             };
-        }
 
-        private ShaderBuffers _shaderBuffers;
-
-        public void ReleaseBuffers()
+        public ShaderBuffers ReleaseBuffers()
         {
             if (_shaderBuffers != default)
             {
                 _shaderBuffers.OperationNodes?.Release();
-                _shaderBuffers.Operations    ?.Release();
-                _shaderBuffers.Objects       ?.Release();
+                _shaderBuffers.Operations?.Release();
+                _shaderBuffers.Objects?.Release();
             }
+
+            return _shaderBuffers;
         }
     }
 }

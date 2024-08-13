@@ -9,7 +9,7 @@ namespace RaymarchedBoundingVolumes.Data.Dynamic
     [Serializable]
     public class RaymarchingData
     {
-        [field: SerializeField] public List<RaymarchingFeature> Features { get; set; } = new();
+        [field: SerializeField, HideInInspector] public List<RaymarchingFeature> Features { get; set; } = new();
 
         public List<RaymarchingOperation> Operations { get; set; } = new();
         public List<RaymarchedObject>     Objects    { get; set; } = new();

@@ -8,7 +8,7 @@ using Type = RaymarchedBoundingVolumes.Data.Static.RaymarchingOperationType;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    public class RaymarchingOperation : RaymarchingFeature
+    public partial class RaymarchingOperation : RaymarchingFeature
     {
         public event Action<RaymarchingOperation> Changed;
 
@@ -28,12 +28,14 @@ namespace RaymarchedBoundingVolumes.Features
 
         private void Awake() => Initialize();
 
+#if !UNITY_EDITOR
         private void OnEnable()  => SubscribeToChanges();
+#endif
         private void OnDisable() => UnsubscribeToChanges();
 
         private void OnTransformChildrenChanged() => CalculateChildCount();
 
-        public void Initialize() => CalculateChildCount();
+        private void Initialize() => CalculateChildCount();
 
         private void CalculateChildCount()
         {

@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using RaymarchedBoundingVolumes.Data.Dynamic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
-    [ExecuteInEditMode]
-    public class RaymarchingConfigurator : MonoBehaviour
+    public partial class RaymarchingConfigurator : MonoBehaviour
     {
         [SerializeField] private int dynamicallyCreatedOperationsCount;
         [SerializeField] private int dynamicallyCreatedObjectsCount;
@@ -18,92 +14,44 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         private readonly ShaderBuffersInitializer _shaderBuffersInitializer = new();
         private readonly ShaderDataUpdater        _shaderDataUpdater        = new();
 
-        private void Awake() => Initialize();
+        private void Awake() => RegisterFeatures();
 
-        private void Initialize()
+#if !UNITY_EDITOR
+        private void Start()
+        {
+            if (data.Features.Any())
+                Initialize();
+        }
+
+        private void OnEnable()  => SubscribeToChanges();
+        private void OnDisable() => UnsubscribeFromChanges();
+        
+#endif
+        private void Update()    => _shaderDataUpdater.Update();
+        private void OnDestroy() => Deinitialize();
+
+        private void RegisterFeatures()
         {
             if (data.Features.Any())
             {
                 data.Operations = data.Features.OfType<RaymarchingOperation>().ToList();
-                foreach (RaymarchingOperation operation in data.Operations)
-                {
-                    operation.Initialize();
-                    RegisterOperation(operation);
-                }
-
-                data.Objects = data.Features.OfType<RaymarchedObject>().ToList();
-                foreach (RaymarchedObject raymarchedObject in data.Objects)
-                {
-                    raymarchedObject.Initialize();
-                    RegisterObject(raymarchedObject);
-                }
-
-                new RaymarchingDataInitializer(new RaymarchingSceneTreePostorderDFSTraverser()).InitializeData(data);
-                
-                ShaderBuffers shaderBuffers = _shaderBuffersInitializer
-                    .InitializeBuffers(data.OperationsShaderData.Count + dynamicallyCreatedOperationsCount,
-                        data.ObjectsShaderData.Count + dynamicallyCreatedObjectsCount);
-
-                _shaderDataUpdater.Initialize(shaderBuffers, data);
+                data.Objects    = data.Features.OfType<RaymarchedObject>().ToList();
             }
         }
 
-        private void OnDestroy() => _shaderBuffersInitializer.ReleaseBuffers();
-
-#if UNITY_EDITOR
-        [ContextMenu(nameof(RegisterAllRaymarchingFeatures))]
-        public void RegisterAllRaymarchingFeatures()
+        private void Initialize()
         {
-            int operationsCount = data.Features.Count;
-            data.Features = FindAllRaymarchingFeatures(gameObject.scene);
+            new RaymarchingDataInitializer(new RaymarchingSceneTreePostorderDFSTraverser()).InitializeData(data);
 
-            Initialize();
-            if (operationsCount != data.Features.Count)
-                EditorUtility.SetDirty(this);
-        }
-        
-        private static List<RaymarchingFeature> FindAllRaymarchingFeatures(Scene scene) => scene.GetRootGameObjects()
-            .SelectMany(rootGameObject => rootGameObject.GetComponentsInChildren<RaymarchingFeature>())
-            .ToList();
+            ShaderBuffers shaderBuffers = _shaderBuffersInitializer
+                .InitializeBuffers(data.OperationsShaderData.Count + dynamicallyCreatedOperationsCount,
+                    data.ObjectsShaderData.Count + dynamicallyCreatedObjectsCount);
 
-        private void RegisterOperation(RaymarchingOperation operation)
-        {
-            if (!data.Operations.Contains(operation))
-            {
-                data.Operations.Add(operation);
-                operation.Changed += _shaderDataUpdater.UpdateOperationData;
-            }
-        }
-        private void RegisterObject(RaymarchedObject raymarchedObject)
-        {
-            if (!data.Objects.Contains(raymarchedObject))
-            {
-                data.Objects.Add(raymarchedObject);
-                raymarchedObject.Changed += _shaderDataUpdater.UpdateObjectData;
-            }
+            _shaderDataUpdater.Initialize(shaderBuffers, data);
         }
 
-        private void OnEnable()
-        {
-            Initialize();
-            UnsubscribeFromChanges();
-            SubscribeToChanges();
-        }
+        private void Deinitialize() => _shaderBuffersInitializer.ReleaseBuffers();
 
-        private void OnDisable()
-        {
-            UnsubscribeFromChanges();
-            OnDestroy();
-        }
-#else
-        private void OnEnable()
-        {
-            UnsubscribeFromChanges();
-            SubscribeToChanges();
-        } 
-
-        private void OnDisable() => UnsubscribeFromChanges();
-#endif
         private void SubscribeToChanges()
         {
             foreach (RaymarchingOperation operation in data.Operations)
@@ -119,7 +67,5 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
             foreach (RaymarchedObject obj in data.Objects)
                 obj.Changed -= _shaderDataUpdater.UpdateObjectData;
         }
-
-        private void Update() => _shaderDataUpdater.Update();
     }
 }
