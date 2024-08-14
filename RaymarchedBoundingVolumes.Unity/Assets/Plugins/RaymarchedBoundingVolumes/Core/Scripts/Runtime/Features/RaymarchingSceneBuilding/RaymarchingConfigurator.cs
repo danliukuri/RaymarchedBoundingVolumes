@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using RaymarchedBoundingVolumes.Data.Dynamic;
+using RaymarchedBoundingVolumes.Infrastructure;
 using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
@@ -11,10 +12,29 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 
         [SerializeField] private RaymarchingData data = new();
 
-        private readonly ShaderBuffersInitializer _shaderBuffersInitializer = new();
-        private readonly ShaderDataUpdater        _shaderDataUpdater        = new();
+        private IRaymarchingDataInitializer _raymarchingDataInitializer;
+        private IShaderBuffersInitializer   _shaderBuffersInitializer;
+        private IShaderDataUpdater          _shaderDataUpdater;
 
-        private void Awake() => RegisterFeatures();
+        private void Awake()
+        {
+            Construct();
+            RegisterFeatures();
+        }
+
+        private void Construct() => Construct(
+            IServiceContainer.Global.Resolve<IRaymarchingDataInitializer>(),
+            IServiceContainer.Global.Resolve<IShaderBuffersInitializer>(),
+            IServiceContainer.Global.Resolve<IShaderDataUpdater>());
+
+        public void Construct(IRaymarchingDataInitializer raymarchingDataInitializer,
+            IShaderBuffersInitializer shaderBuffersInitializer,
+            IShaderDataUpdater shaderDataUpdater)
+        {
+            _raymarchingDataInitializer = raymarchingDataInitializer;
+            _shaderBuffersInitializer   = shaderBuffersInitializer;
+            _shaderDataUpdater          = shaderDataUpdater;
+        }
 
 #if !UNITY_EDITOR
         private void Start()
@@ -25,7 +45,7 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 
         private void OnEnable()  => SubscribeToChanges();
         private void OnDisable() => UnsubscribeFromChanges();
-        
+
 #endif
         private void Update()    => _shaderDataUpdater.Update();
         private void OnDestroy() => Deinitialize();
@@ -41,7 +61,7 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 
         private void Initialize()
         {
-            new RaymarchingDataInitializer(new RaymarchingSceneTreePostorderDFSTraverser()).InitializeData(data);
+            _raymarchingDataInitializer.InitializeData(data);
 
             ShaderBuffers shaderBuffers = _shaderBuffersInitializer
                 .InitializeBuffers(data.OperationsShaderData.Count + dynamicallyCreatedOperationsCount,

@@ -21,7 +21,6 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         private void OnEnable()
         {
             EditorApplication.delayCall += EditorInitialize;
-            SubscribeToChanges();
         }
 
         private void OnDisable()
@@ -34,10 +33,13 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         {
             EditorApplication.delayCall -= EditorInitialize;
 
+            Construct();
+
             if (!data.Features.Any())
             {
                 RegisterAllRaymarchingFeatures();
                 RegisterFeatures();
+                SubscribeToChanges();
             }
             if (!IsInitialized)
                 Initialize();

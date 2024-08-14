@@ -5,7 +5,7 @@ using static RaymarchedBoundingVolumes.Data.Static.RaymarchedObjectShaderPropert
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
-    public class ShaderDataUpdater
+    public class ShaderDataUpdater : IShaderDataUpdater
     {
         private bool _isOperationNodesDataChanged;
         private bool _isOperationsDataChanged;

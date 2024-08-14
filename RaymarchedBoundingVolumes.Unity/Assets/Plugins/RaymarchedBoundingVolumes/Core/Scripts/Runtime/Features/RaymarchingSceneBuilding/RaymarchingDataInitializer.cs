@@ -6,7 +6,7 @@ using RaymarchedBoundingVolumes.Utilities.Extensions;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
-    public class RaymarchingDataInitializer
+    public class RaymarchingDataInitializer : IRaymarchingDataInitializer
     {
         private readonly IRaymarchingSceneTreeTraverser _raymarchingSceneTreeTraverser;
 
@@ -38,6 +38,8 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
                 _data.OperationMetaData.ToDictionary(metaData => metaData.Index, (metaData, index) => index);
             _parentIndexesByFeatureIndex.Add(RaymarchingOperationNodeShaderData.RootNodeIndex,
                 RaymarchingOperationNodeShaderData.RootNodeIndex);
+
+            _objectsIndex = default;
 
             FillShaderDataLists();
 

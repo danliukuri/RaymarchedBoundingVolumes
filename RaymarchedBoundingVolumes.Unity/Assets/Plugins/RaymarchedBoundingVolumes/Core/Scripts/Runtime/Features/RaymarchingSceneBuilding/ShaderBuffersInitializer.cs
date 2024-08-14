@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
-    public class ShaderBuffersInitializer
+    public class ShaderBuffersInitializer : IShaderBuffersInitializer
     {
         private ShaderBuffers _shaderBuffers;
 
