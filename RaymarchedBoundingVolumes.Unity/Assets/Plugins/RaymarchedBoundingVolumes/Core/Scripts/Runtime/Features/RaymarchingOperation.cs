@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Linq;
+using RaymarchedBoundingVolumes.Data.Dynamic;
 using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData;
+using RaymarchedBoundingVolumes.Infrastructure;
 using RaymarchedBoundingVolumes.Utilities.Attributes;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
 using UnityEngine;
@@ -15,10 +16,9 @@ namespace RaymarchedBoundingVolumes.Features
         [field: SerializeField, Unwrapped] public ObservableValue<Type>  OperationType { get; private set; }
         [field: SerializeField, Unwrapped] public ObservableValue<float> BlendStrength { get; private set; }
 
-        public int DirectChildObjectsCount    { get; private set; }
-        public int ChildObjectsCount          { get; private set; }
-        public int DirectChildOperationsCount { get; private set; }
-        public int ChildOperationsCount       { get; private set; }
+        private IRaymarchingChildrenCalculator _raymarchingChildrenCalculator;
+
+        public OperationChildrenData Children { get; private set; }
 
         public RaymarchingOperationShaderData ShaderData => new()
         {
@@ -26,24 +26,20 @@ namespace RaymarchedBoundingVolumes.Features
             BlendStrength = BlendStrength.Value
         };
 
-        private void Awake() => Initialize();
+        private void Awake() => Construct();
+
+        private void Construct() => Construct(IServiceContainer.Global.Resolve<IRaymarchingChildrenCalculator>());
+
+        public void Construct(IRaymarchingChildrenCalculator raymarchingChildrenCalculator) =>
+            _raymarchingChildrenCalculator = raymarchingChildrenCalculator;
 
 #if !UNITY_EDITOR
         private void OnEnable()  => SubscribeToChanges();
 #endif
         private void OnDisable() => UnsubscribeToChanges();
 
-        private void OnTransformChildrenChanged() => CalculateChildCount();
-
-        private void Initialize() => CalculateChildCount();
-
-        private void CalculateChildCount()
-        {
-            CalculateDirectChildObjectsCount();
-            CalculateChildObjectsCount();
-            CalculateDirectChildOperationsCount();
-            CalculateChildOperationsCount();
-        }
+        public OperationChildrenData CalculateChildrenCount() =>
+            Children = _raymarchingChildrenCalculator.CalculateChildrenCount(this);
 
         private void SubscribeToChanges()
         {
@@ -56,21 +52,6 @@ namespace RaymarchedBoundingVolumes.Features
             OperationType.Changed -= RaiseChangedEvent;
             BlendStrength.Changed -= RaiseChangedEvent;
         }
-
-        private int CalculateDirectChildObjectsCount() => DirectChildObjectsCount =
-            transform.GetComponentsInChildren<RaymarchedObject>()
-                     .Count(child => child.GetComponentInParent<RaymarchingOperation>() == this);
-
-        private int CalculateChildObjectsCount() => ChildObjectsCount =
-            transform.GetComponentsInChildren<RaymarchedObject>().Length;
-
-        private int CalculateDirectChildOperationsCount() => DirectChildOperationsCount = transform
-            .GetComponentsInChildren<RaymarchingOperation>().Count(operation =>
-                operation != this && operation.GetComponentsInParent<RaymarchingOperation>()
-                    .SkipWhile(component => component == operation).First() == this);
-
-        private int CalculateChildOperationsCount() => ChildOperationsCount =
-            transform.GetComponentsInChildren<RaymarchingOperation>().Count(operation => operation != this);
 
         private void RaiseChangedEvent()                                  => Changed?.Invoke(this);
         private void RaiseChangedEvent(ChangedValue<float> blendStrength) => RaiseChangedEvent();

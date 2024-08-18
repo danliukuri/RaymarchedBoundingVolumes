@@ -63,20 +63,20 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         }
 
         private int CalculateChildOperationsCount(int index) =>
-            _features[index] is RaymarchingOperation operation && operation.ChildOperationsCount != default
-                ? operation.ChildOperationsCount + operation.ChildObjectsCount
+            _features[index] is RaymarchingOperation operation && operation.Children.TotalOperationsCount != default
+                ? operation.Children.TotalFeaturesCount
                 : default;
 
         private int CalculateDirectChildOperationsCount(int index) =>
-            _features[index] is RaymarchingOperation operation && operation.ChildOperationsCount != default
-                ? operation.DirectChildOperationsCount + operation.DirectChildObjectsCount
+            _features[index] is RaymarchingOperation operation && operation.Children.TotalOperationsCount != default
+                ? operation.Children.DirectFeaturesCount
                 : default;
 
         private int CalculateDirectChildObjectsCount(int index) =>
             _features[index] switch
             {
-                RaymarchingOperation operation => operation.ChildOperationsCount == default
-                    ? operation.DirectChildObjectsCount
+                RaymarchingOperation operation => operation.Children.TotalOperationsCount == default
+                    ? operation.Children.DirectObjectsCount
                     : default,
                 RaymarchedObject => DirectChildObjectsCountForObjectWrappingOperation,
                 _                => default
@@ -87,13 +87,12 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
             int grandchildrenCount = default;
             if (_features[childIndex] is RaymarchingOperation operation)
             {
-                grandchildrenCount = operation.DirectChildOperationsCount + operation.DirectChildObjectsCount;
+                grandchildrenCount = operation.Children.DirectFeaturesCount;
 
                 int nextChildIndex = _features.NextIndex(childIndex);
                 for (int i = nextChildIndex; i < nextChildIndex + grandchildrenCount; i++)
                     if (_features[i] is RaymarchingOperation childOperation)
-                        grandchildrenCount +=
-                            childOperation.DirectChildOperationsCount + childOperation.DirectChildObjectsCount;
+                        grandchildrenCount += childOperation.Children.DirectFeaturesCount;
             }
 
             return grandchildrenCount;

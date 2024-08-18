@@ -1,14 +1,24 @@
-﻿using RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding;
+﻿using System.Linq;
+using RaymarchedBoundingVolumes.Features;
+using RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding;
 using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RaymarchedBoundingVolumes.Infrastructure
 {
-    public static class RaymarchingServicesRegister
+    public partial class RaymarchingServicesRegister : MonoBehaviour
     {
+#if !UNITY_EDITOR
+        private void Awake() => RegisterSceneServices(gameObject.scene);
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+#else
         [InitializeOnLoadMethod]
-        private static void RegisterServices()
+#endif
+        private static void RegisterGlobalServices()
         {
-            IServiceContainer container = ServiceContainer.Global;
+            IServiceContainer container = ServiceContainer.Initialize();
 
             container.RegisterAsSingle<IRaymarchingSceneTreeTraverser>(new RaymarchingSceneTreePostorderDFSTraverser());
             container.RegisterAsSingle<IRaymarchingDataInitializer>(new RaymarchingDataInitializer(
@@ -16,6 +26,19 @@ namespace RaymarchedBoundingVolumes.Infrastructure
             ));
             container.RegisterAsSingle<IShaderBuffersInitializer>(new ShaderBuffersInitializer());
             container.RegisterAsSingle<IShaderDataUpdater>(new ShaderDataUpdater());
+            container.RegisterAsSingle<IRaymarchingChildrenCalculator>(new RaymarchingChildrenCalculator());
+        }
+
+        private static void RegisterSceneServices(Scene scene)
+        {
+            IServiceContainer sceneContainer = IServiceContainer.Scoped(scene);
+
+            sceneContainer
+                .RegisterAsSingle<IRaymarchingSceneBuilder>(FindObjectsOfType<RaymarchingSceneBuilder>().Single());
+
+            sceneContainer.RegisterAsSingle<IRaymarchingFeaturesRegister>(new RaymarchingFeaturesRegister(
+                sceneContainer.Resolve<IRaymarchingSceneBuilder>()
+            ));
         }
     }
 }

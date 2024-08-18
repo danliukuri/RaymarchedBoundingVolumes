@@ -1,35 +1,66 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using UnityEngine.SceneManagement;
 
 namespace RaymarchedBoundingVolumes.Infrastructure
 {
-    public class ServiceContainer : IServiceContainer
+    public class ServiceContainer : IServiceContainer, IDisposable
     {
-        private static readonly Lazy<IServiceContainer> _instance =
-            new(() => IServiceContainer.Global = new ServiceContainer());
+        private static readonly Lazy<ServiceContainer> _instance = new(() => new ServiceContainer());
 
-        private ServiceContainer() { }
+        private static readonly ConcurrentDictionary<Scene, ServiceContainer> _sceneScopeContainers = new();
+        private readonly        ConcurrentDictionary<Type, object>            _singleInstances      = new();
 
-        public static IServiceContainer Global => _instance.Value;
+        private ServiceContainer(string scopeName) => ScopeName = scopeName;
+        private ServiceContainer() => ScopeName = nameof(Global);
 
-        public TService RegisterAsSingle<TService>(TService implementation)
+        public static ServiceContainer Global => _instance.Value;
+
+        public string ScopeName { get; }
+
+        public void Dispose()
         {
-            if (Implementation<TService>.Instance != null)
-                throw new InvalidOperationException($"Service of type {typeof(TService).Name} is already registered");
-
-            return Implementation<TService>.Instance = implementation;
+            _singleInstances.Clear();
+            if (this == Global)
+            {
+                foreach (ServiceContainer container in _sceneScopeContainers.Values)
+                    container.Dispose();
+                _sceneScopeContainers.Clear();
+            }
         }
+
+        public TService RegisterAsSingle<TService>(TService implementation) =>
+            _singleInstances.TryAdd(typeof(TService), implementation)
+                ? implementation
+                : throw new InvalidOperationException($"Service of type {typeof(TService).Name} is already registered" +
+                                                      $" in the container under {ScopeName} scope");
 
         public TService Resolve<TService>()
         {
-            TService instance = Implementation<TService>.Instance;
-            if (instance == null)
-                throw new InvalidOperationException($"Service of type {typeof(TService).Name} is not registered");
-            return instance;
+            if (_singleInstances.TryGetValue(typeof(TService), out object instance) && instance is TService service)
+                return service;
+
+            if (this != Global)
+                return Global.Resolve<TService>();
+
+            throw new InvalidOperationException($"Service of type {typeof(TService).Name} is not registered");
         }
 
-        private static class Implementation<TInterface>
+        IServiceContainer IServiceContainer.GetScopeContainer(Scene scene) => GetScopeContainer(scene);
+
+        private static ServiceContainer GetScopeContainer(Scene scene)
         {
-            public static TInterface Instance { get; set; }
+            if (!_sceneScopeContainers.TryGetValue(scene, out ServiceContainer container))
+                _sceneScopeContainers.TryAdd(scene, container = new ServiceContainer(scene.name));
+            return container;
+        }
+
+        public static IServiceContainer Initialize() => IServiceContainer.Global = _instance.Value;
+
+        public static ServiceContainer Scoped(Scene scene)
+        {
+            Initialize();
+            return GetScopeContainer(scene);
         }
     }
 }
