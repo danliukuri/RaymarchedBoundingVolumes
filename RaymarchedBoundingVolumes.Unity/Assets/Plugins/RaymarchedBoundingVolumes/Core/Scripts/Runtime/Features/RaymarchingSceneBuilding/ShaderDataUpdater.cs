@@ -7,40 +7,47 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
     public class ShaderDataUpdater : IShaderDataUpdater
     {
+        private readonly List<RaymarchedObject>     _changedObjects    = new();
+        private readonly List<RaymarchingOperation> _changedOperations = new();
+
+        private readonly IRaymarchingSceneDataProvider _dataProvider;
+
+        private bool _isObjectsDataChanged;
         private bool _isOperationNodesDataChanged;
         private bool _isOperationsDataChanged;
-        private bool _isObjectsDataChanged;
 
-        private readonly List<RaymarchingOperation> _changedOperations = new();
-        private readonly List<RaymarchedObject>     _changedObjects    = new();
+        private ShaderBuffers _shaderBuffers;
 
-        private ShaderBuffers   _shaderBuffers;
-        private RaymarchingData _raymarchingData;
+        public ShaderDataUpdater(IRaymarchingSceneDataProvider dataProvider) => _dataProvider = dataProvider;
 
-        public ShaderDataUpdater Initialize(ShaderBuffers shaderBuffers, RaymarchingData raymarchingData)
+        public IShaderDataUpdater Initialize(ShaderBuffers shaderBuffers)
         {
             _shaderBuffers               = shaderBuffers;
-            _raymarchingData             = raymarchingData;
             _isOperationNodesDataChanged = true;
             _isOperationsDataChanged     = true;
             _isObjectsDataChanged        = true;
             return this;
         }
 
-        public void UpdateOperationData(RaymarchingOperation operation)
+        public IShaderDataUpdater SubscribeToFeatureEvents()
         {
-            if (!_changedOperations.Contains(operation))
-                _changedOperations.Add(operation);
-            _isOperationsDataChanged = true;
-        }
-        public void UpdateObjectData(RaymarchedObject obj)
-        {
-            if (!_changedObjects.Contains(obj))
-                _changedObjects.Add(obj);
-            _isObjectsDataChanged = true;
+            foreach (RaymarchingOperation operation in _dataProvider.Data.Operations)
+                operation.Changed += UpdateOperationData;
+            foreach (RaymarchedObject obj in _dataProvider.Data.Objects)
+                obj.Changed += UpdateObjectData;
+            return this;
         }
 
-        public void Update()
+        public IShaderDataUpdater UnsubscribeToFeatureEvents()
+        {
+            foreach (RaymarchingOperation operation in _dataProvider.Data.Operations)
+                operation.Changed -= UpdateOperationData;
+            foreach (RaymarchedObject obj in _dataProvider.Data.Objects)
+                obj.Changed -= UpdateObjectData;
+            return this;
+        }
+
+        public IShaderDataUpdater Update()
         {
             if (_isOperationNodesDataChanged)
                 UpdateOperationNodesData();
@@ -48,11 +55,26 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
                 UpdateOperationsData();
             if (_isObjectsDataChanged)
                 UpdateObjectsData();
+            return this;
+        }
+
+        private void UpdateOperationData(RaymarchingOperation operation)
+        {
+            if (!_changedOperations.Contains(operation))
+                _changedOperations.Add(operation);
+            _isOperationsDataChanged = true;
+        }
+
+        private void UpdateObjectData(RaymarchedObject obj)
+        {
+            if (!_changedObjects.Contains(obj))
+                _changedObjects.Add(obj);
+            _isObjectsDataChanged = true;
         }
 
         private void UpdateOperationNodesData()
         {
-            _shaderBuffers.OperationNodes.SetData(_raymarchingData.OperationNodesShaderData);
+            _shaderBuffers.OperationNodes.SetData(_dataProvider.Data.OperationNodesShaderData);
             Shader.SetGlobalBuffer(RaymarchingOperationNodes, _shaderBuffers.OperationNodes);
 
             _isOperationNodesDataChanged = false;
@@ -61,13 +83,13 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         private void UpdateOperationsData()
         {
             foreach (RaymarchingOperation changedOperation in _changedOperations)
-                foreach (int index in _raymarchingData.OperationDataIndexes[changedOperation])
-                    _raymarchingData.OperationsShaderData[index] = changedOperation.ShaderData;
+                foreach (int index in _dataProvider.Data.OperationDataIndexes[changedOperation])
+                    _dataProvider.Data.OperationsShaderData[index] = changedOperation.ShaderData;
             _changedOperations.Clear();
 
-            _shaderBuffers.Operations.SetData(_raymarchingData.OperationsShaderData);
-            Shader.SetGlobalInteger(RaymarchingOperationsCount, _raymarchingData.OperationsShaderData.Count);
-            Shader.SetGlobalBuffer (RaymarchingOperations     , _shaderBuffers.Operations);
+            _shaderBuffers.Operations.SetData(_dataProvider.Data.OperationsShaderData);
+            Shader.SetGlobalInteger(RaymarchingOperationsCount, _dataProvider.Data.OperationsShaderData.Count);
+            Shader.SetGlobalBuffer(RaymarchingOperations, _shaderBuffers.Operations);
 
             _isOperationsDataChanged = false;
         }
@@ -76,12 +98,13 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         {
             foreach (RaymarchedObject changedObject in _changedObjects)
             {
-                int index = _raymarchingData.ObjectDataIndexes[changedObject];
-                _raymarchingData.ObjectsShaderData[index] = changedObject.ShaderData;
+                int index = _dataProvider.Data.ObjectDataIndexes[changedObject];
+                _dataProvider.Data.ObjectsShaderData[index] = changedObject.ShaderData;
             }
+
             _changedObjects.Clear();
 
-            _shaderBuffers.Objects.SetData(_raymarchingData.ObjectsShaderData);
+            _shaderBuffers.Objects.SetData(_dataProvider.Data.ObjectsShaderData);
             Shader.SetGlobalBuffer(RaymarchedObjects, _shaderBuffers.Objects);
 
             _isObjectsDataChanged = false;

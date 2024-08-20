@@ -1,92 +1,128 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RaymarchedBoundingVolumes.Data.Dynamic;
-using RaymarchedBoundingVolumes.Infrastructure;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
-using UnityEditor;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
-    public partial class RaymarchingSceneBuilder : MonoBehaviour, IRaymarchingSceneBuilder
+    public class RaymarchingSceneBuilder : IRaymarchingSceneBuilder
     {
-        [field: SerializeField] public RaymarchingData Data { get; set; } = new();
+        public event Action<Scene> SceneBuilt;
 
-        private IRaymarchingFeaturesRegister _raymarchingFeaturesRegister;
-        private IRaymarchingDataInitializer  _raymarchingDataInitializer;
-        private IShaderBuffersInitializer    _shaderBuffersInitializer;
-        private IShaderDataUpdater           _shaderDataUpdater;
+        private readonly IRaymarchingDataInitializer         _dataInitializer;
+        private readonly IRaymarchingSceneDataProvider       _dataProvider;
+        private readonly IRaymarchingFeatureEventsSubscriber _featureEventsSubscriber;
+        private readonly IRaymarchingFeaturesRegister        _featuresRegister;
+        private readonly IShaderBuffersInitializer           _shaderBuffersInitializer;
+        private readonly IShaderDataUpdater                  _shaderDataUpdater;
 
         private bool _isNeededToBuildScene;
 
-        private void Awake() => Construct();
-
-        private void Construct() => Construct(
-            IServiceContainer.Scoped(gameObject.scene).Resolve<IRaymarchingFeaturesRegister>(),
-            IServiceContainer.Global.Resolve<IRaymarchingDataInitializer>(),
-            IServiceContainer.Global.Resolve<IShaderBuffersInitializer>(),
-            IServiceContainer.Global.Resolve<IShaderDataUpdater>());
-
-        public void Construct(IRaymarchingFeaturesRegister raymarchingFeaturesRegister,
-            IRaymarchingDataInitializer raymarchingDataInitializer,
-            IShaderBuffersInitializer shaderBuffersInitializer,
-            IShaderDataUpdater shaderDataUpdater)
+        public RaymarchingSceneBuilder(IRaymarchingDataInitializer         dataInitializer,
+                                       IRaymarchingSceneDataProvider       dataProvider,
+                                       IRaymarchingFeaturesRegister        featuresRegister,
+                                       IShaderBuffersInitializer           shaderBuffersInitializer,
+                                       IShaderDataUpdater                  shaderDataUpdater,
+                                       IRaymarchingFeatureEventsSubscriber featureEventsSubscriber)
         {
-            _raymarchingFeaturesRegister = raymarchingFeaturesRegister;
-            _raymarchingDataInitializer  = raymarchingDataInitializer;
-            _shaderBuffersInitializer    = shaderBuffersInitializer;
-            _shaderDataUpdater           = shaderDataUpdater;
+            _dataInitializer          = dataInitializer;
+            _dataProvider             = dataProvider;
+            _featuresRegister         = featuresRegister;
+            _shaderBuffersInitializer = shaderBuffersInitializer;
+            _shaderDataUpdater        = shaderDataUpdater;
+            _featureEventsSubscriber  = featureEventsSubscriber;
         }
 
-#if !UNITY_EDITOR
-        private void OnEnable()  => SubscribeToEvents();
-        private void OnDisable() => UnsubscribeFromEvents();
-        private void OnDestroy() => Deinitialize();
+        public IRaymarchingSceneBuilder SubscribeToFeatureEvents()
+        {
+            foreach (RaymarchingFeature feature in _dataProvider.Data.Features)
+                switch (feature)
+                {
+                    case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
+                        operation.ParentChanged += BuildScene;
+                        operation.Reordered     += BuildScene;
+                        break;
+                    case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
+                        obj.ParentChanged += BuildScene;
+                        obj.Reordered     += BuildScene;
+                        break;
+                }
 
-#endif
-        private void Update()
+            return this;
+        }
+
+        public IRaymarchingSceneBuilder UnsubscribeFromFeatureEvents()
+        {
+            foreach (RaymarchingFeature feature in _dataProvider.Data.Features)
+                switch (feature)
+                {
+                    case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
+                        operation.ParentChanged -= BuildScene;
+                        operation.Reordered     -= BuildScene;
+                        break;
+                    case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
+                        obj.ParentChanged -= BuildScene;
+                        obj.Reordered     -= BuildScene;
+                        break;
+                }
+
+            return this;
+        }
+
+        public IRaymarchingSceneBuilder Update(Scene scene)
         {
             if (_isNeededToBuildScene)
             {
-                BuildSceneIfChanged();
+                BuildSceneIfChanged(scene);
                 _isNeededToBuildScene = false;
             }
 
-            _shaderDataUpdater.Update();
+            return this;
         }
 
-        public IRaymarchingSceneBuilder BuildScene()
+        public IRaymarchingSceneBuilder BuildNewScene()
         {
             _isNeededToBuildScene = true;
             return this;
         }
 
-        private void BuildSceneIfChanged()
+        public IRaymarchingSceneBuilder BuildLastScene()
         {
-            List<RaymarchingFeature> oldFeatures = Data.Features;
-            Dictionary<RaymarchingFeature, OperationChildrenData> oldOperationData = Data.Features.ToDictionary(
-                feature => feature,
-                feature => feature is RaymarchingOperation operation ? operation.Children : default
-            );
+            _featuresRegister.RegisterFeatures();
+            foreach (RaymarchingOperation operation in _dataProvider.Data.Operations)
+                operation.CalculateChildrenCount();
+            BuildScene();
+            _featureEventsSubscriber.SubscribeToFeatureEvents();
+            return this;
+        }
 
-            Data.Features = _raymarchingFeaturesRegister.FindAllRaymarchingFeatures(gameObject.scene);
-            foreach (RaymarchingOperation operation in Data.Operations)
+        private void BuildSceneIfChanged(Scene scene)
+        {
+            List<RaymarchingFeature> oldFeatures = _dataProvider.Data.Features;
+            Dictionary<RaymarchingFeature, OperationChildrenData> oldOperationData =
+                _dataProvider.Data.Features.ToDictionary(
+                    feature => feature,
+                    feature => feature is RaymarchingOperation operation ? operation.Children : default
+                );
+
+            _dataProvider.Data.Features = _featuresRegister.FindAllRaymarchingFeatures(scene);
+            foreach (RaymarchingOperation operation in _dataProvider.Data.Operations)
                 operation.CalculateChildrenCount();
 
-            if (IsSceneChanged(oldOperationData, oldFeatures, Data.Features))
+            if (IsSceneChanged(oldOperationData, oldFeatures, _dataProvider.Data.Features))
             {
-                UnsubscribeFromEvents();
-                _raymarchingFeaturesRegister.RegisterFeatures();
-                SubscribeToEvents();
-                BuildSceneInternal();
-#if UNITY_EDITOR
-                EditorUtility.SetDirty(this);
-#endif
+                _featureEventsSubscriber.UnsubscribeFromFeatureEvents();
+                _featuresRegister.RegisterFeatures();
+                BuildScene();
+                _featureEventsSubscriber.SubscribeToFeatureEvents();
+                SceneBuilt?.Invoke(scene);
             }
         }
 
         private bool IsSceneChanged(Dictionary<RaymarchingFeature, OperationChildrenData> oldOperationData,
-            List<RaymarchingFeature> oldFeatures, List<RaymarchingFeature> newFeatures)
+                                    List<RaymarchingFeature> oldFeatures, List<RaymarchingFeature> newFeatures)
         {
             if (oldFeatures.Count != newFeatures.Count)
                 return true;
@@ -104,64 +140,21 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
             return false;
         }
 
-        private void BuildSceneInternal()
+        private void BuildScene()
         {
-            _raymarchingDataInitializer.InitializeData(Data);
+            _dataInitializer.InitializeData(_dataProvider.Data);
 
             _shaderBuffersInitializer.ReleaseBuffers();
             ShaderBuffers shaderBuffers = _shaderBuffersInitializer
-                .InitializeBuffers(Data.OperationsShaderData.Count, Data.ObjectsShaderData.Count);
+                .InitializeBuffers(_dataProvider.Data.OperationsShaderData.Count,
+                    _dataProvider.Data.ObjectsShaderData.Count);
 
-            _shaderDataUpdater.Initialize(shaderBuffers, Data);
+            _shaderDataUpdater.Initialize(shaderBuffers);
         }
 
-        private void Deinitialize() => _shaderBuffersInitializer.ReleaseBuffers();
-
-        private void SubscribeToEvents()
-        {
-            foreach (RaymarchingFeature feature in Data.Features)
-                switch (feature)
-                {
-                    case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
-                        operation.ParentChanged += BuildScene;
-                        operation.Reordered     += BuildScene;
-                        break;
-                    case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
-                        obj.ParentChanged += BuildScene;
-                        obj.Reordered     += BuildScene;
-                        break;
-                }
-
-            foreach (RaymarchingOperation operation in Data.Operations)
-                operation.Changed += _shaderDataUpdater.UpdateOperationData;
-            foreach (RaymarchedObject obj in Data.Objects)
-                obj.Changed += _shaderDataUpdater.UpdateObjectData;
-        }
-
-        private void UnsubscribeFromEvents()
-        {
-            foreach (RaymarchingFeature feature in Data.Features)
-                switch (feature)
-                {
-                    case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
-                        operation.ParentChanged -= BuildScene;
-                        operation.Reordered     -= BuildScene;
-                        break;
-                    case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
-                        obj.ParentChanged -= BuildScene;
-                        obj.Reordered     -= BuildScene;
-                        break;
-                }
-
-            foreach (RaymarchingOperation operation in Data.Operations)
-                operation.Changed -= _shaderDataUpdater.UpdateOperationData;
-            foreach (RaymarchedObject obj in Data.Objects)
-                obj.Changed -= _shaderDataUpdater.UpdateObjectData;
-        }
-
-        private void BuildScene(RaymarchingOperation operation, ChangedValue<int> siblingIndex) => BuildScene();
-        private void BuildScene(RaymarchedObject obj, ChangedValue<int> siblingIndex)           => BuildScene();
-        private void BuildScene(RaymarchingOperation operation)                                 => BuildScene();
-        private void BuildScene(RaymarchedObject obj)                                           => BuildScene();
+        private void BuildScene(RaymarchingOperation operation, ChangedValue<int> siblingIndex) => BuildNewScene();
+        private void BuildScene(RaymarchedObject     obj,       ChangedValue<int> siblingIndex) => BuildNewScene();
+        private void BuildScene(RaymarchingOperation operation) => BuildNewScene();
+        private void BuildScene(RaymarchedObject     obj)       => BuildNewScene();
     }
 }

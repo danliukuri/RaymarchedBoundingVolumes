@@ -1,11 +1,16 @@
-﻿using RaymarchedBoundingVolumes.Data.Dynamic;
+﻿using System;
+using UnityEngine.SceneManagement;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 {
     public interface IRaymarchingSceneBuilder
     {
-        RaymarchingData Data { get; }
+        event Action<Scene> SceneBuilt;
 
-        IRaymarchingSceneBuilder BuildScene();
+        IRaymarchingSceneBuilder SubscribeToFeatureEvents();
+        IRaymarchingSceneBuilder UnsubscribeFromFeatureEvents();
+        IRaymarchingSceneBuilder Update(Scene scene);
+        IRaymarchingSceneBuilder BuildNewScene();
+        IRaymarchingSceneBuilder BuildLastScene();
     }
 }

@@ -25,7 +25,7 @@ namespace RaymarchedBoundingVolumes.Features
             _siblingIndex = new ObservableValue<int>(transform.GetSiblingIndex());
         }
 
-        protected void Start() => _sceneBuilder.BuildScene();
+        protected void Start() => _sceneBuilder.BuildNewScene();
 
         protected virtual void Update()
         {
@@ -39,7 +39,7 @@ namespace RaymarchedBoundingVolumes.Features
 #endif
         protected virtual void OnDisable() => UnsubscribeFromEvents();
 
-        protected void OnDestroy() => _sceneBuilder?.BuildScene();
+        protected void OnDestroy() => _sceneBuilder?.BuildNewScene();
 
         protected virtual void OnTransformParentChanged() => RaiseParentChangedEvent();
 

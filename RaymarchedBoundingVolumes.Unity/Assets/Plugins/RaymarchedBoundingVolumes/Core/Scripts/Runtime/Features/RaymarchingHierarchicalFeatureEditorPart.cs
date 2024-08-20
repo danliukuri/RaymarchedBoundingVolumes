@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features
 {
@@ -7,8 +9,12 @@ namespace RaymarchedBoundingVolumes.Features
     {
         private bool IsValid => this != default && gameObject.scene.isLoaded;
 
-        protected virtual void OnEnable()
+        protected virtual void OnEnable() => EditorApplication.delayCall += EditorInitialize;
+
+        private void EditorInitialize()
         {
+            EditorApplication.delayCall -= EditorInitialize;
+
             if (IsValid)
             {
                 Construct();
@@ -17,3 +23,4 @@ namespace RaymarchedBoundingVolumes.Features
         }
     }
 }
+#endif

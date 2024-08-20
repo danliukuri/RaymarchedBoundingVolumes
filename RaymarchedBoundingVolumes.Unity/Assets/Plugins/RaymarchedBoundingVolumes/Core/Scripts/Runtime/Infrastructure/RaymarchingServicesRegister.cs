@@ -25,7 +25,6 @@ namespace RaymarchedBoundingVolumes.Infrastructure
                 container.Resolve<IRaymarchingSceneTreeTraverser>()
             ));
             container.RegisterAsSingle<IShaderBuffersInitializer>(new ShaderBuffersInitializer());
-            container.RegisterAsSingle<IShaderDataUpdater>(new ShaderDataUpdater());
             container.RegisterAsSingle<IRaymarchingChildrenCalculator>(new RaymarchingChildrenCalculator());
         }
 
@@ -33,11 +32,25 @@ namespace RaymarchedBoundingVolumes.Infrastructure
         {
             IServiceContainer sceneContainer = IServiceContainer.Scoped(scene);
 
-            sceneContainer
-                .RegisterAsSingle<IRaymarchingSceneBuilder>(FindObjectsOfType<RaymarchingSceneBuilder>().Single());
+            RaymarchingSceneUpdater sceneUpdater = FindObjectsOfType<RaymarchingSceneUpdater>().Single();
+            sceneContainer.RegisterAsSingle<IRaymarchingSceneDataProvider>(sceneUpdater);
+            sceneContainer.RegisterAsSingle<IRaymarchingFeatureEventsSubscriber>(sceneUpdater);
 
             sceneContainer.RegisterAsSingle<IRaymarchingFeaturesRegister>(new RaymarchingFeaturesRegister(
-                sceneContainer.Resolve<IRaymarchingSceneBuilder>()
+                sceneContainer.Resolve<IRaymarchingSceneDataProvider>()
+            ));
+
+            sceneContainer.RegisterAsSingle<IShaderDataUpdater>(new ShaderDataUpdater(
+                sceneContainer.Resolve<IRaymarchingSceneDataProvider>()
+            ));
+
+            sceneContainer.RegisterAsSingle<IRaymarchingSceneBuilder>(new RaymarchingSceneBuilder(
+                sceneContainer.Resolve<IRaymarchingDataInitializer>(),
+                sceneContainer.Resolve<IRaymarchingSceneDataProvider>(),
+                sceneContainer.Resolve<IRaymarchingFeaturesRegister>(),
+                sceneContainer.Resolve<IShaderBuffersInitializer>(),
+                sceneContainer.Resolve<IShaderDataUpdater>(),
+                sceneContainer.Resolve<IRaymarchingFeatureEventsSubscriber>()
             ));
         }
     }
