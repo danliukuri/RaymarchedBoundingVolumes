@@ -2,5 +2,5 @@
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    public class RaymarchingFeature : MonoBehaviour { }
+    public abstract class RaymarchingFeature : MonoBehaviour { }
 }

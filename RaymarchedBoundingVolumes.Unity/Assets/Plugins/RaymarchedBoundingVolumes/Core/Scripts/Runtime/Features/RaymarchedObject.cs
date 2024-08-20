@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    [ExecuteInEditMode]
-    public partial class RaymarchedObject : RaymarchingFeature
+    public partial class RaymarchedObject : RaymarchingHierarchicalFeature<RaymarchedObject>
     {
         public event Action<RaymarchedObject> Changed;
 
@@ -20,31 +19,24 @@ namespace RaymarchedBoundingVolumes.Features
             Position = transform.position + Transform.Position.Value
         };
 
-        private void OnEnable()  => SubscribeToChanges();
-        private void OnDisable() => UnsubscribeToChanges();
-
-        private void Update()
+        protected override void SubscribeToEvents()
         {
-            if (transform.hasChanged)
-                UpdateTransform();
-        }
-
-        private void SubscribeToChanges()
-        {
+            base.SubscribeToEvents();
             Transform.Changed            += RaiseChangedEvent;
             _gameObjectTransform.Changed += RaiseChangedEvent;
         }
 
-        private void UnsubscribeToChanges()
+        protected override void UnsubscribeFromEvents()
         {
+            base.UnsubscribeFromEvents();
             Transform.Changed            -= RaiseChangedEvent;
             _gameObjectTransform.Changed -= RaiseChangedEvent;
         }
 
-        private void UpdateTransform()
+        protected override void UpdateTransform()
         {
+            base.UpdateTransform();
             _gameObjectTransform.SetValuesFrom(transform);
-            transform.hasChanged = false;
         }
 
         private void RaiseChangedEvent()                           => Changed?.Invoke(this);

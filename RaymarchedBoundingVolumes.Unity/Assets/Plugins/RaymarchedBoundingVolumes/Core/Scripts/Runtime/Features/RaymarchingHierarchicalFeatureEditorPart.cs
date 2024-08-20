@@ -1,21 +1,19 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features
 {
     [ExecuteInEditMode]
-    public partial class RaymarchingOperation
+    public abstract partial class RaymarchingHierarchicalFeature<T>
     {
         private bool IsValid => this != default && gameObject.scene.isLoaded;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             if (IsValid)
             {
                 Construct();
-                SubscribeToChanges();
+                SubscribeToEvents();
             }
         }
     }
 }
-#endif

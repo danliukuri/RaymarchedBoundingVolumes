@@ -9,7 +9,7 @@ using Type = RaymarchedBoundingVolumes.Data.Static.RaymarchingOperationType;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    public partial class RaymarchingOperation : RaymarchingFeature
+    public partial class RaymarchingOperation : RaymarchingHierarchicalFeature<RaymarchingOperation>
     {
         public event Action<RaymarchingOperation> Changed;
 
@@ -26,29 +26,34 @@ namespace RaymarchedBoundingVolumes.Features
             BlendStrength = BlendStrength.Value
         };
 
-        private void Awake() => Construct();
+        protected override void Awake()
+        {
+            base.Awake();
+            Construct();
+        }
 
-        private void Construct() => Construct(IServiceContainer.Global.Resolve<IRaymarchingChildrenCalculator>());
+        protected override void Construct()
+        {
+            base.Construct();
+            Construct(IServiceContainer.Global.Resolve<IRaymarchingChildrenCalculator>());
+        }
 
         public void Construct(IRaymarchingChildrenCalculator raymarchingChildrenCalculator) =>
             _raymarchingChildrenCalculator = raymarchingChildrenCalculator;
 
-#if !UNITY_EDITOR
-        private void OnEnable()  => SubscribeToChanges();
-#endif
-        private void OnDisable() => UnsubscribeToChanges();
-
         public OperationChildrenData CalculateChildrenCount() =>
             Children = _raymarchingChildrenCalculator.CalculateChildrenCount(this);
 
-        private void SubscribeToChanges()
+        protected override void SubscribeToEvents()
         {
+            base.SubscribeToEvents();
             OperationType.Changed += RaiseChangedEvent;
             BlendStrength.Changed += RaiseChangedEvent;
         }
 
-        private void UnsubscribeToChanges()
+        protected override void UnsubscribeFromEvents()
         {
+            base.UnsubscribeFromEvents();
             OperationType.Changed -= RaiseChangedEvent;
             BlendStrength.Changed -= RaiseChangedEvent;
         }
