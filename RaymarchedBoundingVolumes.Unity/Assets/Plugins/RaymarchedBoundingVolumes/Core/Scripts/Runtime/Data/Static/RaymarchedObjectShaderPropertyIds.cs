@@ -10,6 +10,7 @@ namespace RaymarchedBoundingVolumes.Data.Static
 
         public static readonly int
             RaymarchingOperationsCount = PropertyToID(nameof(RaymarchingOperationsCount)),
+            RaymarchingOperationNodes  = PropertyToID(nameof(RaymarchingOperationNodes )),
             RaymarchingOperations      = PropertyToID(nameof(RaymarchingOperations     )),
             RaymarchedObjects          = PropertyToID(nameof(RaymarchedObjects         ));
     }

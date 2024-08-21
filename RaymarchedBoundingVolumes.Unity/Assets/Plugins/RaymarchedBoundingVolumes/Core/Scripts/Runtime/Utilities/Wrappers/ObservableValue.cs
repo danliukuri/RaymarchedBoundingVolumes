@@ -12,15 +12,15 @@ namespace RaymarchedBoundingVolumes.Utilities.Wrappers
 
         public ObservableValue(T value = default) => this.value = value;
 
-        public T Value { get => value; set => SetValue(this.value, value); }
+        public T Value { get => value; set => SetValue(this.value,this.value = value); }
 
         private void SetValue(T previousValue, T newValue)
         {
             if (!EqualityComparer<T>.Default.Equals(previousValue, newValue))
-                Changed?.Invoke(newValue);
+                Changed?.Invoke(new ChangedValue<T>(previousValue, newValue));
         }
 
-        public event Action<T> Changed;
+        public event Action<ChangedValue<T>> Changed;
 
         public void OnBeforeSerialize() => _nonSerializedValue = value;
 

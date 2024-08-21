@@ -1,57 +1,62 @@
 ﻿#pragma once
 
-#include <UnityShaderVariables.cginc>
 #include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
 #include "../Functions/SDFs.cginc"
-#include "../Functions/BoolianOperators.cginc"
-#include "../Functions/SmoothBoolianOperators.cginc"
+#include "OperationApplier.cginc"
+#include "Assets/Plugins/RaymarchedBoundingVolumes/Core/Scripts/Runtime/Shaders/Data/Macros/Stack.cginc"
 
-float calculateObjectSDF(const float3 position, const int index)
+SDFData calculateObjectSDF(const float3 position, const int index)
 {
-    const float3 objectLocalPosition =
-        mul(unity_WorldToObject, float4(_RaymarchedObjects[index].position, 1));
-    const float sdf = calculateSphereSDF(position - objectLocalPosition, 0.5);
+    const float3 objectLocalPosition = mul(unity_WorldToObject, float4(_RaymarchedObjects[index].position, 1));
+    const float distance = calculateSphereSDF(position - objectLocalPosition, 0.5);
+    const SDFData sdf = {_ObjectColor.rgb, distance};
     return sdf;
 }
 
-SDFData calculateOperationSDF(const float3 position, const OperationData operation, int objectIndexOffset)
+SDFData calculateOperationSDF(const float3 position, const OperationData operation,
+                              const int objectsIndex, const int childObjectsCount)
 {
     SDFData sdf = {_ObjectColor.rgb, _FarClippingPlane};
 
-    for (int j = objectIndexOffset; j < operation.childCount + objectIndexOffset; j++)
-        if (_RaymarchedObjects[j].isActive)
-            switch (operation.type)
-            {
-            default:
-            case 0:
-                sdf.distanceToObject = unionSDF(sdf.distanceToObject, calculateObjectSDF(position, j));
-                break;
-            case 1:
-                sdf.distanceToObject = subtractSDF(sdf.distanceToObject, calculateObjectSDF(position, j));
-                break;
-            case 2:
-                const SDFData otherPixel = {_ObjectColor.rgb, calculateObjectSDF(position, j)};
-                sdf = blendSDF(sdf, otherPixel, operation.blendStrength);
-                break;
-            }
+    for (int i = objectsIndex; i < childObjectsCount + objectsIndex; i++)
+        UNITY_BRANCH
+        if (_RaymarchedObjects[i].isActive)
+        {
+            const SDFData objectSDF = calculateObjectSDF(position, i);
+            sdf = applyOperation(operation, objectSDF, sdf);
+        }
 
     return sdf;
 }
 
+DEFINE_STACK(SDFData, LayerSDFStack, MAX_INHERITANCE_LEVEL)
+
 SDFData calculateSDF(const float3 position)
 {
-    SDFData sdf = calculateOperationSDF(position, _RaymarchingOperations[0], 0);
-    float objectIndexOffset =  _RaymarchingOperations[0].childCount;
+    int objectsIndex  =  0;
+    int previousLayer = -1;
 
-    for (int i = 1; i < _RaymarchingOperationsCount; i++)
+    for (int i = 0; i < _RaymarchingOperationsCount; i++)
     {
-        const SDFData operationSDF = calculateOperationSDF(position, _RaymarchingOperations[i], objectIndexOffset);
-        objectIndexOffset += _RaymarchingOperations[i].childCount;
+        const OperationNodeData current   = _RaymarchingOperationNodes[i];
+        const OperationData     operation = _RaymarchingOperations    [i];
 
-        sdf.distanceToObject = unionSDF(sdf.distanceToObject, operationSDF.distanceToObject);
-        if (operationSDF.distanceToObject < sdf.distanceToObject)
-            sdf.pixelColor = operationSDF.pixelColor;
+        SDFData currentLayerSDF = calculateOperationSDF(position, operation, objectsIndex, current.childObjectsCount);
+        objectsIndex += current.childObjectsCount;
+
+        UNITY_BRANCH
+        if (current.childOperationsCount > 0)
+            currentLayerSDF = applyOperation(operation, currentLayerSDF, popFromLayerSDFStack());
+        
+        for (int j = 0; j < current.layer - previousLayer; j++)
+            pushToLayerSDFStack(_DefaultSDFData);
+
+        const OperationData parentOperation = _RaymarchingOperations[current.parentIndex];
+        pushToLayerSDFStack(applyOperation(parentOperation, currentLayerSDF, popFromLayerSDFStack()));
+
+        previousLayer = current.layer;
     }
-    return sdf;
+
+    return popFromLayerSDFStack();
 }

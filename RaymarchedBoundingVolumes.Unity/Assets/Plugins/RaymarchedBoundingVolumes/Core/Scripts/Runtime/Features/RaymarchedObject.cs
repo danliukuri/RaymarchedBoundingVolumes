@@ -1,46 +1,47 @@
 ﻿using System;
-using RaymarchedBoundingVolumes.Data.Dynamic;
+using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
+using UnityEditor;
 using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    [ExecuteInEditMode]
-    public class RaymarchedObject : MonoBehaviour
+    public partial class RaymarchedObject : RaymarchingHierarchicalFeature<RaymarchedObject>
     {
         public event Action<RaymarchedObject> Changed;
+
+        private readonly ObservableTransform<Vector3> _gameObjectTransform = new();
 
         [field: SerializeField] public ObservableTransform<Vector3> Transform { get; private set; }
 
         public RaymarchedObjectShaderData ShaderData => new()
-            {
-                _isActive = Convert.ToInt32(gameObject is { activeSelf: true, activeInHierarchy: true }),
-                _position = transform.position + Transform.Position.Value,
-            };
-
-        private void OnEnable()
         {
-            Transform.Position.Changed += RaiseChangedEvent;
-            Transform.Rotation.Changed += RaiseChangedEvent;
-            Transform.Scale   .Changed += RaiseChangedEvent;
-            RaiseChangedEvent();
+            IsActive = Convert.ToInt32(gameObject is { activeSelf: true, activeInHierarchy: true }),
+            Position = transform.position + Transform.Position.Value
+        };
+
+        protected override void SubscribeToEvents()
+        {
+            base.SubscribeToEvents();
+            Transform.Changed            += RaiseChangedEvent;
+            _gameObjectTransform.Changed += RaiseChangedEvent;
         }
 
-        private void OnDisable()
+        protected override void UnsubscribeFromEvents()
         {
-            Transform.Position.Changed -= RaiseChangedEvent;
-            Transform.Rotation.Changed -= RaiseChangedEvent;
-            Transform.Scale   .Changed -= RaiseChangedEvent;
-            RaiseChangedEvent();
+            base.UnsubscribeFromEvents();
+            Transform.Changed            -= RaiseChangedEvent;
+            _gameObjectTransform.Changed -= RaiseChangedEvent;
         }
 
-        private void Update()
+        protected override void UpdateTransform()
         {
-            if(transform.hasChanged)
-                RaiseChangedEvent();
+            base.UpdateTransform();
+            _gameObjectTransform.SetValuesFrom(transform);
         }
 
-        private void RaiseChangedEvent()              => Changed?.Invoke(this);
-        private void RaiseChangedEvent(Vector3 data)  => RaiseChangedEvent();
+        private void RaiseChangedEvent()                           => Changed?.Invoke(this);
+
+        private void RaiseChangedEvent(ChangedValue<Vector3> data) => RaiseChangedEvent();
     }
 }

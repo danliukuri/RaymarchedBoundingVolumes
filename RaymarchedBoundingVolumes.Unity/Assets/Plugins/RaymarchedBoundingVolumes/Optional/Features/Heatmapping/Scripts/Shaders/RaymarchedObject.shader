@@ -27,7 +27,6 @@ Shader "RaymarchedBoundingVolumes/Heatmapping/RaymarchedObject"
             #include "../../../../../Core/Scripts/Runtime/Shaders/Data/Structures/RaymarchingDataStructures.cginc"
             #include "../../../../../Core/Scripts/Runtime/Shaders/Data/Structures/ShaderDataStructures.cginc"
             #include "../../../../../Core/Scripts/Runtime/Shaders/Data/Variables/RaymarchingGlobalVariables.cginc"
-            #include "../../../../../Core/Scripts/Runtime/Shaders/Features/Calculators/SDFCalculator.cginc"
             #include "../../../../../Core/Scripts/Runtime/Shaders/Features/Calculators/RayDataCalculator.cginc"
             #include "../../../../../Core/Scripts/Runtime/Shaders/Features/Calculators/PixelDepthCalculator.cginc"
             #include "Features/Raymarcher.cginc"
@@ -50,9 +49,7 @@ Shader "RaymarchedBoundingVolumes/Heatmapping/RaymarchedObject"
                 UNITY_SETUP_INSTANCE_ID(input)
                 const float3 rayDirection = calculateRayDirection(input.hitPosition);
                 const RaymarchingData raymarchingData = raymarch(input.hitPosition, rayDirection);
-                const PixelData pixel =
-                    {fixed4(raymarchingData.pixelColor, 1), calculateDepth(raymarchingData.objectPosition)};
-
+                const PixelData pixel = {fixed4(raymarchingData.color, 1), calculateDepth(raymarchingData.position)};
                 return pixel;
             }
             ENDCG
