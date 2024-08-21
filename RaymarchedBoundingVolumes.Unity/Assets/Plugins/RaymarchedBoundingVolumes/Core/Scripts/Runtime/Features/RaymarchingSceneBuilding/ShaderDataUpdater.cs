@@ -22,10 +22,15 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 
         public IShaderDataUpdater Initialize(ShaderBuffers shaderBuffers)
         {
-            _shaderBuffers               = shaderBuffers;
+            _shaderBuffers = shaderBuffers;
+
             _isOperationNodesDataChanged = true;
             _isOperationsDataChanged     = true;
             _isObjectsDataChanged        = true;
+
+            _changedObjects.Clear();
+            _changedOperations.Clear();
+
             return this;
         }
 

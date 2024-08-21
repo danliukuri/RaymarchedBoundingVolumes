@@ -1,12 +1,11 @@
 ﻿using System;
 using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
-using UnityEditor;
 using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    public partial class RaymarchedObject : RaymarchingHierarchicalFeature<RaymarchedObject>
+    public class RaymarchedObject : RaymarchingHierarchicalFeature<RaymarchedObject>
     {
         public event Action<RaymarchedObject> Changed;
 
@@ -16,9 +15,21 @@ namespace RaymarchedBoundingVolumes.Features
 
         public RaymarchedObjectShaderData ShaderData => new()
         {
-            IsActive = Convert.ToInt32(gameObject is { activeSelf: true, activeInHierarchy: true }),
+            IsActive = Convert.ToInt32(enabled && gameObject is { activeSelf: true, activeInHierarchy: true }),
             Position = transform.position + Transform.Position.Value
         };
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            RaiseChangedEvent();
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            RaiseChangedEvent();
+        }
 
         protected override void SubscribeToEvents()
         {
