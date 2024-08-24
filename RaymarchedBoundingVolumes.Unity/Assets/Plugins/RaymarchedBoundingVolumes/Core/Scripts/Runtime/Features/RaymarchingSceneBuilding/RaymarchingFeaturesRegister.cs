@@ -8,13 +8,16 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
     {
         private readonly IRaymarchingSceneDataProvider _dataProvider;
 
-        public RaymarchingFeaturesRegister(IRaymarchingSceneDataProvider dataProvider) =>
-            _dataProvider = dataProvider;
+        public RaymarchingFeaturesRegister(IRaymarchingSceneDataProvider dataProvider) => _dataProvider = dataProvider;
 
         public IRaymarchingFeaturesRegister RegisterFeatures()
         {
             _dataProvider.Data.Operations = _dataProvider.Data.Features.OfType<RaymarchingOperation>().ToList();
             _dataProvider.Data.Objects    = _dataProvider.Data.Features.OfType<RaymarchedObject>().ToList();
+            _dataProvider.Data.ObjectsByType = _dataProvider.Data.Objects
+                .GroupBy(obj => obj.Type.Value)
+                .ToDictionary(group => group.Key, group => group.ToList());
+
             return this;
         }
 

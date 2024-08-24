@@ -14,6 +14,9 @@ struct RaymarchingData
 
 struct ObjectData
 {
+    int type;
+    int typeRelatedDataIndex;
+
     bool   isActive;
     float3 position;
 };

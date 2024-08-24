@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RaymarchedBoundingVolumes.Data.Dynamic;
+using RaymarchedBoundingVolumes.Data.Dynamic.HierarchicalStates;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +20,8 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         private readonly IShaderDataUpdater                  _shaderDataUpdater;
 
         private bool _isNeededToBuildScene;
+
+        private Dictionary<RaymarchingFeature, IRaymarchingFeatureHierarchicalState> _oldHierarchicalStates;
 
         public RaymarchingSceneBuilder(IRaymarchingDataInitializer         dataInitializer,
                                        IRaymarchingSceneDataProvider       dataProvider,
@@ -47,6 +50,8 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
                     case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
                         obj.ParentChanged += BuildScene;
                         obj.Reordered     += BuildScene;
+                        if (obj is RaymarchedObject raymarchedObject)
+                            raymarchedObject.TypeChanged += BuildScene;
                         break;
                 }
 
@@ -65,6 +70,8 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
                     case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
                         obj.ParentChanged -= BuildScene;
                         obj.Reordered     -= BuildScene;
+                        if (obj is RaymarchedObject raymarchedObject)
+                            raymarchedObject.TypeChanged -= BuildScene;
                         break;
                 }
 
@@ -101,17 +108,11 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
         private void BuildSceneIfChanged(Scene scene)
         {
             List<RaymarchingFeature> oldFeatures = _dataProvider.Data.Features;
-            Dictionary<RaymarchingFeature, OperationChildrenData> oldOperationData =
-                _dataProvider.Data.Features.ToDictionary(
-                    feature => feature,
-                    feature => feature is RaymarchingOperation operation ? operation.Children : default
-                );
 
             _dataProvider.Data.Features = _featuresRegister.FindAllRaymarchingFeatures(scene);
-            foreach (RaymarchingOperation operation in _dataProvider.Data.Operations)
-                operation.CalculateChildrenCount();
-
-            if (IsSceneChanged(oldOperationData, oldFeatures, _dataProvider.Data.Features))
+            _dataProvider.Data.Operations.ForEach(operation => operation.CalculateChildrenCount());
+            
+            if (IsSceneChanged(oldFeatures, _dataProvider.Data.Features))
             {
                 _featureEventsSubscriber.UnsubscribeFromFeatureEvents();
                 _featuresRegister.RegisterFeatures();
@@ -121,23 +122,26 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
             }
         }
 
-        private bool IsSceneChanged(Dictionary<RaymarchingFeature, OperationChildrenData> oldOperationData,
-                                    List<RaymarchingFeature> oldFeatures, List<RaymarchingFeature> newFeatures)
+        private bool IsSceneChanged(List<RaymarchingFeature> oldFeatures, List<RaymarchingFeature> newFeatures)
         {
-            if (oldFeatures.Count != newFeatures.Count)
-                return true;
+            Dictionary<RaymarchingFeature, IRaymarchingFeatureHierarchicalState> newHierarchicalStates =
+                newFeatures.ToDictionary(feature => feature,
+                    feature => feature is IRaymarchingHierarchicalFeature hierarchicalFeature
+                        ? hierarchicalFeature.HierarchicalState
+                        : default);
 
-            for (var i = 0; i < oldFeatures.Count; i++)
-            {
-                if (oldFeatures[i] != newFeatures[i])
-                    return true;
+            bool isSceneChanged = oldFeatures.Count != newFeatures.Count ||
+                                  (_oldHierarchicalStates != default &&
+                                   Enumerable.Range(default, oldFeatures.Count).Any(IsHierarchicalStateChanged));
 
-                if (newFeatures[i] is RaymarchingOperation newOperation &&
-                    oldOperationData[oldFeatures[i]] != newOperation.Children)
-                    return true;
-            }
+            _oldHierarchicalStates = newHierarchicalStates;
 
-            return false;
+            return isSceneChanged;
+
+            bool IsHierarchicalStateChanged(int i) =>
+                oldFeatures[i] != newFeatures[i] ||
+                (newFeatures[i] is IRaymarchingHierarchicalFeature &&
+                 !_oldHierarchicalStates[oldFeatures[i]].Equals(newHierarchicalStates[newFeatures[i]]));
         }
 
         private void BuildScene()
@@ -147,7 +151,7 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
             _shaderBuffersInitializer.ReleaseBuffers();
             ShaderBuffers shaderBuffers = _shaderBuffersInitializer
                 .InitializeBuffers(_dataProvider.Data.OperationsShaderData.Count,
-                    _dataProvider.Data.ObjectsShaderData.Count);
+                    _dataProvider.Data.ObjectsShaderData.Count, _dataProvider.Data.ObjectsByType);
 
             _shaderDataUpdater.Initialize(shaderBuffers);
         }

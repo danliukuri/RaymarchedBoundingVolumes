@@ -2,6 +2,7 @@
 using System.Linq;
 using RaymarchedBoundingVolumes.Data.Dynamic;
 using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData;
+using RaymarchedBoundingVolumes.Data.Static.Enumerations;
 using RaymarchedBoundingVolumes.Utilities.Extensions;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
@@ -39,15 +40,20 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
             _parentIndexesByFeatureIndex.Add(RaymarchingOperationNodeShaderData.RootNodeIndex,
                 RaymarchingOperationNodeShaderData.RootNodeIndex);
 
-            _objectsIndex = default;
+            foreach (List<RaymarchedObject> objects in _data.ObjectsByType.Values)
+                FillTypeRelatedIndexes(objects);
 
             FillShaderDataLists();
+
+            _data.ObjectsShaderDataByType = _data.ObjectsByType.ToDictionary(objects => objects.Key, objects =>
+                objects.Key.CastToShaderDataTypeArray(objects.Value.Select(obj => obj.TypeRelatedShaderData)));
 
             return _data;
         }
 
         private void FillShaderDataLists()
         {
+            _objectsIndex = default;
             foreach (OperationMetaData operationData in _data.OperationMetaData)
                 switch (_data.Features[operationData.Index])
                 {
@@ -94,6 +100,12 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
             int objectsCount = _objectsIndex + operationData.DirectChildObjectsCount;
             for (int j = _objectsIndex; j < objectsCount; j++, _objectsIndex++)
                 _data.ObjectsShaderData.Add(_data.Objects[j].ShaderData);
+        }
+
+        private void FillTypeRelatedIndexes(List<RaymarchedObject> objects)
+        {
+            for (var i = 0; i < objects.Count; i++)
+                objects[i].TypeRelatedDataIndex = i;
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using RaymarchedBoundingVolumes.Data.Dynamic;
 using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData;
+using RaymarchedBoundingVolumes.Data.Static.Enumerations;
 using UnityEngine;
 
 namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
@@ -9,7 +11,10 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
     {
         private ShaderBuffers _shaderBuffers;
 
-        public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize) =>
+        public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize,
+                                               Dictionary<RaymarchedObjectType, List<RaymarchedObject>>
+                                                   objectsByTypeBufferSizes)
+        {
             _shaderBuffers = new ShaderBuffers
             {
                 OperationNodes =
@@ -17,8 +22,17 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
                 Operations =
                     new ComputeBuffer(operationsBufferSize, Marshal.SizeOf<RaymarchingOperationShaderData>()),
                 Objects =
-                    new ComputeBuffer(objectsBufferSize, Marshal.SizeOf<RaymarchedObjectShaderData>())
+                    new ComputeBuffer(objectsBufferSize, Marshal.SizeOf<RaymarchedObjectShaderData>()),
+                ObjectTypeRelatedData =
+                    new Dictionary<RaymarchedObjectType, ComputeBuffer>(objectsByTypeBufferSizes.Count)
             };
+
+            foreach (RaymarchedObjectType type in objectsByTypeBufferSizes.Keys)
+                _shaderBuffers.ObjectTypeRelatedData[type] =
+                    new ComputeBuffer(objectsByTypeBufferSizes[type].Count, Marshal.SizeOf(type.GetShaderDataType()));
+
+            return _shaderBuffers;
+        }
 
         public ShaderBuffers ReleaseBuffers()
         {
@@ -27,6 +41,9 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
                 _shaderBuffers.OperationNodes?.Release();
                 _shaderBuffers.Operations?.Release();
                 _shaderBuffers.Objects?.Release();
+
+                foreach (ComputeBuffer computeBuffer in _shaderBuffers.ObjectTypeRelatedData.Values)
+                    computeBuffer.Release();
             }
 
             return _shaderBuffers;

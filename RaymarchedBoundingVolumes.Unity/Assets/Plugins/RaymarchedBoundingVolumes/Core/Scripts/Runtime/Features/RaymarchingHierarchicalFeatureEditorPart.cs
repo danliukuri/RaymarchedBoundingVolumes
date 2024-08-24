@@ -9,17 +9,18 @@ namespace RaymarchedBoundingVolumes.Features
     {
         private bool IsValid => this != default && gameObject.scene.isLoaded;
 
-        protected virtual void OnEnable() => EditorApplication.delayCall += EditorInitialize;
+        protected virtual void OnEnable()
+        {
+            Construct();
+            EditorApplication.delayCall += EditorInitialize;
+        }
 
         private void EditorInitialize()
         {
             EditorApplication.delayCall -= EditorInitialize;
 
             if (IsValid)
-            {
-                Construct();
                 SubscribeToEvents();
-            }
         }
     }
 }

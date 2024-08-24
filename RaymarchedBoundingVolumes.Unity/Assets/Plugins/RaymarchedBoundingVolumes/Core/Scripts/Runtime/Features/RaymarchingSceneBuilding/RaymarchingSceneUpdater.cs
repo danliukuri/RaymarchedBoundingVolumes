@@ -1,5 +1,4 @@
-﻿using System;
-using RaymarchedBoundingVolumes.Data.Dynamic;
+﻿using RaymarchedBoundingVolumes.Data.Dynamic;
 using RaymarchedBoundingVolumes.Infrastructure;
 using UnityEngine;
 
