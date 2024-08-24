@@ -7,5 +7,5 @@ struct SphereData
 
 struct CubeData
 {
-    float3 size;
+    float3 halfDimensions;
 };

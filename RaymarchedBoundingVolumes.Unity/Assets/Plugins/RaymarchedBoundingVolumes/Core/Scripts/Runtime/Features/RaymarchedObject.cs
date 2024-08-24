@@ -32,7 +32,8 @@ namespace RaymarchedBoundingVolumes.Features
             Type = (int)Type.Value,
             TypeRelatedDataIndex = TypeRelatedDataIndex,
             IsActive = Convert.ToInt32(enabled && gameObject is { activeSelf: true, activeInHierarchy: true }),
-            Position = transform.position + Transform.Position.Value
+            Position = transform.position + Transform.Position.Value,
+            Rotation = Transform.Rotation.Value * Mathf.Deg2Rad
         };
 
         protected override void OnEnable()

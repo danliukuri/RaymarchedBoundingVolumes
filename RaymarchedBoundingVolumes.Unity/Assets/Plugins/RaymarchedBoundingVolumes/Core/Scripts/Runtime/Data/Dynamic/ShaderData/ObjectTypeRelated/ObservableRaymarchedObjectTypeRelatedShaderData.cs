@@ -31,11 +31,22 @@ namespace RaymarchedBoundingVolumes.Data.Dynamic.ShaderData.ObjectTypeRelated
         public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
             new(RaymarchedCubeShaderData.Default);
 
-        public object GetShaderData(RaymarchedObjectType type) => type switch
+        public object GetShaderData(RaymarchedObjectType type)
         {
-            RaymarchedObjectType.Sphere => SphereShaderData.Value,
-            RaymarchedObjectType.Cube   => CubeShaderData.Value,
-            _                           => throw new ArgumentOutOfRangeException(nameof(type), type, default)
-        };
+            const float fullToHalfScaleMultiplier = 0.5f;
+            switch (type)
+            {
+                case RaymarchedObjectType.Sphere:
+                    RaymarchedSphereShaderData sphereShaderData = SphereShaderData.Value;
+                    sphereShaderData.Diameter *= fullToHalfScaleMultiplier;
+                    return sphereShaderData;
+                case RaymarchedObjectType.Cube:
+                    RaymarchedCubeShaderData cubeShaderData = CubeShaderData.Value;
+                    cubeShaderData.Dimensions *= fullToHalfScaleMultiplier;
+                    return cubeShaderData;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, default);
+            }
+        }
     }
 }

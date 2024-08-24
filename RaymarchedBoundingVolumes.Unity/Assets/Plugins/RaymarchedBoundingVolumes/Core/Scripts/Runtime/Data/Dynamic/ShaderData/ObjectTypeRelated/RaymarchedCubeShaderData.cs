@@ -6,8 +6,8 @@ namespace RaymarchedBoundingVolumes.Data.Dynamic.ShaderData.ObjectTypeRelated
     [Serializable]
     public struct RaymarchedCubeShaderData
     {
-        public Vector3 Size;
+        public Vector3 Dimensions;
 
-        public static RaymarchedCubeShaderData Default { get; } = new() { Size = Vector3.one };
+        public static RaymarchedCubeShaderData Default { get; } = new() { Dimensions = Vector3.one };
     }
 }

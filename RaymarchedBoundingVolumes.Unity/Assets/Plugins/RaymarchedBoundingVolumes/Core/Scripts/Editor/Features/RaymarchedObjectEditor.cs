@@ -73,23 +73,23 @@ namespace RaymarchedBoundingVolumes.Editor.Features
             _typeRelatedDataResetters = new Dictionary<RaymarchedObjectType, Action>();
             SerializedProperty sphereShaderDataValueProperty = _typeRelatedDataProperties[RaymarchedObjectType.Sphere]
                 .FindPropertyRelative(_observablePropertyValuePath);
-            SerializedProperty sphereRadiusProperty =
-                sphereShaderDataValueProperty.FindPropertyRelative(nameof(RaymarchedSphereShaderData.Radius));
+            SerializedProperty sphereDiameterProperty =
+                sphereShaderDataValueProperty.FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter));
 
             SerializedProperty cubeShaderDataValueProperty = _typeRelatedDataProperties[RaymarchedObjectType.Cube]
                 .FindPropertyRelative(_observablePropertyValuePath);
-            SerializedProperty cubeSizeProperty =
-                cubeShaderDataValueProperty.FindPropertyRelative(nameof(RaymarchedCubeShaderData.Size));
+            SerializedProperty cubeDimensionsProperty =
+                cubeShaderDataValueProperty.FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions));
 
             _typeRelatedDataResetters = new Dictionary<RaymarchedObjectType, Action>
             {
                 {
                     RaymarchedObjectType.Sphere,
-                    () => sphereRadiusProperty.floatValue = RaymarchedSphereShaderData.Default.Radius
+                    () => sphereDiameterProperty.floatValue = RaymarchedSphereShaderData.Default.Diameter
                 },
                 {
                     RaymarchedObjectType.Cube,
-                    () => cubeSizeProperty.vector3Value = RaymarchedCubeShaderData.Default.Size
+                    () => cubeDimensionsProperty.vector3Value = RaymarchedCubeShaderData.Default.Dimensions
                 }
             };
         }

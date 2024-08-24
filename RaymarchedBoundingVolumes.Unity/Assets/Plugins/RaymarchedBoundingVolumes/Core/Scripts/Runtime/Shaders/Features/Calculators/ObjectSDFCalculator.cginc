@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <UnityShaderVariables.cginc>
+
+#include "Object3DRotator.cginc"
 #include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../Data/Variables/ObjectTypeRelatedVariables.cginc"
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
@@ -9,21 +11,19 @@
 SDFData calculateObjectSDF(float3 position, ObjectData objectData)
 {
     position -= mul(unity_WorldToObject, float4(objectData.position, 1));
+    position = rotate3D(position, objectData.rotation);
 
     float distance;
-    const float unityMetricSystemMultiplier = 0.5;
 
     UNITY_BRANCH
     switch (objectData.type)
     {
         default:
         case 0:
-            SphereData sphereData = _RaymarchedSphereData[objectData.typeRelatedDataIndex];
-            distance = calculateSphereSDF(position, sphereData.radius * unityMetricSystemMultiplier);
+            distance = calculateSphereSDF(position, _RaymarchedSphereData[objectData.typeRelatedDataIndex].radius);
             break;
         case 1:
-            CubeData cubeData = _RaymarchedCubeData[objectData.typeRelatedDataIndex];
-            distance = calculateCubeSDF(position, cubeData.size * unityMetricSystemMultiplier);
+            distance = calculateCubeSDF(position, _RaymarchedCubeData[objectData.typeRelatedDataIndex].halfDimensions);
             break;
     }
 
