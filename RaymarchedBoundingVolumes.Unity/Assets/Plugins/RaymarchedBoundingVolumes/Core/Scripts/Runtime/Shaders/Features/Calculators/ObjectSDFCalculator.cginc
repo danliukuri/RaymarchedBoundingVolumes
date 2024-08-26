@@ -12,7 +12,7 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData)
 {
     position -= mul(unity_WorldToObject, float4(objectData.position, 1));
     position = rotate3D(position, objectData.rotation);
-
+    position /= objectData.scale;
     float distance;
 
     UNITY_BRANCH
@@ -26,6 +26,7 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData)
             distance = calculateCubeSDF(position, _RaymarchedCubeData[objectData.typeRelatedDataIndex].halfDimensions);
             break;
     }
+    distance *= objectData.scale;
 
     const SDFData sdf = {_ObjectColor.rgb, distance};
     return sdf;

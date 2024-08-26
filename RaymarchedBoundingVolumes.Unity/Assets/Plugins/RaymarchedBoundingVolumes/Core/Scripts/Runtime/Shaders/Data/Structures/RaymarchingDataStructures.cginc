@@ -20,6 +20,7 @@ struct ObjectData
     bool   isActive;
     float3 position;
     float3 rotation;
+    float3 scale;
 };
 
 struct OperationData

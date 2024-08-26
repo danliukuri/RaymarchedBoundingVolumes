@@ -5,7 +5,8 @@ using RaymarchedBoundingVolumes.Data.Static.Enumerations;
 using RaymarchedBoundingVolumes.Utilities.Attributes;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
 using UnityEngine;
-using ObservableTypeRelatedShaderData = RaymarchedBoundingVolumes.Data.Dynamic.ShaderData.ObjectTypeRelated.ObservableRaymarchedObjectTypeRelatedShaderData;
+using ObservableTypeRelatedShaderData =
+    RaymarchedBoundingVolumes.Data.Dynamic.ShaderData.ObjectTypeRelated.ObservableRaymarchedObjectTypeRelatedShaderData;
 
 namespace RaymarchedBoundingVolumes.Features
 {
@@ -17,7 +18,13 @@ namespace RaymarchedBoundingVolumes.Features
 
         [field: SerializeField, Unwrapped] public ObservableValue<RaymarchedObjectType> Type { get; private set; }
         [field: SerializeField]            public ObservableTypeRelatedShaderData TypeRelatedData { get; private set; }
-        [field: SerializeField]            public ObservableTransform<Vector3> Transform { get; private set; }
+
+        [field: SerializeField, ChildTooltip(nameof(ObservableTransform<Vector3>.Scale),
+                    "Warning: Non-uniform SDF scaling distorts Euclidean spaces!")]
+        public ObservableTransform<Vector3> Transform { get; private set; } = new()
+        {
+            Scale = new ObservableValue<Vector3>(Vector3.one)
+        };
 
         private readonly ObservableTransform<Vector3> _gameObjectTransform = new();
 
@@ -33,7 +40,8 @@ namespace RaymarchedBoundingVolumes.Features
             TypeRelatedDataIndex = TypeRelatedDataIndex,
             IsActive = Convert.ToInt32(enabled && gameObject is { activeSelf: true, activeInHierarchy: true }),
             Position = transform.position + Transform.Position.Value,
-            Rotation = Transform.Rotation.Value * Mathf.Deg2Rad
+            Rotation = Transform.Rotation.Value * Mathf.Deg2Rad,
+            Scale = Transform.Scale.Value
         };
 
         protected override void OnEnable()

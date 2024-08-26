@@ -10,5 +10,6 @@ namespace RaymarchedBoundingVolumes.Data.Dynamic.ShaderData
         public int     IsActive;
         public Vector3 Position;
         public Vector3 Rotation;
+        public Vector3 Scale;
     }
 }

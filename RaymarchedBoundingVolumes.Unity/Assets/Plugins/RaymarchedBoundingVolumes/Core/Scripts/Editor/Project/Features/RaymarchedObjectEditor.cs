@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData.ObjectTypeRelated;
-using RaymarchedBoundingVolumes.Data.Static;
 using RaymarchedBoundingVolumes.Data.Static.Enumerations;
 using RaymarchedBoundingVolumes.Editor.Utilities.Extensions;
 using RaymarchedBoundingVolumes.Features;
@@ -9,7 +8,7 @@ using RaymarchedBoundingVolumes.Utilities.Wrappers;
 using UnityEditor;
 using UnityEngine;
 
-namespace RaymarchedBoundingVolumes.Editor.Features
+namespace RaymarchedBoundingVolumes.Editor.Project.Features
 {
     [CustomEditor(typeof(RaymarchedObject)), CanEditMultipleObjects]
     public class RaymarchedObjectEditor : UnityEditor.Editor
@@ -56,12 +55,14 @@ namespace RaymarchedBoundingVolumes.Editor.Features
             _typeRelatedDataProperties = new Dictionary<RaymarchedObjectType, SerializedProperty>
             {
                 {
-                    RaymarchedObjectType.Sphere, 
+                    RaymarchedObjectType.Sphere,
                     _typeRelatedDataProperty.FindPropertyRelative(sphereShaderDataPropertyPath)
+                        .FindPropertyRelative(_observablePropertyValuePath)
                 },
                 {
                     RaymarchedObjectType.Cube,
                     _typeRelatedDataProperty.FindPropertyRelative(cubeShaderDataPropertyPath)
+                        .FindPropertyRelative(_observablePropertyValuePath)
                 }
             };
 
@@ -71,15 +72,11 @@ namespace RaymarchedBoundingVolumes.Editor.Features
         private void InitializeTypeRelatedDataResetters()
         {
             _typeRelatedDataResetters = new Dictionary<RaymarchedObjectType, Action>();
-            SerializedProperty sphereShaderDataValueProperty = _typeRelatedDataProperties[RaymarchedObjectType.Sphere]
-                .FindPropertyRelative(_observablePropertyValuePath);
-            SerializedProperty sphereDiameterProperty =
-                sphereShaderDataValueProperty.FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter));
+            SerializedProperty sphereDiameterProperty = _typeRelatedDataProperties[RaymarchedObjectType.Sphere]
+                .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter));
 
-            SerializedProperty cubeShaderDataValueProperty = _typeRelatedDataProperties[RaymarchedObjectType.Cube]
-                .FindPropertyRelative(_observablePropertyValuePath);
-            SerializedProperty cubeDimensionsProperty =
-                cubeShaderDataValueProperty.FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions));
+            SerializedProperty cubeDimensionsProperty = _typeRelatedDataProperties[RaymarchedObjectType.Cube]
+                .FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions));
 
             _typeRelatedDataResetters = new Dictionary<RaymarchedObjectType, Action>
             {
@@ -96,11 +93,14 @@ namespace RaymarchedBoundingVolumes.Editor.Features
 
         private void DrawProperties()
         {
-            EditorGUILayout.PropertyField(_typeProperty, new GUIContent(_typeProperty.displayName));
+            this.DrawScriptField<RaymarchedObject>();
+            this.DrawEditorField();
+
+            EditorGUILayout.PropertyField(_typeProperty);
 
             DrawTypeRelatedDataProperty();
 
-            EditorGUILayout.PropertyField(_transformProperty, new GUIContent(_transformProperty.displayName));
+            EditorGUILayout.PropertyField(_transformProperty);
         }
 
         private void DrawTypeRelatedDataProperty()
@@ -110,8 +110,16 @@ namespace RaymarchedBoundingVolumes.Editor.Features
                 _typeRelatedDataResetters[_previousSelectedType].Invoke();
             _previousSelectedType = type;
 
-            SerializedProperty typeRelatedProperty = _typeRelatedDataProperties[type];
-            EditorGUILayout.PropertyField(typeRelatedProperty, new GUIContent(_typeRelatedDataProperty.displayName));
+            _typeRelatedDataProperty.isExpanded = EditorGUILayout.Foldout(_typeRelatedDataProperty.isExpanded,
+                new GUIContent(_typeRelatedDataProperty.displayName), true);
+
+            if (_typeRelatedDataProperty.isExpanded)
+            {
+                SerializedProperty typeRelatedProperty = _typeRelatedDataProperties[type];
+                using (new EditorGUI.IndentLevelScope())
+                    foreach (SerializedProperty child in typeRelatedProperty.GetDirectChildren())
+                        EditorGUILayout.PropertyField(child, true);
+            }
         }
     }
 }
