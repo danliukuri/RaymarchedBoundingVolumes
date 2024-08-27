@@ -1,6 +1,5 @@
 using System;
 using RaymarchedBoundingVolumes.Data.Static.Enumerations;
-using RaymarchedBoundingVolumes.Utilities.Attributes;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
 using UnityEngine;
 
@@ -23,12 +22,10 @@ namespace RaymarchedBoundingVolumes.Data.Dynamic.ShaderData.ObjectTypeRelated
             }
         }
 
-        [field: SerializeField, Unwrapped]
-        public ObservableValue<RaymarchedSphereShaderData> SphereShaderData { get; set; } =
+        [field: SerializeField] public ObservableValue<RaymarchedSphereShaderData> SphereShaderData { get; set; } =
             new(RaymarchedSphereShaderData.Default);
 
-        [field: SerializeField, Unwrapped]
-        public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
+        [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
             new(RaymarchedCubeShaderData.Default);
 
         public object GetShaderData(RaymarchedObjectType type)

@@ -23,8 +23,8 @@ namespace RaymarchedBoundingVolumes.Utilities.Wrappers
             }
         }
 
-        [field: SerializeField, Unwrapped] public ObservableValue<T> Position { get; set; } = new();
-        [field: SerializeField, Unwrapped] public ObservableValue<T> Rotation { get; set; } = new();
-        [field: SerializeField, Unwrapped] public ObservableValue<T> Scale    { get; set; } = new();
+        [field: SerializeField] public ObservableValue<T> Position { get; set; } = new();
+        [field: SerializeField] public ObservableValue<T> Rotation { get; set; } = new();
+        [field: SerializeField] public ObservableValue<T> Scale    { get; set; } = new();
     }
 }

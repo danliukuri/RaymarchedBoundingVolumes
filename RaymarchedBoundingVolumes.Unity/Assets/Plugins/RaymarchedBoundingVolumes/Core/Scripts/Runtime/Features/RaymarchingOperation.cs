@@ -14,8 +14,8 @@ namespace RaymarchedBoundingVolumes.Features
     {
         public event Action<RaymarchingOperation> Changed;
 
-        [field: SerializeField, Unwrapped] public ObservableValue<Type>  OperationType { get; private set; }
-        [field: SerializeField, Unwrapped] public ObservableValue<float> BlendStrength { get; private set; }
+        [field: SerializeField] public ObservableValue<Type>  OperationType { get; private set; }
+        [field: SerializeField] public ObservableValue<float> BlendStrength { get; private set; }
 
         private IRaymarchingChildrenCalculator _raymarchingChildrenCalculator;
 

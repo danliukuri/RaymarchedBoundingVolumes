@@ -16,8 +16,8 @@ namespace RaymarchedBoundingVolumes.Features
         public event Action<RaymarchedObject> TypeChanged;
         public event Action<RaymarchedObject> TypeRelatedDataChanged;
 
-        [field: SerializeField, Unwrapped] public ObservableValue<RaymarchedObjectType> Type { get; private set; }
-        [field: SerializeField]            public ObservableTypeRelatedShaderData TypeRelatedData { get; private set; }
+        [field: SerializeField] public ObservableValue<RaymarchedObjectType> Type { get; private set; }
+        [field: SerializeField] public ObservableTypeRelatedShaderData TypeRelatedData { get; private set; }
 
         [field: SerializeField, ChildTooltip(nameof(ObservableTransform<Vector3>.Scale),
                     "Warning: Non-uniform SDF scaling distorts Euclidean spaces!")]

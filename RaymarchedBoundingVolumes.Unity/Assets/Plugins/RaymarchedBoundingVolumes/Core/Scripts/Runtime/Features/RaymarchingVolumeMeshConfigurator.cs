@@ -12,7 +12,7 @@ namespace RaymarchedBoundingVolumes.Features
         private const           string  MeshNameFormat = "{0} (ResizedClone)";
         private static readonly Vector3 _defaultSize   = Vector3.one;
 
-        [SerializeField, Unwrapped] private ObservableValue<Vector3> size = new(_defaultSize);
+        [SerializeField] private ObservableValue<Vector3> size = new(_defaultSize);
 
         [SerializeField, HideInInspector] private Mesh mesh;
 
