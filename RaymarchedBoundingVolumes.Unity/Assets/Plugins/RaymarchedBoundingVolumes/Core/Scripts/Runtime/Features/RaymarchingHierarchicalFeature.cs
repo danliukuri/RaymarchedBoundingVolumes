@@ -1,11 +1,13 @@
 ﻿using System;
+using RaymarchedBoundingVolumes.Data.Dynamic.HierarchicalStates;
 using RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding;
 using RaymarchedBoundingVolumes.Infrastructure;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    public abstract partial class RaymarchingHierarchicalFeature<T> : RaymarchingFeature
+    public abstract partial class RaymarchingHierarchicalFeature<T> : RaymarchingFeature,
+                                                                      IRaymarchingHierarchicalFeature
         where T : RaymarchingHierarchicalFeature<T>
     {
         public event Action<T>                    ParentChanged;
@@ -13,6 +15,9 @@ namespace RaymarchedBoundingVolumes.Features
 
         private IRaymarchingSceneBuilder _sceneBuilder;
         private ObservableValue<int>     _siblingIndex;
+
+        public virtual IRaymarchingFeatureHierarchicalState HierarchicalState =>
+            new RaymarchingFeatureHierarchicalState { SiblingIndex = _siblingIndex.Value };
 
         protected virtual void Construct() =>
             Construct(IServiceContainer.Scoped(gameObject.scene).Resolve<IRaymarchingSceneBuilder>());

@@ -1,15 +1,16 @@
 ﻿using System;
 using RaymarchedBoundingVolumes.Data.Dynamic;
+using RaymarchedBoundingVolumes.Data.Dynamic.HierarchicalStates;
 using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData;
 using RaymarchedBoundingVolumes.Infrastructure;
 using RaymarchedBoundingVolumes.Utilities.Attributes;
 using RaymarchedBoundingVolumes.Utilities.Wrappers;
 using UnityEngine;
-using Type = RaymarchedBoundingVolumes.Data.Static.RaymarchingOperationType;
+using Type = RaymarchedBoundingVolumes.Data.Static.Enumerations.RaymarchingOperationType;
 
 namespace RaymarchedBoundingVolumes.Features
 {
-    public partial class RaymarchingOperation : RaymarchingHierarchicalFeature<RaymarchingOperation>
+    public class RaymarchingOperation : RaymarchingHierarchicalFeature<RaymarchingOperation>
     {
         public event Action<RaymarchingOperation> Changed;
 
@@ -25,6 +26,9 @@ namespace RaymarchedBoundingVolumes.Features
             OperationType = (int)OperationType.Value,
             BlendStrength = BlendStrength.Value
         };
+
+        public override IRaymarchingFeatureHierarchicalState HierarchicalState =>
+            new RaymarchingOperationHierarchicalState { BaseState = base.HierarchicalState, Children = Children };
 
         protected override void Awake()
         {
@@ -60,6 +64,6 @@ namespace RaymarchedBoundingVolumes.Features
 
         private void RaiseChangedEvent()                                  => Changed?.Invoke(this);
         private void RaiseChangedEvent(ChangedValue<float> blendStrength) => RaiseChangedEvent();
-        private void RaiseChangedEvent(ChangedValue<Type> type)           => RaiseChangedEvent();
+        private void RaiseChangedEvent(ChangedValue<Type>  type)          => RaiseChangedEvent();
     }
 }

@@ -10,7 +10,11 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
     {
         private bool IsValid => this != default && gameObject.scene.isLoaded;
 
-        private void OnEnable() => EditorApplication.delayCall += EditorInitialize;
+        private void OnEnable()
+        {
+            Construct();
+            EditorApplication.delayCall += EditorInitialize;
+        }
 
         private void OnDisable() => EditorDeinitialize();
 
@@ -20,7 +24,6 @@ namespace RaymarchedBoundingVolumes.Features.RaymarchingSceneBuilding
 
             if (IsValid)
             {
-                Construct();
                 _sceneBuilder.SceneBuilt += MarkFeaturesAsChanged;
                 _sceneBuilder.BuildLastScene();
                 EditorApplication.QueuePlayerLoopUpdate();

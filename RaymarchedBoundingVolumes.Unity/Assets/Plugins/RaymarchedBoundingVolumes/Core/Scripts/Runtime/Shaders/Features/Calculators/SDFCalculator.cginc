@@ -1,18 +1,10 @@
 ﻿#pragma once
 
+#include "ObjectSDFCalculator.cginc"
+#include "OperationApplier.cginc"
 #include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
-#include "../Functions/SDFs.cginc"
-#include "OperationApplier.cginc"
 #include "Assets/Plugins/RaymarchedBoundingVolumes/Core/Scripts/Runtime/Shaders/Data/Macros/Stack.cginc"
-
-SDFData calculateObjectSDF(const float3 position, const int index)
-{
-    const float3 objectLocalPosition = mul(unity_WorldToObject, float4(_RaymarchedObjects[index].position, 1));
-    const float distance = calculateSphereSDF(position - objectLocalPosition, 0.5);
-    const SDFData sdf = {_ObjectColor.rgb, distance};
-    return sdf;
-}
 
 SDFData calculateOperationSDF(const float3 position, const OperationData operation,
                               const int objectsIndex, const int childObjectsCount)
@@ -23,7 +15,7 @@ SDFData calculateOperationSDF(const float3 position, const OperationData operati
         UNITY_BRANCH
         if (_RaymarchedObjects[i].isActive)
         {
-            const SDFData objectSDF = calculateObjectSDF(position, i);
+            const SDFData objectSDF = calculateObjectSDF(position, _RaymarchedObjects[i]);
             sdf = applyOperation(operation, objectSDF, sdf);
         }
 

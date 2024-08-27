@@ -1,4 +1,4 @@
-﻿namespace RaymarchedBoundingVolumes.Data.Static
+﻿namespace RaymarchedBoundingVolumes.Data.Static.Enumerations
 {
     public enum RaymarchingOperationType
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RaymarchedBoundingVolumes.Data.Dynamic.ShaderData;
+using RaymarchedBoundingVolumes.Data.Static.Enumerations;
 using RaymarchedBoundingVolumes.Features;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace RaymarchedBoundingVolumes.Data.Dynamic
 
         public List<RaymarchingOperation> Operations { get; set; } = new();
         public List<RaymarchedObject>     Objects    { get; set; } = new();
+
+        public Dictionary<RaymarchedObjectType, List<RaymarchedObject>> ObjectsByType           { get; set; } = new();
+        public Dictionary<RaymarchedObjectType, Array>                  ObjectsShaderDataByType { get; set; } = new();
 
         public List<OperationMetaData>                     OperationMetaData    { get; set; }
         public Dictionary<RaymarchingOperation, List<int>> OperationDataIndexes { get; set; }
