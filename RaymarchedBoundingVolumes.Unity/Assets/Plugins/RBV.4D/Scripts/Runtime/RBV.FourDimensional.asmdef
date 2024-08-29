@@ -1,7 +1,9 @@
 {
-    "name": "RBV",
-    "rootNamespace": "",
-    "references": [],
+    "name": "RBV.FourDimensional",
+    "rootNamespace": "RBV.FourDimensional",
+    "references": [
+        "RBV"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -9,12 +11,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "com.danliukuri.rbv.4d",
-            "expression": "",
-            "define": "RBV_4D_ON"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }
