@@ -1,0 +1,16 @@
+{
+    "name": "RBV.Editor",
+    "rootNamespace": "",
+    "references": [
+        "RBV"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
