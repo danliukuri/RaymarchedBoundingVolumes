@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using RBV.Features;
 using RBV.Features.RaymarchingSceneBuilding;
+using RBV.Features.ShaderDataForming;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,10 +22,14 @@ namespace RBV.Infrastructure
             IServiceContainer container = ServiceContainer.Initialize();
 
             container.RegisterAsSingle<IRaymarchingSceneTreeTraverser>(new RaymarchingSceneTreePostorderDFSTraverser());
+            container.RegisterAsSingle<ITransformTypeCaster>(new TransformTypeCaster());
             container.RegisterAsSingle<IRaymarchingDataInitializer>(new RaymarchingDataInitializer(
-                container.Resolve<IRaymarchingSceneTreeTraverser>()
+                container.Resolve<IRaymarchingSceneTreeTraverser>(),
+                container.Resolve<ITransformTypeCaster>()
             ));
-            container.RegisterAsSingle<IShaderBuffersInitializer>(new ShaderBuffersInitializer());
+            container.RegisterAsSingle<IShaderBuffersInitializer>(new ShaderBuffersInitializer(
+                container.Resolve<ITransformTypeCaster>()
+            ));
             container.RegisterAsSingle<IRaymarchingChildrenCalculator>(new RaymarchingChildrenCalculator());
         }
 

@@ -149,9 +149,9 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _dataInitializer.InitializeData(_dataProvider.Data);
 
             _shaderBuffersInitializer.ReleaseBuffers();
-            ShaderBuffers shaderBuffers = _shaderBuffersInitializer
-                .InitializeBuffers(_dataProvider.Data.OperationsShaderData.Count,
-                    _dataProvider.Data.ObjectsShaderData.Count, _dataProvider.Data.ObjectsByType);
+            ShaderBuffers shaderBuffers = _shaderBuffersInitializer.InitializeBuffers(
+                _dataProvider.Data.OperationsShaderData.Count, _dataProvider.Data.ObjectsShaderData.Count,
+                _dataProvider.Data.ObjectsByTransformsType, _dataProvider.Data.ObjectsByType);
 
             _shaderDataUpdater.Initialize(shaderBuffers);
         }

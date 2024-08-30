@@ -15,7 +15,8 @@ SDFData calculateOperationSDF(const float3 position, const OperationData operati
         UNITY_BRANCH
         if (_RaymarchedObjects[i].isActive)
         {
-            const SDFData objectSDF = calculateObjectSDF(position, _RaymarchedObjects[i]);
+            const SDFData objectSDF =
+                calculateObjectSDF(position, _RaymarchedObjects[i], _RaymarchedObjectsThreeDimensionalTransforms[i]);
             sdf = applyOperation(operation, objectSDF, sdf);
         }
 

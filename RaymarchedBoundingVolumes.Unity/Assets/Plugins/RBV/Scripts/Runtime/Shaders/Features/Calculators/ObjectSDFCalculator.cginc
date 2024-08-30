@@ -8,11 +8,11 @@
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
 #include "../Functions/SDFs.cginc"
 
-SDFData calculateObjectSDF(float3 position, ObjectData objectData)
+SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransform3D transform)
 {
-    position -= mul(unity_WorldToObject, float4(objectData.position, 1));
-    position = rotate3D(position, objectData.rotation);
-    position /= objectData.scale;
+    position -= mul(unity_WorldToObject, float4(transform.position, 1));
+    position = rotate3D(position, transform.rotation);
+    position /= transform.scale;
     float distance;
 
     UNITY_BRANCH
@@ -26,7 +26,7 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData)
             distance = calculateCubeSDF(position, _RaymarchedCubeData[objectData.typeRelatedDataIndex].halfDimensions);
             break;
     }
-    distance *= objectData.scale;
+    distance *= transform.scale;
 
     const SDFData sdf = {_ObjectColor.rgb, distance};
     return sdf;

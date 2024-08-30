@@ -1,32 +1,15 @@
 ﻿#pragma once
 
-struct SDFData
-{
-    fixed3 color;
-    float  distance;
-};
-
 struct RaymarchingData
 {
     fixed3 color;
     float3 position;
 };
 
-struct ObjectData
+struct SDFData
 {
-    int type;
-    int typeRelatedDataIndex;
-
-    bool   isActive;
-    float3 position;
-    float3 rotation;
-    float3 scale;
-};
-
-struct OperationData
-{
-    int   type;
-    float blendStrength;
+    fixed3 color;
+    float  distance;
 };
 
 struct OperationNodeData
@@ -36,4 +19,26 @@ struct OperationNodeData
 
     int parentIndex;
     int layer;
+};
+
+struct OperationData
+{
+    int   type;
+    float blendStrength;
+};
+
+struct ObjectData
+{
+    int type;
+    int typeRelatedDataIndex;
+
+    bool isActive;
+    int  transformType;
+};
+
+struct ObjectTransform3D
+{
+    float3 position;
+    float3 rotation;
+    float3 scale;
 };

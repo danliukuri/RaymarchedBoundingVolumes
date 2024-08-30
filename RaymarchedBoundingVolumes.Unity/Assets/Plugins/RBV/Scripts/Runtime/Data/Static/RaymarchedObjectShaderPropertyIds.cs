@@ -9,6 +9,7 @@ namespace RBV.Data.Static
     {
         private const string Prefix                        = "_";
         private const string ObjectTypeRelatedDataIdFormat = "Raymarched{0}Data";
+        private const string ObjectTransformDataIdFormat   = "RaymarchedObjects{0}Transforms";
 
         public static readonly int
             RaymarchingOperationsCount = PropertyToID(nameof(RaymarchingOperationsCount)),
@@ -16,10 +17,15 @@ namespace RBV.Data.Static
             RaymarchingOperations      = PropertyToID(nameof(RaymarchingOperations)),
             RaymarchedObjects          = PropertyToID(nameof(RaymarchedObjects));
 
+        public static Dictionary<TransformType, int>        ObjectTransformDataIds   { get; } = new();
         public static Dictionary<RaymarchedObjectType, int> ObjectTypeRelatedDataIds { get; } = new();
 
         static RaymarchedObjectShaderPropertyIds()
         {
+            foreach (object type in Enum.GetValues(typeof(TransformType)))
+                ObjectTransformDataIds.Add((TransformType)type,
+                    PropertyToID(string.Format(ObjectTransformDataIdFormat, type)));
+            
             foreach (object type in Enum.GetValues(typeof(RaymarchedObjectType)))
                 ObjectTypeRelatedDataIds.Add((RaymarchedObjectType)type,
                     PropertyToID(string.Format(ObjectTypeRelatedDataIdFormat, type)));

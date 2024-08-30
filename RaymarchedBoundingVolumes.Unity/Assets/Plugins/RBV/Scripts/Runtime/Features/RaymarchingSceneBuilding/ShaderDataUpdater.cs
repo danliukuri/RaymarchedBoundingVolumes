@@ -14,6 +14,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private readonly List<RaymarchingOperation> _changedOperations = new();
         private readonly List<RaymarchedObject>     _changedObjects    = new();
 
+        private readonly Dictionary<TransformType, List<int>>        _changedObjectTransformData   = new();
         private readonly Dictionary<RaymarchedObjectType, List<int>> _changedObjectTypeRelatedData = new();
 
         private ShaderBuffers _shaderBuffers;
@@ -22,6 +23,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private bool _isOperationsDataChanged;
         private bool _isObjectsDataChanged;
 
+        private Dictionary<TransformType, bool>        _isObjectTransformDataChanged;
         private Dictionary<RaymarchedObjectType, bool> _isObjectTypeRelatedDataChanged;
 
         public ShaderDataUpdater(IRaymarchingSceneDataProvider dataProvider) => _dataProvider = dataProvider;
@@ -33,6 +35,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _isOperationNodesDataChanged = true;
             _isOperationsDataChanged     = true;
             _isObjectsDataChanged        = true;
+            _isObjectTransformDataChanged =
+                _dataProvider.Data.ObjectsByTransformsType.Keys.ToDictionary(type => type, type => true);
             _isObjectTypeRelatedDataChanged =
                 _dataProvider.Data.ObjectsByType.Keys.ToDictionary(type => type, type => true);
 
@@ -49,6 +53,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             foreach (RaymarchedObject obj in _dataProvider.Data.Objects)
             {
                 obj.Changed                += UpdateObjectData;
+                obj.TransformChanged       += UpdateTransformData;
                 obj.TypeRelatedDataChanged += UpdateObjectTypeRelatedData;
             }
 
@@ -62,6 +67,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             foreach (RaymarchedObject obj in _dataProvider.Data.Objects)
             {
                 obj.Changed                -= UpdateObjectData;
+                obj.TransformChanged       -= UpdateTransformData;
                 obj.TypeRelatedDataChanged -= UpdateObjectTypeRelatedData;
             }
 
@@ -76,6 +82,9 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 UpdateOperationsData();
             if (_isObjectsDataChanged)
                 UpdateObjectsData();
+            foreach (TransformType type in _dataProvider.Data.ObjectsByTransformsType.Keys)
+                if (_isObjectTransformDataChanged[type])
+                    UpdateObjectsTransformData(type);
             foreach (RaymarchedObjectType type in _dataProvider.Data.ObjectsByType.Keys)
                 if (_isObjectTypeRelatedDataChanged[type])
                     UpdateObjectsTypeRelatedData(type);
@@ -94,6 +103,17 @@ namespace RBV.Features.RaymarchingSceneBuilding
             if (!_changedObjects.Contains(obj))
                 _changedObjects.Add(obj);
             _isObjectsDataChanged = true;
+        }
+        
+        private void UpdateTransformData(RaymarchedObject obj)
+        {
+            if (!_changedObjectTransformData.ContainsKey(obj.TransformType))
+                _changedObjectTransformData.Add(obj.TransformType, new List<int>());
+
+            if (!_changedObjectTransformData[obj.TransformType].Contains(obj.TypeRelatedDataIndex))
+                _changedObjectTransformData[obj.TransformType].Add(obj.TypeRelatedDataIndex);
+
+            _isObjectTransformDataChanged[obj.TransformType] = true;
         }
 
         private void UpdateObjectTypeRelatedData(RaymarchedObject obj)
@@ -144,6 +164,28 @@ namespace RBV.Features.RaymarchingSceneBuilding
             Shader.SetGlobalBuffer(RaymarchedObjects, _shaderBuffers.Objects);
 
             _isObjectsDataChanged = false;
+        }
+        
+        private void UpdateObjectsTransformData(TransformType type)
+        {
+            if (_changedObjectTransformData.ContainsKey(type))
+            {
+                foreach (int transformDataIndex in _changedObjectTransformData[type])
+                {
+                    RaymarchedObject raymarchedObject =
+                        _dataProvider.Data.ObjectsByTransformsType[type][transformDataIndex];
+                    _dataProvider.Data.ObjectTransformsShaderDataByType[type]
+                        .SetValue(raymarchedObject.TransformShaderData, transformDataIndex);
+                }
+
+                _changedObjectTransformData[type].Clear();
+            }
+
+            _shaderBuffers.ObjectTransformData[type]
+                .SetData(_dataProvider.Data.ObjectTransformsShaderDataByType[type]);
+            Shader.SetGlobalBuffer(ObjectTransformDataIds[type], _shaderBuffers.ObjectTransformData[type]);
+
+            _isObjectTransformDataChanged[type] = false;
         }
 
         private void UpdateObjectsTypeRelatedData(RaymarchedObjectType type)

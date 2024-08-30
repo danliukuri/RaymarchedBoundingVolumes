@@ -12,7 +12,7 @@ uniform fixed4 _ObjectColor;
 
 // Automatically set by Unity
 
-uniform float4 _LightColor0; 
+uniform float4 _LightColor0;
 
 // Manually set by scripts
 
@@ -20,12 +20,11 @@ uniform int                                 _RaymarchingOperationsCount;
 uniform StructuredBuffer<OperationNodeData> _RaymarchingOperationNodes;
 uniform StructuredBuffer<OperationData>     _RaymarchingOperations;
 uniform StructuredBuffer<ObjectData>        _RaymarchedObjects;
+uniform StructuredBuffer<ObjectTransform3D> _RaymarchedObjectsThreeDimensionalTransforms;
 
 // Default values shortcuts
 
-static SDFData           _DefaultSDFData       = {_ObjectColor.rgb, _FarClippingPlane};
-static OperationData     _DefaultOperationData = {0, 0};
-static OperationNodeData _DefaultNodeData      = {0, 0, 0, 0};
+static SDFData _DefaultSDFData = {_ObjectColor.rgb, _FarClippingPlane};
 
 // Constants definitions
 
