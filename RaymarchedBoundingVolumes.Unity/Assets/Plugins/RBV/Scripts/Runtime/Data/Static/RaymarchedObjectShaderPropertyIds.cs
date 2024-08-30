@@ -17,17 +17,17 @@ namespace RBV.Data.Static
             RaymarchingOperations      = PropertyToID(nameof(RaymarchingOperations)),
             RaymarchedObjects          = PropertyToID(nameof(RaymarchedObjects));
 
-        public static Dictionary<TransformType, int>        ObjectTransformDataIds   { get; } = new();
-        public static Dictionary<RaymarchedObjectType, int> ObjectTypeRelatedDataIds { get; } = new();
+        public static Dictionary<TransformType, int> ObjectTransformDataIds   { get; } = new();
+        public static Dictionary<int, int>           ObjectTypeRelatedDataIds { get; } = new();
 
         static RaymarchedObjectShaderPropertyIds()
         {
             foreach (object type in Enum.GetValues(typeof(TransformType)))
                 ObjectTransformDataIds.Add((TransformType)type,
                     PropertyToID(string.Format(ObjectTransformDataIdFormat, type)));
-            
+
             foreach (object type in Enum.GetValues(typeof(RaymarchedObjectType)))
-                ObjectTypeRelatedDataIds.Add((RaymarchedObjectType)type,
+                ObjectTypeRelatedDataIds.Add((int)type,
                     PropertyToID(string.Format(ObjectTypeRelatedDataIdFormat, type)));
         }
 

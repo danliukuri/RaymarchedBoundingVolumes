@@ -27,8 +27,10 @@ namespace RBV.Features
         protected virtual void Awake()
         {
             Construct();
-            _siblingIndex = new ObservableValue<int>(transform.GetSiblingIndex());
+            Initialize();
         }
+
+        protected virtual void Initialize() => _siblingIndex = new ObservableValue<int>(transform.GetSiblingIndex());
 
         protected void Start() => _sceneBuilder.BuildNewScene();
 

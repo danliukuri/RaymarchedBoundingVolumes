@@ -2,55 +2,43 @@
 using RBV.Data.Dynamic.HierarchicalStates;
 using RBV.Data.Dynamic.ShaderData;
 using RBV.Data.Static.Enumerations;
-using RBV.Utilities.Attributes;
 using RBV.Utilities.Wrappers;
 using UnityEngine;
-using ObservableTypeRelatedShaderData =
-    RBV.Data.Dynamic.ShaderData.ObjectTypeRelated.ObservableRaymarchedObjectTypeRelatedShaderData;
+using IObservableTypeRelatedShaderData =
+    RBV.Data.Dynamic.ShaderData.ObjectTypeRelated.IObservableRaymarchedObjectTypeRelatedShaderData;
 
 namespace RBV.Features
 {
-    public class RaymarchedObject : RaymarchingHierarchicalFeature<RaymarchedObject>
+    public abstract class RaymarchedObject : RaymarchingHierarchicalFeature<RaymarchedObject>
     {
         public event Action<RaymarchedObject> Changed;
         public event Action<RaymarchedObject> TransformChanged;
         public event Action<RaymarchedObject> TypeChanged;
         public event Action<RaymarchedObject> TypeRelatedDataChanged;
 
-        [field: SerializeField] public ObservableValue<RaymarchedObjectType> Type            { get; private set; }
-        [field: SerializeField] public ObservableTypeRelatedShaderData       TypeRelatedData { get; private set; }
-
-        [field: SerializeField, ChildTooltip(nameof(ObservableTransform<Vector3>.Scale),
-                    "Warning: Non-uniform SDF scaling distorts Euclidean spaces!")]
-        public ObservableTransform<Vector3> Transform { get; private set; } = new()
-        {
-            Scale = new ObservableValue<Vector3>(Vector3.one)
-        };
-
         private readonly ObservableTransform<Vector3> _gameObjectTransform = new();
-
-        public object TypeRelatedShaderData => TypeRelatedData.GetShaderData(Type.Value);
-        public int    TypeRelatedDataIndex  { get; set; }
 
         public override IRaymarchingFeatureHierarchicalState HierarchicalState =>
             new RaymarchedObjectHierarchicalState { BaseState = base.HierarchicalState, Type = Type.Value };
 
-        public TransformType TransformType { get; } = TransformType.ThreeDimensional;
+        public abstract ObservableValue<int>             Type            { get; protected set; }
+        public abstract IObservableTypeRelatedShaderData TypeRelatedData { get; }
+        public abstract IObservableTransform             Transform       { get; }
+        public abstract TransformType                    TransformType   { get; }
+
+        public abstract object TransformShaderData { get; }
+
+        public object TypeRelatedShaderData => TypeRelatedData.GetShaderData(Type.Value);
 
         public RaymarchedObjectShaderData ShaderData => new()
         {
-            Type = (int)Type.Value,
+            Type = Type.Value,
             TypeRelatedDataIndex = TypeRelatedDataIndex,
             IsActive = Convert.ToInt32(enabled && gameObject is { activeSelf: true, activeInHierarchy: true }),
             TransformType = (int)TransformType
         };
 
-        public object TransformShaderData => new Transform3DShaderData
-        {
-            Position = transform.position + Transform.Position.Value,
-            Rotation = Transform.Rotation.Value * Mathf.Deg2Rad,
-            Scale    = Transform.Scale.Value
-        };
+        public int TypeRelatedDataIndex { get; set; }
 
         protected override void OnEnable()
         {
@@ -91,10 +79,11 @@ namespace RBV.Features
         }
 
 
-        private void RaiseChangedEvent()                                            => Changed?.Invoke(this);
-        private void RaiseChangedEvent(ChangedValue<RaymarchedObjectType>     type) => RaiseChangedEvent();
-        private void RaiseTransformChangedEvent(ChangedValue<Vector3>         data) => TransformChanged?.Invoke(this);
-        private void RaiseTypeChangedEvent(ChangedValue<RaymarchedObjectType> type) => TypeChanged?.Invoke(this);
+        private void RaiseChangedEvent()                                    => Changed?.Invoke(this);
+        private void RaiseChangedEvent(ChangedValue<int> type)              => RaiseChangedEvent();
+        private void RaiseTransformChangedEvent()                           => TransformChanged?.Invoke(this);
+        private void RaiseTransformChangedEvent(ChangedValue<Vector3> data) => RaiseTransformChangedEvent();
+        private void RaiseTypeChangedEvent(ChangedValue<int>          type) => TypeChanged?.Invoke(this);
 
         private void RaiseTypeRelatedDataChangedEvent(ChangedValue<object> typeData) =>
             TypeRelatedDataChanged?.Invoke(this);

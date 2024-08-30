@@ -5,6 +5,8 @@
 
 float calculateCubeSDF(const float3 position, const float3 halfDimensions)
 {
-    float3 offsetVector = abs(position) - halfDimensions;
-    return min(max(offsetVector.x, max(offsetVector.y, offsetVector.z)), 0.0) + length(max(offsetVector, 0.0));
+    float3 distance        = abs(position) - halfDimensions;
+    float  outsideDistance = length(max(distance, 0.0));
+    float  insideDistance  = min(max(distance.x, max(distance.y, distance.z)), 0.0);
+    return outsideDistance + insideDistance;
 }

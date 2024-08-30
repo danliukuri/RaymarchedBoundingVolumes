@@ -10,8 +10,8 @@ using UnityEngine;
 
 namespace RBV.Editor.Project.Features
 {
-    [CustomEditor(typeof(RaymarchedObject)), CanEditMultipleObjects]
-    public class RaymarchedObjectEditor : UnityEditor.Editor
+    [CustomEditor(typeof(RaymarchedObject3D)), CanEditMultipleObjects]
+    public class RaymarchedObject3DEditor : UnityEditor.Editor
     {
         private readonly string _observablePropertyValuePath =
             nameof(ObservableValue<RaymarchedObject>.Value).ToLower();
@@ -38,19 +38,15 @@ namespace RBV.Editor.Project.Features
 
         private void Initialize()
         {
-            string typePropertyPath            = nameof(RaymarchedObject.Type).ToBackingFieldFormat();
-            string typeRelatedDataPropertyPath = nameof(RaymarchedObject.TypeRelatedData).ToBackingFieldFormat();
-            string transformPropertyPath       = nameof(RaymarchedObject.Transform).ToBackingFieldFormat();
-
             string sphereShaderDataPropertyPath =
                 nameof(ObservableRaymarchedObjectTypeRelatedShaderData.SphereShaderData).ToBackingFieldFormat();
             string cubeShaderDataPropertyPath =
                 nameof(ObservableRaymarchedObjectTypeRelatedShaderData.CubeShaderData).ToBackingFieldFormat();
 
-            _typeProperty            = serializedObject.FindProperty(typePropertyPath);
+            _typeProperty            = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Type);
             _typeValueProperty       = _typeProperty.FindPropertyRelative(_observablePropertyValuePath);
-            _typeRelatedDataProperty = serializedObject.FindProperty(typeRelatedDataPropertyPath);
-            _transformProperty       = serializedObject.FindProperty(transformPropertyPath);
+            _typeRelatedDataProperty = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.TypeRelatedData);
+            _transformProperty       = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Transform);
 
             _typeRelatedDataProperties = new Dictionary<RaymarchedObjectType, SerializedProperty>
             {

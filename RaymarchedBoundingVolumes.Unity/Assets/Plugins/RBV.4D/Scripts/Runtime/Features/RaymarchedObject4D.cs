@@ -1,6 +1,4 @@
-﻿using RBV.Features;
-
-namespace RBV.FourDimensional.Features
+﻿namespace RBV.FourDimensional.Features
 {
-    public class RaymarchedObject4D : RaymarchedObject { }
+    public class RaymarchedObject4D { }
 }

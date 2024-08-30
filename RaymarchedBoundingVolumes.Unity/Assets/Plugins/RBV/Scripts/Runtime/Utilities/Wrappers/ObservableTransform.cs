@@ -4,8 +4,14 @@ using UnityEngine;
 namespace RBV.Utilities.Wrappers
 {
     [Serializable]
-    public class ObservableTransform<T>
+    public class ObservableTransform<T> : IObservableTransform
     {
+        event Action IObservableTransform.Changed
+        {
+            add    => Changed += value.CastCached<T>();
+            remove => Changed -= value.CastCached<T>();
+        }
+
         public event Action<ChangedValue<T>> Changed
         {
             add

@@ -13,5 +13,20 @@ namespace RBV.Utilities.Wrappers
 
             return observableTransform;
         }
+
+        public static ObservableValue<TTo> Cast<TFrom, TTo>(this ObservableValue<TFrom> source)
+        {
+            var newObservableValue = new ObservableValue<TTo>((TTo)(object)source.Value);
+            source.Changed += AssignSourceValueToNewObservableValue;
+            return newObservableValue;
+
+            void AssignSourceValueToNewObservableValue(ChangedValue<TFrom> changedValue)
+            {
+                if (newObservableValue != default)
+                    newObservableValue.Value = (TTo)(object)changedValue.New;
+                else
+                    source.Changed -= AssignSourceValueToNewObservableValue;
+            }
+        }
     }
 }

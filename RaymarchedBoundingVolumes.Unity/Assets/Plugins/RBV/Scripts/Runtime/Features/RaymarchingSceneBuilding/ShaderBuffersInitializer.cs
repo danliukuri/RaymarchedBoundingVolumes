@@ -10,17 +10,21 @@ namespace RBV.Features.RaymarchingSceneBuilding
 {
     public class ShaderBuffersInitializer : IShaderBuffersInitializer
     {
+        private readonly IObjectTypeCaster    _objectTypeCaster;
         private readonly ITransformTypeCaster _transformTypeCaster;
-        
+
         private ShaderBuffers _shaderBuffers;
 
-        public ShaderBuffersInitializer(ITransformTypeCaster transformTypeCaster) =>
+        public ShaderBuffersInitializer(IObjectTypeCaster objectTypeCaster, ITransformTypeCaster transformTypeCaster)
+        {
+            _objectTypeCaster    = objectTypeCaster;
             _transformTypeCaster = transformTypeCaster;
+        }
 
         public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize,
                                                Dictionary<TransformType, List<RaymarchedObject>>
                                                    objectsByTransformsType,
-                                               Dictionary<RaymarchedObjectType, List<RaymarchedObject>>
+                                               Dictionary<int, List<RaymarchedObject>>
                                                    objectsByTypeBufferSizes)
         {
             _shaderBuffers = new ShaderBuffers
@@ -34,7 +38,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 ObjectTransformData =
                     new Dictionary<TransformType, ComputeBuffer>(objectsByTransformsType.Count),
                 ObjectTypeRelatedData =
-                    new Dictionary<RaymarchedObjectType, ComputeBuffer>(objectsByTypeBufferSizes.Count)
+                    new Dictionary<int, ComputeBuffer>(objectsByTypeBufferSizes.Count)
             };
 
             foreach (TransformType type in objectsByTransformsType.Keys)
@@ -43,9 +47,12 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 _shaderBuffers.ObjectTransformData[type] = new ComputeBuffer(objectsByTransformsType[type].Count, size);
             }
 
-            foreach (RaymarchedObjectType type in objectsByTypeBufferSizes.Keys)
+            foreach (int type in objectsByTypeBufferSizes.Keys)
+            {
+                int size = Marshal.SizeOf(_objectTypeCaster.GetShaderDataType(type));
                 _shaderBuffers.ObjectTypeRelatedData[type] =
-                    new ComputeBuffer(objectsByTypeBufferSizes[type].Count, Marshal.SizeOf(type.GetShaderDataType()));
+                    new ComputeBuffer(objectsByTypeBufferSizes[type].Count, size);
+            }
 
             return _shaderBuffers;
         }

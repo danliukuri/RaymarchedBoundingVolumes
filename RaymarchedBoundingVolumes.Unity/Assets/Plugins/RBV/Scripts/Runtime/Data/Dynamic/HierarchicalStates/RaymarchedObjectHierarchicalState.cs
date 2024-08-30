@@ -1,5 +1,4 @@
 ﻿using System;
-using RBV.Data.Static.Enumerations;
 
 namespace RBV.Data.Dynamic.HierarchicalStates
 {
@@ -8,7 +7,7 @@ namespace RBV.Data.Dynamic.HierarchicalStates
     {
         public IRaymarchingFeatureHierarchicalState BaseState { get; set; }
 
-        public RaymarchedObjectType Type { get; set; }
+        public int Type { get; set; }
 
         public bool Equals(RaymarchedObjectHierarchicalState other) => BaseState.Equals(other.BaseState) &&
                                                                        Type == other.Type;

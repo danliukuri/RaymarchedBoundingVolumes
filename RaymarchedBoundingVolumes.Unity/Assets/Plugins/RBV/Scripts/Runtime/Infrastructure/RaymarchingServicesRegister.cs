@@ -22,12 +22,15 @@ namespace RBV.Infrastructure
             IServiceContainer container = ServiceContainer.Initialize();
 
             container.RegisterAsSingle<IRaymarchingSceneTreeTraverser>(new RaymarchingSceneTreePostorderDFSTraverser());
+            container.RegisterAsSingle<IObjectTypeCaster>(new ObjectTypeCaster());
             container.RegisterAsSingle<ITransformTypeCaster>(new TransformTypeCaster());
             container.RegisterAsSingle<IRaymarchingDataInitializer>(new RaymarchingDataInitializer(
                 container.Resolve<IRaymarchingSceneTreeTraverser>(),
+                container.Resolve<IObjectTypeCaster>(),
                 container.Resolve<ITransformTypeCaster>()
             ));
             container.RegisterAsSingle<IShaderBuffersInitializer>(new ShaderBuffersInitializer(
+                container.Resolve<IObjectTypeCaster>(),
                 container.Resolve<ITransformTypeCaster>()
             ));
             container.RegisterAsSingle<IRaymarchingChildrenCalculator>(new RaymarchingChildrenCalculator());

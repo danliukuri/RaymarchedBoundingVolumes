@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
 {
     [Serializable]
-    public class ObservableRaymarchedObjectTypeRelatedShaderData
+    public class ObservableRaymarchedObjectTypeRelatedShaderData : IObservableRaymarchedObjectTypeRelatedShaderData
     {
         public event Action<ChangedValue<object>> Changed
         {
@@ -28,9 +28,13 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
         [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
             new(RaymarchedCubeShaderData.Default);
 
+        public object GetShaderData(int type) => GetShaderData((RaymarchedObjectType)type);
+
         public object GetShaderData(RaymarchedObjectType type)
         {
-            const float fullToHalfScaleMultiplier = 0.5f;
+            const float fullToHalfScaleMultiplier =
+                IObservableRaymarchedObjectTypeRelatedShaderData.FullToHalfScaleMultiplier;
+
             switch (type)
             {
                 case RaymarchedObjectType.Sphere:
