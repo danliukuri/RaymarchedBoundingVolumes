@@ -28,7 +28,7 @@ namespace RBV.Features
         public override IObservableTransform                  Transform       => transform;
         public override TransformType                         TransformType   => TransformType.ThreeDimensional;
 
-        public override object TransformShaderData => new Transform3DShaderData
+        public override ITransformShaderData TransformShaderData => new Transform3DShaderData
         {
             Position = base.transform.position + transform.Position.Value,
             Rotation = transform.Rotation.Value * Mathf.Deg2Rad,

@@ -65,6 +65,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 _shaderBuffers.Operations?.Release();
                 _shaderBuffers.Objects?.Release();
 
+                foreach (ComputeBuffer computeBuffer in _shaderBuffers.ObjectTransformData.Values)
+                    computeBuffer.Release();
                 foreach (ComputeBuffer computeBuffer in _shaderBuffers.ObjectTypeRelatedData.Values)
                     computeBuffer.Release();
             }

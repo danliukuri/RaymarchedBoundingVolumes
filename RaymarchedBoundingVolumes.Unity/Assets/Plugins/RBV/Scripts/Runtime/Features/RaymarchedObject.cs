@@ -28,7 +28,7 @@ namespace RBV.Features
         public abstract IObservableTransform                  Transform       { get; }
         public abstract TransformType                         TransformType   { get; }
 
-        public abstract object TransformShaderData { get; }
+        public abstract ITransformShaderData TransformShaderData { get; }
 
         public IObjectTypeRelatedShaderData TypeRelatedShaderData => TypeRelatedData.GetShaderData(Type.Value);
 

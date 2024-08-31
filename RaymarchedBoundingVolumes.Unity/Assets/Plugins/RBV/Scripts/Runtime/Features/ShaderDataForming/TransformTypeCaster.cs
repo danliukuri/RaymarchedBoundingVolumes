@@ -11,7 +11,7 @@ namespace RBV.Features.ShaderDataForming
         public Array CastToShaderDataTypeArray(KeyValuePair<TransformType, List<RaymarchedObject>> source) =>
             CastToShaderDataTypeArray(source.Key, source.Value.Select(obj => obj.TransformShaderData));
 
-        public Array CastToShaderDataTypeArray(TransformType type, IEnumerable<object> source) => type switch
+        public Array CastToShaderDataTypeArray(TransformType type, IEnumerable<ITransformShaderData> source) => type switch
         {
             TransformType.ThreeDimensional => source.Cast<Transform3DShaderData>().ToArray(),
             TransformType.FourDimensional  => throw TransformCastingException(),
