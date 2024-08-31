@@ -21,11 +21,11 @@ namespace RBV.Editor.Project.Features
         private SerializedProperty _typeRelatedDataProperty;
         private SerializedProperty _transformProperty;
 
-        private Dictionary<RaymarchedObjectType, SerializedProperty> _typeRelatedDataProperties;
-        private Dictionary<RaymarchedObjectType, Action>             _typeRelatedDataResetters;
-        private Dictionary<RaymarchedObjectType, SerializedProperty> _typeRelatedDataValueProperties;
+        private Dictionary<RaymarchedObject3DType, SerializedProperty> _typeRelatedDataProperties;
+        private Dictionary<RaymarchedObject3DType, Action>             _typeRelatedDataResetters;
+        private Dictionary<RaymarchedObject3DType, SerializedProperty> _typeRelatedDataValueProperties;
 
-        private RaymarchedObjectType _previousSelectedType;
+        private RaymarchedObject3DType _previousSelectedType;
 
         private void OnEnable() => Initialize();
 
@@ -48,15 +48,15 @@ namespace RBV.Editor.Project.Features
             _typeRelatedDataProperty = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.TypeRelatedData);
             _transformProperty       = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Transform);
 
-            _typeRelatedDataProperties = new Dictionary<RaymarchedObjectType, SerializedProperty>
+            _typeRelatedDataProperties = new Dictionary<RaymarchedObject3DType, SerializedProperty>
             {
                 {
-                    RaymarchedObjectType.Sphere,
+                    RaymarchedObject3DType.Sphere,
                     _typeRelatedDataProperty.FindPropertyRelative(sphereShaderDataPropertyPath)
                         .FindPropertyRelative(_observablePropertyValuePath)
                 },
                 {
-                    RaymarchedObjectType.Cube,
+                    RaymarchedObject3DType.Cube,
                     _typeRelatedDataProperty.FindPropertyRelative(cubeShaderDataPropertyPath)
                         .FindPropertyRelative(_observablePropertyValuePath)
                 }
@@ -67,21 +67,21 @@ namespace RBV.Editor.Project.Features
 
         private void InitializeTypeRelatedDataResetters()
         {
-            _typeRelatedDataResetters = new Dictionary<RaymarchedObjectType, Action>();
-            SerializedProperty sphereDiameterProperty = _typeRelatedDataProperties[RaymarchedObjectType.Sphere]
+            _typeRelatedDataResetters = new Dictionary<RaymarchedObject3DType, Action>();
+            SerializedProperty sphereDiameterProperty = _typeRelatedDataProperties[RaymarchedObject3DType.Sphere]
                 .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter));
 
-            SerializedProperty cubeDimensionsProperty = _typeRelatedDataProperties[RaymarchedObjectType.Cube]
+            SerializedProperty cubeDimensionsProperty = _typeRelatedDataProperties[RaymarchedObject3DType.Cube]
                 .FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions));
 
-            _typeRelatedDataResetters = new Dictionary<RaymarchedObjectType, Action>
+            _typeRelatedDataResetters = new Dictionary<RaymarchedObject3DType, Action>
             {
                 {
-                    RaymarchedObjectType.Sphere,
+                    RaymarchedObject3DType.Sphere,
                     () => sphereDiameterProperty.floatValue = RaymarchedSphereShaderData.Default.Diameter
                 },
                 {
-                    RaymarchedObjectType.Cube,
+                    RaymarchedObject3DType.Cube,
                     () => cubeDimensionsProperty.vector3Value = RaymarchedCubeShaderData.Default.Dimensions
                 }
             };
@@ -101,7 +101,7 @@ namespace RBV.Editor.Project.Features
 
         private void DrawTypeRelatedDataProperty()
         {
-            var type = (RaymarchedObjectType)_typeValueProperty.enumValueIndex;
+            var type = (RaymarchedObject3DType)_typeValueProperty.enumValueIndex;
             if (type != _previousSelectedType)
                 _typeRelatedDataResetters[_previousSelectedType].Invoke();
             _previousSelectedType = type;

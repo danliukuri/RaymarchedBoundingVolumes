@@ -27,6 +27,7 @@ Shader "RBV/RaymarchedObject"
             #pragma vertex processVertex
             #pragma fragment processFragment
             #pragma multi_compile_instancing
+            #pragma multi_compile __ RBV_4D_ON
 
             #include "Data/Structures/RaymarchingDataStructures.cginc"
             #include "Data/Structures/ShaderDataStructures.cginc"

@@ -28,20 +28,20 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
         [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
             new(RaymarchedCubeShaderData.Default);
 
-        public object GetShaderData(int type) => GetShaderData((RaymarchedObjectType)type);
+        public object GetShaderData(RaymarchedObjectType type) => GetShaderData((RaymarchedObject3DType)(int)type);
 
-        public object GetShaderData(RaymarchedObjectType type)
+        public object GetShaderData(RaymarchedObject3DType type)
         {
             const float fullToHalfScaleMultiplier =
                 IObservableRaymarchedObjectTypeRelatedShaderData.FullToHalfScaleMultiplier;
 
             switch (type)
             {
-                case RaymarchedObjectType.Sphere:
+                case RaymarchedObject3DType.Sphere:
                     RaymarchedSphereShaderData sphereShaderData = SphereShaderData.Value;
                     sphereShaderData.Diameter *= fullToHalfScaleMultiplier;
                     return sphereShaderData;
-                case RaymarchedObjectType.Cube:
+                case RaymarchedObject3DType.Cube:
                     RaymarchedCubeShaderData cubeShaderData = CubeShaderData.Value;
                     cubeShaderData.Dimensions *= fullToHalfScaleMultiplier;
                     return cubeShaderData;

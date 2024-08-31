@@ -1,4 +1,5 @@
 ﻿using System;
+using RBV.Data.Dynamic;
 using RBV.Data.Dynamic.HierarchicalStates;
 using RBV.Data.Dynamic.ShaderData;
 using RBV.Data.Static.Enumerations;
@@ -21,10 +22,10 @@ namespace RBV.Features
         public override IRaymarchingFeatureHierarchicalState HierarchicalState =>
             new RaymarchedObjectHierarchicalState { BaseState = base.HierarchicalState, Type = Type.Value };
 
-        public abstract ObservableValue<int>             Type            { get; protected set; }
-        public abstract IObservableTypeRelatedShaderData TypeRelatedData { get; }
-        public abstract IObservableTransform             Transform       { get; }
-        public abstract TransformType                    TransformType   { get; }
+        public abstract ObservableValue<RaymarchedObjectType> Type            { get; protected set; }
+        public abstract IObservableTypeRelatedShaderData      TypeRelatedData { get; }
+        public abstract IObservableTransform                  Transform       { get; }
+        public abstract TransformType                         TransformType   { get; }
 
         public abstract object TransformShaderData { get; }
 
@@ -32,7 +33,7 @@ namespace RBV.Features
 
         public RaymarchedObjectShaderData ShaderData => new()
         {
-            Type = Type.Value,
+            Type = (int)Type.Value,
             TypeRelatedDataIndex = TypeRelatedDataIndex,
             IsActive = Convert.ToInt32(enabled && gameObject is { activeSelf: true, activeInHierarchy: true }),
             TransformType = (int)TransformType
@@ -79,11 +80,11 @@ namespace RBV.Features
         }
 
 
-        private void RaiseChangedEvent()                                    => Changed?.Invoke(this);
-        private void RaiseChangedEvent(ChangedValue<int> type)              => RaiseChangedEvent();
-        private void RaiseTransformChangedEvent()                           => TransformChanged?.Invoke(this);
-        private void RaiseTransformChangedEvent(ChangedValue<Vector3> data) => RaiseTransformChangedEvent();
-        private void RaiseTypeChangedEvent(ChangedValue<int>          type) => TypeChanged?.Invoke(this);
+        private void RaiseChangedEvent()                                            => Changed?.Invoke(this);
+        private void RaiseChangedEvent(ChangedValue<RaymarchedObjectType> type)     => RaiseChangedEvent();
+        private void RaiseTransformChangedEvent()                                   => TransformChanged?.Invoke(this);
+        private void RaiseTransformChangedEvent(ChangedValue<Vector3>         data) => RaiseTransformChangedEvent();
+        private void RaiseTypeChangedEvent(ChangedValue<RaymarchedObjectType> type) => TypeChanged?.Invoke(this);
 
         private void RaiseTypeRelatedDataChangedEvent(ChangedValue<object> typeData) =>
             TypeRelatedDataChanged?.Invoke(this);

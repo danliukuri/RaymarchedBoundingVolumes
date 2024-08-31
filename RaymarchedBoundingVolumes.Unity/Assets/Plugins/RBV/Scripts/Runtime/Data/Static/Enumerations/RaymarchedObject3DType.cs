@@ -1,6 +1,6 @@
 ﻿namespace RBV.Data.Static.Enumerations
 {
-    public enum RaymarchedObjectType
+    public enum RaymarchedObject3DType
     {
         Sphere = 0,
         Cube   = 1

@@ -12,6 +12,7 @@ namespace RBV.Features
         protected virtual void OnEnable()
         {
             Construct();
+            Initialize();
             EditorApplication.delayCall += EditorInitialize;
         }
 

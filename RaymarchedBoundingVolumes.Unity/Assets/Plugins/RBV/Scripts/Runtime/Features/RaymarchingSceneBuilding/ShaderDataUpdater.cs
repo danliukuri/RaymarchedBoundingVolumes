@@ -14,8 +14,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private readonly List<RaymarchingOperation> _changedOperations = new();
         private readonly List<RaymarchedObject>     _changedObjects    = new();
 
-        private readonly Dictionary<TransformType, List<int>> _changedObjectTransformData   = new();
-        private readonly Dictionary<int, List<int>>           _changedObjectTypeRelatedData = new();
+        private readonly Dictionary<TransformType, List<int>>        _changedObjectTransformData   = new();
+        private readonly Dictionary<RaymarchedObjectType, List<int>> _changedObjectTypeRelatedData = new();
 
         private ShaderBuffers _shaderBuffers;
 
@@ -23,8 +23,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private bool _isOperationsDataChanged;
         private bool _isObjectsDataChanged;
 
-        private Dictionary<TransformType, bool> _isObjectTransformDataChanged;
-        private Dictionary<int, bool>           _isObjectTypeRelatedDataChanged;
+        private Dictionary<TransformType, bool>        _isObjectTransformDataChanged;
+        private Dictionary<RaymarchedObjectType, bool> _isObjectTypeRelatedDataChanged;
 
         public ShaderDataUpdater(IRaymarchingSceneDataProvider dataProvider) => _dataProvider = dataProvider;
 
@@ -85,7 +85,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             foreach (TransformType type in _dataProvider.Data.ObjectsByTransformsType.Keys)
                 if (_isObjectTransformDataChanged[type])
                     UpdateObjectsTransformData(type);
-            foreach (int type in _dataProvider.Data.ObjectsByType.Keys)
+            foreach (RaymarchedObjectType type in _dataProvider.Data.ObjectsByType.Keys)
                 if (_isObjectTypeRelatedDataChanged[type])
                     UpdateObjectsTypeRelatedData(type);
             return this;
@@ -118,7 +118,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         private void UpdateObjectTypeRelatedData(RaymarchedObject obj)
         {
-            int objectType = obj.Type.Value;
+            RaymarchedObjectType objectType = obj.Type.Value;
             if (!_changedObjectTypeRelatedData.ContainsKey(objectType))
                 _changedObjectTypeRelatedData.Add(objectType, new List<int>());
 
@@ -188,7 +188,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _isObjectTransformDataChanged[type] = false;
         }
 
-        private void UpdateObjectsTypeRelatedData(int type)
+        private void UpdateObjectsTypeRelatedData(RaymarchedObjectType type)
         {
             if (_changedObjectTypeRelatedData.ContainsKey(type))
             {

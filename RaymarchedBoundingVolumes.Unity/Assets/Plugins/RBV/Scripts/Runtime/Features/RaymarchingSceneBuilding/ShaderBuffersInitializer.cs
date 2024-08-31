@@ -24,7 +24,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize,
                                                Dictionary<TransformType, List<RaymarchedObject>>
                                                    objectsByTransformsType,
-                                               Dictionary<int, List<RaymarchedObject>>
+                                               Dictionary<RaymarchedObjectType, List<RaymarchedObject>>
                                                    objectsByTypeBufferSizes)
         {
             _shaderBuffers = new ShaderBuffers
@@ -38,7 +38,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 ObjectTransformData =
                     new Dictionary<TransformType, ComputeBuffer>(objectsByTransformsType.Count),
                 ObjectTypeRelatedData =
-                    new Dictionary<int, ComputeBuffer>(objectsByTypeBufferSizes.Count)
+                    new Dictionary<RaymarchedObjectType, ComputeBuffer>(objectsByTypeBufferSizes.Count)
             };
 
             foreach (TransformType type in objectsByTransformsType.Keys)
@@ -47,7 +47,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 _shaderBuffers.ObjectTransformData[type] = new ComputeBuffer(objectsByTransformsType[type].Count, size);
             }
 
-            foreach (int type in objectsByTypeBufferSizes.Keys)
+            foreach (RaymarchedObjectType type in objectsByTypeBufferSizes.Keys)
             {
                 int size = Marshal.SizeOf(_objectTypeCaster.GetShaderDataType(type));
                 _shaderBuffers.ObjectTypeRelatedData[type] =

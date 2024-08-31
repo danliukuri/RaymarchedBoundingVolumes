@@ -9,7 +9,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize,
                                                Dictionary<TransformType, List<RaymarchedObject>>
                                                    objectsByTransformsType,
-                                               Dictionary<int, List<RaymarchedObject>>
+                                               Dictionary<RaymarchedObjectType, List<RaymarchedObject>>
                                                    objectsByTypeBufferSizes);
 
         ShaderBuffers ReleaseBuffers();

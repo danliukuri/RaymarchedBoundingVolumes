@@ -9,6 +9,6 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
 
         event Action<ChangedValue<object>> Changed;
 
-        object GetShaderData(int type);
+        object GetShaderData(RaymarchedObjectType type);
     }
 }
