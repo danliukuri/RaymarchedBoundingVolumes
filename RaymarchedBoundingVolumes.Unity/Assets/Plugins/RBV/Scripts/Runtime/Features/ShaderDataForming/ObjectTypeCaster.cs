@@ -12,13 +12,15 @@ namespace RBV.Features.ShaderDataForming
         public Array CastToShaderDataTypeArray(KeyValuePair<RaymarchedObjectType, List<RaymarchedObject>> source) =>
             CastToShaderDataTypeArray(source.Key, source.Value.Select(obj => obj.TypeRelatedShaderData));
 
-        public Array CastToShaderDataTypeArray(RaymarchedObjectType type, IEnumerable<object> source) =>
+        public Array CastToShaderDataTypeArray(RaymarchedObjectType                      type,
+                                               IEnumerable<IObjectTypeRelatedShaderData> source) =>
             CastToShaderDataTypeArray((RaymarchedObject3DType)(int)type, source);
 
         public Type GetShaderDataType(RaymarchedObjectType type) =>
             GetShaderDataType((RaymarchedObject3DType)(int)type);
 
-        private Array CastToShaderDataTypeArray(RaymarchedObject3DType type, IEnumerable<object> source) => type switch
+        private Array CastToShaderDataTypeArray(RaymarchedObject3DType                    type,
+                                                IEnumerable<IObjectTypeRelatedShaderData> source) => type switch
         {
             RaymarchedObject3DType.Sphere => source.Cast<RaymarchedSphereShaderData>().ToArray(),
             RaymarchedObject3DType.Cube   => source.Cast<RaymarchedCubeShaderData>().ToArray(),

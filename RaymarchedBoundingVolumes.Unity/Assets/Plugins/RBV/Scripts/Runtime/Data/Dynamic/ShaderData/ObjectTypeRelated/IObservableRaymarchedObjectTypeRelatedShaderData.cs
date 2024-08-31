@@ -7,8 +7,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
     {
         const float FullToHalfScaleMultiplier = 0.5f;
 
-        event Action<ChangedValue<object>> Changed;
+        event Action<ChangedValue<IObjectTypeRelatedShaderData>> Changed;
 
-        object GetShaderData(RaymarchedObjectType type);
+        IObjectTypeRelatedShaderData GetShaderData(RaymarchedObjectType type);
     }
 }

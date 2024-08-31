@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RBV.Data.Dynamic;
+using RBV.Data.Dynamic.ShaderData.ObjectTypeRelated;
 using RBV.Data.Static.Enumerations;
 using UnityEngine;
 using static RBV.Data.Static.RaymarchedObjectShaderPropertyIds;
@@ -195,7 +196,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 foreach (int typeRelatedDataIndex in _changedObjectTypeRelatedData[type])
                 {
                     RaymarchedObject raymarchedObject = _dataProvider.Data.ObjectsByType[type][typeRelatedDataIndex];
-                    object           shaderData       = raymarchedObject.TypeRelatedShaderData;
+                    IObjectTypeRelatedShaderData shaderData = raymarchedObject.TypeRelatedShaderData;
                     _dataProvider.Data.ObjectsShaderDataByType[type].SetValue(shaderData, typeRelatedDataIndex);
                 }
 

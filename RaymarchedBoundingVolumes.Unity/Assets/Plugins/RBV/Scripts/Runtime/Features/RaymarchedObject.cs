@@ -2,6 +2,7 @@
 using RBV.Data.Dynamic;
 using RBV.Data.Dynamic.HierarchicalStates;
 using RBV.Data.Dynamic.ShaderData;
+using RBV.Data.Dynamic.ShaderData.ObjectTypeRelated;
 using RBV.Data.Static.Enumerations;
 using RBV.Utilities.Wrappers;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace RBV.Features
 
         public abstract object TransformShaderData { get; }
 
-        public object TypeRelatedShaderData => TypeRelatedData.GetShaderData(Type.Value);
+        public IObjectTypeRelatedShaderData TypeRelatedShaderData => TypeRelatedData.GetShaderData(Type.Value);
 
         public RaymarchedObjectShaderData ShaderData => new()
         {
@@ -86,7 +87,7 @@ namespace RBV.Features
         private void RaiseTransformChangedEvent(ChangedValue<Vector3>         data) => RaiseTransformChangedEvent();
         private void RaiseTypeChangedEvent(ChangedValue<RaymarchedObjectType> type) => TypeChanged?.Invoke(this);
 
-        private void RaiseTypeRelatedDataChangedEvent(ChangedValue<object> typeData) =>
+        private void RaiseTypeRelatedDataChangedEvent(ChangedValue<IObjectTypeRelatedShaderData> typeData) =>
             TypeRelatedDataChanged?.Invoke(this);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
 {
     [Serializable]
-    public struct RaymarchedCubeShaderData
+    public struct RaymarchedCubeShaderData : IObjectTypeRelatedShaderData
     {
         public Vector3 Dimensions;
 
