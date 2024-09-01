@@ -8,21 +8,22 @@ namespace RBV.Infrastructure
     {
         private bool _isInitialized;
 
-        private void Awake()
-        {
-            RegisterSceneServices(gameObject.scene);
-            _isInitialized = true;
-        }
+        private void Awake()     => EditorInitializeIfNotAlreadyDid();
+        private void OnEnable()  => EditorInitializeIfNotAlreadyDid();
+        private void OnDisable() => EditorDeinitialize();
 
-        private void OnEnable()
+        private void EditorInitializeIfNotAlreadyDid()
         {
             if (!_isInitialized)
-                RegisterSceneServices(gameObject.scene);
+            {
+                Initialize();
+                _isInitialized = true;
+            }
         }
 
-        private void OnDisable()
+        private void EditorDeinitialize()
         {
-            ServiceContainer.Scoped(gameObject.scene).Dispose();
+            Deinitialize();
             _isInitialized = false;
         }
     }
