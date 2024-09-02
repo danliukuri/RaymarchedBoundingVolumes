@@ -20,10 +20,10 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
     {
         default:
         case 0:
-            distance = calculateSphereSDF(position, _RaymarchedSphereData[objectData.typeRelatedDataIndex].radius);
+            distance = calculateSphereSDF(position, _RaymarchedSphereData[objectData.typeDataIndex].radius);
             break;
         case 1:
-            distance = calculateCubeSDF(position, _RaymarchedCubeData[objectData.typeRelatedDataIndex].halfDimensions);
+            distance = calculateCubeSDF(position, _RaymarchedCubeData[objectData.typeDataIndex].halfDimensions);
             break;
     }
     distance *= transform.scale;

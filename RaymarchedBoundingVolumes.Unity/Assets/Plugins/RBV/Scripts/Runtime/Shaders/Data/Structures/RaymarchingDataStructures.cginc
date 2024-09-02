@@ -30,7 +30,7 @@ struct OperationData
 struct ObjectData
 {
     int type;
-    int typeRelatedDataIndex;
+    int typeDataIndex;
 
     bool isActive;
     int  transformType;

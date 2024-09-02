@@ -3,26 +3,26 @@ using RBV.Data.Static.Enumerations;
 using RBV.Utilities.Wrappers;
 using UnityEngine;
 
-namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
+namespace RBV.Data.Dynamic.ShaderData.ObjectType
 {
     [Serializable]
-    public class ObservableRaymarchedObjectTypeRelatedShaderData : IObservableRaymarchedObjectTypeRelatedShaderData
+    public class ObservableObject3DTypeShaderData : IObservableObjectTypeShaderData
     {
-        public event Action<ChangedValue<IObjectTypeRelatedShaderData>> Changed
+        public event Action<ChangedValue<IObjectTypeShaderData>> Changed
         {
             add
             {
                 SphereShaderData.Changed +=
-                    value.CastCached<IObjectTypeRelatedShaderData, RaymarchedSphereShaderData>();
+                    value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
                 CubeShaderData.Changed +=
-                    value.CastCached<IObjectTypeRelatedShaderData, RaymarchedCubeShaderData>();
+                    value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
             }
             remove
             {
                 SphereShaderData.Changed -=
-                    value.CastCached<IObjectTypeRelatedShaderData, RaymarchedSphereShaderData>();
+                    value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
                 CubeShaderData.Changed -=
-                    value.CastCached<IObjectTypeRelatedShaderData, RaymarchedCubeShaderData>();
+                    value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
             }
         }
 
@@ -32,13 +32,13 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
         [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
             new(RaymarchedCubeShaderData.Default);
 
-        public IObjectTypeRelatedShaderData GetShaderData(RaymarchedObjectType type) =>
+        public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
 
-        public IObjectTypeRelatedShaderData GetShaderData(RaymarchedObject3DType type)
+        public IObjectTypeShaderData GetShaderData(RaymarchedObject3DType type)
         {
             const float fullToHalfScaleMultiplier =
-                IObservableRaymarchedObjectTypeRelatedShaderData.FullToHalfScaleMultiplier;
+                IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
 
             switch (type)
             {

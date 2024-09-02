@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
+namespace RBV.Data.Dynamic.ShaderData.ObjectType
 {
     [Serializable]
-    public struct RaymarchedCubeShaderData : IObjectTypeRelatedShaderData
+    public struct RaymarchedCubeShaderData : IObjectTypeShaderData
     {
         public Vector3 Dimensions;
 

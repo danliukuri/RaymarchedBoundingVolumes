@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using RBV.Data.Dynamic.ShaderData.ObjectTypeRelated;
+using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Data.Static.Enumerations;
 using RBV.Editor.Utilities.Extensions;
 using RBV.Features;
@@ -39,9 +39,9 @@ namespace RBV.Editor.Project.Features
         private void Initialize()
         {
             string sphereShaderDataPropertyPath =
-                nameof(ObservableRaymarchedObjectTypeRelatedShaderData.SphereShaderData).ToBackingFieldFormat();
+                nameof(ObservableObject3DTypeShaderData.SphereShaderData).ToBackingFieldFormat();
             string cubeShaderDataPropertyPath =
-                nameof(ObservableRaymarchedObjectTypeRelatedShaderData.CubeShaderData).ToBackingFieldFormat();
+                nameof(ObservableObject3DTypeShaderData.CubeShaderData).ToBackingFieldFormat();
 
             _typeProperty            = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Type);
             _typeValueProperty       = _typeProperty.FindPropertyRelative(_observablePropertyValuePath);

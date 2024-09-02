@@ -1,9 +1,9 @@
 using System;
 
-namespace RBV.Data.Dynamic.ShaderData.ObjectTypeRelated
+namespace RBV.Data.Dynamic.ShaderData.ObjectType
 {
     [Serializable]
-    public struct RaymarchedSphereShaderData : IObjectTypeRelatedShaderData
+    public struct RaymarchedSphereShaderData : IObjectTypeShaderData
     {
         public float Diameter;
 
