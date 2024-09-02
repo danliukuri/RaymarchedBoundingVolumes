@@ -8,22 +8,26 @@ namespace RBV.Features.ShaderDataForming
 {
     public class TransformTypeCaster : ITransformTypeCaster
     {
-        public Array CastToShaderDataTypeArray(KeyValuePair<TransformType, List<RaymarchedObject>> source) =>
-            CastToShaderDataTypeArray(source.Key, source.Value.Select(obj => obj.TransformShaderData));
+        public Array CastToShaderDataTypeArray(TransformType type, IEnumerable<ITransformShaderData> source) =>
+            type switch
+            {
+                TransformType.ThreeDimensional => source.Cast<Transform3DShaderData>().ToArray(),
+                TransformType.FourDimensional  => CastToFourDimensionalTransformShaderDataArray(source),
+                _                              => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            };
 
-        public Array CastToShaderDataTypeArray(TransformType type, IEnumerable<ITransformShaderData> source) => type switch
-        {
-            TransformType.ThreeDimensional => source.Cast<Transform3DShaderData>().ToArray(),
-            TransformType.FourDimensional  => throw TransformCastingException(),
-            _                              => throw new ArgumentOutOfRangeException(nameof(type), type, default)
-        };
+        public Type GetShaderDataType(TransformType type) =>
+            type switch
+            {
+                TransformType.ThreeDimensional => typeof(Transform3DShaderData),
+                TransformType.FourDimensional  => GetFourDimensionalTransformShaderDataType(),
+                _                              => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            };
 
-        public Type GetShaderDataType(TransformType type) => type switch
-        {
-            TransformType.ThreeDimensional => typeof(Transform3DShaderData),
-            TransformType.FourDimensional  => throw TransformCastingException(),
-            _                              => throw new ArgumentOutOfRangeException(nameof(type), type, default)
-        };
+        protected virtual Array CastToFourDimensionalTransformShaderDataArray(IEnumerable<ITransformShaderData> source)
+            => throw TransformCastingException();
+
+        protected virtual Type GetFourDimensionalTransformShaderDataType() => throw TransformCastingException();
 
         private static Exception TransformCastingException()
         {
