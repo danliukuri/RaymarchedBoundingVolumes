@@ -3,13 +3,15 @@ using System.Linq;
 using RBV.Data.Dynamic;
 using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Data.Static.Enumerations;
+using RBV.Features.ShaderDataForming;
 using UnityEngine;
 
 namespace RBV.Features.RaymarchingSceneBuilding
 {
     public class ShaderDataUpdater : IShaderDataUpdater
     {
-        private readonly IRaymarchingSceneDataProvider _dataProvider;
+        private readonly IRaymarchingSceneDataProvider             _dataProvider;
+        private readonly IRaymarchedObjectShaderPropertyIdProvider _objectShaderPropertyIdProvider;
 
         private readonly List<RaymarchingOperation> _changedOperations = new();
         private readonly List<RaymarchedObject>     _changedObjects    = new();
@@ -26,7 +28,12 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private Dictionary<TransformType, bool>        _isObjectTransformDataChanged;
         private Dictionary<RaymarchedObjectType, bool> _isObjectTypeDataChanged;
 
-        public ShaderDataUpdater(IRaymarchingSceneDataProvider dataProvider) => _dataProvider = dataProvider;
+        public ShaderDataUpdater(IRaymarchingSceneDataProvider             dataProvider,
+                                 IRaymarchedObjectShaderPropertyIdProvider objectShaderPropertyIdProvider)
+        {
+            _objectShaderPropertyIdProvider = objectShaderPropertyIdProvider;
+            _dataProvider                   = dataProvider;
+        }
 
         public IShaderDataUpdater Initialize(ShaderBuffers shaderBuffers)
         {
@@ -131,7 +138,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private void UpdateOperationNodesData()
         {
             _shaderBuffers.OperationNodes.SetData(_dataProvider.Data.OperationNodesShaderData);
-            Shader.SetGlobalBuffer(RaymarchingOperationNodes, _shaderBuffers.OperationNodes);
+            Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchingOperationNodes,
+                _shaderBuffers.OperationNodes);
 
             _isOperationNodesDataChanged = false;
         }
@@ -144,8 +152,10 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _changedOperations.Clear();
 
             _shaderBuffers.Operations.SetData(_dataProvider.Data.OperationsShaderData);
-            Shader.SetGlobalInteger(RaymarchingOperationsCount, _dataProvider.Data.OperationsShaderData.Count);
-            Shader.SetGlobalBuffer(RaymarchingOperations, _shaderBuffers.Operations);
+            Shader.SetGlobalInteger(_objectShaderPropertyIdProvider.RaymarchingOperationsCount,
+                _dataProvider.Data.OperationsShaderData.Count);
+            Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchingOperations,
+                _shaderBuffers.Operations);
 
             _isOperationsDataChanged = false;
         }
@@ -161,7 +171,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _changedObjects.Clear();
 
             _shaderBuffers.Objects.SetData(_dataProvider.Data.ObjectsShaderData);
-            Shader.SetGlobalBuffer(RaymarchedObjects, _shaderBuffers.Objects);
+            Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchedObjects, _shaderBuffers.Objects);
 
             _isObjectsDataChanged = false;
         }
@@ -183,7 +193,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
             _shaderBuffers.ObjectTransformData[type]
                 .SetData(_dataProvider.Data.ObjectTransformsShaderDataByType[type]);
-            Shader.SetGlobalBuffer(ObjectTransformDataIds[type], _shaderBuffers.ObjectTransformData[type]);
+            Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.ObjectTransformDataIds[type],
+                _shaderBuffers.ObjectTransformData[type]);
 
             _isObjectTransformDataChanged[type] = false;
         }
@@ -203,7 +214,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
             }
 
             _shaderBuffers.ObjectTypeRelatedData[type].SetData(_dataProvider.Data.ObjectsShaderDataByType[type]);
-            Shader.SetGlobalBuffer(ObjectTypeRelatedDataIds[type], _shaderBuffers.ObjectTypeRelatedData[type]);
+            Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.ObjectTypeRelatedDataIds[type],
+                _shaderBuffers.ObjectTypeRelatedData[type]);
 
             _isObjectTypeDataChanged[type] = false;
         }

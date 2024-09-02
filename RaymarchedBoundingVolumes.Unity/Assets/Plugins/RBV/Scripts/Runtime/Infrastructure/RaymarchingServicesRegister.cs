@@ -42,6 +42,7 @@ namespace RBV.Infrastructure
             RegisterRaymarchingDataInitializer(container);
             RegisterShaderBuffersInitializer(container);
             RegisterRaymarchingChildrenCalculator(container);
+            RegisterRaymarchedObjectShaderPropertyIdProvider(container);
         }
 
         protected virtual IServiceContainer InitializeServiceContainer() => ServiceContainer.Initialize();
@@ -71,6 +72,11 @@ namespace RBV.Infrastructure
         protected virtual void RegisterRaymarchingChildrenCalculator(IServiceContainer container) =>
             container.RegisterAsSingle<IRaymarchingChildrenCalculator>(new RaymarchingChildrenCalculator());
 
+        protected virtual void RegisterRaymarchedObjectShaderPropertyIdProvider(IServiceContainer container) =>
+            container.RegisterAsSingle<IRaymarchedObjectShaderPropertyIdProvider>(
+                new RaymarchedObjectShaderPropertyIdProvider()
+            );
+
         protected virtual void RegisterSceneServices(Scene scene)
         {
             IServiceContainer sceneContainer = IServiceContainer.Scoped(scene);
@@ -95,7 +101,8 @@ namespace RBV.Infrastructure
 
         protected virtual void RegisterShaderDataUpdater(IServiceContainer container) =>
             container.RegisterAsSingle<IShaderDataUpdater>(new ShaderDataUpdater(
-                container.Resolve<IRaymarchingSceneDataProvider>()
+                container.Resolve<IRaymarchingSceneDataProvider>(),
+                container.Resolve<IRaymarchedObjectShaderPropertyIdProvider>()
             ));
 
         protected virtual void RegisterRaymarchingSceneBuilder(IServiceContainer container) =>
