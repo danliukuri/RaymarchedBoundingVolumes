@@ -29,11 +29,13 @@ struct OperationData
 
 struct ObjectData
 {
+    bool isActive;
+
     int type;
     int typeDataIndex;
 
-    bool isActive;
-    int  transformType;
+    int transformType;
+    int transformDataIndex;
 };
 
 struct ObjectTransform3D

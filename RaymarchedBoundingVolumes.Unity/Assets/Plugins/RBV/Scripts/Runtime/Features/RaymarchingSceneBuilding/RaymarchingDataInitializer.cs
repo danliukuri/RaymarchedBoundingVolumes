@@ -49,6 +49,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 RaymarchingOperationNodeShaderData.RootNodeIndex);
 
             FillTypeDataIndexes();
+            FillTransformDataIndexes();
             FillShaderDataLists();
 
             _data.ObjectTransformsShaderDataByType = _data.ObjectsByTransformsType
@@ -116,6 +117,13 @@ namespace RBV.Features.RaymarchingSceneBuilding
             foreach (List<RaymarchedObject> objects in _data.ObjectsByType.Values)
                 for (var i = 0; i < objects.Count; i++)
                     objects[i].TypeDataIndex = i;
+        }
+
+        private void FillTransformDataIndexes()
+        {
+            foreach (List<RaymarchedObject> objects in _data.ObjectsByTransformsType.Values)
+                for (var i = 0; i < objects.Count; i++)
+                    objects[i].TransformDataIndex = i;
         }
     }
 }

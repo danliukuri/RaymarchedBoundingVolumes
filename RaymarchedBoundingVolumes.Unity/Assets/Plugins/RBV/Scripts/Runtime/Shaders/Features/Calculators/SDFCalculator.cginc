@@ -12,24 +12,22 @@
 #include "../../../../RBV.4D/Scripts/Runtime/Shaders/Features/Calculators/ObjectSDFCalculator4D.cginc"
 #endif
 
-SDFData calculateObjectSDF(const float3 position, int index)
+SDFData calculateObjectSDF(float3 position, ObjectData object)
 {
     SDFData objectSDF;
 
     UNITY_BRANCH
-    switch (_RaymarchedObjects[index].transformType)
+    switch (object.transformType)
     {
         default:
         case TRANSFORM_TYPE_THREE_DIMENSIONAL:
-            objectSDF = calculateObjectSDF(position,
-                                           _RaymarchedObjects[index],
-                                           _RaymarchedObjectsThreeDimensionalTransforms[index]);
+            ObjectTransform3D transform3D = _RaymarchedObjectsThreeDimensionalTransforms[object.transformDataIndex];
+            objectSDF = calculateObjectSDF(position, object, transform3D);
             break;
 #ifdef RBV_4D_ON
         case TRANSFORM_TYPE_FOUR_DIMENSIONAL:
-            objectSDF = calculateObjectSDF4D(position,
-                                             _RaymarchedObjects[index],
-                                             _RaymarchedObjectsFourDimensionalTransforms[index]);
+            ObjectTransform4D transform4D = _RaymarchedObjectsFourDimensionalTransforms[object.transformDataIndex];
+            objectSDF = calculateObjectSDF4D(position, object, transform4D);
             break;
 #endif
     }
@@ -37,15 +35,17 @@ SDFData calculateObjectSDF(const float3 position, int index)
     return objectSDF;
 }
 
-SDFData calculateOperationSDF(const float3 position, const OperationData operation,
-                              const int    objectsIndex, const int       childObjectsCount)
+SDFData calculateOperationSDF(const float3        position,
+                              const OperationData operation,
+                              const int           objectsIndex,
+                              const int           childObjectsCount)
 {
     SDFData sdf = {_ObjectColor.rgb, _FarClippingPlane};
 
     for (int i = objectsIndex; i < childObjectsCount + objectsIndex; i++)
         UNITY_BRANCH
         if (_RaymarchedObjects[i].isActive)
-            sdf = applyOperation(operation, calculateObjectSDF(position, i), sdf);
+            sdf = applyOperation(operation, calculateObjectSDF(position, _RaymarchedObjects[i]), sdf);
 
     return sdf;
 }

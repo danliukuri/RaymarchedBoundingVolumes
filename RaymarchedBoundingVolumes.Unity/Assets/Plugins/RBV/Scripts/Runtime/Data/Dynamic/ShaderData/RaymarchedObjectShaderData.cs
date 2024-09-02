@@ -2,10 +2,12 @@
 {
     public struct RaymarchedObjectShaderData
     {
+        public int IsActive;
+
         public int Type;
         public int TypeDataIndex;
 
-        public int IsActive;
         public int TransformType;
+        public int TransformDataIndex;
     }
 }

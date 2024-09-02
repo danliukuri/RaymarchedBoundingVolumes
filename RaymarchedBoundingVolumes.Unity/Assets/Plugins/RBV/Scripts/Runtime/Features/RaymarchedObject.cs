@@ -32,13 +32,15 @@ namespace RBV.Features
 
         public RaymarchedObjectShaderData ShaderData => new()
         {
-            IsActive      = Convert.ToInt32(IsActive),
-            Type          = (int)Type.Value,
-            TypeDataIndex = TypeDataIndex,
-            TransformType = (int)TransformType
+            IsActive           = Convert.ToInt32(IsActive),
+            Type               = (int)Type.Value,
+            TypeDataIndex      = TypeDataIndex,
+            TransformType      = (int)TransformType,
+            TransformDataIndex = TransformDataIndex
         };
 
-        public int TypeDataIndex { get; set; }
+        public int TypeDataIndex      { get; set; }
+        public int TransformDataIndex { get; set; }
 
         private bool IsActive => enabled && gameObject is { activeSelf: true, activeInHierarchy: true };
 
