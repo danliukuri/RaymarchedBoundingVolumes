@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../Structures/ObjectTypeRelatedDataStructures.cginc"
+#include "../Structures/ObjectTypeDataStructures.cginc"
 
 // Manually set by scripts
 
