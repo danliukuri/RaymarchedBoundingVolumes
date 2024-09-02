@@ -40,5 +40,14 @@ namespace RBV.FourDimensional.Features
             base.Initialize();
             Type = type.Cast(enumType => (RaymarchedObjectType)(int)enumType);
         }
+
+#if UNITY_EDITOR
+        public static class FieldNames
+        {
+            public const string Type      = nameof(type);
+            public const string TypeData  = nameof(typeData);
+            public const string Transform = nameof(transform);
+        }
+#endif
     }
 }

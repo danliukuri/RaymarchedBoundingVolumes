@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using RBV.Data.Dynamic;
-using RBV.Data.Dynamic.ShaderData.ObjectType;
-using RBV.Data.Static.Enumerations;
 using RBV.Editor.Features;
 using RBV.Editor.Utilities.Extensions;
 using RBV.Features;
+using RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType;
+using RBV.FourDimensional.Data.Static.Enumerations;
+using RBV.FourDimensional.Features;
 using RBV.Utilities.Wrappers;
 using UnityEditor;
 
-namespace RBV.Editor.Project.Features
+namespace RBV.FourDimensional.Editor.Project.Features
 {
-    [CustomEditor(typeof(RaymarchedObject3D)), CanEditMultipleObjects]
-    public class RaymarchedObject3DEditor : UnityEditor.Editor
+    [CustomEditor(typeof(RaymarchedObject4D)), CanEditMultipleObjects]
+    public class RaymarchedObject4DEditor : UnityEditor.Editor
     {
         private readonly string _observablePropertyValuePath =
             nameof(ObservableValue<RaymarchedObject>.Value).ToLower();
@@ -23,8 +24,8 @@ namespace RBV.Editor.Project.Features
         private SerializedProperty _typeDataProperty;
         private SerializedProperty _transformProperty;
 
-        private Dictionary<RaymarchedObject3DType, SerializedProperty> _typeDataProperties;
-        private Dictionary<RaymarchedObject3DType, Action>             _typeDataResetters;
+        private Dictionary<RaymarchedObject4DType, SerializedProperty> _typeDataProperties;
+        private Dictionary<RaymarchedObject4DType, Action>             _typeDataResetters;
 
         private ObjectTypeDataDrawer _objectTypeDataDrawer;
 
@@ -39,10 +40,10 @@ namespace RBV.Editor.Project.Features
 
         private void Initialize()
         {
-            _typeProperty      = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Type);
+            _typeProperty      = serializedObject.FindProperty(RaymarchedObject4D.FieldNames.Type);
             _typeValueProperty = _typeProperty.FindPropertyRelative(_observablePropertyValuePath);
-            _typeDataProperty  = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.TypeData);
-            _transformProperty = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Transform);
+            _typeDataProperty  = serializedObject.FindProperty(RaymarchedObject4D.FieldNames.TypeData);
+            _transformProperty = serializedObject.FindProperty(RaymarchedObject4D.FieldNames.Transform);
 
             InitializeTypeDataProperties();
             InitializeTypeRelatedDataResetters();
@@ -50,35 +51,35 @@ namespace RBV.Editor.Project.Features
             _objectTypeDataDrawer = new ObjectTypeDataDrawer(_typeDataProperty,
                 _typeDataProperties.ToDictionary(type => (RaymarchedObjectType)(int)type.Key, type => type.Value),
                 _typeDataResetters.ToDictionary(type => (RaymarchedObjectType)(int)type.Key, type => type.Value),
-                (RaymarchedObjectType)Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<int>().First());
+                (RaymarchedObjectType)Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<int>().First());
         }
 
         private void InitializeTypeDataProperties()
         {
-            var typeDataPropertyPath = new Dictionary<RaymarchedObject3DType, string>
+            var typeDataPropertyPath = new Dictionary<RaymarchedObject4DType, string>
             {
-                { RaymarchedObject3DType.Sphere, nameof(ObservableObject3DTypeShaderData.SphereShaderData) },
-                { RaymarchedObject3DType.Cube, nameof(ObservableObject3DTypeShaderData.CubeShaderData) }
+                { RaymarchedObject4DType.Hypersphere, nameof(ObservableObject4DTypeShaderData.HypersphereShaderData) },
+                { RaymarchedObject4DType.Hypercube, nameof(ObservableObject4DTypeShaderData.HypercubeShaderData) }
             };
 
-            _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
+            _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
                 .ToDictionary(type => type, type => _typeDataProperty
                     .FindPropertyRelative(typeDataPropertyPath[type].ToBackingFieldFormat())
                     .FindPropertyRelative(_observablePropertyValuePath));
         }
 
         private void InitializeTypeRelatedDataResetters() =>
-            _typeDataResetters = new Dictionary<RaymarchedObject3DType, Action>
+            _typeDataResetters = new Dictionary<RaymarchedObject4DType, Action>
             {
                 {
-                    RaymarchedObject3DType.Sphere, () => _typeDataProperties[RaymarchedObject3DType.Sphere]
-                        .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter))
-                        .floatValue = RaymarchedSphereShaderData.Default.Diameter
+                    RaymarchedObject4DType.Hypersphere, () => _typeDataProperties[RaymarchedObject4DType.Hypersphere]
+                        .FindPropertyRelative(nameof(RaymarchedHypersphereShaderData.Diameter))
+                        .floatValue = RaymarchedHypersphereShaderData.Default.Diameter
                 },
                 {
-                    RaymarchedObject3DType.Cube, () => _typeDataProperties[RaymarchedObject3DType.Cube]
-                        .FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions))
-                        .vector3Value = RaymarchedCubeShaderData.Default.Dimensions
+                    RaymarchedObject4DType.Hypercube, () => _typeDataProperties[RaymarchedObject4DType.Hypercube]
+                        .FindPropertyRelative(nameof(RaymarchedHypercubeShaderData.Dimensions))
+                        .vector4Value = RaymarchedHypercubeShaderData.Default.Dimensions
                 }
             };
 

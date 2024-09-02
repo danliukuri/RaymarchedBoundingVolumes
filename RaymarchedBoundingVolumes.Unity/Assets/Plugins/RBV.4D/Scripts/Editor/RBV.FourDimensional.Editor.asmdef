@@ -1,8 +1,10 @@
 {
-    "name": "RBV.Editor",
-    "rootNamespace": "",
+    "name": "RBV.FourDimensional.Editor",
+    "rootNamespace": "RBV.FourDimensional",
     "references": [
-        "RBV"
+        "RBV",
+        "RBV.Editor",
+        "RBV.FourDimensional"
     ],
     "includePlatforms": [
         "Editor"
