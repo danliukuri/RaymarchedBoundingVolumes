@@ -90,7 +90,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
 
             EditorGUILayout.PropertyField(_typeProperty);
 
-            _objectTypeDataDrawer.DrawTypeDataProperty((RaymarchedObjectType)_typeValueProperty.enumValueFlag);
+            if (!_typeProperty.hasMultipleDifferentValues)
+                _objectTypeDataDrawer.DrawTypeDataProperty((RaymarchedObjectType)_typeValueProperty.enumValueFlag);
 
             EditorGUILayout.PropertyField(_transformProperty);
         }
