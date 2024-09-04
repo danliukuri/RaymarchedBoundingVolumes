@@ -9,28 +9,17 @@ namespace RBV.Infrastructure
 {
     public partial class RaymarchingServicesRegister : MonoBehaviour
     {
-        private static bool _isGlobalServicesRegistered;
-
 #if !UNITY_EDITOR
         private void Awake()     => Initialize();
         private void OnDestroy() => Deinitialize();
 #endif
         private void Initialize()
         {
-            RegisterGlobalServicesIfNotAlreadyDid();
+            RegisterGlobalServices();
             RegisterSceneServices(gameObject.scene);
         }
 
-        private void Deinitialize() => ServiceContainer.Scoped(gameObject.scene).Dispose();
-
-        private void RegisterGlobalServicesIfNotAlreadyDid()
-        {
-            if (!_isGlobalServicesRegistered)
-            {
-                RegisterGlobalServices();
-                _isGlobalServicesRegistered = true;
-            }
-        }
+        private void Deinitialize() => ServiceContainer.Global.Dispose();
 
         protected virtual void RegisterGlobalServices()
         {
