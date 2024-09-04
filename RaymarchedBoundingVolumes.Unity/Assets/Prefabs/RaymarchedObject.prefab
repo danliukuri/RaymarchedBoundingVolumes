@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7915374742923284207}
   - component: {fileID: 982585194284216476}
   - component: {fileID: 2259112168972120702}
-  - component: {fileID: -1799073969152393304}
+  - component: {fileID: 1964048888987421672}
   m_Layer: 0
   m_Name: RaymarchedObject
   m_TagString: Untagged
@@ -59,8 +59,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -86,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-1799073969152393304
+--- !u!114 &1964048888987421672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,10 +93,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7077660490131413597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572b51899aa37cb4ab0336b25d15889e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c7f4f471c49b2c4aab244c42ebc5de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Transform>k__BackingField:
+  type:
+    value: 0
+  typeRelatedData:
+    <SphereShaderData>k__BackingField:
+      value:
+        Diameter: 1
+    <CubeShaderData>k__BackingField:
+      value:
+        Dimensions: {x: 1, y: 1, z: 1}
+  transform:
     <Position>k__BackingField:
       value: {x: 0, y: 0, z: 0}
     <Rotation>k__BackingField:

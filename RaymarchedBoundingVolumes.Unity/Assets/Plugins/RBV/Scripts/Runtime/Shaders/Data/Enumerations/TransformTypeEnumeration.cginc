@@ -1,0 +1,6 @@
+﻿#pragma once
+
+#define TRANSFORM_TYPE_THREE_DIMENSIONAL 0
+#ifdef RBV_4D_ON
+#define TRANSFORM_TYPE_FOUR_DIMENSIONAL  1
+#endif
