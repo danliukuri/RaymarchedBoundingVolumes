@@ -5,7 +5,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
 {
     public interface IRaymarchingSceneBuilder
     {
-        event Action<Scene> SceneBuilt;
+        event Action<Scene> NewSceneBuilt;
 
         IRaymarchingSceneBuilder SubscribeToFeatureEvents();
         IRaymarchingSceneBuilder UnsubscribeFromFeatureEvents();

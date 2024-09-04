@@ -24,7 +24,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
             if (IsValid)
             {
-                _sceneBuilder.SceneBuilt += MarkFeaturesAsChanged;
+                _sceneBuilder.NewSceneBuilt += MarkFeaturesAsChanged;
                 _sceneBuilder.BuildLastScene();
                 EditorApplication.QueuePlayerLoopUpdate();
             }
@@ -34,7 +34,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         {
             if (IsValid)
             {
-                _sceneBuilder.SceneBuilt -= MarkFeaturesAsChanged;
+                _sceneBuilder.NewSceneBuilt -= MarkFeaturesAsChanged;
                 Deinitialize();
                 UnsubscribeFromFeatureEvents();
             }

@@ -23,6 +23,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
         }
 
         public List<RaymarchingFeature> FindAllRaymarchingFeatures(Scene scene) => scene.GetRootGameObjects()
-            .SelectMany(rootGameObject => rootGameObject.GetComponentsInChildren<RaymarchingFeature>()).ToList();
+            .SelectMany(rootGameObject => rootGameObject.GetComponentsInChildren<RaymarchingFeature>())
+            .Where(feature => feature.IsActive)
+            .ToList();
     }
 }

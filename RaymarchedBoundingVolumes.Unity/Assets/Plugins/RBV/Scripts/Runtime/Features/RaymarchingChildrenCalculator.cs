@@ -35,18 +35,21 @@ namespace RBV.Features
         }
 
         private int CalculateTotalChildObjectsCount() => _transform
-            .GetComponentsInChildren<RaymarchedObject>().Length;
+            .GetComponentsInChildren<RaymarchedObject>()
+            .Count(obj => obj.IsActive);
 
         private int CalculateTotalChildOperationsCount() => _transform
-            .GetComponentsInChildren<RaymarchingOperation>().Count(operation => operation != _parentOperation);
+            .GetComponentsInChildren<RaymarchingOperation>()
+            .Count(operation => operation.IsActive && _parentOperation != operation);
 
         private int CalculateDirectChildObjectsCount() => _transform
             .GetComponentsInChildren<RaymarchedObject>()
-            .Count(child => child.GetComponentInParent<RaymarchingOperation>() == _parentOperation);
+            .Count(obj => obj.IsActive && _parentOperation == obj.GetComponentInParent<RaymarchingOperation>());
 
         private int CalculateDirectChildOperationsCount() => _transform
-            .GetComponentsInChildren<RaymarchingOperation>().Count(operation =>
-                operation != _parentOperation && operation.GetComponentsInParent<RaymarchingOperation>()
-                    .SkipWhile(component => component == operation).First() == _parentOperation);
+            .GetComponentsInChildren<RaymarchingOperation>()
+            .Count(operation => operation.IsActive && _parentOperation != operation &&
+                                _parentOperation == operation.GetComponentsInParent<RaymarchingOperation>()
+                                    .SkipWhile(component => component == operation).First());
     }
 }
