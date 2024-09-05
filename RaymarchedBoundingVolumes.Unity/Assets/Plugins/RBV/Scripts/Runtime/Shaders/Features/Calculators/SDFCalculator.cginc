@@ -40,14 +40,12 @@ SDFData calculateOperationSDF(const float3        position,
                               const int           objectsIndex,
                               const int           childObjectsCount)
 {
-    SDFData sdf = {_ObjectColor.rgb, _FarClippingPlane};
+    SDFData operationSdf = _DefaultSDFData;
 
     for (int i = objectsIndex; i < childObjectsCount + objectsIndex; i++)
-        UNITY_BRANCH
-        if (_RaymarchedObjects[i].isActive)
-            sdf = applyOperation(operation, calculateObjectSDF(position, _RaymarchedObjects[i]), sdf);
+        operationSdf = applyOperation(operation, calculateObjectSDF(position, _RaymarchedObjects[i]), operationSdf);
 
-    return sdf;
+    return operationSdf;
 }
 
 DEFINE_STACK(SDFData, LayerSDFStack, MAX_INHERITANCE_LEVEL)

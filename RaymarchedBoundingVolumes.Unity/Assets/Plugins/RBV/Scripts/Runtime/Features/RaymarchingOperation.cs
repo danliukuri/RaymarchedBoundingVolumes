@@ -29,12 +29,6 @@ namespace RBV.Features
         public override IRaymarchingFeatureHierarchicalState HierarchicalState =>
             new RaymarchingOperationHierarchicalState { BaseState = base.HierarchicalState, Children = Children };
 
-        protected override void Awake()
-        {
-            base.Awake();
-            Construct();
-        }
-
         protected override void Construct()
         {
             base.Construct();

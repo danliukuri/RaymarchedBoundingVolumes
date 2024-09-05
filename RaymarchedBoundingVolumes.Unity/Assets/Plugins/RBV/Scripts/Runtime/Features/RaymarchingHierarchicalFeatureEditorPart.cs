@@ -21,7 +21,10 @@ namespace RBV.Features
             EditorApplication.delayCall -= EditorInitialize;
 
             if (IsValid)
+            {
                 SubscribeToEvents();
+                RaiseActiveStateChangedEvent();
+            }
         }
     }
 }

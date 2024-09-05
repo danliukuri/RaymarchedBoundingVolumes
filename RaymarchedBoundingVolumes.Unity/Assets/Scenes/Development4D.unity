@@ -291,8 +291,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1268900579}
   - {fileID: 376952902}
+  - {fileID: 1268900579}
   - {fileID: 579987370}
   - {fileID: 868090705}
   - {fileID: 708064184}
@@ -482,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 1742336634}
     - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.513
+      value: 2.775
       objectReference: {fileID: 0}
     - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: m_LocalPosition.y
@@ -490,7 +490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.22500002
+      value: 1.015
       objectReference: {fileID: 0}
     - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: m_LocalRotation.w
@@ -526,15 +526,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: type.value
-      value: 10000
+      value: 10001
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Scale>k__BackingField.value.y
-      value: 0.71
+      propertyPath: transform.<Position>k__BackingField.value.w
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Position>k__BackingField.value.y
-      value: 0.33
+      propertyPath: transform.<Position>k__BackingField.value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation>k__BackingField.value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation>k__BackingField.value.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation>k__BackingField.value.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation4D>k__BackingField.value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation4D>k__BackingField.value.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation4D>k__BackingField.value.z
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<HypercubeShaderData>k__BackingField.value.Dimensions.w
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1068,7 +1096,7 @@ PrefabInstance:
       objectReference: {fileID: 1742336634}
     - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.02
+      value: 1.756
       objectReference: {fileID: 0}
     - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1112,7 +1140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: type.value
-      value: 10001
+      value: 10000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1183,8 +1211,8 @@ MonoBehaviour:
   <Data>k__BackingField:
     <Features>k__BackingField:
     - {fileID: 123977991}
-    - {fileID: 1268900580}
     - {fileID: 376952903}
+    - {fileID: 1268900580}
     - {fileID: 1745468819}
     - {fileID: 545023179}
     - {fileID: 776500527}

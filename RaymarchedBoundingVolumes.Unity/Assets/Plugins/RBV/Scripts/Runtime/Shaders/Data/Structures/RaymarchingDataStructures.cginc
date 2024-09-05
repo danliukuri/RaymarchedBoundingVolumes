@@ -29,8 +29,6 @@ struct OperationData
 
 struct ObjectData
 {
-    bool isActive;
-
     int type;
     int typeDataIndex;
 

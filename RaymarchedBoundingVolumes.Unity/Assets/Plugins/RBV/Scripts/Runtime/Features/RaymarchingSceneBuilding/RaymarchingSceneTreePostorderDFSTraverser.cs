@@ -14,7 +14,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         private Stack<OperationMetaData> _operationsMetaDataInPostorder;
         private Stack<OperationMetaData> _operationsMetaDataInPreorder;
-            
+
         public List<OperationMetaData> TraverseScene(List<RaymarchingFeature> features)
         {
             _features                      = features;
@@ -58,7 +58,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
                     DirectChildOperationsCount = CalculateDirectChildOperationsCount(childIndex)
                 });
 
-                childIndex += SkipGrandchildren(childIndex);;
+                if (_features[childIndex] is RaymarchingOperation operation)
+                    childIndex += operation.Children.TotalFeaturesCount;
             }
         }
 
@@ -81,21 +82,5 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 RaymarchedObject => DirectChildObjectsCountForObjectWrappingOperation,
                 _                => default
             };
-        
-        private int SkipGrandchildren(int childIndex)
-        {
-            int grandchildrenCount = default;
-            if (_features[childIndex] is RaymarchingOperation operation)
-            {
-                grandchildrenCount = operation.Children.DirectFeaturesCount;
-
-                int nextChildIndex = _features.NextIndex(childIndex);
-                for (int i = nextChildIndex; i < nextChildIndex + grandchildrenCount; i++)
-                    if (_features[i] is RaymarchingOperation childOperation)
-                        grandchildrenCount += childOperation.Children.DirectFeaturesCount;
-            }
-
-            return grandchildrenCount;
-        }
     }
 }

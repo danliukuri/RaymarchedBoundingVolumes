@@ -9,6 +9,7 @@
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
 #include "../../Data/Variables/ObjectTypeRelatedVariables.cginc"
 #include "../Functions/SDFs.cginc"
+#include "Object4DRotator.cginc"
 
 SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTransform4D transform)
 {
@@ -16,6 +17,7 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
     position = rotate3D(position, transform.rotation);
 
     float4 position4D = float4(position, transform.position.w);
+    position4D = rotate4D(position4D, transform.rotation4D);
     position4D /= transform.scale;
     float distance;
 

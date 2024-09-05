@@ -10,6 +10,7 @@ namespace RBV.Features
                                                                       IRaymarchingHierarchicalFeature
         where T : RaymarchingHierarchicalFeature<T>
     {
+        public event Action<T>                    ActiveStateChanged;
         public event Action<T>                    ParentChanged;
         public event Action<T, ChangedValue<int>> Reordered;
 
@@ -42,9 +43,17 @@ namespace RBV.Features
         }
 
 #if !UNITY_EDITOR
-        protected virtual void OnEnable()  => SubscribeToEvents();
+        protected virtual void OnEnable()
+        {
+            SubscribeToEvents();
+            RaiseActiveStateChangedEvent();
+        }
 #endif
-        protected virtual void OnDisable() => UnsubscribeFromEvents();
+        protected virtual void OnDisable()
+        {
+            UnsubscribeFromEvents();
+            RaiseActiveStateChangedEvent();
+        }
 
         protected void OnDestroy() => _sceneBuilder?.BuildNewScene();
 
@@ -55,7 +64,8 @@ namespace RBV.Features
         protected virtual void SubscribeToEvents()     => _siblingIndex.Changed += RaiseReorderedEvent;
         protected virtual void UnsubscribeFromEvents() => _siblingIndex.Changed -= RaiseReorderedEvent;
 
-        private void RaiseReorderedEvent(ChangedValue<int> siblingIndex) => Reordered?.Invoke(this as T, siblingIndex);
+        private void RaiseActiveStateChangedEvent()                      => ActiveStateChanged?.Invoke(this as T);
         private void RaiseParentChangedEvent()                           => ParentChanged?.Invoke(this as T);
+        private void RaiseReorderedEvent(ChangedValue<int> siblingIndex) => Reordered?.Invoke(this as T, siblingIndex);
     }
 }

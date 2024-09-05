@@ -10,7 +10,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
 {
     public class RaymarchingSceneBuilder : IRaymarchingSceneBuilder
     {
-        public event Action<Scene> SceneBuilt;
+        public event Action<Scene> NewSceneBuilt;
 
         private readonly IRaymarchingDataInitializer         _dataInitializer;
         private readonly IRaymarchingSceneDataProvider       _dataProvider;
@@ -44,12 +44,14 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 switch (feature)
                 {
                     case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
-                        operation.ParentChanged += BuildScene;
-                        operation.Reordered     += BuildScene;
+                        operation.ActiveStateChanged += BuildScene;
+                        operation.ParentChanged      += BuildScene;
+                        operation.Reordered          += BuildScene;
                         break;
                     case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
-                        obj.ParentChanged += BuildScene;
-                        obj.Reordered     += BuildScene;
+                        obj.ActiveStateChanged += BuildScene;
+                        obj.ParentChanged      += BuildScene;
+                        obj.Reordered          += BuildScene;
                         if (obj is RaymarchedObject raymarchedObject)
                             raymarchedObject.TypeChanged += BuildScene;
                         break;
@@ -64,12 +66,14 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 switch (feature)
                 {
                     case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
-                        operation.ParentChanged -= BuildScene;
-                        operation.Reordered     -= BuildScene;
+                        operation.ActiveStateChanged -= BuildScene;
+                        operation.ParentChanged      -= BuildScene;
+                        operation.Reordered          -= BuildScene;
                         break;
                     case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
-                        obj.ParentChanged -= BuildScene;
-                        obj.Reordered     -= BuildScene;
+                        obj.ActiveStateChanged -= BuildScene;
+                        obj.ParentChanged      -= BuildScene;
+                        obj.Reordered          -= BuildScene;
                         if (obj is RaymarchedObject raymarchedObject)
                             raymarchedObject.TypeChanged -= BuildScene;
                         break;
@@ -98,27 +102,27 @@ namespace RBV.Features.RaymarchingSceneBuilding
         public IRaymarchingSceneBuilder BuildLastScene()
         {
             _featuresRegister.RegisterFeatures();
-            foreach (RaymarchingOperation operation in _dataProvider.Data.Operations)
-                operation.CalculateChildrenCount();
+            _dataProvider.Data.Operations.ForEach(operation => operation.CalculateChildrenCount());
             BuildScene();
+
             _featureEventsSubscriber.SubscribeToFeatureEvents();
             return this;
         }
 
         private void BuildSceneIfChanged(Scene scene)
         {
-            List<RaymarchingFeature> oldFeatures = _dataProvider.Data.Features;
+            List<RaymarchingFeature> newFeatures = _featuresRegister.FindAllRaymarchingFeatures(scene);
+            foreach (RaymarchingOperation operation in newFeatures.OfType<RaymarchingOperation>())
+                operation.CalculateChildrenCount();
 
-            _dataProvider.Data.Features = _featuresRegister.FindAllRaymarchingFeatures(scene);
-            _dataProvider.Data.Operations.ForEach(operation => operation.CalculateChildrenCount());
-            
-            if (IsSceneChanged(oldFeatures, _dataProvider.Data.Features))
+            if (IsSceneChanged(_dataProvider.Data.Features, newFeatures))
             {
                 _featureEventsSubscriber.UnsubscribeFromFeatureEvents();
+                _dataProvider.Data.Features = newFeatures;
                 _featuresRegister.RegisterFeatures();
                 BuildScene();
                 _featureEventsSubscriber.SubscribeToFeatureEvents();
-                SceneBuilt?.Invoke(scene);
+                NewSceneBuilt?.Invoke(scene);
             }
         }
 

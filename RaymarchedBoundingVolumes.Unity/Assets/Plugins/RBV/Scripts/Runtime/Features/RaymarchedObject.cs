@@ -32,7 +32,6 @@ namespace RBV.Features
 
         public RaymarchedObjectShaderData ShaderData => new()
         {
-            IsActive           = Convert.ToInt32(IsActive),
             Type               = (int)Type.Value,
             TypeDataIndex      = TypeDataIndex,
             TransformType      = (int)TransformType,
@@ -41,20 +40,6 @@ namespace RBV.Features
 
         public int TypeDataIndex      { get; set; }
         public int TransformDataIndex { get; set; }
-
-        private bool IsActive => enabled && gameObject is { activeSelf: true, activeInHierarchy: true };
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            RaiseChangedEvent();
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            RaiseChangedEvent();
-        }
 
         protected override void SubscribeToEvents()
         {
@@ -81,7 +66,6 @@ namespace RBV.Features
             base.UpdateTransform();
             _gameObjectTransform.SetValuesFrom(transform);
         }
-
 
         private void RaiseChangedEvent()                                            => Changed?.Invoke(this);
         private void RaiseChangedEvent(ChangedValue<RaymarchedObjectType>     type) => RaiseChangedEvent();
