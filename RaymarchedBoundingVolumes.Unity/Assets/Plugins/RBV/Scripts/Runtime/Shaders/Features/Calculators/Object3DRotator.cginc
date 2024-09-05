@@ -1,18 +1,18 @@
 ﻿#pragma once
 
-float3 rotate3DAroundX(float3 position, float angle)
+float3 rotateInYzPlane(float3 position, float angle)
 {
     position.yz = mul(position.yz, float2x2(cos(angle), -sin(angle), +sin(angle), cos(angle)));
     return position;
 }
 
-float3 rotate3DAroundY(float3 position, float angle)
+float3 rotateInXzPlane(float3 position, float angle)
 {
     position.xz = mul(position.xz, float2x2(cos(angle), +sin(angle), -sin(angle), cos(angle)));
     return position;
 }
 
-float3 rotate3DAroundZ(float3 position, float angle)
+float3 rotateInXyPlane(float3 position, float angle)
 {
     position.xy = mul(position.xy, float2x2(cos(angle), -sin(angle), +sin(angle), cos(angle)));
     return position;
@@ -31,8 +31,8 @@ float3 rotate3DAroundZ(float3 position, float angle)
  */
 float3 rotate3D(float3 position, float3 rotation)
 {
-    position = rotate3DAroundX(position, rotation.x);
-    position = rotate3DAroundY(position, rotation.y);
-    position = rotate3DAroundZ(position, rotation.z);
+    position = rotateInYzPlane(position, rotation.x);
+    position = rotateInXzPlane(position, rotation.y);
+    position = rotateInXyPlane(position, rotation.z);
     return position;
 }
