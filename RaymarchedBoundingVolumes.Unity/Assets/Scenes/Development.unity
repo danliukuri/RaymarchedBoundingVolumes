@@ -1256,7 +1256,7 @@ PrefabInstance:
       objectReference: {fileID: 1742336634}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: type.value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: transform.<Rotation>k__BackingField.value.x

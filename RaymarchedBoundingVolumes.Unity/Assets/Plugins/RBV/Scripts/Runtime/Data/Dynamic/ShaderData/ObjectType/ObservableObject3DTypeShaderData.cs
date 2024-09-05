@@ -26,11 +26,11 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
             }
         }
 
-        [field: SerializeField] public ObservableValue<RaymarchedSphereShaderData> SphereShaderData { get; set; } =
-            new(RaymarchedSphereShaderData.Default);
-
         [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
             new(RaymarchedCubeShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedSphereShaderData> SphereShaderData { get; set; } =
+            new(RaymarchedSphereShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -42,14 +42,14 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
             switch (type)
             {
-                case RaymarchedObject3DType.Sphere:
-                    RaymarchedSphereShaderData sphereShaderData = SphereShaderData.Value;
-                    sphereShaderData.Diameter *= fullToHalfScaleMultiplier;
-                    return sphereShaderData;
                 case RaymarchedObject3DType.Cube:
                     RaymarchedCubeShaderData cubeShaderData = CubeShaderData.Value;
                     cubeShaderData.Dimensions *= fullToHalfScaleMultiplier;
                     return cubeShaderData;
+                case RaymarchedObject3DType.Sphere:
+                    RaymarchedSphereShaderData sphereShaderData = SphereShaderData.Value;
+                    sphereShaderData.Diameter *= fullToHalfScaleMultiplier;
+                    return sphereShaderData;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

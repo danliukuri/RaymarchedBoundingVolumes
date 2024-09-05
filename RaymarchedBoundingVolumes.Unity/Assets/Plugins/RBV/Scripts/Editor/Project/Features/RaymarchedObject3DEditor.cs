@@ -57,8 +57,8 @@ namespace RBV.Editor.Project.Features
         {
             var typeDataPropertyPath = new Dictionary<RaymarchedObject3DType, string>
             {
-                { RaymarchedObject3DType.Sphere, nameof(ObservableObject3DTypeShaderData.SphereShaderData) },
-                { RaymarchedObject3DType.Cube, nameof(ObservableObject3DTypeShaderData.CubeShaderData) }
+                { RaymarchedObject3DType.Cube, nameof(ObservableObject3DTypeShaderData.CubeShaderData) },
+                { RaymarchedObject3DType.Sphere, nameof(ObservableObject3DTypeShaderData.SphereShaderData) }
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -71,14 +71,14 @@ namespace RBV.Editor.Project.Features
             _typeDataResetters = new Dictionary<RaymarchedObject3DType, Action>
             {
                 {
-                    RaymarchedObject3DType.Sphere, () => _typeDataProperties[RaymarchedObject3DType.Sphere]
-                        .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter))
-                        .floatValue = RaymarchedSphereShaderData.Default.Diameter
-                },
-                {
                     RaymarchedObject3DType.Cube, () => _typeDataProperties[RaymarchedObject3DType.Cube]
                         .FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions))
                         .vector3Value = RaymarchedCubeShaderData.Default.Dimensions
+                },
+                {
+                    RaymarchedObject3DType.Sphere, () => _typeDataProperties[RaymarchedObject3DType.Sphere]
+                        .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter))
+                        .floatValue = RaymarchedSphereShaderData.Default.Diameter
                 }
             };
 
