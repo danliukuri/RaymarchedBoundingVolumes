@@ -104,6 +104,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _featuresRegister.RegisterFeatures();
             _dataProvider.Data.Operations.ForEach(operation => operation.CalculateChildrenCount());
             BuildScene();
+
             _featureEventsSubscriber.SubscribeToFeatureEvents();
             return this;
         }
@@ -113,11 +114,11 @@ namespace RBV.Features.RaymarchingSceneBuilding
             List<RaymarchingFeature> newFeatures = _featuresRegister.FindAllRaymarchingFeatures(scene);
             foreach (RaymarchingOperation operation in newFeatures.OfType<RaymarchingOperation>())
                 operation.CalculateChildrenCount();
-            
+
             if (IsSceneChanged(_dataProvider.Data.Features, newFeatures))
             {
-                _dataProvider.Data.Features = newFeatures;
                 _featureEventsSubscriber.UnsubscribeFromFeatureEvents();
+                _dataProvider.Data.Features = newFeatures;
                 _featuresRegister.RegisterFeatures();
                 BuildScene();
                 _featureEventsSubscriber.SubscribeToFeatureEvents();

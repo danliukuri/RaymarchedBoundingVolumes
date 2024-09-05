@@ -117,8 +117,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
             if (!_changedObjectTransformData.ContainsKey(obj.TransformType))
                 _changedObjectTransformData.Add(obj.TransformType, new List<int>());
 
-            if (!_changedObjectTransformData[obj.TransformType].Contains(obj.TypeDataIndex))
-                _changedObjectTransformData[obj.TransformType].Add(obj.TypeDataIndex);
+            if (!_changedObjectTransformData[obj.TransformType].Contains(obj.TransformDataIndex))
+                _changedObjectTransformData[obj.TransformType].Add(obj.TransformDataIndex);
 
             _isObjectTransformDataChanged[obj.TransformType] = true;
         }
