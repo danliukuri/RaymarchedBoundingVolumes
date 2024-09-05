@@ -1,11 +1,16 @@
 ﻿#pragma once
 
+struct CubeData
+{
+    float3 halfDimensions;
+};
+
 struct SphereData
 {
     float radius;
 };
 
-struct CubeData
+struct EllipsoidData
 {
-    float3 halfDimensions;
+    float3 radii;
 };

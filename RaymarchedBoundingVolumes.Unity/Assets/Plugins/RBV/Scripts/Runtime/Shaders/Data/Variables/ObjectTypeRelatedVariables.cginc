@@ -4,5 +4,6 @@
 
 // Manually set by scripts
 
-uniform StructuredBuffer<SphereData> _RaymarchedSphereData;
-uniform StructuredBuffer<CubeData>   _RaymarchedCubeData;
+uniform StructuredBuffer<CubeData>      _RaymarchedCubeData;
+uniform StructuredBuffer<SphereData>    _RaymarchedSphereData;
+uniform StructuredBuffer<EllipsoidData> _RaymarchedEllipsoidData;

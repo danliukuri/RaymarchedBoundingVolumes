@@ -57,8 +57,9 @@ namespace RBV.Editor.Project.Features
         {
             var typeDataPropertyPath = new Dictionary<RaymarchedObject3DType, string>
             {
-                { RaymarchedObject3DType.Cube, nameof(ObservableObject3DTypeShaderData.CubeShaderData) },
-                { RaymarchedObject3DType.Sphere, nameof(ObservableObject3DTypeShaderData.SphereShaderData) }
+                { RaymarchedObject3DType.Cube, nameof(ObservableObject3DTypeShaderData.Cube) },
+                { RaymarchedObject3DType.Sphere, nameof(ObservableObject3DTypeShaderData.Sphere) },
+                { RaymarchedObject3DType.Ellipsoid, nameof(ObservableObject3DTypeShaderData.Ellipsoid) }
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -79,6 +80,11 @@ namespace RBV.Editor.Project.Features
                     RaymarchedObject3DType.Sphere, () => _typeDataProperties[RaymarchedObject3DType.Sphere]
                         .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter))
                         .floatValue = RaymarchedSphereShaderData.Default.Diameter
+                },
+                {
+                    RaymarchedObject3DType.Ellipsoid, () => _typeDataProperties[RaymarchedObject3DType.Ellipsoid]
+                        .FindPropertyRelative(nameof(RaymarchedEllipsoidShaderData.Diameters))
+                        .vector3Value = RaymarchedEllipsoidShaderData.Default.Diameters
                 }
             };
 

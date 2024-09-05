@@ -25,6 +25,9 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
         case 1:
             distance = calculateSphereSDF(position, _RaymarchedSphereData[objectData.typeDataIndex].radius);
             break;
+        case 2:
+            distance = calculateEllipsoidSDF(position, _RaymarchedEllipsoidData[objectData.typeDataIndex].radii);
+            break;
     }
     distance *= transform.scale;
 

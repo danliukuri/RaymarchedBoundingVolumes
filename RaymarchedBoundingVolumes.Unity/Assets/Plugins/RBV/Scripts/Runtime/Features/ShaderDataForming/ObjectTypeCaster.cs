@@ -19,16 +19,18 @@ namespace RBV.Features.ShaderDataForming
         protected Array CastToShaderDataTypeArray(RaymarchedObject3DType             type,
                                                   IEnumerable<IObjectTypeShaderData> source) => type switch
         {
-            RaymarchedObject3DType.Cube   => source.Cast<RaymarchedCubeShaderData>().ToArray(),
-            RaymarchedObject3DType.Sphere => source.Cast<RaymarchedSphereShaderData>().ToArray(),
-            _                             => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            RaymarchedObject3DType.Cube      => source.Cast<RaymarchedCubeShaderData>().ToArray(),
+            RaymarchedObject3DType.Sphere    => source.Cast<RaymarchedSphereShaderData>().ToArray(),
+            RaymarchedObject3DType.Ellipsoid => source.Cast<RaymarchedEllipsoidShaderData>().ToArray(),
+            _                                => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
 
         protected Type GetShaderDataType(RaymarchedObject3DType type) => type switch
         {
-            RaymarchedObject3DType.Cube   => typeof(RaymarchedCubeShaderData),
-            RaymarchedObject3DType.Sphere => typeof(RaymarchedSphereShaderData),
-            _                             => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            RaymarchedObject3DType.Cube      => typeof(RaymarchedCubeShaderData),
+            RaymarchedObject3DType.Sphere    => typeof(RaymarchedSphereShaderData),
+            RaymarchedObject3DType.Ellipsoid => typeof(RaymarchedEllipsoidShaderData),
+            _                                => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
 }

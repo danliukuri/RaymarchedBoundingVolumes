@@ -12,25 +12,26 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         {
             add
             {
-                SphereShaderData.Changed +=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
-                CubeShaderData.Changed +=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
+                Cube.Changed      += value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
+                Sphere.Changed    += value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
+                Ellipsoid.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidShaderData>();
             }
             remove
             {
-                SphereShaderData.Changed -=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
-                CubeShaderData.Changed -=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
+                Cube.Changed      -= value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
+                Sphere.Changed    -= value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
+                Ellipsoid.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidShaderData>();
             }
         }
 
-        [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> CubeShaderData { get; set; } =
+        [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> Cube { get; set; } =
             new(RaymarchedCubeShaderData.Default);
 
-        [field: SerializeField] public ObservableValue<RaymarchedSphereShaderData> SphereShaderData { get; set; } =
+        [field: SerializeField] public ObservableValue<RaymarchedSphereShaderData> Sphere { get; set; } =
             new(RaymarchedSphereShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedEllipsoidShaderData> Ellipsoid { get; set; } =
+            new(RaymarchedEllipsoidShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -43,13 +44,17 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
             switch (type)
             {
                 case RaymarchedObject3DType.Cube:
-                    RaymarchedCubeShaderData cubeShaderData = CubeShaderData.Value;
-                    cubeShaderData.Dimensions *= fullToHalfScaleMultiplier;
-                    return cubeShaderData;
+                    RaymarchedCubeShaderData cube = Cube.Value;
+                    cube.Dimensions *= fullToHalfScaleMultiplier;
+                    return cube;
                 case RaymarchedObject3DType.Sphere:
-                    RaymarchedSphereShaderData sphereShaderData = SphereShaderData.Value;
-                    sphereShaderData.Diameter *= fullToHalfScaleMultiplier;
-                    return sphereShaderData;
+                    RaymarchedSphereShaderData sphere = Sphere.Value;
+                    sphere.Diameter *= fullToHalfScaleMultiplier;
+                    return sphere;
+                case RaymarchedObject3DType.Ellipsoid:
+                    RaymarchedEllipsoidShaderData ellipsoid = Ellipsoid.Value;
+                    ellipsoid.Diameters *= fullToHalfScaleMultiplier;
+                    return ellipsoid;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

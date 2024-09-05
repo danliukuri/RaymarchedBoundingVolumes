@@ -2,7 +2,8 @@
 {
     public enum RaymarchedObject3DType
     {
-        Cube   = 0,
-        Sphere = 1
+        Cube      = 0,
+        Sphere    = 1,
+        Ellipsoid = 2
     }
 }
