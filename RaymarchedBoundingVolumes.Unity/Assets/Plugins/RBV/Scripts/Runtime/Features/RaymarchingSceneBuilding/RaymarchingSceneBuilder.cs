@@ -101,6 +101,9 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         public IRaymarchingSceneBuilder BuildLastScene()
         {
+            if (_dataProvider.Data.Features?.Any(feature => feature == default) ?? true)
+                return this;
+
             _featuresRegister.RegisterFeatures();
             _dataProvider.Data.Operations.ForEach(operation => operation.CalculateChildrenCount());
             BuildScene();
@@ -135,17 +138,18 @@ namespace RBV.Features.RaymarchingSceneBuilding
                         : default);
 
             bool isSceneChanged = oldFeatures.Count != newFeatures.Count ||
-                                  (_oldHierarchicalStates != default &&
-                                   Enumerable.Range(default, oldFeatures.Count).Any(IsHierarchicalStateChanged));
+                                  Enumerable.Range(default, oldFeatures.Count).Any(IsFeatureChanged);
 
             _oldHierarchicalStates = newHierarchicalStates;
 
             return isSceneChanged;
 
+            bool IsFeatureChanged(int i) => oldFeatures[i] != newFeatures[i] || IsHierarchicalStateChanged(i);
+
             bool IsHierarchicalStateChanged(int i) =>
-                oldFeatures[i] != newFeatures[i] ||
-                (newFeatures[i] is IRaymarchingHierarchicalFeature &&
-                 !_oldHierarchicalStates[oldFeatures[i]].Equals(newHierarchicalStates[newFeatures[i]]));
+                _oldHierarchicalStates != default                 &&
+                newFeatures[i] is IRaymarchingHierarchicalFeature &&
+                !_oldHierarchicalStates[oldFeatures[i]].Equals(newHierarchicalStates[newFeatures[i]]);
         }
 
         private void BuildScene()
