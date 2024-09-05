@@ -4,6 +4,7 @@
     {
         Cube      = 0,
         Sphere    = 1,
-        Ellipsoid = 2
+        Ellipsoid = 2,
+        Capsule   = 3
     }
 }

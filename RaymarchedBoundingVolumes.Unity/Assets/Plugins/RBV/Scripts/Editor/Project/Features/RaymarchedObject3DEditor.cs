@@ -59,7 +59,8 @@ namespace RBV.Editor.Project.Features
             {
                 { RaymarchedObject3DType.Cube, nameof(ObservableObject3DTypeShaderData.Cube) },
                 { RaymarchedObject3DType.Sphere, nameof(ObservableObject3DTypeShaderData.Sphere) },
-                { RaymarchedObject3DType.Ellipsoid, nameof(ObservableObject3DTypeShaderData.Ellipsoid) }
+                { RaymarchedObject3DType.Ellipsoid, nameof(ObservableObject3DTypeShaderData.Ellipsoid) },
+                { RaymarchedObject3DType.Capsule, nameof(ObservableObject3DTypeShaderData.Capsule) }
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -85,6 +86,18 @@ namespace RBV.Editor.Project.Features
                     RaymarchedObject3DType.Ellipsoid, () => _typeDataProperties[RaymarchedObject3DType.Ellipsoid]
                         .FindPropertyRelative(nameof(RaymarchedEllipsoidShaderData.Diameters))
                         .vector3Value = RaymarchedEllipsoidShaderData.Default.Diameters
+                },
+                {
+                    RaymarchedObject3DType.Capsule, () =>
+                    {
+                        _typeDataProperties[RaymarchedObject3DType.Capsule]
+                            .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Diameter))
+                            .floatValue = RaymarchedCapsuleShaderData.Default.Diameter;
+
+                        _typeDataProperties[RaymarchedObject3DType.Capsule]
+                            .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Height))
+                            .floatValue = RaymarchedCapsuleShaderData.Default.Height;
+                    }
                 }
             };
 

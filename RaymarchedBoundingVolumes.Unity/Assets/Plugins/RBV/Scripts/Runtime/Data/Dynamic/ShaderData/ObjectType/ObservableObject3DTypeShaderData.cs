@@ -15,12 +15,14 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Cube.Changed      += value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
                 Sphere.Changed    += value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
                 Ellipsoid.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidShaderData>();
+                Capsule.Changed   += value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
             }
             remove
             {
                 Cube.Changed      -= value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
                 Sphere.Changed    -= value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
                 Ellipsoid.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidShaderData>();
+                Capsule.Changed   -= value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
             }
         }
 
@@ -32,6 +34,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<RaymarchedEllipsoidShaderData> Ellipsoid { get; set; } =
             new(RaymarchedEllipsoidShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedCapsuleShaderData> Capsule { get; set; } =
+            new(RaymarchedCapsuleShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -55,6 +60,11 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     RaymarchedEllipsoidShaderData ellipsoid = Ellipsoid.Value;
                     ellipsoid.Diameters *= fullToHalfScaleMultiplier;
                     return ellipsoid;
+                case RaymarchedObject3DType.Capsule:
+                    RaymarchedCapsuleShaderData capsule = Capsule.Value;
+                    capsule.Height   *= fullToHalfScaleMultiplier;
+                    capsule.Diameter *= fullToHalfScaleMultiplier;
+                    return capsule;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

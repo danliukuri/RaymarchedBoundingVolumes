@@ -22,6 +22,7 @@ namespace RBV.Features.ShaderDataForming
             RaymarchedObject3DType.Cube      => source.Cast<RaymarchedCubeShaderData>().ToArray(),
             RaymarchedObject3DType.Sphere    => source.Cast<RaymarchedSphereShaderData>().ToArray(),
             RaymarchedObject3DType.Ellipsoid => source.Cast<RaymarchedEllipsoidShaderData>().ToArray(),
+            RaymarchedObject3DType.Capsule   => source.Cast<RaymarchedCapsuleShaderData>().ToArray(),
             _                                => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
 
@@ -30,6 +31,7 @@ namespace RBV.Features.ShaderDataForming
             RaymarchedObject3DType.Cube      => typeof(RaymarchedCubeShaderData),
             RaymarchedObject3DType.Sphere    => typeof(RaymarchedSphereShaderData),
             RaymarchedObject3DType.Ellipsoid => typeof(RaymarchedEllipsoidShaderData),
+            RaymarchedObject3DType.Capsule   => typeof(RaymarchedCapsuleShaderData),
             _                                => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

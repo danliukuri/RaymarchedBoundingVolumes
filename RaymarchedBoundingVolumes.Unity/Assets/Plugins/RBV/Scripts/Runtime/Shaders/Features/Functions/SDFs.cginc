@@ -1,4 +1,8 @@
-﻿float calculateCubeSDF(const float3 position, const float3 halfDimensions)
+﻿#pragma once
+
+#include "ModificationOperations.cginc"
+
+float calculateCubeSDF(const float3 position, const float3 halfDimensions)
 {
     float3 distance        = abs(position) - halfDimensions;
     float  outsideDistance = length(max(distance, 0.0));
@@ -28,4 +32,9 @@ float calculateEllipsoidSDF(const float3 position, const float3 radii)
     float  outsideDistance    = normalizedDistance - 1.0;
     float  gradientLength     = length(normalizedPosition / radii);
     return normalizedDistance * outsideDistance / gradientLength;
+}
+
+float calculateCapsuleSDF(const float3 position, float halfHeight, float radius)
+{
+    return calculateSphereSDF(elongateY(position, halfHeight), radius);
 }

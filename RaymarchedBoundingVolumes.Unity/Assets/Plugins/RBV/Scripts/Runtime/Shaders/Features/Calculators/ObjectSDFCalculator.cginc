@@ -28,6 +28,10 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
         case 2:
             distance = calculateEllipsoidSDF(position, _RaymarchedEllipsoidData[objectData.typeDataIndex].radii);
             break;
+        case 3:
+            CapsuleData capsuleData = _RaymarchedCapsuleData[objectData.typeDataIndex];
+            distance = calculateCapsuleSDF(position, capsuleData.halfHeight, capsuleData.radius);
+            break;
     }
     distance *= transform.scale;
 
