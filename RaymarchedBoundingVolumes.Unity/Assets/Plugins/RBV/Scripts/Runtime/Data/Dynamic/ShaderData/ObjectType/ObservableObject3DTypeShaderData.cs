@@ -16,6 +16,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Sphere.Changed    += value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
                 Ellipsoid.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidShaderData>();
                 Capsule.Changed   += value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
+                EllipsoidalCapsule.Changed +=
+                    value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCapsuleShaderData>();
             }
             remove
             {
@@ -23,6 +25,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Sphere.Changed    -= value.CastCached<IObjectTypeShaderData, RaymarchedSphereShaderData>();
                 Ellipsoid.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidShaderData>();
                 Capsule.Changed   -= value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
+                EllipsoidalCapsule.Changed -=
+                    value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCapsuleShaderData>();
             }
         }
 
@@ -37,6 +41,10 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<RaymarchedCapsuleShaderData> Capsule { get; set; } =
             new(RaymarchedCapsuleShaderData.Default);
+
+        [field: SerializeField]
+        public ObservableValue<RaymarchedEllipsoidalCapsuleShaderData> EllipsoidalCapsule { get; set; } =
+            new(RaymarchedEllipsoidalCapsuleShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -65,6 +73,11 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     capsule.Height   *= fullToHalfScaleMultiplier;
                     capsule.Diameter *= fullToHalfScaleMultiplier;
                     return capsule;
+                case RaymarchedObject3DType.EllipsoidalCapsule:
+                    RaymarchedEllipsoidalCapsuleShaderData ellipsoidalCapsule = EllipsoidalCapsule.Value;
+                    ellipsoidalCapsule.Height    *= fullToHalfScaleMultiplier;
+                    ellipsoidalCapsule.Diameters *= fullToHalfScaleMultiplier;
+                    return ellipsoidalCapsule;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

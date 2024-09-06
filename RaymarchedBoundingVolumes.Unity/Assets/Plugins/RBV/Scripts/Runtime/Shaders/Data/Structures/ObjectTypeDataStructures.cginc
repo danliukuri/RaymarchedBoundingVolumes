@@ -20,3 +20,9 @@ struct CapsuleData
     float halfHeight;
     float radius;
 };
+
+struct EllipsoidalCapsuleData
+{
+    float halfHeight;
+    float3 radii;
+};

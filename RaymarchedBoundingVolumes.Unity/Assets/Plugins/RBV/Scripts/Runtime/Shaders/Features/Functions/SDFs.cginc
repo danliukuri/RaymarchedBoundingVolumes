@@ -34,7 +34,12 @@ float calculateEllipsoidSDF(const float3 position, const float3 radii)
     return normalizedDistance * outsideDistance / gradientLength;
 }
 
-float calculateCapsuleSDF(const float3 position, float halfHeight, float radius)
+float calculateCapsuleSDF(const float3 position, const float halfHeight, const float radius)
 {
     return calculateSphereSDF(elongateY(position, halfHeight), radius);
+}
+
+float calculateEllipsoidalCapsuleSDF(const float3 position, const float halfHeight, const float3 radii)
+{
+    return calculateEllipsoidSDF(elongateY(position, halfHeight), radii);
 }
