@@ -2,6 +2,11 @@
 
 #include "ModificationOperations.cginc"
 
+float calculateCircleSDF(const float2 position, const float radius)
+{
+    return length(position) - radius;
+}
+
 float calculateCubeSDF(const float3 position, const float3 halfDimensions)
 {
     float3 distance        = abs(position) - halfDimensions;
@@ -42,4 +47,12 @@ float calculateCapsuleSDF(const float3 position, const float halfHeight, const f
 float calculateEllipsoidalCapsuleSDF(const float3 position, const float halfHeight, const float3 radii)
 {
     return calculateEllipsoidSDF(elongateY(position, halfHeight), radii);
+}
+
+float calculateCylinderSDF(const float3 position, const float height, const float radius)
+{
+    float2 displacement    = float2(calculateCircleSDF(position.xz, radius), abs(position.y) - height);
+    float  outsideDistance = length(max(displacement, 0.0));
+    float  insideDistance  = min(max(displacement.x, displacement.y), 0.0);
+    return outsideDistance + insideDistance;
 }

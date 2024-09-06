@@ -18,6 +18,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Capsule.Changed   += value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
                 EllipsoidalCapsule.Changed +=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCapsuleShaderData>();
+                Cylinder.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
             }
             remove
             {
@@ -27,6 +28,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Capsule.Changed   -= value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
                 EllipsoidalCapsule.Changed -=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCapsuleShaderData>();
+                Cylinder.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
             }
         }
 
@@ -45,6 +47,10 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField]
         public ObservableValue<RaymarchedEllipsoidalCapsuleShaderData> EllipsoidalCapsule { get; set; } =
             new(RaymarchedEllipsoidalCapsuleShaderData.Default);
+
+        [field: SerializeField]
+        public ObservableValue<RaymarchedCylinderShaderData> Cylinder { get; set; } =
+            new(RaymarchedCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -78,6 +84,10 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     ellipsoidalCapsule.Height    *= fullToHalfScaleMultiplier;
                     ellipsoidalCapsule.Diameters *= fullToHalfScaleMultiplier;
                     return ellipsoidalCapsule;
+                case RaymarchedObject3DType.Cylinder:
+                    RaymarchedCylinderShaderData cylinder = Cylinder.Value;
+                    cylinder.Diameter *= fullToHalfScaleMultiplier;
+                    return cylinder;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }
