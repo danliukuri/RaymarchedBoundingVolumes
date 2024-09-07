@@ -59,3 +59,28 @@ float calculatePlaneSDF(const float3 position, const float3 halfDimensions)
 {
     return calculateCubeSDF(position, halfDimensions);
 }
+
+float calculateConeSDF(const float3 position, const float height, const float radius)
+{
+    float2 baseToHeight = float2(radius / height, -1.0);
+
+    float2 projectedPosition = float2(length(position.xz), position.y - height * 0.5);
+    float2 vectorToBase      = height * baseToHeight;
+
+    float clampedProjectionFactor =
+        clamp(dot(projectedPosition, vectorToBase) / dot(vectorToBase, vectorToBase), 0.0, 1.0);
+    float2 clampedBaseIntersection =
+        float2(clamp(projectedPosition.x / vectorToBase.x, 0.0, 1.0), 1.0);
+
+    float2 distanceToSurfaceA = projectedPosition - vectorToBase * clampedProjectionFactor;
+    float2 distanceToSurfaceB = projectedPosition - vectorToBase * clampedBaseIntersection;
+    float  distanceSquared    =
+        min(dot(distanceToSurfaceA, distanceToSurfaceA), dot(distanceToSurfaceB, distanceToSurfaceB));
+
+    float signCorrection   = sign(vectorToBase.y);
+    float sideDistance     = projectedPosition.x * vectorToBase.y - projectedPosition.y * vectorToBase.x;
+    float heightDifference = projectedPosition.y - vectorToBase.y;
+    float surfaceSign      = max(signCorrection * sideDistance, signCorrection * heightDifference);
+
+    return sqrt(distanceSquared) * sign(surfaceSign);
+}

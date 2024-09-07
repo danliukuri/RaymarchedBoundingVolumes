@@ -22,6 +22,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalCylinder.Changed +=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
                 Plane.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
+                Cone.Changed  += value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
             }
             remove
             {
@@ -35,6 +36,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalCylinder.Changed -=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
                 Plane.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
+                Cone.Changed  -= value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
             }
         }
 
@@ -64,6 +66,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<RaymarchedPlaneShaderData> Plane { get; set; } =
             new(RaymarchedPlaneShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedConeShaderData> Cone { get; set; } =
+            new(RaymarchedConeShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -114,6 +119,10 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     plane.Dimensions.y =  RaymarchedPlaneShaderData.Thickness;
                     plane.Dimensions   *= fullToHalfScaleMultiplier;
                     return plane;
+                case RaymarchedObject3DType.Cone:
+                    RaymarchedConeShaderData cone = Cone.Value;
+                    cone.Diameter *= fullToHalfScaleMultiplier;
+                    return cone;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

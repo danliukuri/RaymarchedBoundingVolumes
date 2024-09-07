@@ -9,6 +9,7 @@
         EllipsoidalCapsule  = 4,
         Cylinder            = 5,
         EllipsoidalCylinder = 6,
-        Plane               = 7
+        Plane               = 7,
+        Cone                = 8,
     }
 }

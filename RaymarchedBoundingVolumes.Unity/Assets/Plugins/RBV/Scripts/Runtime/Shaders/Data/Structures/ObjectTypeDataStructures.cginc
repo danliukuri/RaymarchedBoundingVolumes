@@ -42,3 +42,9 @@ struct PlaneData
 {
     float3 halfDimensions;
 };
+
+struct ConeData
+{
+    float height;
+    float radius;
+};
