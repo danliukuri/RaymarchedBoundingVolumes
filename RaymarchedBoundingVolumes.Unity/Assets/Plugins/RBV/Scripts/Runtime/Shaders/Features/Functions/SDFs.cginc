@@ -54,3 +54,8 @@ float calculateEllipsoidalCylinderSDF(const float3 position, const float3 dimens
 {
     return extrudeY(position, calculateEllipseSDF(position.xz, dimensions.xz), dimensions.y);
 }
+
+float calculatePlaneSDF(const float3 position, const float3 halfDimensions)
+{
+    return calculateCubeSDF(position, halfDimensions);
+}

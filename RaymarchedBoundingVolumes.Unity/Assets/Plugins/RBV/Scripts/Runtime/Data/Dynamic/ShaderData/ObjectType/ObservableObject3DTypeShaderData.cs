@@ -21,6 +21,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Cylinder.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
                 EllipsoidalCylinder.Changed +=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
+                Plane.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
             }
             remove
             {
@@ -33,6 +34,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Cylinder.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
                 EllipsoidalCylinder.Changed -=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
+                Plane.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
             }
         }
 
@@ -59,6 +61,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField]
         public ObservableValue<RaymarchedEllipsoidalCylinderShaderData> EllipsoidalCylinder { get; set; } =
             new(RaymarchedEllipsoidalCylinderShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedPlaneShaderData> Plane { get; set; } =
+            new(RaymarchedPlaneShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -103,6 +108,12 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                             ellipsoidalCylinder.Dimensions.y,
                             ellipsoidalCylinder.Dimensions.z * fullToHalfScaleMultiplier);
                     return ellipsoidalCylinder;
+                case RaymarchedObject3DType.Plane:
+                    RaymarchedPlaneShaderData plane = Plane.Value;
+                    plane.Dimensions   *= RaymarchedPlaneShaderData.ScaleMultiplier;
+                    plane.Dimensions.y =  RaymarchedPlaneShaderData.Thickness;
+                    plane.Dimensions   *= fullToHalfScaleMultiplier;
+                    return plane;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

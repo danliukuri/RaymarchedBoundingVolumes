@@ -64,7 +64,8 @@ namespace RBV.Editor.Project.Features
                 [Capsule]             = nameof(ObservableObject3DTypeShaderData.Capsule),
                 [EllipsoidalCapsule]  = nameof(ObservableObject3DTypeShaderData.EllipsoidalCapsule),
                 [Cylinder]            = nameof(ObservableObject3DTypeShaderData.Cylinder),
-                [EllipsoidalCylinder] = nameof(ObservableObject3DTypeShaderData.EllipsoidalCylinder)
+                [EllipsoidalCylinder] = nameof(ObservableObject3DTypeShaderData.EllipsoidalCylinder),
+                [Plane]               = nameof(ObservableObject3DTypeShaderData.Plane)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -117,7 +118,10 @@ namespace RBV.Editor.Project.Features
                 },
                 [EllipsoidalCylinder] = () => _typeDataProperties[EllipsoidalCylinder]
                     .FindPropertyRelative(nameof(RaymarchedEllipsoidalCylinderShaderData.Dimensions))
-                    .vector3Value = RaymarchedEllipsoidalCylinderShaderData.Default.Dimensions
+                    .vector3Value = RaymarchedEllipsoidalCylinderShaderData.Default.Dimensions,
+                [Plane] = () => _typeDataProperties[Plane]
+                    .FindPropertyRelative(nameof(RaymarchedPlaneShaderData.Dimensions))
+                    .vector3Value = RaymarchedPlaneShaderData.Default.Dimensions
             };
 
         private void DrawProperties()

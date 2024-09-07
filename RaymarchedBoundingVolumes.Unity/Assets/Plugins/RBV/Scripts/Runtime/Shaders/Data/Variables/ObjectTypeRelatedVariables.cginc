@@ -11,3 +11,4 @@ uniform StructuredBuffer<CapsuleData>             _RaymarchedCapsuleData;
 uniform StructuredBuffer<EllipsoidalCapsuleData>  _RaymarchedEllipsoidalCapsuleData;
 uniform StructuredBuffer<CylinderData>            _RaymarchedCylinderData;
 uniform StructuredBuffer<EllipsoidalCylinderData> _RaymarchedEllipsoidalCylinderData;
+uniform StructuredBuffer<PlaneData>               _RaymarchedPlaneData;

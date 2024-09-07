@@ -27,5 +27,25 @@ namespace RBV.Utilities.Extensions
 
         public static TResult Invoke<TSource1, TSource2, TResult>(this Func<TSource1, TSource2, TResult> source,
             (TSource1, TSource2) args) => source.Invoke(args.Item1, args.Item2);
+
+        public static Array CastToArray<T>(this IEnumerable<T> source, Type elementType)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            if (elementType == null)
+                throw new ArgumentNullException(nameof(elementType));
+            if (!typeof(T).IsAssignableFrom(elementType))
+                throw new ArgumentException($"Cannot cast from type {typeof(T)} to {elementType}.",
+                    nameof(elementType));
+
+            List<T> list = source.ToList();
+
+            var array = Array.CreateInstance(elementType, list.Count);
+
+            for (var i = 0; i < list.Count; i++)
+                array.SetValue(Convert.ChangeType(list[i], elementType), i);
+
+            return array;
+        }
     }
 }

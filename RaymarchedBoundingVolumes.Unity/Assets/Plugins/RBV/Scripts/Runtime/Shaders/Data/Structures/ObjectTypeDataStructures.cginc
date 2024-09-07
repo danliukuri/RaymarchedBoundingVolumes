@@ -37,3 +37,8 @@ struct EllipsoidalCylinderData
 {
     float3 dimensions;
 };
+
+struct PlaneData
+{
+    float3 halfDimensions;
+};
