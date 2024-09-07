@@ -35,11 +35,16 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
         case 4:
             EllipsoidalCapsuleData ellipsoidalCapsuleData = _RaymarchedEllipsoidalCapsuleData[objectData.typeDataIndex];
             distance = calculateEllipsoidalCapsuleSDF(position,
-                                                      ellipsoidalCapsuleData.halfHeight,ellipsoidalCapsuleData.radii);
+                                                      ellipsoidalCapsuleData.halfHeight, ellipsoidalCapsuleData.radii);
             break;
         case 5:
             CylinderData cylinderData = _RaymarchedCylinderData[objectData.typeDataIndex];
             distance = calculateCylinderSDF(position, cylinderData.height, cylinderData.radius);
+            break;
+        case 6:
+            EllipsoidalCylinderData ellipsoidalCylinderData =
+                _RaymarchedEllipsoidalCylinderData[objectData.typeDataIndex];
+            distance = calculateEllipsoidalCylinderSDF(position, ellipsoidalCylinderData.dimensions);
             break;
     }
     distance *= transform.scale;

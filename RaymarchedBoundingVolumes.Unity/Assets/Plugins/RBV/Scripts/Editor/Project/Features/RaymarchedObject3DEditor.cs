@@ -9,6 +9,7 @@ using RBV.Editor.Utilities.Extensions;
 using RBV.Features;
 using RBV.Utilities.Wrappers;
 using UnityEditor;
+using static RBV.Data.Static.Enumerations.RaymarchedObject3DType;
 
 namespace RBV.Editor.Project.Features
 {
@@ -57,12 +58,13 @@ namespace RBV.Editor.Project.Features
         {
             var typeDataPropertyPath = new Dictionary<RaymarchedObject3DType, string>
             {
-                { RaymarchedObject3DType.Cube, nameof(ObservableObject3DTypeShaderData.Cube) },
-                { RaymarchedObject3DType.Sphere, nameof(ObservableObject3DTypeShaderData.Sphere) },
-                { RaymarchedObject3DType.Ellipsoid, nameof(ObservableObject3DTypeShaderData.Ellipsoid) },
-                { RaymarchedObject3DType.Capsule, nameof(ObservableObject3DTypeShaderData.Capsule) },
-                { RaymarchedObject3DType.EllipsoidalCapsule, nameof(ObservableObject3DTypeShaderData.EllipsoidalCapsule) },
-                { RaymarchedObject3DType.Cylinder, nameof(ObservableObject3DTypeShaderData.Cylinder) }
+                [Cube]                = nameof(ObservableObject3DTypeShaderData.Cube),
+                [Sphere]              = nameof(ObservableObject3DTypeShaderData.Sphere),
+                [Ellipsoid]           = nameof(ObservableObject3DTypeShaderData.Ellipsoid),
+                [Capsule]             = nameof(ObservableObject3DTypeShaderData.Capsule),
+                [EllipsoidalCapsule]  = nameof(ObservableObject3DTypeShaderData.EllipsoidalCapsule),
+                [Cylinder]            = nameof(ObservableObject3DTypeShaderData.Cylinder),
+                [EllipsoidalCylinder] = nameof(ObservableObject3DTypeShaderData.EllipsoidalCylinder)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -74,57 +76,48 @@ namespace RBV.Editor.Project.Features
         private void InitializeTypeRelatedDataResetters() =>
             _typeDataResetters = new Dictionary<RaymarchedObject3DType, Action>
             {
+                [Cube] = () => _typeDataProperties[Cube]
+                    .FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions))
+                    .vector3Value = RaymarchedCubeShaderData.Default.Dimensions,
+                [Sphere] = () => _typeDataProperties[Sphere]
+                    .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter))
+                    .floatValue = RaymarchedSphereShaderData.Default.Diameter,
+                [Ellipsoid] = () => _typeDataProperties[Ellipsoid]
+                    .FindPropertyRelative(nameof(RaymarchedEllipsoidShaderData.Diameters))
+                    .vector3Value = RaymarchedEllipsoidShaderData.Default.Diameters,
+                [Capsule] = () =>
                 {
-                    RaymarchedObject3DType.Cube, () => _typeDataProperties[RaymarchedObject3DType.Cube]
-                        .FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions))
-                        .vector3Value = RaymarchedCubeShaderData.Default.Dimensions
-                },
-                {
-                    RaymarchedObject3DType.Sphere, () => _typeDataProperties[RaymarchedObject3DType.Sphere]
-                        .FindPropertyRelative(nameof(RaymarchedSphereShaderData.Diameter))
-                        .floatValue = RaymarchedSphereShaderData.Default.Diameter
-                },
-                {
-                    RaymarchedObject3DType.Ellipsoid, () => _typeDataProperties[RaymarchedObject3DType.Ellipsoid]
-                        .FindPropertyRelative(nameof(RaymarchedEllipsoidShaderData.Diameters))
-                        .vector3Value = RaymarchedEllipsoidShaderData.Default.Diameters
-                },
-                {
-                    RaymarchedObject3DType.Capsule, () =>
-                    {
-                        _typeDataProperties[RaymarchedObject3DType.Capsule]
-                            .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Diameter))
-                            .floatValue = RaymarchedCapsuleShaderData.Default.Diameter;
+                    _typeDataProperties[Capsule]
+                        .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Diameter))
+                        .floatValue = RaymarchedCapsuleShaderData.Default.Diameter;
 
-                        _typeDataProperties[RaymarchedObject3DType.Capsule]
-                            .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Height))
-                            .floatValue = RaymarchedCapsuleShaderData.Default.Height;
-                    }
+                    _typeDataProperties[Capsule]
+                        .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Height))
+                        .floatValue = RaymarchedCapsuleShaderData.Default.Height;
                 },
+                [EllipsoidalCapsule] = () =>
                 {
-                    RaymarchedObject3DType.EllipsoidalCapsule, () =>
-                    {
-                        _typeDataProperties[RaymarchedObject3DType.EllipsoidalCapsule]
-                            .FindPropertyRelative(nameof(RaymarchedEllipsoidalCapsuleShaderData.Diameters))
-                            .vector3Value = RaymarchedEllipsoidalCapsuleShaderData.Default.Diameters;
+                    _typeDataProperties[EllipsoidalCapsule]
+                        .FindPropertyRelative(nameof(RaymarchedEllipsoidalCapsuleShaderData.Diameters))
+                        .vector3Value = RaymarchedEllipsoidalCapsuleShaderData.Default.Diameters;
 
-                        _typeDataProperties[RaymarchedObject3DType.EllipsoidalCapsule]
-                            .FindPropertyRelative(nameof(RaymarchedEllipsoidalCapsuleShaderData.Height))
-                            .floatValue = RaymarchedEllipsoidalCapsuleShaderData.Default.Height;
-                    }
+                    _typeDataProperties[EllipsoidalCapsule]
+                        .FindPropertyRelative(nameof(RaymarchedEllipsoidalCapsuleShaderData.Height))
+                        .floatValue = RaymarchedEllipsoidalCapsuleShaderData.Default.Height;
                 },
+                [Cylinder] = () =>
                 {
-                    RaymarchedObject3DType.Cylinder, () =>
-                    {
-                        _typeDataProperties[RaymarchedObject3DType.Cylinder]
-                            .FindPropertyRelative(nameof(RaymarchedCylinderShaderData.Diameter))
-                            .floatValue = RaymarchedCylinderShaderData.Default.Diameter;
+                    _typeDataProperties[Cylinder]
+                        .FindPropertyRelative(nameof(RaymarchedCylinderShaderData.Diameter))
+                        .floatValue = RaymarchedCylinderShaderData.Default.Diameter;
 
-                        _typeDataProperties[RaymarchedObject3DType.Cylinder]
-                            .FindPropertyRelative(nameof(RaymarchedCylinderShaderData.Height))
-                            .floatValue = RaymarchedCylinderShaderData.Default.Height;
-                    }
-                }
+                    _typeDataProperties[Cylinder]
+                        .FindPropertyRelative(nameof(RaymarchedCylinderShaderData.Height))
+                        .floatValue = RaymarchedCylinderShaderData.Default.Height;
+                },
+                [EllipsoidalCylinder] = () => _typeDataProperties[EllipsoidalCylinder]
+                    .FindPropertyRelative(nameof(RaymarchedEllipsoidalCylinderShaderData.Dimensions))
+                    .vector3Value = RaymarchedEllipsoidalCylinderShaderData.Default.Dimensions
             };
 
         private void DrawProperties()

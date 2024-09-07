@@ -19,6 +19,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalCapsule.Changed +=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCapsuleShaderData>();
                 Cylinder.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
+                EllipsoidalCylinder.Changed +=
+                    value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
             }
             remove
             {
@@ -29,6 +31,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalCapsule.Changed -=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCapsuleShaderData>();
                 Cylinder.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
+                EllipsoidalCylinder.Changed -=
+                    value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
             }
         }
 
@@ -51,6 +55,10 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField]
         public ObservableValue<RaymarchedCylinderShaderData> Cylinder { get; set; } =
             new(RaymarchedCylinderShaderData.Default);
+
+        [field: SerializeField]
+        public ObservableValue<RaymarchedEllipsoidalCylinderShaderData> EllipsoidalCylinder { get; set; } =
+            new(RaymarchedEllipsoidalCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -88,6 +96,13 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     RaymarchedCylinderShaderData cylinder = Cylinder.Value;
                     cylinder.Diameter *= fullToHalfScaleMultiplier;
                     return cylinder;
+                case RaymarchedObject3DType.EllipsoidalCylinder:
+                    RaymarchedEllipsoidalCylinderShaderData ellipsoidalCylinder = EllipsoidalCylinder.Value;
+                    ellipsoidalCylinder.Dimensions =
+                        new Vector3(ellipsoidalCylinder.Dimensions.x * fullToHalfScaleMultiplier,
+                            ellipsoidalCylinder.Dimensions.y,
+                            ellipsoidalCylinder.Dimensions.z * fullToHalfScaleMultiplier);
+                    return ellipsoidalCylinder;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

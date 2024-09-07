@@ -20,24 +20,26 @@ namespace RBV.Features.ShaderDataForming
         protected Array CastToShaderDataTypeArray(RaymarchedObject3DType             type,
                                                   IEnumerable<IObjectTypeShaderData> source) => type switch
         {
-            Cube               => source.Cast<RaymarchedCubeShaderData>().ToArray(),
-            Sphere             => source.Cast<RaymarchedSphereShaderData>().ToArray(),
-            Ellipsoid          => source.Cast<RaymarchedEllipsoidShaderData>().ToArray(),
-            Capsule            => source.Cast<RaymarchedCapsuleShaderData>().ToArray(),
-            EllipsoidalCapsule => source.Cast<RaymarchedEllipsoidalCapsuleShaderData>().ToArray(),
-            Cylinder           => source.Cast<RaymarchedCylinderShaderData>().ToArray(),
-            _                  => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            Cube                => source.Cast<RaymarchedCubeShaderData>().ToArray(),
+            Sphere              => source.Cast<RaymarchedSphereShaderData>().ToArray(),
+            Ellipsoid           => source.Cast<RaymarchedEllipsoidShaderData>().ToArray(),
+            Capsule             => source.Cast<RaymarchedCapsuleShaderData>().ToArray(),
+            EllipsoidalCapsule  => source.Cast<RaymarchedEllipsoidalCapsuleShaderData>().ToArray(),
+            Cylinder            => source.Cast<RaymarchedCylinderShaderData>().ToArray(),
+            EllipsoidalCylinder => source.Cast<RaymarchedEllipsoidalCylinderShaderData>().ToArray(),
+            _                   => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
 
         protected Type GetShaderDataType(RaymarchedObject3DType type) => type switch
         {
-            Cube               => typeof(RaymarchedCubeShaderData),
-            Sphere             => typeof(RaymarchedSphereShaderData),
-            Ellipsoid          => typeof(RaymarchedEllipsoidShaderData),
-            Capsule            => typeof(RaymarchedCapsuleShaderData),
-            EllipsoidalCapsule => typeof(RaymarchedEllipsoidalCapsuleShaderData),
-            Cylinder           => typeof(RaymarchedCylinderShaderData),
-            _                  => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            Cube                => typeof(RaymarchedCubeShaderData),
+            Sphere              => typeof(RaymarchedSphereShaderData),
+            Ellipsoid           => typeof(RaymarchedEllipsoidShaderData),
+            Capsule             => typeof(RaymarchedCapsuleShaderData),
+            EllipsoidalCapsule  => typeof(RaymarchedEllipsoidalCapsuleShaderData),
+            Cylinder            => typeof(RaymarchedCylinderShaderData),
+            EllipsoidalCylinder => typeof(RaymarchedEllipsoidalCylinderShaderData),
+            _                   => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
 }

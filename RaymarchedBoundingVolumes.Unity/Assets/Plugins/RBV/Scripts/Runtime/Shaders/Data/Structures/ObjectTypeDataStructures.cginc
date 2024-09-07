@@ -32,3 +32,8 @@ struct CylinderData
     float height;
     float radius;
 };
+
+struct EllipsoidalCylinderData
+{
+    float3 dimensions;
+};
