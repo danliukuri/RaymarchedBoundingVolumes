@@ -55,3 +55,9 @@ struct CappedConeData
     float topBaseRadius;
     float bottomBaseRadius;
 };
+
+struct TorusData
+{
+    float majorRadius;
+    float minorRadius;
+};

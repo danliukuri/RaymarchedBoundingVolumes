@@ -24,6 +24,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Plane.Changed      += value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
                 Cone.Changed       += value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
                 CappedCone.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
+                Torus.Changed      += value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
             }
             remove
             {
@@ -39,6 +40,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Plane.Changed      -= value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
                 Cone.Changed       -= value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
                 CappedCone.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
+                Torus.Changed      -= value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
             }
         }
 
@@ -74,6 +76,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<RaymarchedCappedConeShaderData> CappedCone { get; set; } =
             new(RaymarchedCappedConeShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedTorusShaderData> Torus { get; set; } =
+            new(RaymarchedTorusShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -130,10 +135,15 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     return cone;
                 case RaymarchedObject3DType.CappedCone:
                     RaymarchedCappedConeShaderData cappedCone = CappedCone.Value;
-                    cappedCone.Height           *= fullToHalfScaleMultiplier;
-                    cappedCone.TopBaseRadius    *= fullToHalfScaleMultiplier;
-                    cappedCone.BottomBaseRadius *= fullToHalfScaleMultiplier;
+                    cappedCone.Height             *= fullToHalfScaleMultiplier;
+                    cappedCone.TopBaseDiameter    *= fullToHalfScaleMultiplier;
+                    cappedCone.BottomBaseDiameter *= fullToHalfScaleMultiplier;
                     return cappedCone;
+                case RaymarchedObject3DType.Torus:
+                    RaymarchedTorusShaderData torus = Torus.Value;
+                    torus.MajorDiameter *= fullToHalfScaleMultiplier;
+                    torus.MinorDiameter *= fullToHalfScaleMultiplier;
+                    return torus;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

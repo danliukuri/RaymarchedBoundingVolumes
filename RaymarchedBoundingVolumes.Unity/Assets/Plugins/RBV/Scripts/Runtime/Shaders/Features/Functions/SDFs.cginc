@@ -64,7 +64,7 @@ float calculateConeSDF(const float3 position, const float height, const float ra
 {
     float2 baseToHeight = float2(radius / height, -1.0);
 
-    float2 projectedPosition = float2(length(position.xz), position.y - height * 0.5);
+    float2 projectedPosition = revolutionizeY(position, 0.0, height * 0.5);
     float2 vectorToBase      = height * baseToHeight;
 
     float clampedProjectionFactor =
@@ -88,7 +88,7 @@ float calculateConeSDF(const float3 position, const float height, const float ra
 float calculateCappedConeSDF(const float3 position, const float      height,
                              const float  topBaseRadius, const float bottomBaseRadius)
 {
-    float2 projectedPosition = float2(length(position.xz), position.y);
+    float2 projectedPosition = revolutionizeY(position);
 
     float2 baseParams   = float2(topBaseRadius, height);
     float2 radiusParams = float2(topBaseRadius - bottomBaseRadius, 2.0 * height);
@@ -104,4 +104,9 @@ float calculateCappedConeSDF(const float3 position, const float      height,
 
     float sign = distanceToSlant.x < 0.0 && distanceToBase.y < 0.0 ? -1.0 : 1.0;
     return sign * sqrt(min(dot(distanceToBase, distanceToBase), dot(distanceToSlant, distanceToSlant)));
+}
+
+float calculateTorusSDF(const float3 position, const float majorRadius, const float minorRadius)
+{
+    return calculateCircleSDF(revolutionizeY(position, majorRadius), minorRadius);
 }

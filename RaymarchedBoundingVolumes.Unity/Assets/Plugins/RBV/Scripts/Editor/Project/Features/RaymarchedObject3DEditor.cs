@@ -67,7 +67,8 @@ namespace RBV.Editor.Project.Features
                 [EllipsoidalCylinder] = nameof(ObservableObject3DTypeShaderData.EllipsoidalCylinder),
                 [Plane]               = nameof(ObservableObject3DTypeShaderData.Plane),
                 [Cone]                = nameof(ObservableObject3DTypeShaderData.Cone),
-                [CappedCone]          = nameof(ObservableObject3DTypeShaderData.CappedCone)
+                [CappedCone]          = nameof(ObservableObject3DTypeShaderData.CappedCone),
+                [Torus]               = nameof(ObservableObject3DTypeShaderData.Torus)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -141,12 +142,22 @@ namespace RBV.Editor.Project.Features
                         .floatValue = RaymarchedCappedConeShaderData.Default.Height;
 
                     _typeDataProperties[CappedCone]
-                        .FindPropertyRelative(nameof(RaymarchedCappedConeShaderData.TopBaseRadius))
-                        .floatValue = RaymarchedCappedConeShaderData.Default.TopBaseRadius;
+                        .FindPropertyRelative(nameof(RaymarchedCappedConeShaderData.TopBaseDiameter))
+                        .floatValue = RaymarchedCappedConeShaderData.Default.TopBaseDiameter;
 
                     _typeDataProperties[CappedCone]
-                        .FindPropertyRelative(nameof(RaymarchedCappedConeShaderData.BottomBaseRadius))
-                        .floatValue = RaymarchedCappedConeShaderData.Default.BottomBaseRadius;
+                        .FindPropertyRelative(nameof(RaymarchedCappedConeShaderData.BottomBaseDiameter))
+                        .floatValue = RaymarchedCappedConeShaderData.Default.BottomBaseDiameter;
+                },
+                [Torus] = () =>
+                {
+                    _typeDataProperties[Torus]
+                        .FindPropertyRelative(nameof(RaymarchedTorusShaderData.MajorDiameter))
+                        .floatValue = RaymarchedTorusShaderData.Default.MajorDiameter;
+                    
+                    _typeDataProperties[Torus]
+                        .FindPropertyRelative(nameof(RaymarchedTorusShaderData.MinorDiameter))
+                        .floatValue = RaymarchedTorusShaderData.Default.MinorDiameter;
                 }
             };
 
