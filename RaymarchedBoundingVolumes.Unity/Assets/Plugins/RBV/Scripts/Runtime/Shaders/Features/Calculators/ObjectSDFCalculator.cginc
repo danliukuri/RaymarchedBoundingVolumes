@@ -67,6 +67,11 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
             distance = calculateCappedTorusSDF(position, cappedTorusData.capAngle,
                                                cappedTorusData.majorRadius, cappedTorusData.minorRadius);
             break;
+        case 12:
+            RegularPrismData regularPrismData = _RaymarchedRegularPrismData[objectData.typeDataIndex];
+            distance = calculateRegularPrismSDF(position, regularPrismData.verticesCount,
+                                                regularPrismData.circumradius, regularPrismData.length);
+            break;
     }
     distance *= transform.scale;
 

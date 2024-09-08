@@ -69,7 +69,8 @@ namespace RBV.Editor.Project.Features
                 [Cone]                = nameof(ObservableObject3DTypeShaderData.Cone),
                 [CappedCone]          = nameof(ObservableObject3DTypeShaderData.CappedCone),
                 [Torus]               = nameof(ObservableObject3DTypeShaderData.Torus),
-                [CappedTorus]         = nameof(ObservableObject3DTypeShaderData.CappedTorus)
+                [CappedTorus]         = nameof(ObservableObject3DTypeShaderData.CappedTorus),
+                [RegularPrism]        = nameof(ObservableObject3DTypeShaderData.RegularPrism)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -173,6 +174,20 @@ namespace RBV.Editor.Project.Features
                     _typeDataProperties[CappedTorus]
                         .FindPropertyRelative(nameof(RaymarchedCappedTorusShaderData.MinorDiameter))
                         .floatValue = RaymarchedCappedTorusShaderData.Default.MinorDiameter;
+                },
+                [RegularPrism] = () =>
+                {
+                    _typeDataProperties[RegularPrism]
+                        .FindPropertyRelative(nameof(RaymarchedRegularPrismShaderData.VerticesCount))
+                        .intValue = RaymarchedRegularPrismShaderData.Default.VerticesCount;
+
+                    _typeDataProperties[RegularPrism]
+                        .FindPropertyRelative(nameof(RaymarchedRegularPrismShaderData.Circumdiameter))
+                        .floatValue = RaymarchedRegularPrismShaderData.Default.Circumdiameter;
+
+                    _typeDataProperties[RegularPrism]
+                        .FindPropertyRelative(nameof(RaymarchedRegularPrismShaderData.Length))
+                        .floatValue = RaymarchedRegularPrismShaderData.Default.Length;
                 }
             };
 

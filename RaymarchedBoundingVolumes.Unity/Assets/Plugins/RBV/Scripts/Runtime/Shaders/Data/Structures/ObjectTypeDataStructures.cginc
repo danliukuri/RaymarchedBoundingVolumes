@@ -23,7 +23,7 @@ struct CapsuleData
 
 struct EllipsoidalCapsuleData
 {
-    float halfHeight;
+    float  halfHeight;
     float3 radii;
 };
 
@@ -67,4 +67,11 @@ struct CappedTorusData
     float capAngle;
     float majorRadius;
     float minorRadius;
+};
+
+struct RegularPrismData
+{
+    int   verticesCount;
+    float circumradius;
+    float length;
 };

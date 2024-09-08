@@ -128,3 +128,11 @@ float calculateCappedTorusSDF(const float3 position, const float    capAngle,
         sqrt(dot(position, position) + majorRadius * majorRadius - 2.0 * majorRadius * distanceToEdge);
     return distanceToTorus - minorRadius;
 }
+
+float calculateRegularPrismSDF(const float3 position,
+                               const float  verticesCount, const float circumradius, const float length)
+{
+    float3 rotatedPosition = position.yzx;
+    float  polyhedronSDF   = calculateRegularPolygonSDF(rotatedPosition.zx, verticesCount, circumradius);
+    return extrudeY(rotatedPosition, polyhedronSDF, abs(length));
+}
