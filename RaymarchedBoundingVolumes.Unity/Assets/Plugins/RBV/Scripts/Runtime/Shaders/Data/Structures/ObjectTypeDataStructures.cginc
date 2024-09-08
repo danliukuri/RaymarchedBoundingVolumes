@@ -48,3 +48,10 @@ struct ConeData
     float height;
     float radius;
 };
+
+struct CappedConeData
+{
+    float halfHeight;
+    float topBaseRadius;
+    float bottomBaseRadius;
+};

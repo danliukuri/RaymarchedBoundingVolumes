@@ -11,5 +11,6 @@
         EllipsoidalCylinder = 6,
         Plane               = 7,
         Cone                = 8,
+        CappedCone          = 9,
     }
 }

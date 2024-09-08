@@ -27,6 +27,7 @@ namespace RBV.Features.ShaderDataForming
             EllipsoidalCylinder => typeof(RaymarchedEllipsoidalCylinderShaderData),
             Plane               => typeof(RaymarchedPlaneShaderData),
             Cone                => typeof(RaymarchedConeShaderData),
+            CappedCone          => typeof(RaymarchedCappedConeShaderData),
             _                   => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

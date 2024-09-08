@@ -53,6 +53,11 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
             ConeData coneData = _RaymarchedConeData[objectData.typeDataIndex];
             distance = calculateConeSDF(position, coneData.height, coneData.radius);
             break;
+        case 9:
+            CappedConeData cappedConeData = _RaymarchedCappedConeData[objectData.typeDataIndex];
+            distance = calculateCappedConeSDF(position, cappedConeData.halfHeight,
+                                              cappedConeData.topBaseRadius, cappedConeData.bottomBaseRadius);
+            break;
     }
     distance *= transform.scale;
 

@@ -21,8 +21,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Cylinder.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
                 EllipsoidalCylinder.Changed +=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
-                Plane.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
-                Cone.Changed  += value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
+                Plane.Changed      += value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
+                Cone.Changed       += value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
+                CappedCone.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
             }
             remove
             {
@@ -35,8 +36,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Cylinder.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
                 EllipsoidalCylinder.Changed -=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
-                Plane.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
-                Cone.Changed  -= value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
+                Plane.Changed      -= value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
+                Cone.Changed       -= value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
+                CappedCone.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
             }
         }
 
@@ -69,6 +71,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<RaymarchedConeShaderData> Cone { get; set; } =
             new(RaymarchedConeShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedCappedConeShaderData> CappedCone { get; set; } =
+            new(RaymarchedCappedConeShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -123,6 +128,12 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     RaymarchedConeShaderData cone = Cone.Value;
                     cone.Diameter *= fullToHalfScaleMultiplier;
                     return cone;
+                case RaymarchedObject3DType.CappedCone:
+                    RaymarchedCappedConeShaderData cappedCone = CappedCone.Value;
+                    cappedCone.Height           *= fullToHalfScaleMultiplier;
+                    cappedCone.TopBaseRadius    *= fullToHalfScaleMultiplier;
+                    cappedCone.BottomBaseRadius *= fullToHalfScaleMultiplier;
+                    return cappedCone;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

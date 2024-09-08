@@ -66,7 +66,8 @@ namespace RBV.Editor.Project.Features
                 [Cylinder]            = nameof(ObservableObject3DTypeShaderData.Cylinder),
                 [EllipsoidalCylinder] = nameof(ObservableObject3DTypeShaderData.EllipsoidalCylinder),
                 [Plane]               = nameof(ObservableObject3DTypeShaderData.Plane),
-                [Cone]                = nameof(ObservableObject3DTypeShaderData.Cone)
+                [Cone]                = nameof(ObservableObject3DTypeShaderData.Cone),
+                [CappedCone]          = nameof(ObservableObject3DTypeShaderData.CappedCone)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -126,12 +127,26 @@ namespace RBV.Editor.Project.Features
                 [Cone] = () =>
                 {
                     _typeDataProperties[Cone]
-                        .FindPropertyRelative(nameof(RaymarchedConeShaderData.Diameter))
-                        .floatValue = RaymarchedConeShaderData.Default.Diameter;
-                    
-                    _typeDataProperties[Cone]
                         .FindPropertyRelative(nameof(RaymarchedConeShaderData.Height))
                         .floatValue = RaymarchedConeShaderData.Default.Height;
+
+                    _typeDataProperties[Cone]
+                        .FindPropertyRelative(nameof(RaymarchedConeShaderData.Diameter))
+                        .floatValue = RaymarchedConeShaderData.Default.Diameter;
+                },
+                [CappedCone] = () =>
+                {
+                    _typeDataProperties[Cone]
+                        .FindPropertyRelative(nameof(RaymarchedCappedConeShaderData.Height))
+                        .floatValue = RaymarchedCappedConeShaderData.Default.Height;
+
+                    _typeDataProperties[CappedCone]
+                        .FindPropertyRelative(nameof(RaymarchedCappedConeShaderData.TopBaseRadius))
+                        .floatValue = RaymarchedCappedConeShaderData.Default.TopBaseRadius;
+
+                    _typeDataProperties[CappedCone]
+                        .FindPropertyRelative(nameof(RaymarchedCappedConeShaderData.BottomBaseRadius))
+                        .floatValue = RaymarchedCappedConeShaderData.Default.BottomBaseRadius;
                 }
             };
 
