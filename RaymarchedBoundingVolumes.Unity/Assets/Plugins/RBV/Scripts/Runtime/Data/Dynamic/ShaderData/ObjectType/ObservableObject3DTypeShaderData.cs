@@ -21,10 +21,11 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Cylinder.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
                 EllipsoidalCylinder.Changed +=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
-                Plane.Changed      += value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
-                Cone.Changed       += value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
-                CappedCone.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
-                Torus.Changed      += value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
+                Plane.Changed       += value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
+                Cone.Changed        += value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
+                CappedCone.Changed  += value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
+                Torus.Changed       += value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
+                CappedTorus.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedCappedTorusShaderData>();
             }
             remove
             {
@@ -37,10 +38,11 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Cylinder.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
                 EllipsoidalCylinder.Changed -=
                     value.CastCached<IObjectTypeShaderData, RaymarchedEllipsoidalCylinderShaderData>();
-                Plane.Changed      -= value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
-                Cone.Changed       -= value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
-                CappedCone.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
-                Torus.Changed      -= value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
+                Plane.Changed       -= value.CastCached<IObjectTypeShaderData, RaymarchedPlaneShaderData>();
+                Cone.Changed        -= value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
+                CappedCone.Changed  -= value.CastCached<IObjectTypeShaderData, RaymarchedCappedConeShaderData>();
+                Torus.Changed       -= value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
+                CappedTorus.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedCappedTorusShaderData>();
             }
         }
 
@@ -79,6 +81,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<RaymarchedTorusShaderData> Torus { get; set; } =
             new(RaymarchedTorusShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RaymarchedCappedTorusShaderData> CappedTorus { get; set; } =
+            new(RaymarchedCappedTorusShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -144,6 +149,12 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     torus.MajorDiameter *= fullToHalfScaleMultiplier;
                     torus.MinorDiameter *= fullToHalfScaleMultiplier;
                     return torus;
+                case RaymarchedObject3DType.CappedTorus:
+                    RaymarchedCappedTorusShaderData cappedTorus = CappedTorus.Value;
+                    cappedTorus.CapAngle         *= Mathf.Deg2Rad * fullToHalfScaleMultiplier;
+                    cappedTorus.MajorDiameter *= fullToHalfScaleMultiplier;
+                    cappedTorus.MinorDiameter *= fullToHalfScaleMultiplier;
+                    return cappedTorus;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

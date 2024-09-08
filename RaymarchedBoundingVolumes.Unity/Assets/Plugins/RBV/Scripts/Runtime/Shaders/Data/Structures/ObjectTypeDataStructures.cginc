@@ -61,3 +61,10 @@ struct TorusData
     float majorRadius;
     float minorRadius;
 };
+
+struct CappedTorusData
+{
+    float capAngle;
+    float majorRadius;
+    float minorRadius;
+};

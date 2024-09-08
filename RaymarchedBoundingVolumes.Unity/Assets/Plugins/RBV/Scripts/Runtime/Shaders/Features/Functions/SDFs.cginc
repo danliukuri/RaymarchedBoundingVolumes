@@ -110,3 +110,21 @@ float calculateTorusSDF(const float3 position, const float majorRadius, const fl
 {
     return calculateCircleSDF(revolutionizeY(position, majorRadius), minorRadius);
 }
+
+float calculateCappedTorusSDF(const float3 position, const float    capAngle,
+                              const float  majorRadius, const float minorRadius)
+{
+    float  capAngleSin    = sin(capAngle);
+    float  capAngleSinAbs = abs(capAngleSin);
+    float2 capDirection   = float2(capAngleSinAbs, cos(capAngle) * (capAngleSinAbs / capAngleSin));
+
+    float3 absPosition = float3(abs(position.x), position.y, position.z);
+
+    float distanceToEdge = capDirection.y * absPosition.x > capDirection.x * absPosition.z
+                               ? dot(absPosition.xz, capDirection)
+                               : length(absPosition.xz);
+
+    float distanceToTorus =
+        sqrt(dot(position, position) + majorRadius * majorRadius - 2.0 * majorRadius * distanceToEdge);
+    return distanceToTorus - minorRadius;
+}

@@ -62,6 +62,11 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
             TorusData torusData = _RaymarchedTorusData[objectData.typeDataIndex];
             distance = calculateTorusSDF(position, torusData.majorRadius, torusData.minorRadius);
             break;
+        case 11:
+            CappedTorusData cappedTorusData = _RaymarchedCappedTorusData[objectData.typeDataIndex];
+            distance = calculateCappedTorusSDF(position, cappedTorusData.capAngle,
+                                               cappedTorusData.majorRadius, cappedTorusData.minorRadius);
+            break;
     }
     distance *= transform.scale;
 

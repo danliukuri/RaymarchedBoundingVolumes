@@ -12,6 +12,7 @@
         Plane               = 7,
         Cone                = 8,
         CappedCone          = 9,
-        Torus               = 10
+        Torus               = 10,
+        CappedTorus         = 11
     }
 }

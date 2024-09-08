@@ -29,6 +29,7 @@ namespace RBV.Features.ShaderDataForming
             Cone                => typeof(RaymarchedConeShaderData),
             CappedCone          => typeof(RaymarchedCappedConeShaderData),
             Torus               => typeof(RaymarchedTorusShaderData),
+            CappedTorus         => typeof(RaymarchedCappedTorusShaderData),
             _                   => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

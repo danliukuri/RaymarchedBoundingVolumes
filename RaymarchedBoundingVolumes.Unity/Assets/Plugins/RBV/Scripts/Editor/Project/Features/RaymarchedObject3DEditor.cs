@@ -68,7 +68,8 @@ namespace RBV.Editor.Project.Features
                 [Plane]               = nameof(ObservableObject3DTypeShaderData.Plane),
                 [Cone]                = nameof(ObservableObject3DTypeShaderData.Cone),
                 [CappedCone]          = nameof(ObservableObject3DTypeShaderData.CappedCone),
-                [Torus]               = nameof(ObservableObject3DTypeShaderData.Torus)
+                [Torus]               = nameof(ObservableObject3DTypeShaderData.Torus),
+                [CappedTorus]         = nameof(ObservableObject3DTypeShaderData.CappedTorus)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -154,10 +155,24 @@ namespace RBV.Editor.Project.Features
                     _typeDataProperties[Torus]
                         .FindPropertyRelative(nameof(RaymarchedTorusShaderData.MajorDiameter))
                         .floatValue = RaymarchedTorusShaderData.Default.MajorDiameter;
-                    
+
                     _typeDataProperties[Torus]
                         .FindPropertyRelative(nameof(RaymarchedTorusShaderData.MinorDiameter))
                         .floatValue = RaymarchedTorusShaderData.Default.MinorDiameter;
+                },
+                [CappedTorus] = () =>
+                {
+                    _typeDataProperties[CappedTorus]
+                        .FindPropertyRelative(nameof(RaymarchedCappedTorusShaderData.CapAngle))
+                        .floatValue = RaymarchedCappedTorusShaderData.Default.CapAngle;
+
+                    _typeDataProperties[CappedTorus]
+                        .FindPropertyRelative(nameof(RaymarchedCappedTorusShaderData.MajorDiameter))
+                        .floatValue = RaymarchedCappedTorusShaderData.Default.MajorDiameter;
+
+                    _typeDataProperties[CappedTorus]
+                        .FindPropertyRelative(nameof(RaymarchedCappedTorusShaderData.MinorDiameter))
+                        .floatValue = RaymarchedCappedTorusShaderData.Default.MinorDiameter;
                 }
             };
 
