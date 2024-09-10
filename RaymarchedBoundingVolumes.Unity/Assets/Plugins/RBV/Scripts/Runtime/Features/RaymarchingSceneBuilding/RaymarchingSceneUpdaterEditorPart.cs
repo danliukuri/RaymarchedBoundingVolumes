@@ -13,6 +13,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private void OnEnable()
         {
             Construct();
+            _sceneBuilder.NewSceneBuilt += MarkFeaturesAsChanged;
             EditorApplication.delayCall += EditorInitialize;
         }
 
@@ -24,7 +25,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
             if (IsValid)
             {
-                _sceneBuilder.NewSceneBuilt += MarkFeaturesAsChanged;
                 _sceneBuilder.BuildLastScene();
                 EditorApplication.QueuePlayerLoopUpdate();
             }

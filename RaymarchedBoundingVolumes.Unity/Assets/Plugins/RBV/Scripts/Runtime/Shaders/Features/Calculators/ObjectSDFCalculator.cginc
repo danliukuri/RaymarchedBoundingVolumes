@@ -3,6 +3,7 @@
 #include <UnityShaderVariables.cginc>
 
 #include "Object3DRotator.cginc"
+#include "../../Data/Enumerations/Object3DTypeEnumeration.cginc"
 #include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../Data/Variables/ObjectTypeRelatedVariables.cginc"
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
@@ -19,11 +20,64 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
     switch (objectData.type)
     {
         default:
-        case 0:
+        case OBJECT_3D_TYPE_CUBE:
+            distance = calculateCubeSDF(position, _RaymarchedCubeData[objectData.typeDataIndex].halfDimensions);
+            break;
+        case OBJECT_3D_TYPE_SPHERE:
             distance = calculateSphereSDF(position, _RaymarchedSphereData[objectData.typeDataIndex].radius);
             break;
-        case 1:
-            distance = calculateCubeSDF(position, _RaymarchedCubeData[objectData.typeDataIndex].halfDimensions);
+        case OBJECT_3D_TYPE_ELLIPSOID:
+            distance = calculateEllipsoidSDF(position, _RaymarchedEllipsoidData[objectData.typeDataIndex].radii);
+            break;
+        case OBJECT_3D_TYPE_CAPSULE:
+            CapsuleData capsuleData = _RaymarchedCapsuleData[objectData.typeDataIndex];
+            distance = calculateCapsuleSDF(position, capsuleData.halfHeight, capsuleData.radius);
+            break;
+        case OBJECT_3D_TYPE_ELLIPSOIDAL_CAPSULE:
+            EllipsoidalCapsuleData ellipsoidalCapsuleData = _RaymarchedEllipsoidalCapsuleData[objectData.typeDataIndex];
+            distance = calculateEllipsoidalCapsuleSDF(position,
+                                                      ellipsoidalCapsuleData.halfHeight, ellipsoidalCapsuleData.radii);
+            break;
+        case OBJECT_3D_TYPE_CYLINDER:
+            CylinderData cylinderData = _RaymarchedCylinderData[objectData.typeDataIndex];
+            distance = calculateCylinderSDF(position, cylinderData.height, cylinderData.radius);
+            break;
+        case OBJECT_3D_TYPE_ELLIPSOIDAL_CYLINDER:
+            EllipsoidalCylinderData ellipsoidalCylinderData =
+                _RaymarchedEllipsoidalCylinderData[objectData.typeDataIndex];
+            distance = calculateEllipsoidalCylinderSDF(position, ellipsoidalCylinderData.dimensions);
+            break;
+        case OBJECT_3D_TYPE_PLANE:
+            distance = calculatePlaneSDF(position, _RaymarchedPlaneData[objectData.typeDataIndex].halfDimensions);
+            break;
+        case OBJECT_3D_TYPE_CONE:
+            ConeData coneData = _RaymarchedConeData[objectData.typeDataIndex];
+            distance = calculateConeSDF(position, coneData.height, coneData.radius);
+            break;
+        case OBJECT_3D_TYPE_CAPPED_CONE:
+            CappedConeData cappedConeData = _RaymarchedCappedConeData[objectData.typeDataIndex];
+            distance = calculateCappedConeSDF(position, cappedConeData.halfHeight,
+                                              cappedConeData.topBaseRadius, cappedConeData.bottomBaseRadius);
+            break;
+        case OBJECT_3D_TYPE_TORUS:
+            TorusData torusData = _RaymarchedTorusData[objectData.typeDataIndex];
+            distance = calculateTorusSDF(position, torusData.majorRadius, torusData.minorRadius);
+            break;
+        case OBJECT_3D_TYPE_CAPPED_TORUS:
+            CappedTorusData cappedTorusData = _RaymarchedCappedTorusData[objectData.typeDataIndex];
+            distance = calculateCappedTorusSDF(position, cappedTorusData.capAngle,
+                                               cappedTorusData.majorRadius, cappedTorusData.minorRadius);
+            break;
+        case OBJECT_3D_TYPE_REGULAR_PRISM:
+            RegularPrismData regularPrismData = _RaymarchedRegularPrismData[objectData.typeDataIndex];
+            distance = calculateRegularPrismSDF(position, regularPrismData.verticesCount,
+                                                regularPrismData.circumradius, regularPrismData.length);
+            break;
+        case OBJECT_3D_TYPE_REGULAR_POLYHEDRON:
+            RegularPolyhedronData regularPolyhedronData = _RaymarchedRegularPolyhedronData[objectData.typeDataIndex];
+            distance = calculateRegularPolyhedronSDF(position, regularPolyhedronData.inscribedRadius,
+                                                     regularPolyhedronData.activeBoundPlaneRange.start,
+                                                     regularPolyhedronData.activeBoundPlaneRange.end);
             break;
     }
     distance *= transform.scale;
