@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
 {
-    [CustomPropertyDrawer(typeof(RaymarchedRegularPolyhedronShaderData))]
+    [CustomPropertyDrawer(typeof(RegularPolyhedronShaderData))]
     public class RegularPolyhedronShaderDataDrawer : PropertyDrawer
     {
         private SerializedProperty _circumdiameterProperty;
@@ -24,9 +24,9 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
         private void InitializeChildrenProperties(SerializedProperty property)
         {
             _circumdiameterProperty ??= property
-                .FindPropertyRelative(nameof(RaymarchedRegularPolyhedronShaderData.InscribedDiameter));
+                .FindPropertyRelative(nameof(RegularPolyhedronShaderData.InscribedDiameter));
             _activeBoundPlaneRange ??= property
-                .FindPropertyRelative(nameof(RaymarchedRegularPolyhedronShaderData.ActiveBoundPlanesRange));
+                .FindPropertyRelative(nameof(RegularPolyhedronShaderData.ActiveBoundPlanesRange));
             _beginProperty ??= _activeBoundPlaneRange
                 .FindPropertyRelative(nameof(Range<int>.Start).ToBackingFieldFormat());
             _endProperty ??= _activeBoundPlaneRange

@@ -3,13 +3,13 @@
 namespace RBV.Data.Dynamic.ShaderData.ObjectType
 {
     [Serializable]
-    public struct RaymarchedRegularPrismShaderData : IObjectTypeShaderData
+    public struct RegularPrismShaderData : IObjectTypeShaderData
     {
         public int   VerticesCount;
         public float Circumdiameter;
         public float Length;
 
-        public static RaymarchedRegularPrismShaderData Default { get; } =
+        public static RegularPrismShaderData Default { get; } =
             new() { VerticesCount = 3, Circumdiameter = 1f, Length = 1f };
     }
 }

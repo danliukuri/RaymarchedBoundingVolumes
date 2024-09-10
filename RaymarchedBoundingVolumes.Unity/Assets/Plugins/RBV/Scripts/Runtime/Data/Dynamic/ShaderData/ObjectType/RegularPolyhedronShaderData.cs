@@ -7,14 +7,14 @@ using static RBV.Data.Static.Enumerations.RegularPolyhedronTypeExtensions;
 namespace RBV.Data.Dynamic.ShaderData.ObjectType
 {
     [Serializable]
-    public struct RaymarchedRegularPolyhedronShaderData : IObjectTypeShaderData
+    public struct RegularPolyhedronShaderData : IObjectTypeShaderData
     {
         public float InscribedDiameter;
 
         [ChildRange(MinBoundPlaneIndex, MaxBoundPlaneIndex, nameof(Range<int>.Start), nameof(Range<int>.End))]
         public Range<int> ActiveBoundPlanesRange;
 
-        public static RaymarchedRegularPolyhedronShaderData Default { get; } = new()
+        public static RegularPolyhedronShaderData Default { get; } = new()
         {
             InscribedDiameter      = 1f,
             ActiveBoundPlanesRange = GetActiveBoundPlanesRange(RegularPolyhedronType.TruncatedIcosahedron)

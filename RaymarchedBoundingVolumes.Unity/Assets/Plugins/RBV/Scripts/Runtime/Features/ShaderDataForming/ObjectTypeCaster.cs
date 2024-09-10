@@ -19,19 +19,19 @@ namespace RBV.Features.ShaderDataForming
         protected Type GetShaderDataType(RaymarchedObject3DType type) => type switch
         {
             Cube                => typeof(RaymarchedCubeShaderData),
-            Sphere              => typeof(RaymarchedSphereShaderData),
-            Ellipsoid           => typeof(RaymarchedEllipsoidShaderData),
+            Sphere              => typeof(SphereShaderData),
+            Ellipsoid           => typeof(EllipsoidShaderData),
             Capsule             => typeof(RaymarchedCapsuleShaderData),
-            EllipsoidalCapsule  => typeof(RaymarchedEllipsoidalCapsuleShaderData),
+            EllipsoidalCapsule  => typeof(EllipsoidalCapsuleShaderData),
             Cylinder            => typeof(RaymarchedCylinderShaderData),
-            EllipsoidalCylinder => typeof(RaymarchedEllipsoidalCylinderShaderData),
-            Plane               => typeof(RaymarchedPlaneShaderData),
+            EllipsoidalCylinder => typeof(EllipsoidalCylinderShaderData),
+            Plane               => typeof(PlaneShaderData),
             Cone                => typeof(RaymarchedConeShaderData),
-            CappedCone          => typeof(RaymarchedCappedConeShaderData),
-            Torus               => typeof(RaymarchedTorusShaderData),
-            CappedTorus         => typeof(RaymarchedCappedTorusShaderData),
-            RegularPrism        => typeof(RaymarchedRegularPrismShaderData),
-            RegularPolyhedron   => typeof(RaymarchedRegularPolyhedronShaderData),
+            CappedCone          => typeof(CappedConeShaderData),
+            Torus               => typeof(TorusShaderData),
+            CappedTorus         => typeof(CappedTorusShaderData),
+            RegularPrism        => typeof(RegularPrismShaderData),
+            RegularPolyhedron   => typeof(RegularPolyhedronShaderData),
             _                   => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
