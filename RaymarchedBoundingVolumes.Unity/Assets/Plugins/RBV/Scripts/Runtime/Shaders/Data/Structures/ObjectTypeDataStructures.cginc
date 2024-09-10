@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "WrappingDataStructures.cginc"
+
 struct CubeData
 {
     float3 halfDimensions;
@@ -74,4 +76,10 @@ struct RegularPrismData
     int   verticesCount;
     float circumradius;
     float length;
+};
+
+struct RegularPolyhedronData
+{
+    float inscribedRadius;
+    RangeInt activeBoundPlaneRange;
 };

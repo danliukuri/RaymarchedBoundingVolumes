@@ -14,6 +14,7 @@
         CappedCone          = 9,
         Torus               = 10,
         CappedTorus         = 11,
-        RegularPrism        = 12
+        RegularPrism        = 12,
+        RegularPolyhedron   = 13
     }
 }

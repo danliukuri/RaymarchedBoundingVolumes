@@ -2,6 +2,7 @@
 
 #include "2DSDFs.cginc"
 #include "ModificationOperations.cginc"
+#include "../../Data/Variables/CommonBoundingPlanesVariables.cginc"
 
 float calculateCubeSDF(const float3 position, const float3 halfDimensions)
 {
@@ -85,8 +86,8 @@ float calculateConeSDF(const float3 position, const float height, const float ra
     return sqrt(distanceSquared) * sign(surfaceSign);
 }
 
-float calculateCappedConeSDF(const float3 position, const float      height,
-                             const float  topBaseRadius, const float bottomBaseRadius)
+float calculateCappedConeSDF(const float3 position,
+                             const float  height, const float topBaseRadius, const float bottomBaseRadius)
 {
     float2 projectedPosition = revolutionizeY(position);
 
@@ -111,8 +112,8 @@ float calculateTorusSDF(const float3 position, const float majorRadius, const fl
     return calculateCircleSDF(revolutionizeY(position, majorRadius), minorRadius);
 }
 
-float calculateCappedTorusSDF(const float3 position, const float    capAngle,
-                              const float  majorRadius, const float minorRadius)
+float calculateCappedTorusSDF(const float3 position,
+                              const float  capAngle, const float majorRadius, const float minorRadius)
 {
     float  capAngleSin    = sin(capAngle);
     float  capAngleSinAbs = abs(capAngleSin);
@@ -135,4 +136,15 @@ float calculateRegularPrismSDF(const float3 position,
     float3 rotatedPosition = position.yzx;
     float  polyhedronSDF   = calculateRegularPolygonSDF(rotatedPosition.zx, verticesCount, circumradius);
     return extrudeY(rotatedPosition, polyhedronSDF, abs(length));
+}
+
+float calculateRegularPolyhedronSDF(const float3 position,
+                                    const float  inscribedRadius,
+                                    const int    activeBoundPlaneStartIndex,
+                                    const int    activeBoundPlaneEndIndex)
+{
+    float distance = 0.0;
+    for (int i   = activeBoundPlaneStartIndex; i <= activeBoundPlaneEndIndex; ++i)
+        distance = max(distance, abs(dot(position, _BoundPlaneNormals[i])));
+    return distance - inscribedRadius;
 }

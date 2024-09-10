@@ -72,6 +72,12 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
             distance = calculateRegularPrismSDF(position, regularPrismData.verticesCount,
                                                 regularPrismData.circumradius, regularPrismData.length);
             break;
+        case 13:
+            RegularPolyhedronData regularPolyhedronData = _RaymarchedRegularPolyhedronData[objectData.typeDataIndex];
+            distance = calculateRegularPolyhedronSDF(position, regularPolyhedronData.inscribedRadius,
+                                                     regularPolyhedronData.activeBoundPlaneRange.start,
+                                                     regularPolyhedronData.activeBoundPlaneRange.end);
+            break;
     }
     distance *= transform.scale;
 

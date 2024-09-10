@@ -70,7 +70,8 @@ namespace RBV.Editor.Project.Features
                 [CappedCone]          = nameof(ObservableObject3DTypeShaderData.CappedCone),
                 [Torus]               = nameof(ObservableObject3DTypeShaderData.Torus),
                 [CappedTorus]         = nameof(ObservableObject3DTypeShaderData.CappedTorus),
-                [RegularPrism]        = nameof(ObservableObject3DTypeShaderData.RegularPrism)
+                [RegularPrism]        = nameof(ObservableObject3DTypeShaderData.RegularPrism),
+                [RegularPolyhedron]   = nameof(ObservableObject3DTypeShaderData.RegularPolyhedron)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -188,6 +189,21 @@ namespace RBV.Editor.Project.Features
                     _typeDataProperties[RegularPrism]
                         .FindPropertyRelative(nameof(RaymarchedRegularPrismShaderData.Length))
                         .floatValue = RaymarchedRegularPrismShaderData.Default.Length;
+                },
+                [RegularPolyhedron] = () =>
+                {
+                    _typeDataProperties[RegularPolyhedron]
+                        .FindPropertyRelative(nameof(RaymarchedRegularPolyhedronShaderData.InscribedDiameter))
+                        .floatValue = RaymarchedRegularPolyhedronShaderData.Default.InscribedDiameter;
+
+                    SerializedProperty activeBoundPlaneRange = _typeDataProperties[RegularPolyhedron]
+                        .FindPropertyRelative(nameof(RaymarchedRegularPolyhedronShaderData.ActiveBoundPlanesRange));
+
+                    activeBoundPlaneRange.FindPropertyRelative(nameof(Range<int>.Start))
+                        .intValue = RaymarchedRegularPolyhedronShaderData.Default.ActiveBoundPlanesRange.Start;
+
+                    activeBoundPlaneRange.FindPropertyRelative(nameof(Range<int>.End))
+                        .intValue = RaymarchedRegularPolyhedronShaderData.Default.ActiveBoundPlanesRange.End;
                 }
             };
 

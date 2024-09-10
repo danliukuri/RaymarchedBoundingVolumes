@@ -17,3 +17,4 @@ uniform StructuredBuffer<CappedConeData>          _RaymarchedCappedConeData;
 uniform StructuredBuffer<TorusData>               _RaymarchedTorusData;
 uniform StructuredBuffer<CappedTorusData>         _RaymarchedCappedTorusData;
 uniform StructuredBuffer<RegularPrismData>        _RaymarchedRegularPrismData;
+uniform StructuredBuffer<RegularPolyhedronData>   _RaymarchedRegularPolyhedronData;

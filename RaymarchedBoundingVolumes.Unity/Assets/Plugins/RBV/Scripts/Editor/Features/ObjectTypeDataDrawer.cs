@@ -9,7 +9,7 @@ namespace RBV.Editor.Features
 {
     public class ObjectTypeDataDrawer
     {
-        private readonly SerializedProperty _typeDataProperty;
+        private readonly GUIContent         _typeDataLabel;
 
         private readonly Dictionary<RaymarchedObjectType, SerializedProperty> _typeDataProperties;
         private readonly Dictionary<RaymarchedObjectType, Action>             _typeDataResetters;
@@ -21,7 +21,7 @@ namespace RBV.Editor.Features
                                     Dictionary<RaymarchedObjectType, Action>             typeDataResetters,
                                     RaymarchedObjectType                                 initialSelectedType)
         {
-            _typeDataProperty     = typeDataProperty;
+            _typeDataLabel        = new GUIContent(typeDataProperty.displayName);
             _typeDataProperties   = typeDataProperties;
             _typeDataResetters    = typeDataResetters;
             _previousSelectedType = initialSelectedType;
@@ -31,19 +31,9 @@ namespace RBV.Editor.Features
         {
             if (type != _previousSelectedType)
                 _typeDataResetters[_previousSelectedType].Invoke();
-
             _previousSelectedType = type;
 
-            _typeDataProperty.isExpanded = EditorGUILayout.Foldout(_typeDataProperty.isExpanded,
-                new GUIContent(_typeDataProperty.displayName), true);
-
-            if (_typeDataProperty.isExpanded)
-            {
-                SerializedProperty typeRelatedProperty = _typeDataProperties[type];
-                using (new EditorGUI.IndentLevelScope())
-                    foreach (SerializedProperty child in typeRelatedProperty.GetDirectChildren())
-                        EditorGUILayout.PropertyField(child, true);
-            }
+            _typeDataProperties[type].DrawProperty(_typeDataLabel);
 
             return this;
         }

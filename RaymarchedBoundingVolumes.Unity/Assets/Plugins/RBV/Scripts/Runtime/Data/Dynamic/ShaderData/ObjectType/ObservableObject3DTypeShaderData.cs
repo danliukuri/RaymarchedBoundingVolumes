@@ -27,6 +27,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Torus.Changed        += value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
                 CappedTorus.Changed  += value.CastCached<IObjectTypeShaderData, RaymarchedCappedTorusShaderData>();
                 RegularPrism.Changed += value.CastCached<IObjectTypeShaderData, RaymarchedRegularPrismShaderData>();
+                RegularPolyhedron.Changed +=
+                    value.CastCached<IObjectTypeShaderData, RaymarchedRegularPolyhedronShaderData>();
             }
             remove
             {
@@ -45,6 +47,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                 Torus.Changed        -= value.CastCached<IObjectTypeShaderData, RaymarchedTorusShaderData>();
                 CappedTorus.Changed  -= value.CastCached<IObjectTypeShaderData, RaymarchedCappedTorusShaderData>();
                 RegularPrism.Changed -= value.CastCached<IObjectTypeShaderData, RaymarchedRegularPrismShaderData>();
+                RegularPolyhedron.Changed -=
+                    value.CastCached<IObjectTypeShaderData, RaymarchedRegularPolyhedronShaderData>();
             }
         }
 
@@ -89,6 +93,9 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<RaymarchedRegularPrismShaderData> RegularPrism { get; set; } =
             new(RaymarchedRegularPrismShaderData.Default);
+        
+        [field: SerializeField] public ObservableValue<RaymarchedRegularPolyhedronShaderData> RegularPolyhedron { get; set; } =
+            new(RaymarchedRegularPolyhedronShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
@@ -165,6 +172,10 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     regularPrism.Circumdiameter *= fullToHalfScaleMultiplier;
                     regularPrism.Length         *= fullToHalfScaleMultiplier;
                     return regularPrism;
+                case RaymarchedObject3DType.RegularPolyhedron:
+                    RaymarchedRegularPolyhedronShaderData regularPolyhedron = RegularPolyhedron.Value;
+                    regularPolyhedron.InscribedDiameter *= fullToHalfScaleMultiplier;
+                    return regularPolyhedron;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

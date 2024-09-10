@@ -31,6 +31,7 @@ namespace RBV.Features.ShaderDataForming
             Torus               => typeof(RaymarchedTorusShaderData),
             CappedTorus         => typeof(RaymarchedCappedTorusShaderData),
             RegularPrism        => typeof(RaymarchedRegularPrismShaderData),
+            RegularPolyhedron   => typeof(RaymarchedRegularPolyhedronShaderData),
             _                   => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
