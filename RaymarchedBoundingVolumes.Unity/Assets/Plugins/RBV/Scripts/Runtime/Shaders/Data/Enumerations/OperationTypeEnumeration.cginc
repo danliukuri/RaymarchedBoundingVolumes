@@ -1,0 +1,6 @@
+﻿#pragma once
+
+#define OPERATION_TYPE_UNION     0
+#define OPERATION_TYPE_SUBTRACT  1
+#define OPERATION_TYPE_BLEND     2
+#define OPERATION_TYPE_INTERSECT 3
