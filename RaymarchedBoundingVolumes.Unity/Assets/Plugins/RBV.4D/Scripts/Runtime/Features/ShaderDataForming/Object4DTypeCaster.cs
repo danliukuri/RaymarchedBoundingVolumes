@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using RBV.Data.Dynamic;
-using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Data.Static.Enumerations;
 using RBV.Features.ShaderDataForming;
 using RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType;
 using RBV.FourDimensional.Data.Static;
 using RBV.FourDimensional.Data.Static.Enumerations;
-using RBV.Utilities.Extensions;
 
 namespace RBV.FourDimensional.Features.ShaderDataForming
 {
@@ -21,8 +17,8 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
 
         private Type GetShaderDataType(RaymarchedObject4DType type) => type switch
         {
-            RaymarchedObject4DType.Hypersphere => typeof(RaymarchedHypersphereShaderData),
-            RaymarchedObject4DType.Hypercube   => typeof(RaymarchedHypercubeShaderData),
+            RaymarchedObject4DType.Hypersphere => typeof(HypersphereShaderData),
+            RaymarchedObject4DType.Hypercube   => typeof(HypercubeShaderData),
             _                                  => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

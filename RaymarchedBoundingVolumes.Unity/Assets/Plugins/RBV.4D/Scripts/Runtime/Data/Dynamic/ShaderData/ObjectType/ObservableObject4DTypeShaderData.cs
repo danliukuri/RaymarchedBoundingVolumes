@@ -14,27 +14,23 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         {
             add
             {
-                HypersphereShaderData.Changed +=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedHypersphereShaderData>();
-                HypercubeShaderData.Changed +=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedHypercubeShaderData>();
+                HypersphereShaderData.Changed += value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
+                HypercubeShaderData.Changed   += value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
             }
             remove
             {
-                HypersphereShaderData.Changed -=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedHypersphereShaderData>();
-                HypercubeShaderData.Changed -=
-                    value.CastCached<IObjectTypeShaderData, RaymarchedHypercubeShaderData>();
+                HypersphereShaderData.Changed -= value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
+                HypercubeShaderData.Changed   -= value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
             }
         }
 
         [field: SerializeField]
-        public ObservableValue<RaymarchedHypersphereShaderData> HypersphereShaderData { get; set; } =
-            new(RaymarchedHypersphereShaderData.Default);
+        public ObservableValue<HypersphereShaderData> HypersphereShaderData { get; set; } =
+            new(ObjectType.HypersphereShaderData.Default);
 
         [field: SerializeField]
-        public ObservableValue<RaymarchedHypercubeShaderData> HypercubeShaderData { get; set; } =
-            new(RaymarchedHypercubeShaderData.Default);
+        public ObservableValue<HypercubeShaderData> HypercubeShaderData { get; set; } =
+            new(ObjectType.HypercubeShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -47,11 +43,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
             switch (type)
             {
                 case RaymarchedObject4DType.Hypersphere:
-                    RaymarchedHypersphereShaderData sphereShaderData = HypersphereShaderData.Value;
+                    HypersphereShaderData sphereShaderData = HypersphereShaderData.Value;
                     sphereShaderData.Diameter *= fullToHalfScaleMultiplier;
                     return sphereShaderData;
                 case RaymarchedObject4DType.Hypercube:
-                    RaymarchedHypercubeShaderData cubeShaderData = HypercubeShaderData.Value;
+                    HypercubeShaderData cubeShaderData = HypercubeShaderData.Value;
                     cubeShaderData.Dimensions *= fullToHalfScaleMultiplier;
                     return cubeShaderData;
                 default:

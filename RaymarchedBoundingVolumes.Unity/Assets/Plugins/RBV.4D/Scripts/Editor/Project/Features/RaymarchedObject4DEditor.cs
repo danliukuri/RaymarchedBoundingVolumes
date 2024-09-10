@@ -10,6 +10,7 @@ using RBV.FourDimensional.Data.Static.Enumerations;
 using RBV.FourDimensional.Features;
 using RBV.Utilities.Wrappers;
 using UnityEditor;
+using static RBV.FourDimensional.Data.Static.Enumerations.RaymarchedObject4DType;
 
 namespace RBV.FourDimensional.Editor.Project.Features
 {
@@ -58,8 +59,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
         {
             var typeDataPropertyPath = new Dictionary<RaymarchedObject4DType, string>
             {
-                { RaymarchedObject4DType.Hypersphere, nameof(ObservableObject4DTypeShaderData.HypersphereShaderData) },
-                { RaymarchedObject4DType.Hypercube, nameof(ObservableObject4DTypeShaderData.HypercubeShaderData) }
+                [Hypersphere] = nameof(ObservableObject4DTypeShaderData.HypersphereShaderData),
+                [Hypercube]   = nameof(ObservableObject4DTypeShaderData.HypercubeShaderData)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -71,16 +72,12 @@ namespace RBV.FourDimensional.Editor.Project.Features
         private void InitializeTypeRelatedDataResetters() =>
             _typeDataResetters = new Dictionary<RaymarchedObject4DType, Action>
             {
-                {
-                    RaymarchedObject4DType.Hypersphere, () => _typeDataProperties[RaymarchedObject4DType.Hypersphere]
-                        .FindPropertyRelative(nameof(RaymarchedHypersphereShaderData.Diameter))
-                        .floatValue = RaymarchedHypersphereShaderData.Default.Diameter
-                },
-                {
-                    RaymarchedObject4DType.Hypercube, () => _typeDataProperties[RaymarchedObject4DType.Hypercube]
-                        .FindPropertyRelative(nameof(RaymarchedHypercubeShaderData.Dimensions))
-                        .vector4Value = RaymarchedHypercubeShaderData.Default.Dimensions
-                }
+                [Hypersphere] = () => _typeDataProperties[Hypersphere]
+                    .FindPropertyRelative(nameof(HypersphereShaderData.Diameter))
+                    .floatValue = HypersphereShaderData.Default.Diameter,
+                [Hypercube] = () => _typeDataProperties[Hypercube]
+                    .FindPropertyRelative(nameof(HypercubeShaderData.Dimensions))
+                    .vector4Value = HypercubeShaderData.Default.Dimensions
             };
 
         private void DrawProperties()

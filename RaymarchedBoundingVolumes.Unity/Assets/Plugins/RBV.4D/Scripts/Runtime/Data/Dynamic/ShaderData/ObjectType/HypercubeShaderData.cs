@@ -5,10 +5,10 @@ using UnityEngine;
 namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 {
     [Serializable]
-    public struct RaymarchedHypercubeShaderData : IObjectTypeShaderData
+    public struct HypercubeShaderData : IObjectTypeShaderData
     {
         public Vector4 Dimensions;
 
-        public static RaymarchedHypercubeShaderData Default { get; } = new() { Dimensions = Vector4.one };
+        public static HypercubeShaderData Default { get; } = new() { Dimensions = Vector4.one };
     }
 }
