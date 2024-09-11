@@ -1,4 +1,8 @@
-﻿float calculateHypercubeSDF(const float4 position, const float4 halfDimensions)
+﻿#pragma once
+
+#include "ModificationOperations.cginc"
+
+float calculateHypercubeSDF(const float4 position, const float4 halfDimensions)
 {
     float4 distance        = abs(position) - halfDimensions;
     float  outsideDistance = length(max(distance, 0.0));
@@ -18,4 +22,9 @@ float calculateHyperellipsoidSDF(const float4 position, const float4 radii)
     float  outsideDistance    = normalizedDistance - 1.0;
     float  gradientLength     = length(normalizedPosition / radii);
     return normalizedDistance * outsideDistance / gradientLength;
+}
+
+float calculateHypercapsuleSDF(const float4 position, const float halfHeight, const float radius)
+{
+    return calculateHypersphereSDF(elongateY(position, halfHeight), radius);
 }

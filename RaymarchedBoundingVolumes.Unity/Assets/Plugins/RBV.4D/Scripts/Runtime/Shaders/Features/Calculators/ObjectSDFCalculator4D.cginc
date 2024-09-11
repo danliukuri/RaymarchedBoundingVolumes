@@ -37,6 +37,10 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
             HyperellipsoidData hyperellipsoidData = _RaymarchedHyperellipsoidData[objectData.typeDataIndex];
             distance = calculateHyperellipsoidSDF(position4D, hyperellipsoidData.radii);
             break;
+        case OBJECT_TYPE_HYPERCAPSULE:
+            HypercapsuleData hypercapsuleData = _RaymarchedHypercapsuleData[objectData.typeDataIndex];
+            distance = calculateHypercapsuleSDF(position4D, hypercapsuleData.halfHeight, hypercapsuleData.radius);
+            break;
     }
     distance *= transform.scale;
 

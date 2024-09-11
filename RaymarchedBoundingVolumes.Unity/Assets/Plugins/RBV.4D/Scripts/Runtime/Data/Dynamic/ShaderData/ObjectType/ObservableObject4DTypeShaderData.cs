@@ -17,12 +17,14 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 Hypercube.Changed      += value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
                 Hypersphere.Changed    += value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
                 Hyperellipsoid.Changed += value.CastCached<IObjectTypeShaderData, HyperellipsoidShaderData>();
+                Hypercapsule.Changed   += value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
             }
             remove
             {
                 Hypercube.Changed      -= value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
                 Hypersphere.Changed    -= value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
                 Hyperellipsoid.Changed -= value.CastCached<IObjectTypeShaderData, HyperellipsoidShaderData>();
+                Hypercapsule.Changed   -= value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
             }
         }
 
@@ -35,6 +37,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField] public ObservableValue<HyperellipsoidShaderData> Hyperellipsoid { get; set; } =
             new(HyperellipsoidShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<HypercapsuleShaderData> Hypercapsule { get; set; } =
+            new(HypercapsuleShaderData.Default);
+        
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
 
@@ -56,6 +61,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     HyperellipsoidShaderData hyperellipsoid = Hyperellipsoid.Value;
                     hyperellipsoid.Diameters *= fullToHalfScaleMultiplier;
                     return hyperellipsoid;
+                case RaymarchedObject4DType.Hypercapsule:
+                    HypercapsuleShaderData hypercapsule = Hypercapsule.Value;
+                    hypercapsule.Height   *= fullToHalfScaleMultiplier;
+                    hypercapsule.Diameter *= fullToHalfScaleMultiplier;
+                    return hypercapsule;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

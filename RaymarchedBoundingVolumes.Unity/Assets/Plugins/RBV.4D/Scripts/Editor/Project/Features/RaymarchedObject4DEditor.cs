@@ -61,7 +61,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
             {
                 [Hypercube]      = nameof(ObservableObject4DTypeShaderData.Hypercube),
                 [Hypersphere]    = nameof(ObservableObject4DTypeShaderData.Hypersphere),
-                [Hyperellipsoid] = nameof(ObservableObject4DTypeShaderData.Hyperellipsoid)
+                [Hyperellipsoid] = nameof(ObservableObject4DTypeShaderData.Hyperellipsoid),
+                [Hypercapsule]   = nameof(ObservableObject4DTypeShaderData.Hypercapsule)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -81,7 +82,10 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     .floatValue = HypersphereShaderData.Default.Diameter,
                 [Hyperellipsoid] = () => _typeDataProperties[Hyperellipsoid]
                     .FindPropertyRelative(nameof(HyperellipsoidShaderData.Diameters))
-                    .vector4Value = HyperellipsoidShaderData.Default.Diameters
+                    .vector4Value = HyperellipsoidShaderData.Default.Diameters,
+                [Hypercapsule] = () => _typeDataProperties[Hypercapsule]
+                    .FindPropertyRelative(nameof(HypercapsuleShaderData.Height))
+                    .floatValue = HypercapsuleShaderData.Default.Height
             };
 
         private void DrawProperties()

@@ -21,6 +21,7 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
             Hypercube      => typeof(HypercubeShaderData),
             Hypersphere    => typeof(HypersphereShaderData),
             Hyperellipsoid => typeof(HyperellipsoidShaderData),
+            Hypercapsule   => typeof(HypercapsuleShaderData),
             _              => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

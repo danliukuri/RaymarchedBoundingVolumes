@@ -14,3 +14,9 @@ struct HyperellipsoidData
 {
     float4 radii;
 };
+
+struct HypercapsuleData
+{
+    float halfHeight;
+    float radius;
+};
