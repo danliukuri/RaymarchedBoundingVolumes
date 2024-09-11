@@ -14,13 +14,15 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         {
             add
             {
-                Hypercube.Changed   += value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
-                Hypersphere.Changed += value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
+                Hypercube.Changed      += value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
+                Hypersphere.Changed    += value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
+                Hyperellipsoid.Changed += value.CastCached<IObjectTypeShaderData, HyperellipsoidShaderData>();
             }
             remove
             {
-                Hypercube.Changed   -= value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
-                Hypersphere.Changed -= value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
+                Hypercube.Changed      -= value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
+                Hypersphere.Changed    -= value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
+                Hyperellipsoid.Changed -= value.CastCached<IObjectTypeShaderData, HyperellipsoidShaderData>();
             }
         }
 
@@ -29,6 +31,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<HypersphereShaderData> Hypersphere { get; set; } =
             new(HypersphereShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<HyperellipsoidShaderData> Hyperellipsoid { get; set; } =
+            new(HyperellipsoidShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -47,6 +52,10 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     HypersphereShaderData hypersphere = Hypersphere.Value;
                     hypersphere.Diameter *= fullToHalfScaleMultiplier;
                     return hypersphere;
+                case RaymarchedObject4DType.Hyperellipsoid:
+                    HyperellipsoidShaderData hyperellipsoid = Hyperellipsoid.Value;
+                    hyperellipsoid.Diameters *= fullToHalfScaleMultiplier;
+                    return hyperellipsoid;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

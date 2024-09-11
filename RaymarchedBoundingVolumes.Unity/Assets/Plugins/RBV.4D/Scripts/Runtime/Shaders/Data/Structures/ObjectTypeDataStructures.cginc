@@ -9,3 +9,8 @@ struct HypersphereData
 {
     float radius;
 };
+
+struct HyperellipsoidData
+{
+    float4 radii;
+};

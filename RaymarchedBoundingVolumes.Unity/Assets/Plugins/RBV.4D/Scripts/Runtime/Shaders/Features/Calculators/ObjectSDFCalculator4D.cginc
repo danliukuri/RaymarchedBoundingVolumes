@@ -17,7 +17,7 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
     position = rotate3D(position, transform.rotation);
 
     float4 position4D = float4(position, transform.position.w);
-    position4D = rotate4D(position4D, transform.rotation4D);
+    position4D        = rotate4D(position4D, transform.rotation4D);
     position4D /= transform.scale;
     float distance;
 
@@ -32,6 +32,10 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
         case OBJECT_TYPE_HYPERSPHERE:
             HypersphereData hypersphereData = _RaymarchedHypersphereData[objectData.typeDataIndex];
             distance = calculateHypersphereSDF(position4D, hypersphereData.radius);
+            break;
+        case OBJECT_TYPE_HYPERELLIPSOID:
+            HyperellipsoidData hyperellipsoidData = _RaymarchedHyperellipsoidData[objectData.typeDataIndex];
+            distance = calculateHyperellipsoidSDF(position4D, hyperellipsoidData.radii);
             break;
     }
     distance *= transform.scale;

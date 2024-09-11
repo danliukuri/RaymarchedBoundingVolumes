@@ -10,3 +10,12 @@ float calculateHypersphereSDF(const float4 position, const float radius)
 {
     return length(position) - radius;
 }
+
+float calculateHyperellipsoidSDF(const float4 position, const float4 radii)
+{
+    float4 normalizedPosition = position / radii;
+    float  normalizedDistance = length(normalizedPosition);
+    float  outsideDistance    = normalizedDistance - 1.0;
+    float  gradientLength     = length(normalizedPosition / radii);
+    return normalizedDistance * outsideDistance / gradientLength;
+}
