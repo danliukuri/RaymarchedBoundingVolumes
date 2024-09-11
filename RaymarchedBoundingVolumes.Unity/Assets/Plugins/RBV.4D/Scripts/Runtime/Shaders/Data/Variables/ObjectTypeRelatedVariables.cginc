@@ -4,5 +4,5 @@
 
 // Manually set by scripts
 
-uniform StructuredBuffer<HypersphereData> _RaymarchedHypersphereData;
 uniform StructuredBuffer<HypercubeData>   _RaymarchedHypercubeData;
+uniform StructuredBuffer<HypersphereData> _RaymarchedHypersphereData;

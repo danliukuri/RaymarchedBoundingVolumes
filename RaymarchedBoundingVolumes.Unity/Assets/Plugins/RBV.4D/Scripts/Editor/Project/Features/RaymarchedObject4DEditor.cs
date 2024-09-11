@@ -59,8 +59,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
         {
             var typeDataPropertyPath = new Dictionary<RaymarchedObject4DType, string>
             {
-                [Hypersphere] = nameof(ObservableObject4DTypeShaderData.HypersphereShaderData),
-                [Hypercube]   = nameof(ObservableObject4DTypeShaderData.HypercubeShaderData)
+                [Hypercube]   = nameof(ObservableObject4DTypeShaderData.Hypercube),
+                [Hypersphere] = nameof(ObservableObject4DTypeShaderData.Hypersphere)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -72,12 +72,12 @@ namespace RBV.FourDimensional.Editor.Project.Features
         private void InitializeTypeRelatedDataResetters() =>
             _typeDataResetters = new Dictionary<RaymarchedObject4DType, Action>
             {
-                [Hypersphere] = () => _typeDataProperties[Hypersphere]
-                    .FindPropertyRelative(nameof(HypersphereShaderData.Diameter))
-                    .floatValue = HypersphereShaderData.Default.Diameter,
                 [Hypercube] = () => _typeDataProperties[Hypercube]
                     .FindPropertyRelative(nameof(HypercubeShaderData.Dimensions))
-                    .vector4Value = HypercubeShaderData.Default.Dimensions
+                    .vector4Value = HypercubeShaderData.Default.Dimensions,
+                [Hypersphere] = () => _typeDataProperties[Hypersphere]
+                    .FindPropertyRelative(nameof(HypersphereShaderData.Diameter))
+                    .floatValue = HypersphereShaderData.Default.Diameter
             };
 
         private void DrawProperties()

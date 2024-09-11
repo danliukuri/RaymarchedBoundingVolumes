@@ -17,8 +17,8 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
 
         private Type GetShaderDataType(RaymarchedObject4DType type) => type switch
         {
-            RaymarchedObject4DType.Hypersphere => typeof(HypersphereShaderData),
             RaymarchedObject4DType.Hypercube   => typeof(HypercubeShaderData),
+            RaymarchedObject4DType.Hypersphere => typeof(HypersphereShaderData),
             _                                  => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

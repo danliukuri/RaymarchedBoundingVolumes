@@ -526,31 +526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: type.value
-      value: 10001
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Position>k__BackingField.value.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Position>k__BackingField.value.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Rotation>k__BackingField.value.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Rotation>k__BackingField.value.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Rotation>k__BackingField.value.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Rotation4D>k__BackingField.value.x
-      value: 0
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: transform.<Rotation4D>k__BackingField.value.y
@@ -1137,10 +1113,6 @@ PrefabInstance:
     - target: {fileID: 8187576220391758339, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: m_Name
       value: RaymarchedObject4D
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: type.value
-      value: 10000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

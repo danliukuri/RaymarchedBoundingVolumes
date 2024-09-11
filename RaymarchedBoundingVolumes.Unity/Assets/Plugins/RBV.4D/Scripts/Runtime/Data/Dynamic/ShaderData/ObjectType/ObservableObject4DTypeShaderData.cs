@@ -14,42 +14,39 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         {
             add
             {
-                HypersphereShaderData.Changed += value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
-                HypercubeShaderData.Changed   += value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
+                Hypercube.Changed   += value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
+                Hypersphere.Changed += value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
             }
             remove
             {
-                HypersphereShaderData.Changed -= value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
-                HypercubeShaderData.Changed   -= value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
+                Hypercube.Changed   -= value.CastCached<IObjectTypeShaderData, HypercubeShaderData>();
+                Hypersphere.Changed -= value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
             }
         }
 
-        [field: SerializeField]
-        public ObservableValue<HypersphereShaderData> HypersphereShaderData { get; set; } =
-            new(ObjectType.HypersphereShaderData.Default);
+        [field: SerializeField] public ObservableValue<HypercubeShaderData> Hypercube { get; set; } =
+            new(HypercubeShaderData.Default);
 
-        [field: SerializeField]
-        public ObservableValue<HypercubeShaderData> HypercubeShaderData { get; set; } =
-            new(ObjectType.HypercubeShaderData.Default);
+        [field: SerializeField] public ObservableValue<HypersphereShaderData> Hypersphere { get; set; } =
+            new(HypersphereShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObject4DType type)
         {
-            const float fullToHalfScaleMultiplier =
-                IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            const float fullToHalfScaleMultiplier = IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
 
             switch (type)
             {
-                case RaymarchedObject4DType.Hypersphere:
-                    HypersphereShaderData sphereShaderData = HypersphereShaderData.Value;
-                    sphereShaderData.Diameter *= fullToHalfScaleMultiplier;
-                    return sphereShaderData;
                 case RaymarchedObject4DType.Hypercube:
-                    HypercubeShaderData cubeShaderData = HypercubeShaderData.Value;
-                    cubeShaderData.Dimensions *= fullToHalfScaleMultiplier;
-                    return cubeShaderData;
+                    HypercubeShaderData hypercube = Hypercube.Value;
+                    hypercube.Dimensions *= fullToHalfScaleMultiplier;
+                    return hypercube;
+                case RaymarchedObject4DType.Hypersphere:
+                    HypersphereShaderData hypersphere = Hypersphere.Value;
+                    hypersphere.Diameter *= fullToHalfScaleMultiplier;
+                    return hypersphere;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

@@ -25,13 +25,13 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
     switch (objectData.type)
     {
         default:
-        case OBJECT_TYPE_HYPERSPHERE:
-            HypersphereData hypersphereData = _RaymarchedHypersphereData[objectData.typeDataIndex];
-            distance = calculateHypersphereSDF(position4D, hypersphereData.radius);
-            break;
         case OBJECT_TYPE_HYPERCUBE:
             HypercubeData hypercubeData = _RaymarchedHypercubeData[objectData.typeDataIndex];
             distance = calculateHypercubeSDF(position4D, hypercubeData.halfDimensions);
+            break;
+        case OBJECT_TYPE_HYPERSPHERE:
+            HypersphereData hypersphereData = _RaymarchedHypersphereData[objectData.typeDataIndex];
+            distance = calculateHypersphereSDF(position4D, hypersphereData.radius);
             break;
     }
     distance *= transform.scale;
