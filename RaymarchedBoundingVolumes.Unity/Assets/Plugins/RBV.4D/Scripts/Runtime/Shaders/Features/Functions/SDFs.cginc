@@ -28,3 +28,8 @@ float calculateHypercapsuleSDF(const float4 position, const float halfHeight, co
 {
     return calculateHypersphereSDF(elongateY(position, halfHeight), radius);
 }
+
+float calculateEllipsoidalHypercapsuleSDF(const float4 position, const float halfHeight, const float4 radii)
+{
+    return calculateHyperellipsoidSDF(elongateY(position, halfHeight), radii);
+}

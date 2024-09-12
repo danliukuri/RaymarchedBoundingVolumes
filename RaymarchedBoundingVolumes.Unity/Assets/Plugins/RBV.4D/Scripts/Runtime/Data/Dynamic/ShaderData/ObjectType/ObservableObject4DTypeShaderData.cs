@@ -18,6 +18,8 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 Hypersphere.Changed    += value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
                 Hyperellipsoid.Changed += value.CastCached<IObjectTypeShaderData, HyperellipsoidShaderData>();
                 Hypercapsule.Changed   += value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
+                EllipsoidalHypercapsule.Changed +=
+                    value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
             }
             remove
             {
@@ -25,6 +27,8 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 Hypersphere.Changed    -= value.CastCached<IObjectTypeShaderData, HypersphereShaderData>();
                 Hyperellipsoid.Changed -= value.CastCached<IObjectTypeShaderData, HyperellipsoidShaderData>();
                 Hypercapsule.Changed   -= value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
+                EllipsoidalHypercapsule.Changed -=
+                    value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
             }
         }
 
@@ -39,7 +43,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<HypercapsuleShaderData> Hypercapsule { get; set; } =
             new(HypercapsuleShaderData.Default);
-        
+
+        [field: SerializeField]
+        public ObservableValue<EllipsoidalHypercapsuleShaderData> EllipsoidalHypercapsule { get; set; } =
+            new(EllipsoidalHypercapsuleShaderData.Default);
+
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
 
@@ -66,6 +74,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     hypercapsule.Height   *= fullToHalfScaleMultiplier;
                     hypercapsule.Diameter *= fullToHalfScaleMultiplier;
                     return hypercapsule;
+                case RaymarchedObject4DType.EllipsoidalHypercapsule:
+                    EllipsoidalHypercapsuleShaderData ellipsoidalHypercapsule = EllipsoidalHypercapsule.Value;
+                    ellipsoidalHypercapsule.Height    *= fullToHalfScaleMultiplier;
+                    ellipsoidalHypercapsule.Diameters *= fullToHalfScaleMultiplier;
+                    return ellipsoidalHypercapsule;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

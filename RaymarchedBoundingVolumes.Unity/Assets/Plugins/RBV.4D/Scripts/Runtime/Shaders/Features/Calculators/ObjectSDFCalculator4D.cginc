@@ -41,6 +41,13 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
             HypercapsuleData hypercapsuleData = _RaymarchedHypercapsuleData[objectData.typeDataIndex];
             distance = calculateHypercapsuleSDF(position4D, hypercapsuleData.halfHeight, hypercapsuleData.radius);
             break;
+        case OBJECT_TYPE_ELLIPSOIDAL_HYPERCAPSULE:
+            EllipsoidalHypercapsuleData ellipsoidalHypercapsuleData =
+                _RaymarchedEllipsoidalHypercapsuleData[objectData.typeDataIndex];
+            distance = calculateEllipsoidalHypercapsuleSDF(position4D,
+                                                           ellipsoidalHypercapsuleData.halfHeight,
+                                                           ellipsoidalHypercapsuleData.radii);
+            break;
     }
     distance *= transform.scale;
 

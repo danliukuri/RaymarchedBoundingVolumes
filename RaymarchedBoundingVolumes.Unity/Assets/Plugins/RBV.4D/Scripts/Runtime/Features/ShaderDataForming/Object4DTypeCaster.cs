@@ -18,11 +18,12 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
 
         private Type GetShaderDataType(RaymarchedObject4DType type) => type switch
         {
-            Hypercube      => typeof(HypercubeShaderData),
-            Hypersphere    => typeof(HypersphereShaderData),
-            Hyperellipsoid => typeof(HyperellipsoidShaderData),
-            Hypercapsule   => typeof(HypercapsuleShaderData),
-            _              => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            Hypercube               => typeof(HypercubeShaderData),
+            Hypersphere             => typeof(HypersphereShaderData),
+            Hyperellipsoid          => typeof(HyperellipsoidShaderData),
+            Hypercapsule            => typeof(HypercapsuleShaderData),
+            EllipsoidalHypercapsule => typeof(EllipsoidalHypercapsuleShaderData),
+            _                       => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
 }

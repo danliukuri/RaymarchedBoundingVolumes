@@ -59,10 +59,11 @@ namespace RBV.FourDimensional.Editor.Project.Features
         {
             var typeDataPropertyPath = new Dictionary<RaymarchedObject4DType, string>
             {
-                [Hypercube]      = nameof(ObservableObject4DTypeShaderData.Hypercube),
-                [Hypersphere]    = nameof(ObservableObject4DTypeShaderData.Hypersphere),
-                [Hyperellipsoid] = nameof(ObservableObject4DTypeShaderData.Hyperellipsoid),
-                [Hypercapsule]   = nameof(ObservableObject4DTypeShaderData.Hypercapsule)
+                [Hypercube]               = nameof(ObservableObject4DTypeShaderData.Hypercube),
+                [Hypersphere]             = nameof(ObservableObject4DTypeShaderData.Hypersphere),
+                [Hyperellipsoid]          = nameof(ObservableObject4DTypeShaderData.Hyperellipsoid),
+                [Hypercapsule]            = nameof(ObservableObject4DTypeShaderData.Hypercapsule),
+                [EllipsoidalHypercapsule] = nameof(ObservableObject4DTypeShaderData.EllipsoidalHypercapsule)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -85,7 +86,17 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     .vector4Value = HyperellipsoidShaderData.Default.Diameters,
                 [Hypercapsule] = () => _typeDataProperties[Hypercapsule]
                     .FindPropertyRelative(nameof(HypercapsuleShaderData.Height))
-                    .floatValue = HypercapsuleShaderData.Default.Height
+                    .floatValue = HypercapsuleShaderData.Default.Height,
+                [EllipsoidalHypercapsule] = () =>
+                {
+                    _typeDataProperties[EllipsoidalHypercapsule]
+                        .FindPropertyRelative(nameof(EllipsoidalHypercapsuleShaderData.Height))
+                        .floatValue = EllipsoidalHypercapsuleShaderData.Default.Height;
+
+                    _typeDataProperties[EllipsoidalHypercapsule]
+                        .FindPropertyRelative(nameof(EllipsoidalHypercapsuleShaderData.Diameters))
+                        .vector4Value = EllipsoidalHypercapsuleShaderData.Default.Diameters;
+                }
             };
 
         private void DrawProperties()

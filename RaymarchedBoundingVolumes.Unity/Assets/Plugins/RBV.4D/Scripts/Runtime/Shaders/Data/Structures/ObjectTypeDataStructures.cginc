@@ -20,3 +20,9 @@ struct HypercapsuleData
     float halfHeight;
     float radius;
 };
+
+struct EllipsoidalHypercapsuleData
+{
+    float  halfHeight;
+    float4 radii;
+};
