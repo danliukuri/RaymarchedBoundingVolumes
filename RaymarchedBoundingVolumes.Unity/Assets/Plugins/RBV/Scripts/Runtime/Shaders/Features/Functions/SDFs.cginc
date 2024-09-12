@@ -1,16 +1,13 @@
 ﻿#pragma once
 
+#include "1DSDFs.cginc"
 #include "2DSDFs.cginc"
-#include "MathExtentions.cginc"
 #include "ModificationOperations.cginc"
 #include "../../Data/Variables/CommonBoundingPlanesVariables.cginc"
 
 float calculateCubeSDF(const float3 position, const float3 halfDimensions)
 {
-    float3 distance        = abs(position) - halfDimensions;
-    float  outsideDistance = length(max(distance, 0.0));
-    float  insideDistance  = min(maxAxisOf3(distance), 0.0);
-    return outsideDistance + insideDistance;
+    return extrudeOrigin(position, halfDimensions);
 }
 
 float calculateSphereSDF(const float3 position, const float radius)
@@ -97,7 +94,7 @@ float calculateCappedConeSDF(const float3 position,
 
     float  minBaseRadius      = projectedPosition.y < 0.0 ? bottomBaseRadius : topBaseRadius;
     float  horizontalDistance = projectedPosition.x - min(projectedPosition.x, minBaseRadius);
-    float  verticalDistance   = abs(projectedPosition.y) - height;
+    float  verticalDistance   = calculateLineSDF(projectedPosition.y, height);
     float2 distanceToBase     = float2(horizontalDistance, verticalDistance);
 
     float2 deltaPosition   = baseParams - projectedPosition;
