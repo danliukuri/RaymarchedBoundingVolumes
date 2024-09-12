@@ -48,12 +48,12 @@ float calculateEllipsoidalCapsuleSDF(const float3 position, const float halfHeig
 
 float calculateCylinderSDF(const float3 position, const float height, const float radius)
 {
-    return extrudeY(position, calculateCircleSDF(position.xz, radius), height);
+    return extrude(calculateCircleSDF(position.xz, radius), position.y, height);
 }
 
 float calculateEllipsoidalCylinderSDF(const float3 position, const float3 dimensions)
 {
-    return extrudeY(position, calculateEllipseSDF(position.xz, dimensions.xz), dimensions.y);
+    return extrude(calculateEllipseSDF(position.xz, dimensions.xz), position.y, dimensions.y);
 }
 
 float calculatePlaneSDF(const float3 position, const float3 halfDimensions)
@@ -135,7 +135,7 @@ float calculateRegularPrismSDF(const float3 position,
 {
     float3 rotatedPosition = position.yzx;
     float  polyhedronSDF   = calculateRegularPolygonSDF(rotatedPosition.zx, verticesCount, circumradius);
-    return extrudeY(rotatedPosition, polyhedronSDF, abs(length));
+    return extrude(polyhedronSDF, rotatedPosition.y, abs(length));
 }
 
 float calculateRegularPolyhedronSDF(const float3 position,

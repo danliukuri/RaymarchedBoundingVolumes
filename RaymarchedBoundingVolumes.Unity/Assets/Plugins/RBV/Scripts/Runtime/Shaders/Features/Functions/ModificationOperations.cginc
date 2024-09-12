@@ -25,27 +25,28 @@ float3 elongateZ(float3 position, const float strength)
 }
 
 
-float extrude(const float sdf, const float verticalDistance)
+float extrude(const float sdf, const float positionOnAxis, const float distanceAlongAxis)
 {
-    float2 distance        = float2(sdf, verticalDistance);
+    float2 distance        = float2(sdf, abs(positionOnAxis) - distanceAlongAxis);
     float  outsideDistance = length(max(distance, 0.0));
     float  insideDistance  = min(max(distance.x, distance.y), 0.0);
     return outsideDistance + insideDistance;
 }
 
-float extrudeX(const float3 position, const float sdf, const float height)
+float extrude(const float sdf, const float2 positionOnAxes, const float2 distanceAlongAxes)
 {
-    return extrude(sdf, abs(position.x) - height);
+    float3 distance        = float3(sdf, abs(positionOnAxes) - distanceAlongAxes);
+    float  outsideDistance = length(max(distance, 0.0));
+    float  insideDistance  = min(max(distance.x, max(distance.y, distance.z)), 0.0);
+    return outsideDistance + insideDistance;
 }
 
-float extrudeY(const float3 position, const float sdf, const float height)
+float extrude(const float sdf, const float3 positionOnAxes, const float3 distanceAlongAxes)
 {
-    return extrude(sdf, abs(position.y) - height);
-}
-
-float extrudeZ(const float3 position, const float sdf, const float height)
-{
-    return extrude(sdf, abs(position.z) - height);
+    float4 distance        = float4(sdf, abs(positionOnAxes) - distanceAlongAxes);
+    float  outsideDistance = length(max(distance, 0.0));
+    float  insideDistance  = min(max(distance.x, max(distance.y, max(distance.z, distance.w))), 0.0);
+    return outsideDistance + insideDistance;
 }
 
 

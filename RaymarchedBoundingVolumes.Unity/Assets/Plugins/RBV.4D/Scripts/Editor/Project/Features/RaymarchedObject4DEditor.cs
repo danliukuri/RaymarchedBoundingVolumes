@@ -63,7 +63,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [Hypersphere]             = nameof(ObservableObject4DTypeShaderData.Hypersphere),
                 [Hyperellipsoid]          = nameof(ObservableObject4DTypeShaderData.Hyperellipsoid),
                 [Hypercapsule]            = nameof(ObservableObject4DTypeShaderData.Hypercapsule),
-                [EllipsoidalHypercapsule] = nameof(ObservableObject4DTypeShaderData.EllipsoidalHypercapsule)
+                [EllipsoidalHypercapsule] = nameof(ObservableObject4DTypeShaderData.EllipsoidalHypercapsule),
+                [CubicalCylinder]         = nameof(ObservableObject4DTypeShaderData.CubicalCylinder)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -84,9 +85,16 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [Hyperellipsoid] = () => _typeDataProperties[Hyperellipsoid]
                     .FindPropertyRelative(nameof(HyperellipsoidShaderData.Diameters))
                     .vector4Value = HyperellipsoidShaderData.Default.Diameters,
-                [Hypercapsule] = () => _typeDataProperties[Hypercapsule]
-                    .FindPropertyRelative(nameof(HypercapsuleShaderData.Height))
-                    .floatValue = HypercapsuleShaderData.Default.Height,
+                [Hypercapsule] = () =>
+                {
+                    _typeDataProperties[Hypercapsule]
+                        .FindPropertyRelative(nameof(HypercapsuleShaderData.Height))
+                        .floatValue = HypercapsuleShaderData.Default.Height;
+
+                    _typeDataProperties[Hypercapsule]
+                        .FindPropertyRelative(nameof(HypercapsuleShaderData.Diameter))
+                        .floatValue = HypercapsuleShaderData.Default.Diameter;
+                },
                 [EllipsoidalHypercapsule] = () =>
                 {
                     _typeDataProperties[EllipsoidalHypercapsule]
@@ -96,6 +104,20 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     _typeDataProperties[EllipsoidalHypercapsule]
                         .FindPropertyRelative(nameof(EllipsoidalHypercapsuleShaderData.Diameters))
                         .vector4Value = EllipsoidalHypercapsuleShaderData.Default.Diameters;
+                },
+                [CubicalCylinder] = () =>
+                {
+                    _typeDataProperties[CubicalCylinder]
+                        .FindPropertyRelative(nameof(CubicalCylinderShaderData.Diameter))
+                        .floatValue = CubicalCylinderShaderData.Default.Diameter;
+
+                    _typeDataProperties[CubicalCylinder]
+                        .FindPropertyRelative(nameof(CubicalCylinderShaderData.Height))
+                        .floatValue = CubicalCylinderShaderData.Default.Height;
+
+                    _typeDataProperties[CubicalCylinder]
+                        .FindPropertyRelative(nameof(CubicalCylinderShaderData.Trength))
+                        .floatValue = CubicalCylinderShaderData.Default.Trength;
                 }
             };
 

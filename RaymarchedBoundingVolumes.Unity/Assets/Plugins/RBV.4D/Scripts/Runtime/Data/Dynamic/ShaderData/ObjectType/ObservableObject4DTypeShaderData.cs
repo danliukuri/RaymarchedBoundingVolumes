@@ -20,6 +20,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 Hypercapsule.Changed   += value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
                 EllipsoidalHypercapsule.Changed +=
                     value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
+                CubicalCylinder.Changed += value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
             }
             remove
             {
@@ -29,6 +30,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 Hypercapsule.Changed   -= value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
                 EllipsoidalHypercapsule.Changed -=
                     value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
+                CubicalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
             }
         }
 
@@ -47,6 +49,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField]
         public ObservableValue<EllipsoidalHypercapsuleShaderData> EllipsoidalHypercapsule { get; set; } =
             new(EllipsoidalHypercapsuleShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<CubicalCylinderShaderData> CubicalCylinder { get; set; } =
+            new(CubicalCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -79,6 +84,12 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     ellipsoidalHypercapsule.Height    *= fullToHalfScaleMultiplier;
                     ellipsoidalHypercapsule.Diameters *= fullToHalfScaleMultiplier;
                     return ellipsoidalHypercapsule;
+                case RaymarchedObject4DType.CubicalCylinder:
+                    CubicalCylinderShaderData cubicalCylinder = CubicalCylinder.Value;
+                    cubicalCylinder.Diameter *= fullToHalfScaleMultiplier;
+                    cubicalCylinder.Height   *= fullToHalfScaleMultiplier;
+                    cubicalCylinder.Trength  *= fullToHalfScaleMultiplier;
+                    return cubicalCylinder;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

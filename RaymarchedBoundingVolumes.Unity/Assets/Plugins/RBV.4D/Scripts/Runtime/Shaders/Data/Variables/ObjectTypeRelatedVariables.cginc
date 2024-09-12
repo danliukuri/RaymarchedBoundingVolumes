@@ -9,3 +9,4 @@ uniform StructuredBuffer<HypersphereData>             _RaymarchedHypersphereData
 uniform StructuredBuffer<HyperellipsoidData>          _RaymarchedHyperellipsoidData;
 uniform StructuredBuffer<HypercapsuleData>            _RaymarchedHypercapsuleData;
 uniform StructuredBuffer<EllipsoidalHypercapsuleData> _RaymarchedEllipsoidalHypercapsuleData;
+uniform StructuredBuffer<CubicalCylinderData>         _RaymarchedCubicalCylinderData;

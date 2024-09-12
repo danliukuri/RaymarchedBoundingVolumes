@@ -27,24 +27,12 @@ float4 elongateW(float4 position, const float strength)
 }
 
 
-float extrudeX(const float4 position, const float sdf, const float height)
+float extrude(const float sdf, const float4 positionOnAxes, const float4 distanceAlongAxes)
 {
-    return extrude(sdf, abs(position.x) - height);
-}
-
-float extrudeY(const float4 position, const float sdf, const float height)
-{
-    return extrude(sdf, abs(position.y) - height);
-}
-
-float extrudeZ(const float4 position, const float sdf, const float height)
-{
-    return extrude(sdf, abs(position.z) - height);
-}
-
-float extrudeW(const float4 position, const float sdf, const float height)
-{
-    return extrude(sdf, abs(position.w) - height);
+    float4 distance        = abs(positionOnAxes) - distanceAlongAxes;
+    float  outsideDistance = length(max(max(sdf, 0.0), max(distance, 0.0)));
+    float  insideDistance  = min(max(sdf, max(distance.x, max(distance.y, max(distance.z, distance.w)))), 0.0);
+    return outsideDistance + insideDistance;
 }
 
 

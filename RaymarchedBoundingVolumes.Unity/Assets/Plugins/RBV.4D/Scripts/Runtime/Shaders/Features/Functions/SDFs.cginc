@@ -33,3 +33,9 @@ float calculateEllipsoidalHypercapsuleSDF(const float4 position, const float hal
 {
     return calculateHyperellipsoidSDF(elongateY(position, halfHeight), radii);
 }
+
+float calculateCubicalCylinderSDF(const float4 position,
+                                  const float  radius, const float halfHeight, const float halfTrength)
+{
+    return extrude(calculateCircleSDF(position.xz, radius), position.yw, float2(halfHeight, halfTrength));
+}
