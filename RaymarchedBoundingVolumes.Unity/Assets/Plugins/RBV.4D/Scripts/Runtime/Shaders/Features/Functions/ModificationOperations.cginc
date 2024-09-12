@@ -31,7 +31,7 @@ float extrude(const float sdf, const float4 positionOnAxes, const float4 distanc
 {
     float4 distance        = abs(positionOnAxes) - distanceAlongAxes;
     float  outsideDistance = length(max(max(sdf, 0.0), max(distance, 0.0)));
-    float  insideDistance  = min(max(sdf, max(distance.x, max(distance.y, max(distance.z, distance.w)))), 0.0);
+    float  insideDistance  = min(max(sdf, maxAxisOf4(distance)), 0.0);
     return outsideDistance + insideDistance;
 }
 
