@@ -13,3 +13,4 @@ uniform StructuredBuffer<CubicalCylinderData>         _RaymarchedCubicalCylinder
 uniform StructuredBuffer<SphericalCylinderData>       _RaymarchedSphericalCylinderData;
 uniform StructuredBuffer<EllipsoidalCylinderData>     _RaymarchedEllipsoidalCylinderData;
 uniform StructuredBuffer<ConicalCylinderData>         _RaymarchedConicalCylinderData;
+uniform StructuredBuffer<DoubleCylinderData>          _RaymarchedDoubleCylinderData;

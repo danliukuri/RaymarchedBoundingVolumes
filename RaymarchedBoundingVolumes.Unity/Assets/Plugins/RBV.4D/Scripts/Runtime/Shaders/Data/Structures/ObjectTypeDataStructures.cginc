@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "../Variables/FourDimensionGlossaryConstants.cginc"
-
 struct HypercubeData
 {
     float4 halfDimensions;
@@ -33,21 +31,21 @@ struct CubicalCylinderData
 {
     float radius;
     float halfHeight;
-    /** @relates _TrengthDefinition */
+    /** @related _TrengthDefinition */
     float halfTrength;
 };
 
 struct SphericalCylinderData
 {
     float radius;
-    /** @relates _TrengthDefinition */
+    /** @related _TrengthDefinition */
     float halfTrength;
 };
 
 struct EllipsoidalCylinderData
 {
     float3 radii;
-    /** @relates _TrengthDefinition */
+    /** @related _TrengthDefinition */
     float halfTrength;
 };
 
@@ -55,6 +53,11 @@ struct ConicalCylinderData
 {
     float radius;
     float height;
-    /** @relates _TrengthDefinition */
+    /** @related _TrengthDefinition */
     float halfTrength;
+};
+
+struct DoubleCylinderData
+{
+    float2 radii;
 };

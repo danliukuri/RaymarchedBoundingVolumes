@@ -67,7 +67,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [CubicalCylinder]         = nameof(ObservableObject4DTypeShaderData.CubicalCylinder),
                 [SphericalCylinder]       = nameof(ObservableObject4DTypeShaderData.SphericalCylinder),
                 [EllipsoidalCylinder]     = nameof(ObservableObject4DTypeShaderData.EllipsoidalCylinder),
-                [ConicalCylinder]         = nameof(ObservableObject4DTypeShaderData.ConicalCylinder)
+                [ConicalCylinder]         = nameof(ObservableObject4DTypeShaderData.ConicalCylinder),
+                [DoubleCylinder]          = nameof(ObservableObject4DTypeShaderData.DoubleCylinder)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -155,7 +156,10 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     _typeDataProperties[ConicalCylinder]
                         .FindPropertyRelative(nameof(ConicalCylinderShaderData.Trength))
                         .floatValue = ConicalCylinderShaderData.Default.Trength;
-                }
+                },
+                [DoubleCylinder] = () => _typeDataProperties[DoubleCylinder]
+                    .FindPropertyRelative(nameof(DoubleCylinderShaderData.Diameters))
+                    .vector2Value = DoubleCylinderShaderData.Default.Diameters
             };
 
         private void DrawProperties()

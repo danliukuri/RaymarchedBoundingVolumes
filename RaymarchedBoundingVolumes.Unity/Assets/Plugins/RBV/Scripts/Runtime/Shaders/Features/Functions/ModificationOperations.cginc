@@ -28,50 +28,77 @@ float3 elongateZ(float3 position, const float strength)
     return position;
 }
 
-
-float extrudeOrigin(const float2 positionOnAxes, const float3 distanceAlongAxes)
+/** @related _CartesianProductDefinition */
+float cartesianProduct(const float2 distances)
 {
-    float2 distance        = float2(abs(positionOnAxes) - distanceAlongAxes);
-    float  outsideDistance = length(max(distance, 0.0));
-    float  insideDistance  = min(maxAxisOf2(distance), 0.0);
+    float outsideDistance = length(max(distances, 0.0));
+    float insideDistance  = min(maxAxisOf2(distances), 0.0);
     return outsideDistance + insideDistance;
+}
+
+/** @related _CartesianProductDefinition */
+float cartesianProduct(const float3 distances)
+{
+    float outsideDistance = length(max(distances, 0.0));
+    float insideDistance  = min(maxAxisOf3(distances), 0.0);
+    return outsideDistance + insideDistance;
+}
+
+/** @related _CartesianProductDefinition */
+float cartesianProduct(const float4 distances)
+{
+    float outsideDistance = length(max(distances, 0.0));
+    float insideDistance  = min(maxAxisOf4(distances), 0.0);
+    return outsideDistance + insideDistance;
+}
+
+/** @related _CartesianProductDefinition */
+float cartesianProduct(const float distance1, const float distance2)
+{
+    return cartesianProduct(float2(distance1, distance2));
+}
+
+/** @related _CartesianProductDefinition */
+float cartesianProduct(const float distance1, const float distance2, const float distance3)
+{
+    return cartesianProduct(float3(distance1, distance2, distance3));
+}
+
+/** @related _CartesianProductDefinition */
+float cartesianProduct(const float distance1, const float distance2, const float distance3, const float distance4)
+{
+    return cartesianProduct(float4(distance1, distance2, distance3, distance4));
+}
+
+
+float extrudeOrigin(const float2 positionOnAxes, const float2 distanceAlongAxes)
+{
+    return cartesianProduct(abs(positionOnAxes) - distanceAlongAxes);
 }
 
 float extrudeOrigin(const float3 positionOnAxes, const float3 distanceAlongAxes)
 {
-    float3 distance        = float3(abs(positionOnAxes) - distanceAlongAxes);
-    float  outsideDistance = length(max(distance, 0.0));
-    float  insideDistance  = min(maxAxisOf3(distance), 0.0);
-    return outsideDistance + insideDistance;
+    return cartesianProduct(abs(positionOnAxes) - distanceAlongAxes);
 }
 
 float extrude(const float sdf, const float positionOnAxis, const float distanceAlongAxis)
 {
-    float2 distance        = float2(sdf, calculateLineSDF(positionOnAxis, distanceAlongAxis));
-    float  outsideDistance = length(max(distance, 0.0));
-    float  insideDistance  = min(maxAxisOf2(distance), 0.0);
-    return outsideDistance + insideDistance;
+    return cartesianProduct(sdf, calculateLineSDF(positionOnAxis, distanceAlongAxis));
 }
 
 float extrude(const float sdf, const float2 positionOnAxes, const float2 distanceAlongAxes)
 {
-    float3 distance = float3(sdf,
-                             calculateLineSDF(positionOnAxes.x, distanceAlongAxes.y),
-                             calculateLineSDF(positionOnAxes.y, distanceAlongAxes.y));
-    float outsideDistance = length(max(distance, 0.0));
-    float insideDistance  = min(maxAxisOf3(distance), 0.0);
-    return outsideDistance + insideDistance;
+    return cartesianProduct(sdf,
+                            calculateLineSDF(positionOnAxes.x, distanceAlongAxes.y),
+                            calculateLineSDF(positionOnAxes.y, distanceAlongAxes.y));
 }
 
 float extrude(const float sdf, const float3 positionOnAxes, const float3 distanceAlongAxes)
 {
-    float4 distance = float4(sdf,
-                             calculateLineSDF(positionOnAxes.x, distanceAlongAxes.y),
-                             calculateLineSDF(positionOnAxes.y, distanceAlongAxes.y),
-                             calculateLineSDF(positionOnAxes.z, distanceAlongAxes.z));
-    float outsideDistance = length(max(distance, 0.0));
-    float insideDistance  = min(maxAxisOf4(distance), 0.0);
-    return outsideDistance + insideDistance;
+    return cartesianProduct(sdf,
+                            calculateLineSDF(positionOnAxes.x, distanceAlongAxes.y),
+                            calculateLineSDF(positionOnAxes.y, distanceAlongAxes.y),
+                            calculateLineSDF(positionOnAxes.z, distanceAlongAxes.z));
 }
 
 

@@ -24,6 +24,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 SphericalCylinder.Changed   += value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
                 EllipsoidalCylinder.Changed += value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
                 ConicalCylinder.Changed     += value.CastCached<IObjectTypeShaderData, ConicalCylinderShaderData>();
+                DoubleCylinder.Changed      += value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
             }
             remove
             {
@@ -37,6 +38,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 SphericalCylinder.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
                 EllipsoidalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
                 ConicalCylinder.Changed     -= value.CastCached<IObjectTypeShaderData, ConicalCylinderShaderData>();
+                DoubleCylinder.Changed      -= value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
             }
         }
 
@@ -69,6 +71,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField] public ObservableValue<ConicalCylinderShaderData> ConicalCylinder { get; set; } =
             new(ConicalCylinderShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<DoubleCylinderShaderData> DoubleCylinder { get; set; } =
+            new(DoubleCylinderShaderData.Default);
+
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
 
@@ -78,6 +83,8 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
             switch (type)
             {
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, default);
                 case RaymarchedObject4DType.Hypercube:
                     HypercubeShaderData hypercube = Hypercube.Value;
                     hypercube.Dimensions *= fullToHalfScaleMultiplier;
@@ -121,8 +128,10 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     conicalCylinder.Diameter *= fullToHalfScaleMultiplier;
                     conicalCylinder.Trength  *= fullToHalfScaleMultiplier;
                     return conicalCylinder;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, default);
+                case RaymarchedObject4DType.DoubleCylinder:
+                    DoubleCylinderShaderData doubleCylinder = DoubleCylinder.Value;
+                    doubleCylinder.Diameters *= fullToHalfScaleMultiplier;
+                    return doubleCylinder;
             }
         }
     }
