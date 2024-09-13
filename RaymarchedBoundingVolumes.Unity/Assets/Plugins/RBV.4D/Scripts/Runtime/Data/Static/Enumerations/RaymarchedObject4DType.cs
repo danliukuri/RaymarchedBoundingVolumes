@@ -9,6 +9,7 @@ namespace RBV.FourDimensional.Data.Static.Enumerations
         Hyperellipsoid          = RaymarchedObject4DTypeOffset + 2,
         Hypercapsule            = RaymarchedObject4DTypeOffset + 3,
         EllipsoidalHypercapsule = RaymarchedObject4DTypeOffset + 4,
-        CubicalCylinder         = RaymarchedObject4DTypeOffset + 5
+        CubicalCylinder         = RaymarchedObject4DTypeOffset + 5,
+        SphericalCylinder       = RaymarchedObject4DTypeOffset + 6,
     }
 }

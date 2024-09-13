@@ -21,6 +21,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalHypercapsule.Changed +=
                     value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
                 CubicalCylinder.Changed += value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
+                SphericalCylinder.Changed += value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
             }
             remove
             {
@@ -31,6 +32,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalHypercapsule.Changed -=
                     value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
                 CubicalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
+                SphericalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
             }
         }
 
@@ -52,6 +54,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<CubicalCylinderShaderData> CubicalCylinder { get; set; } =
             new(CubicalCylinderShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<SphericalCylinderShaderData> SphericalCylinder { get; set; } =
+            new(SphericalCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -90,6 +95,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     cubicalCylinder.Height   *= fullToHalfScaleMultiplier;
                     cubicalCylinder.Trength  *= fullToHalfScaleMultiplier;
                     return cubicalCylinder;
+                case RaymarchedObject4DType.SphericalCylinder:
+                    SphericalCylinderShaderData sphericalCylinder = SphericalCylinder.Value;
+                    sphericalCylinder.Diameter *= fullToHalfScaleMultiplier;
+                    sphericalCylinder.Trength  *= fullToHalfScaleMultiplier;
+                    return sphericalCylinder;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

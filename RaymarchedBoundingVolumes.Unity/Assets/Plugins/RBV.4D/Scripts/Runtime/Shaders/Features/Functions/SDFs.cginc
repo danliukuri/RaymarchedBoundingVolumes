@@ -36,3 +36,8 @@ float calculateCubicalCylinderSDF(const float4 position,
 {
     return extrude(calculateCircleSDF(position.xz, radius), position.yw, float2(halfHeight, halfTrength));
 }
+
+float calculateSphericalCylinderSDF(const float4 position, const float radius, const float halfTrength)
+{
+    return extrude(calculateSphereSDF(position.xyz, radius), position.w, halfTrength);
+}
