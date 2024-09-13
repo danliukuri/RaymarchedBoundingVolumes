@@ -66,7 +66,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [EllipsoidalHypercapsule] = nameof(ObservableObject4DTypeShaderData.EllipsoidalHypercapsule),
                 [CubicalCylinder]         = nameof(ObservableObject4DTypeShaderData.CubicalCylinder),
                 [SphericalCylinder]       = nameof(ObservableObject4DTypeShaderData.SphericalCylinder),
-                [EllipsoidalCylinder]     = nameof(ObservableObject4DTypeShaderData.EllipsoidalCylinder)
+                [EllipsoidalCylinder]     = nameof(ObservableObject4DTypeShaderData.EllipsoidalCylinder),
+                [ConicalCylinder]         = nameof(ObservableObject4DTypeShaderData.ConicalCylinder)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -140,6 +141,20 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     _typeDataProperties[EllipsoidalCylinder]
                         .FindPropertyRelative(nameof(EllipsoidalCylinderShaderData.Trength))
                         .floatValue = EllipsoidalCylinderShaderData.Default.Trength;
+                },
+                [ConicalCylinder] = () =>
+                {
+                    _typeDataProperties[ConicalCylinder]
+                        .FindPropertyRelative(nameof(ConicalCylinderShaderData.Diameter))
+                        .floatValue = ConicalCylinderShaderData.Default.Diameter;
+
+                    _typeDataProperties[ConicalCylinder]
+                        .FindPropertyRelative(nameof(ConicalCylinderShaderData.Height))
+                        .floatValue = ConicalCylinderShaderData.Default.Height;
+
+                    _typeDataProperties[ConicalCylinder]
+                        .FindPropertyRelative(nameof(ConicalCylinderShaderData.Trength))
+                        .floatValue = ConicalCylinderShaderData.Default.Trength;
                 }
             };
 

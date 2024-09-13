@@ -23,6 +23,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 CubicalCylinder.Changed     += value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
                 SphericalCylinder.Changed   += value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
                 EllipsoidalCylinder.Changed += value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
+                ConicalCylinder.Changed     += value.CastCached<IObjectTypeShaderData, ConicalCylinderShaderData>();
             }
             remove
             {
@@ -35,6 +36,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 CubicalCylinder.Changed     -= value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
                 SphericalCylinder.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
                 EllipsoidalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
+                ConicalCylinder.Changed     -= value.CastCached<IObjectTypeShaderData, ConicalCylinderShaderData>();
             }
         }
 
@@ -63,6 +65,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField]
         public ObservableValue<EllipsoidalCylinderShaderData> EllipsoidalCylinder { get; set; } =
             new(EllipsoidalCylinderShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<ConicalCylinderShaderData> ConicalCylinder { get; set; } =
+            new(ConicalCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -111,6 +116,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     ellipsoidalCylinder.Diameters *= fullToHalfScaleMultiplier;
                     ellipsoidalCylinder.Trength   *= fullToHalfScaleMultiplier;
                     return ellipsoidalCylinder;
+                case RaymarchedObject4DType.ConicalCylinder:
+                    ConicalCylinderShaderData conicalCylinder = ConicalCylinder.Value;
+                    conicalCylinder.Diameter *= fullToHalfScaleMultiplier;
+                    conicalCylinder.Trength  *= fullToHalfScaleMultiplier;
+                    return conicalCylinder;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }

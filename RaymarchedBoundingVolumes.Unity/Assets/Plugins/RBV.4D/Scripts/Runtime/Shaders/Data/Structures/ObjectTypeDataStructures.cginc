@@ -50,3 +50,11 @@ struct EllipsoidalCylinderData
     /** @relates _TrengthDefinition */
     float halfTrength;
 };
+
+struct ConicalCylinderData
+{
+    float radius;
+    float height;
+    /** @relates _TrengthDefinition */
+    float halfTrength;
+};

@@ -65,6 +65,11 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
                                                        ellipsoidalCylinderData.radii,
                                                        ellipsoidalCylinderData.halfTrength);
             break;
+        case OBJECT_4D_TYPE_CONICAL_CYLINDER:
+            ConicalCylinderData conicalCylinderData = _RaymarchedConicalCylinderData[objectData.typeDataIndex];
+            distance = calculateConicalCylinderSDF(position4D, conicalCylinderData.radius,
+                                                   conicalCylinderData.height, conicalCylinderData.halfTrength);
+            break;
     }
     distance *= transform.scale;
 

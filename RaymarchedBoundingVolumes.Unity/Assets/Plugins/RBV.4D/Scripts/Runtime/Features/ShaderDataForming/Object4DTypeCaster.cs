@@ -26,6 +26,7 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
             CubicalCylinder         => typeof(CubicalCylinderShaderData),
             SphericalCylinder       => typeof(SphericalCylinderShaderData),
             EllipsoidalCylinder     => typeof(EllipsoidalCylinderShaderData),
+            ConicalCylinder         => typeof(ConicalCylinderShaderData),
             _                       => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

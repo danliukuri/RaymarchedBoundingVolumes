@@ -46,3 +46,9 @@ float calculateEllipsoidalCylinderSDF(const float4 position, const float3 radii,
 {
     return extrude(calculateEllipsoidSDF(position.xyz, radii), position.w, halfTrength);
 }
+
+float calculateConicalCylinderSDF(const float4 position, 
+                                  const float radius, const float height, const float halfTrength)
+{
+    return extrude(calculateConeSDF(position.xyz, height, radius), position.w, halfTrength);
+}
