@@ -23,7 +23,7 @@ struct CapsuleData
     float radius;
 };
 
-struct EllipsoidalCapsuleData
+struct EllipticCapsuleData
 {
     float  halfHeight;
     float3 radii;
@@ -35,7 +35,7 @@ struct CylinderData
     float radius;
 };
 
-struct EllipsoidalCylinderData
+struct EllipticCylinderData
 {
     float3 dimensions;
 };

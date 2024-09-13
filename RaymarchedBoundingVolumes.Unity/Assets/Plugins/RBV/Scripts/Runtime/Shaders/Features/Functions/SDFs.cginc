@@ -39,7 +39,7 @@ float calculateCapsuleSDF(const float3 position, const float halfHeight, const f
     return calculateSphereSDF(elongateY(position, halfHeight), radius);
 }
 
-float calculateEllipsoidalCapsuleSDF(const float3 position, const float halfHeight, const float3 radii)
+float calculateEllipticCapsuleSDF(const float3 position, const float halfHeight, const float3 radii)
 {
     return calculateEllipsoidSDF(elongateY(position, halfHeight), radii);
 }
@@ -49,7 +49,7 @@ float calculateCylinderSDF(const float3 position, const float height, const floa
     return extrude(calculateCircleSDF(position.xz, radius), position.y, height);
 }
 
-float calculateEllipsoidalCylinderSDF(const float3 position, const float3 dimensions)
+float calculateEllipticCylinderSDF(const float3 position, const float3 dimensions)
 {
     return extrude(calculateEllipseSDF(position.xz, dimensions.xz), position.y, dimensions.y);
 }
