@@ -41,3 +41,8 @@ float calculateSphericalCylinderSDF(const float4 position, const float radius, c
 {
     return extrude(calculateSphereSDF(position.xyz, radius), position.w, halfTrength);
 }
+
+float calculateEllipsoidalCylinderSDF(const float4 position, const float3 radii, const float halfTrength)
+{
+    return extrude(calculateEllipsoidSDF(position.xyz, radii), position.w, halfTrength);
+}

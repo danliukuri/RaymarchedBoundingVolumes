@@ -58,6 +58,13 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
             distance = calculateSphericalCylinderSDF(position4D,
                                                      sphericalCylinderData.radius, sphericalCylinderData.halfTrength);
             break;
+        case OBJECT_4D_TYPE_ELLIPSOIDAL_CYLINDER:
+            EllipsoidalCylinderData ellipsoidalCylinderData =
+                _RaymarchedEllipsoidalCylinderData[objectData.typeDataIndex];
+            distance = calculateEllipsoidalCylinderSDF(position4D,
+                                                       ellipsoidalCylinderData.radii,
+                                                       ellipsoidalCylinderData.halfTrength);
+            break;
     }
     distance *= transform.scale;
 

@@ -20,8 +20,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 Hypercapsule.Changed   += value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
                 EllipsoidalHypercapsule.Changed +=
                     value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
-                CubicalCylinder.Changed += value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
-                SphericalCylinder.Changed += value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
+                CubicalCylinder.Changed     += value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
+                SphericalCylinder.Changed   += value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
+                EllipsoidalCylinder.Changed += value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
             }
             remove
             {
@@ -31,8 +32,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 Hypercapsule.Changed   -= value.CastCached<IObjectTypeShaderData, HypercapsuleShaderData>();
                 EllipsoidalHypercapsule.Changed -=
                     value.CastCached<IObjectTypeShaderData, EllipsoidalHypercapsuleShaderData>();
-                CubicalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
-                SphericalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
+                CubicalCylinder.Changed     -= value.CastCached<IObjectTypeShaderData, CubicalCylinderShaderData>();
+                SphericalCylinder.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalCylinderShaderData>();
+                EllipsoidalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
             }
         }
 
@@ -57,6 +59,10 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<SphericalCylinderShaderData> SphericalCylinder { get; set; } =
             new(SphericalCylinderShaderData.Default);
+
+        [field: SerializeField]
+        public ObservableValue<EllipsoidalCylinderShaderData> EllipsoidalCylinder { get; set; } =
+            new(EllipsoidalCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -100,6 +106,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     sphericalCylinder.Diameter *= fullToHalfScaleMultiplier;
                     sphericalCylinder.Trength  *= fullToHalfScaleMultiplier;
                     return sphericalCylinder;
+                case RaymarchedObject4DType.EllipsoidalCylinder:
+                    EllipsoidalCylinderShaderData ellipsoidalCylinder = EllipsoidalCylinder.Value;
+                    ellipsoidalCylinder.Diameters *= fullToHalfScaleMultiplier;
+                    ellipsoidalCylinder.Trength   *= fullToHalfScaleMultiplier;
+                    return ellipsoidalCylinder;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, default);
             }
