@@ -292,6 +292,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1546184277}
+  - {fileID: 1852070861}
   - {fileID: 1202375517}
   - {fileID: 1851026709}
   - {fileID: 2142886674}
@@ -1740,6 +1741,7 @@ MonoBehaviour:
     <Features>k__BackingField:
     - {fileID: 123977991}
     - {fileID: 1546184278}
+    - {fileID: 1852070862}
     - {fileID: 1202375518}
     - {fileID: 1851026710}
     - {fileID: 2142886675}
@@ -2081,14 +2083,6 @@ PrefabInstance:
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: typeData.<DoubleCylinder>k__BackingField.value.DiameterXz
       value: 0.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: typeData.<DoubleCylinder>k__BackingField.value.Diameters.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: typeData.<DoubleCylinder>k__BackingField.value.Diameters.y
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: typeData.<CubicalCylinder>k__BackingField.value.Dimensions.w
@@ -2637,6 +2631,171 @@ Transform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
   m_PrefabInstance: {fileID: 1851026708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4388558ebcdf4a0b8ea8623c3aaf6f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1852070860
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 123977992}
+    m_Modifications:
+    - target: {fileID: 585302989470730293, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 153712889}
+    - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.695
+      objectReference: {fileID: 0}
+    - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187576220391758339, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: m_Name
+      value: RaymarchedObject4D (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: type.value
+      value: 10010
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation4D>k__BackingField.value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation4D>k__BackingField.value.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: transform.<Rotation4D>k__BackingField.value.z
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<Hypercylinder>k__BackingField.value.Height
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleCylinder>k__BackingField.value.Height
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleCylinder>k__BackingField.value.Trength
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleCylinder>k__BackingField.value.Diameter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleCylinder>k__BackingField.value.DiameterXz
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<CubicalCylinder>k__BackingField.value.Dimensions.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<CubicalCylinder>k__BackingField.value.Dimensions.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<CubicalCylinder>k__BackingField.value.Dimensions.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<CubicalCylinder>k__BackingField.value.Dimensions.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<SphericalCylinder>k__BackingField.value.Diameters.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<SphericalCylinder>k__BackingField.value.Diameters.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<SphericalCylinder>k__BackingField.value.Diameters.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<HyperEllipsoidalCapsule>k__BackingField.value.Height
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<HypercubeShaderData>k__BackingField.value.Dimensions.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleEllipticCylinder>k__BackingField.value.Diameters.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleEllipticCylinder>k__BackingField.value.Diameters.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleEllipticCylinder>k__BackingField.value.Diameters.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<DoubleEllipticCylinder>k__BackingField.value.Diameters.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<HyperEllipsoidalCapsule>k__BackingField.value.Diameters.w
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<HyperEllipsoidalCapsule>k__BackingField.value.Diameters.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<HyperEllipsoidalCapsule>k__BackingField.value.Diameters.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<HyperEllipsoidalCapsule>k__BackingField.value.Diameters.z
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+--- !u!4 &1852070861 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 892048923259546231, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+  m_PrefabInstance: {fileID: 1852070860}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1852070862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+  m_PrefabInstance: {fileID: 1852070860}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

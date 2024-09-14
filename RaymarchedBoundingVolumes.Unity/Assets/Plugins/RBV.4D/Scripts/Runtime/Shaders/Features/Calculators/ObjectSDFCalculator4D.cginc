@@ -74,6 +74,11 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
             DoubleCylinderData doubleCylinderData = _RaymarchedDoubleCylinderData[objectData.typeDataIndex];
             distance = calculateDoubleCylinderSDF(position4D, doubleCylinderData.radii);
             break;
+        case OBJECT_4D_TYPE_DOUBLE_ELLIPTIC_CYLINDER:
+            DoubleEllipticCylinderData doubleEllipticCylinderData =
+                _RaymarchedDoubleEllipticCylinderData[objectData.typeDataIndex];
+            distance = calculateDoubleEllipticCylinderSDF(position4D, doubleEllipticCylinderData.radii);
+            break;
     }
     distance *= transform.scale;
 

@@ -61,3 +61,8 @@ struct DoubleCylinderData
 {
     float2 radii;
 };
+
+struct DoubleEllipticCylinderData
+{
+    float4 radii;
+};

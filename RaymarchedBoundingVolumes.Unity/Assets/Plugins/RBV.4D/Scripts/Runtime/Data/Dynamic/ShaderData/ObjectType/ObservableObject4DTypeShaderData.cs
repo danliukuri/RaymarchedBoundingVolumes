@@ -25,6 +25,8 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalCylinder.Changed += value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
                 ConicalCylinder.Changed     += value.CastCached<IObjectTypeShaderData, ConicalCylinderShaderData>();
                 DoubleCylinder.Changed      += value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
+                DoubleEllipticCylinder.Changed +=
+                    value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
             }
             remove
             {
@@ -39,6 +41,8 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 EllipsoidalCylinder.Changed -= value.CastCached<IObjectTypeShaderData, EllipsoidalCylinderShaderData>();
                 ConicalCylinder.Changed     -= value.CastCached<IObjectTypeShaderData, ConicalCylinderShaderData>();
                 DoubleCylinder.Changed      -= value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
+                DoubleEllipticCylinder.Changed -=
+                    value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
             }
         }
 
@@ -73,6 +77,10 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<DoubleCylinderShaderData> DoubleCylinder { get; set; } =
             new(DoubleCylinderShaderData.Default);
+
+        [field: SerializeField]
+        public ObservableValue<DoubleEllipticCylinderShaderData> DoubleEllipticCylinder { get; set; } =
+            new(DoubleEllipticCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -132,6 +140,10 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     DoubleCylinderShaderData doubleCylinder = DoubleCylinder.Value;
                     doubleCylinder.Diameters *= fullToHalfScaleMultiplier;
                     return doubleCylinder;
+                case RaymarchedObject4DType.DoubleEllipticCylinder:
+                    DoubleEllipticCylinderShaderData doubleEllipticCylinder = DoubleEllipticCylinder.Value;
+                    doubleEllipticCylinder.Diameters *= fullToHalfScaleMultiplier;
+                    return doubleEllipticCylinder;
             }
         }
     }

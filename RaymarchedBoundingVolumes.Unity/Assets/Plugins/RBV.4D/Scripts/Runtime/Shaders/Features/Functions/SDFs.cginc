@@ -57,3 +57,8 @@ float calculateDoubleCylinderSDF(const float4 position, const float2 radii)
 {
     return cartesianProduct(calculateCircleSDF(position.xz, radii.x), calculateCircleSDF(position.yw, radii.y));
 }
+
+float calculateDoubleEllipticCylinderSDF(const float4 position, const float4 radii)
+{
+    return cartesianProduct(calculateEllipseSDF(position.xz, radii.xz), calculateEllipseSDF(position.yw, radii.yw));
+}
