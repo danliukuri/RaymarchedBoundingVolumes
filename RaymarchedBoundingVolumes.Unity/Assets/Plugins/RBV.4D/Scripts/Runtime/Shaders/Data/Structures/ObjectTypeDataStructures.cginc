@@ -66,3 +66,10 @@ struct DoubleEllipticCylinderData
 {
     float4 radii;
 };
+
+struct PrismicCylinderData
+{
+    int   verticesCount;
+    float circumradius;
+    float halfLength;
+};

@@ -27,6 +27,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 DoubleCylinder.Changed      += value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
                 DoubleEllipticCylinder.Changed +=
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
+                PrismicCylinder.Changed += value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
             }
             remove
             {
@@ -43,6 +44,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 DoubleCylinder.Changed      -= value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
                 DoubleEllipticCylinder.Changed -=
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
+                PrismicCylinder.Changed -= value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
             }
         }
 
@@ -81,6 +83,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField]
         public ObservableValue<DoubleEllipticCylinderShaderData> DoubleEllipticCylinder { get; set; } =
             new(DoubleEllipticCylinderShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<PrismicCylinderShaderData> PrismicCylinder { get; set; } =
+            new(PrismicCylinderShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -144,6 +149,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     DoubleEllipticCylinderShaderData doubleEllipticCylinder = DoubleEllipticCylinder.Value;
                     doubleEllipticCylinder.Diameters *= fullToHalfScaleMultiplier;
                     return doubleEllipticCylinder;
+                case RaymarchedObject4DType.PrismicCylinder:
+                    PrismicCylinderShaderData prismicCylinder = PrismicCylinder.Value;
+                    prismicCylinder.Circumdiameter *= fullToHalfScaleMultiplier;
+                    prismicCylinder.Length         *= fullToHalfScaleMultiplier;
+                    return prismicCylinder;
             }
         }
     }

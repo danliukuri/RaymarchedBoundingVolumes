@@ -69,7 +69,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [EllipsoidalCylinder]     = nameof(ObservableObject4DTypeShaderData.EllipsoidalCylinder),
                 [ConicalCylinder]         = nameof(ObservableObject4DTypeShaderData.ConicalCylinder),
                 [DoubleCylinder]          = nameof(ObservableObject4DTypeShaderData.DoubleCylinder),
-                [DoubleEllipticCylinder]  = nameof(ObservableObject4DTypeShaderData.DoubleEllipticCylinder)
+                [DoubleEllipticCylinder]  = nameof(ObservableObject4DTypeShaderData.DoubleEllipticCylinder),
+                [PrismicCylinder]         = nameof(ObservableObject4DTypeShaderData.PrismicCylinder)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -163,7 +164,21 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     .vector2Value = DoubleCylinderShaderData.Default.Diameters,
                 [DoubleEllipticCylinder] = () => _typeDataProperties[DoubleEllipticCylinder]
                     .FindPropertyRelative(nameof(DoubleEllipticCylinderShaderData.Diameters))
-                    .vector3Value = DoubleEllipticCylinderShaderData.Default.Diameters
+                    .vector3Value = DoubleEllipticCylinderShaderData.Default.Diameters,
+                [PrismicCylinder] = () =>
+                {   
+                    _typeDataProperties[PrismicCylinder]
+                        .FindPropertyRelative(nameof(PrismicCylinderShaderData.VerticesCount))
+                        .intValue = PrismicCylinderShaderData.Default.VerticesCount;
+
+                    _typeDataProperties[PrismicCylinder]
+                        .FindPropertyRelative(nameof(PrismicCylinderShaderData.Circumdiameter))
+                        .floatValue = PrismicCylinderShaderData.Default.Circumdiameter;
+
+                    _typeDataProperties[PrismicCylinder]
+                        .FindPropertyRelative(nameof(PrismicCylinderShaderData.Length))
+                        .floatValue = PrismicCylinderShaderData.Default.Length;
+                }
             };
 
         private void DrawProperties()

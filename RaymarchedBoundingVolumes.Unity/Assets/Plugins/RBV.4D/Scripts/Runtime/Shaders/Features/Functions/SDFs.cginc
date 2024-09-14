@@ -62,3 +62,11 @@ float calculateDoubleEllipticCylinderSDF(const float4 position, const float4 rad
 {
     return cartesianProduct(calculateEllipseSDF(position.xz, radii.xz), calculateEllipseSDF(position.yw, radii.yw));
 }
+
+float calculatePrismicCylinderSDF(const float4 position,
+                                  const int    verticesCount, const float circumradius, const float halfLength)
+{
+    float regularPolygonSDF = calculateRegularPolygonSDF(position.xz, verticesCount, circumradius);
+    float circleSDF         = calculateCircleSDF(position.yw, halfLength);
+    return cartesianProduct(regularPolygonSDF, circleSDF);
+}
