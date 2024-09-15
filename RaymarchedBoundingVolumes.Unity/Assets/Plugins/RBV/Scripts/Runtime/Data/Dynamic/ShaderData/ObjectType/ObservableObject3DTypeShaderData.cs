@@ -140,6 +140,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
                     return plane;
                 case RaymarchedObject3DType.Cone:
                     RaymarchedConeShaderData cone = Cone.Value;
+                    cone.Height   *= fullToHalfScaleMultiplier;
                     cone.Diameter *= fullToHalfScaleMultiplier;
                     return cone;
                 case RaymarchedObject3DType.CappedCone:

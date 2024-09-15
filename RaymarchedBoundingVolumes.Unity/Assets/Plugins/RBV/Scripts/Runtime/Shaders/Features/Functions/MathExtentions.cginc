@@ -29,3 +29,8 @@ float maxAxisOf4(float4 value)
 {
     return max(max(value.x, value.y), max(value.z, value.w));
 }
+
+float dot2(const float2 distanceToBase)
+{
+    return dot(distanceToBase, distanceToBase);
+}

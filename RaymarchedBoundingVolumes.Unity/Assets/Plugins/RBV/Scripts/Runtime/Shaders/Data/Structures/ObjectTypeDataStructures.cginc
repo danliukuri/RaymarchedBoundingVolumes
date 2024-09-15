@@ -47,7 +47,7 @@ struct PlaneData
 
 struct ConeData
 {
-    float height;
+    float halfHeight;
     float radius;
 };
 
@@ -80,6 +80,6 @@ struct RegularPrismData
 
 struct RegularPolyhedronData
 {
-    float inscribedRadius;
+    float    inscribedRadius;
     RangeInt activeBoundPlaneRange;
 };

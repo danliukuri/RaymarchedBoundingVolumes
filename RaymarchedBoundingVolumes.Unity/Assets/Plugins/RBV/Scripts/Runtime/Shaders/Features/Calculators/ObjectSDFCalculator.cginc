@@ -50,7 +50,7 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
             break;
         case OBJECT_3D_TYPE_CONE:
             ConeData coneData = _RaymarchedConeData[objectData.typeDataIndex];
-            distance = calculateConeSDF(position, coneData.height, coneData.radius);
+            distance = calculateConeSDF(position, coneData.halfHeight, coneData.radius);
             break;
         case OBJECT_3D_TYPE_CAPPED_CONE:
             CappedConeData cappedConeData = _RaymarchedCappedConeData[objectData.typeDataIndex];
