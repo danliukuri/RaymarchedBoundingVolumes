@@ -48,9 +48,9 @@ float calculateEllipsoidalCylinderSDF(const float4 position, const float3 radii,
 }
 
 float calculateConicalCylinderSDF(const float4 position,
-                                  const float  radius, const float height, const float halfTrength)
+                                  const float  radius, const float halfHeight, const float halfTrength)
 {
-    return extrude(calculateConeSDF(position.xyz, height, radius), position.w, halfTrength);
+    return extrude(calculateConeSDF(position.xyz, halfHeight, radius), position.w, halfTrength);
 }
 
 float calculateDoubleCylinderSDF(const float4 position, const float2 radii)
@@ -69,4 +69,9 @@ float calculatePrismicCylinderSDF(const float4 position,
     float regularPolygonSDF = calculateRegularPolygonSDF(position.xz, verticesCount, circumradius);
     float circleSDF         = calculateCircleSDF(position.yw, halfLength);
     return cartesianProduct(regularPolygonSDF, circleSDF);
+}
+
+float calculateSphericalConeSDF(const float4 position, const float radius, const float halfTrength)
+{
+    return calculateIsoscelesTriangleSDF(revolutionizeW(position), radius, halfTrength);
 }

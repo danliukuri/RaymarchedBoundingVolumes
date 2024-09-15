@@ -52,7 +52,7 @@ struct EllipsoidalCylinderData
 struct ConicalCylinderData
 {
     float radius;
-    float height;
+    float halfHeight;
     /** @related _TrengthDefinition */
     float halfTrength;
 };
@@ -72,4 +72,11 @@ struct PrismicCylinderData
     int   verticesCount;
     float circumradius;
     float halfLength;
+};
+
+struct SphericalConeData
+{
+    float radius;
+    /** @related _TrengthDefinition */
+    float halfTrength;
 };

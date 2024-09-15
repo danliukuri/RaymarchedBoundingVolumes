@@ -68,7 +68,7 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
         case OBJECT_4D_TYPE_CONICAL_CYLINDER:
             ConicalCylinderData conicalCylinderData = _RaymarchedConicalCylinderData[objectData.typeDataIndex];
             distance = calculateConicalCylinderSDF(position4D, conicalCylinderData.radius,
-                                                   conicalCylinderData.height, conicalCylinderData.halfTrength);
+                                                   conicalCylinderData.halfHeight, conicalCylinderData.halfTrength);
             break;
         case OBJECT_4D_TYPE_DOUBLE_CYLINDER:
             DoubleCylinderData doubleCylinderData = _RaymarchedDoubleCylinderData[objectData.typeDataIndex];
@@ -79,10 +79,14 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
                 _RaymarchedDoubleEllipticCylinderData[objectData.typeDataIndex];
             distance = calculateDoubleEllipticCylinderSDF(position4D, doubleEllipticCylinderData.radii);
             break;
-        case OBJECT_4D_TYPE_DOUBLE_PRISMIC_CYLINDER:
+        case OBJECT_4D_TYPE_PRISMIC_CYLINDER:
             PrismicCylinderData prismicCylinderData = _RaymarchedPrismicCylinderData[objectData.typeDataIndex];
             distance = calculatePrismicCylinderSDF(position4D, prismicCylinderData.verticesCount,
                                                   prismicCylinderData.circumradius, prismicCylinderData.halfLength);
+            break;
+        case OBJECT_4D_TYPE_SPHERICAL_CONE:
+            SphericalConeData sphericalConeData = _RaymarchedSphericalConeData[objectData.typeDataIndex];
+            distance = calculateSphericalConeSDF(position4D, sphericalConeData.radius, sphericalConeData.halfTrength);
             break;
     }
     distance *= transform.scale;

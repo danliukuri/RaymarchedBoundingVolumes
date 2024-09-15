@@ -70,7 +70,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [ConicalCylinder]         = nameof(ObservableObject4DTypeShaderData.ConicalCylinder),
                 [DoubleCylinder]          = nameof(ObservableObject4DTypeShaderData.DoubleCylinder),
                 [DoubleEllipticCylinder]  = nameof(ObservableObject4DTypeShaderData.DoubleEllipticCylinder),
-                [PrismicCylinder]         = nameof(ObservableObject4DTypeShaderData.PrismicCylinder)
+                [PrismicCylinder]         = nameof(ObservableObject4DTypeShaderData.PrismicCylinder),
+                [SphericalCone]           = nameof(ObservableObject4DTypeShaderData.SphericalCone)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -178,6 +179,16 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     _typeDataProperties[PrismicCylinder]
                         .FindPropertyRelative(nameof(PrismicCylinderShaderData.Length))
                         .floatValue = PrismicCylinderShaderData.Default.Length;
+                },
+                [SphericalCone] = () =>
+                {
+                    _typeDataProperties[SphericalCone]
+                        .FindPropertyRelative(nameof(SphericalConeShaderData.Diameter))
+                        .floatValue = SphericalConeShaderData.Default.Diameter;
+
+                    _typeDataProperties[SphericalCone]
+                        .FindPropertyRelative(nameof(SphericalConeShaderData.Trength))
+                        .floatValue = SphericalConeShaderData.Default.Trength;
                 }
             };
 

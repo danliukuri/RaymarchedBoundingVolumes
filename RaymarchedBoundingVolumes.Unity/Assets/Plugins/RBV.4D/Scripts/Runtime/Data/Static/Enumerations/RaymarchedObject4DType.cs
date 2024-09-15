@@ -15,6 +15,7 @@ namespace RBV.FourDimensional.Data.Static.Enumerations
         ConicalCylinder         = RaymarchedObject4DTypeOffset + 8,
         DoubleCylinder          = RaymarchedObject4DTypeOffset + 9,
         DoubleEllipticCylinder  = RaymarchedObject4DTypeOffset + 10,
-        PrismicCylinder         = RaymarchedObject4DTypeOffset + 11
+        PrismicCylinder         = RaymarchedObject4DTypeOffset + 11,
+        SphericalCone           = RaymarchedObject4DTypeOffset + 12,
     }
 }

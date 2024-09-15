@@ -28,6 +28,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 DoubleEllipticCylinder.Changed +=
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
                 PrismicCylinder.Changed += value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
+                SphericalCone.Changed   += value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
             }
             remove
             {
@@ -45,6 +46,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 DoubleEllipticCylinder.Changed -=
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
                 PrismicCylinder.Changed -= value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
+                SphericalCone.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
             }
         }
 
@@ -86,6 +88,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<PrismicCylinderShaderData> PrismicCylinder { get; set; } =
             new(PrismicCylinderShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<SphericalConeShaderData> SphericalCone { get; set; } =
+            new(SphericalConeShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -139,6 +144,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 case RaymarchedObject4DType.ConicalCylinder:
                     ConicalCylinderShaderData conicalCylinder = ConicalCylinder.Value;
                     conicalCylinder.Diameter *= fullToHalfScaleMultiplier;
+                    conicalCylinder.Height   *= fullToHalfScaleMultiplier;
                     conicalCylinder.Trength  *= fullToHalfScaleMultiplier;
                     return conicalCylinder;
                 case RaymarchedObject4DType.DoubleCylinder:
@@ -154,6 +160,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     prismicCylinder.Circumdiameter *= fullToHalfScaleMultiplier;
                     prismicCylinder.Length         *= fullToHalfScaleMultiplier;
                     return prismicCylinder;
+                case RaymarchedObject4DType.SphericalCone:
+                    SphericalConeShaderData sphericalCone = SphericalCone.Value;
+                    sphericalCone.Diameter *= fullToHalfScaleMultiplier;
+                    sphericalCone.Trength  *= fullToHalfScaleMultiplier;
+                    return sphericalCone;
             }
         }
     }

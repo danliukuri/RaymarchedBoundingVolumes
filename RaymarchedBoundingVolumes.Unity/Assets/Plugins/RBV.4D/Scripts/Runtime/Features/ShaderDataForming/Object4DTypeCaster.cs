@@ -30,6 +30,7 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
             DoubleCylinder          => typeof(DoubleCylinderShaderData),
             DoubleEllipticCylinder  => typeof(DoubleEllipticCylinderShaderData),
             PrismicCylinder         => typeof(PrismicCylinderShaderData),
+            SphericalCone           => typeof(SphericalConeShaderData),
             _                       => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
