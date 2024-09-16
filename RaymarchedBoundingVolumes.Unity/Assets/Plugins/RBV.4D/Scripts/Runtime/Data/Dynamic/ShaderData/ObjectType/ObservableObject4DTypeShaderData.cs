@@ -29,6 +29,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
                 PrismicCylinder.Changed += value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
                 SphericalCone.Changed   += value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
+                CylindricalCone.Changed += value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
             }
             remove
             {
@@ -47,6 +48,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
                 PrismicCylinder.Changed -= value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
                 SphericalCone.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
+                CylindricalCone.Changed -= value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
             }
         }
 
@@ -91,6 +93,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<SphericalConeShaderData> SphericalCone { get; set; } =
             new(SphericalConeShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<CylindricalConeShaderData> CylindricalCone { get; set; } =
+            new(CylindricalConeShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -165,6 +170,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     sphericalCone.Diameter *= fullToHalfScaleMultiplier;
                     sphericalCone.Trength  *= fullToHalfScaleMultiplier;
                     return sphericalCone;
+                case RaymarchedObject4DType.CylindricalCone:
+                    CylindricalConeShaderData cylindricalCone = CylindricalCone.Value;
+                    cylindricalCone.Diameter *= fullToHalfScaleMultiplier;
+                    cylindricalCone.Trength  *= fullToHalfScaleMultiplier;
+                    return cylindricalCone;
             }
         }
     }

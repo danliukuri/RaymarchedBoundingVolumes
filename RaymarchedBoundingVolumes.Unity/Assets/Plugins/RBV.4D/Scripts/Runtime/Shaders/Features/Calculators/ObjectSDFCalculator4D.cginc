@@ -82,11 +82,16 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
         case OBJECT_4D_TYPE_PRISMIC_CYLINDER:
             PrismicCylinderData prismicCylinderData = _RaymarchedPrismicCylinderData[objectData.typeDataIndex];
             distance = calculatePrismicCylinderSDF(position4D, prismicCylinderData.verticesCount,
-                                                  prismicCylinderData.circumradius, prismicCylinderData.halfLength);
+                                                   prismicCylinderData.circumradius, prismicCylinderData.halfLength);
             break;
         case OBJECT_4D_TYPE_SPHERICAL_CONE:
             SphericalConeData sphericalConeData = _RaymarchedSphericalConeData[objectData.typeDataIndex];
             distance = calculateSphericalConeSDF(position4D, sphericalConeData.radius, sphericalConeData.halfTrength);
+            break;
+        case OBJECT_4D_TYPE_CYLINDRICAL_CONE:
+            CylindricalConeData cylindricalConeData = _RaymarchedCylindricalConeData[objectData.typeDataIndex];
+            distance = calculateCylindricalConeSDF(position4D,
+                                                   cylindricalConeData.radius, cylindricalConeData.halfTrength);
             break;
     }
     distance *= transform.scale;

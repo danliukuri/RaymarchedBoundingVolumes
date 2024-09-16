@@ -80,3 +80,10 @@ struct SphericalConeData
     /** @related _TrengthDefinition */
     float halfTrength;
 };
+
+struct CylindricalConeData
+{
+    float radius;
+    /** @related _TrengthDefinition */
+    float halfTrength;
+};
