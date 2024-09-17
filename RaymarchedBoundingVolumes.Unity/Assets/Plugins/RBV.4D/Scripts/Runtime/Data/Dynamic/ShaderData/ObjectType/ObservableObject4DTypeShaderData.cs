@@ -30,6 +30,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 PrismicCylinder.Changed += value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
                 SphericalCone.Changed   += value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
                 CylindricalCone.Changed += value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
+                ToroidalSphere.Changed  += value.CastCached<IObjectTypeShaderData, ToroidalSphereShaderData>();
             }
             remove
             {
@@ -49,6 +50,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 PrismicCylinder.Changed -= value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
                 SphericalCone.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
                 CylindricalCone.Changed -= value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
+                ToroidalSphere.Changed  -= value.CastCached<IObjectTypeShaderData, ToroidalSphereShaderData>();
             }
         }
 
@@ -96,6 +98,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<CylindricalConeShaderData> CylindricalCone { get; set; } =
             new(CylindricalConeShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<ToroidalSphereShaderData> ToroidalSphere { get; set; } =
+            new(ToroidalSphereShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -175,6 +180,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     cylindricalCone.Diameter *= fullToHalfScaleMultiplier;
                     cylindricalCone.Trength  *= fullToHalfScaleMultiplier;
                     return cylindricalCone;
+                case RaymarchedObject4DType.ToroidalSphere:
+                    ToroidalSphereShaderData toroidalSphere = ToroidalSphere.Value;
+                    toroidalSphere.MajorDiameter *= fullToHalfScaleMultiplier;
+                    toroidalSphere.MinorDiameter *= fullToHalfScaleMultiplier;
+                    return toroidalSphere;
             }
         }
     }

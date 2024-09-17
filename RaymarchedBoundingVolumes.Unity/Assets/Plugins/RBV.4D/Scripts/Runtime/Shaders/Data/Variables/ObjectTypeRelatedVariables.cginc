@@ -18,3 +18,4 @@ uniform StructuredBuffer<DoubleEllipticCylinderData>  _RaymarchedDoubleEllipticC
 uniform StructuredBuffer<PrismicCylinderData>         _RaymarchedPrismicCylinderData;
 uniform StructuredBuffer<SphericalConeData>           _RaymarchedSphericalConeData;
 uniform StructuredBuffer<CylindricalConeData>         _RaymarchedCylindricalConeData;
+uniform StructuredBuffer<ToroidalSphereData>          _RaymarchedToroidalSphereData;

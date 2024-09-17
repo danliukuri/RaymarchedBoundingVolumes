@@ -18,5 +18,6 @@ namespace RBV.FourDimensional.Data.Static.Enumerations
         PrismicCylinder         = RaymarchedObject4DTypeOffset + 11,
         SphericalCone           = RaymarchedObject4DTypeOffset + 12,
         CylindricalCone         = RaymarchedObject4DTypeOffset + 13,
+        ToroidalSphere          = RaymarchedObject4DTypeOffset + 14
     }
 }

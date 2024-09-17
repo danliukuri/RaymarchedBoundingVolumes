@@ -82,3 +82,8 @@ float calculateCylindricalConeSDF(const float4 position, const float radius, con
     float2 revolvedAlongW = float2(cylinder + 1.0, position.w - halfTrength);
     return calculateIsoscelesTriangleSDF(revolvedAlongW, 1.0, halfTrength * 2.0);
 }
+
+float calculateToroidalSphereSDF(const float4 position, const float majorRadius, const float minorRadius)
+{
+    return calculateCircleSDF(revolutionizeW(position, majorRadius), minorRadius);
+}

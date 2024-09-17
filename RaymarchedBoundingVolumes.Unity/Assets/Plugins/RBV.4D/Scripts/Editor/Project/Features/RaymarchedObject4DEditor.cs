@@ -72,7 +72,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [DoubleEllipticCylinder]  = nameof(ObservableObject4DTypeShaderData.DoubleEllipticCylinder),
                 [PrismicCylinder]         = nameof(ObservableObject4DTypeShaderData.PrismicCylinder),
                 [SphericalCone]           = nameof(ObservableObject4DTypeShaderData.SphericalCone),
-                [CylindricalCone]         = nameof(ObservableObject4DTypeShaderData.CylindricalCone)
+                [CylindricalCone]         = nameof(ObservableObject4DTypeShaderData.CylindricalCone),
+                [ToroidalSphere]          = nameof(ObservableObject4DTypeShaderData.ToroidalSphere)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -168,7 +169,7 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     .FindPropertyRelative(nameof(DoubleEllipticCylinderShaderData.Diameters))
                     .vector3Value = DoubleEllipticCylinderShaderData.Default.Diameters,
                 [PrismicCylinder] = () =>
-                {   
+                {
                     _typeDataProperties[PrismicCylinder]
                         .FindPropertyRelative(nameof(PrismicCylinderShaderData.VerticesCount))
                         .intValue = PrismicCylinderShaderData.Default.VerticesCount;
@@ -200,6 +201,16 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     _typeDataProperties[CylindricalCone]
                         .FindPropertyRelative(nameof(CylindricalConeShaderData.Trength))
                         .floatValue = CylindricalConeShaderData.Default.Trength;
+                },
+                [ToroidalSphere] = () =>
+                {
+                    _typeDataProperties[ToroidalSphere]
+                        .FindPropertyRelative(nameof(ToroidalSphereShaderData.MajorDiameter))
+                        .floatValue = ToroidalSphereShaderData.Default.MajorDiameter;
+
+                    _typeDataProperties[ToroidalSphere]
+                        .FindPropertyRelative(nameof(ToroidalSphereShaderData.MinorDiameter))
+                        .floatValue = ToroidalSphereShaderData.Default.MinorDiameter;
                 }
             };
 

@@ -87,3 +87,9 @@ struct CylindricalConeData
     /** @related _TrengthDefinition */
     float halfTrength;
 };
+
+struct ToroidalSphereData
+{
+    float majorRadius;
+    float minorRadius;
+};
