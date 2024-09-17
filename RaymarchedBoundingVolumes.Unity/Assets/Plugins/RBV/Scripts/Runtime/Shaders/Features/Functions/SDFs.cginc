@@ -61,18 +61,18 @@ float calculatePlaneSDF(const float3 position, const float3 halfDimensions)
 
 float calculateConeSDF(const float3 position, const float halfHeight, const float radius)
 {
-    return calculateIsoscelesTriangleSDF(revolutionizeY(position), radius, halfHeight);
+    return calculateIsoscelesTriangleSDF(revolveInCircleByY(position), radius, halfHeight);
 }
 
 float calculateCappedConeSDF(const float3 position,
                              const float  halfHeight, const float topBaseRadius, const float bottomBaseRadius)
 {
-    return calculateIsoscelesTrapezoidSDF(revolutionizeY(position), bottomBaseRadius, topBaseRadius, halfHeight);
+    return calculateIsoscelesTrapezoidSDF(revolveInCircleByY(position), bottomBaseRadius, topBaseRadius, halfHeight);
 }
 
 float calculateTorusSDF(const float3 position, const float majorRadius, const float minorRadius)
 {
-    return calculateCircleSDF(revolutionizeY(position, majorRadius), minorRadius);
+    return calculateCircleSDF(revolveInCircleByY(position, majorRadius), minorRadius);
 }
 
 float calculateCappedTorusSDF(const float3 position,
@@ -96,9 +96,7 @@ float calculateCappedTorusSDF(const float3 position,
 float calculateRegularPrismSDF(const float3 position,
                                const float  verticesCount, const float circumradius, const float length)
 {
-    float3 rotatedPosition = position.yzx;
-    float  polyhedronSDF   = calculateRegularPolygonSDF(rotatedPosition.zx, verticesCount, circumradius);
-    return extrude(polyhedronSDF, rotatedPosition.y, abs(length));
+    return extrude(calculateRegularPolygonSDF(position.xy, verticesCount, circumradius), position.z, abs(length));
 }
 
 float calculateRegularPolyhedronSDF(const float3 position,

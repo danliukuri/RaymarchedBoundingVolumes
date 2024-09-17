@@ -73,7 +73,7 @@ float calculatePrismicCylinderSDF(const float4 position,
 
 float calculateSphericalConeSDF(const float4 position, const float radius, const float halfTrength)
 {
-    return calculateIsoscelesTriangleSDF(revolutionizeW(position), radius, halfTrength);
+    return calculateIsoscelesTriangleSDF(revolveInSphereByW(position), radius, halfTrength);
 }
 
 float calculateCylindricalConeSDF(const float4 position, const float radius, const float halfTrength)
@@ -85,21 +85,19 @@ float calculateCylindricalConeSDF(const float4 position, const float radius, con
 
 float calculateToroidalSphereSDF(const float4 position, const float majorRadius, const float minorRadius)
 {
-    return calculateCircleSDF(revolutionizeW(position, majorRadius), minorRadius);
+    return calculateCircleSDF(revolveInSphereByW(position, majorRadius), minorRadius);
 }
 
 float calculateSphericalTorusSDF(const float4 position, const float majorRadius, const float minorRadius)
 {
-    float2 revolvedAlongY = float2(calculateCircleSDF(position.xz, majorRadius), position.y);
-    float3 revolvedAlongW = float3(revolvedAlongY, position.w);
-    return calculateSphereSDF(revolvedAlongW, minorRadius);
+    return calculateSphereSDF(doubleRevolve(calculateCircleSDF(position.zx, majorRadius), position.yw), minorRadius);
 }
 
 float calculateDoubleTorusSDF(const float4 position, const float majorMajorRadius, const float majorMinorRadius,
                               const float  minorMinorRadius)
 {
-    float2 revolvedAlongW = float2(calculateTorusSDF(position, majorMajorRadius, majorMinorRadius), position.w);
-    return calculateCircleSDF(revolvedAlongW, minorMinorRadius);
+    float torusSDF = calculateTorusSDF(position, majorMajorRadius, majorMinorRadius);
+    return calculateCircleSDF(revolve(torusSDF, position.w), minorMinorRadius);
 }
 
 float calculateTigerSDF(const float4 position, const float2 majorRadii, const float minorRadius)

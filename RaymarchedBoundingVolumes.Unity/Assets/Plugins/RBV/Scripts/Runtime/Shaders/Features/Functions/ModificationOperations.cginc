@@ -113,19 +113,36 @@ float extrude(const float sdf, const float3 positionOnAxes, const float3 distanc
 }
 
 
-float2 revolutionizeX(const float3 position, const float horizontalOffset = 0.0, const float verticalOffset = 0.0)
+float2 revolve(const float sdfOfRevolving, const float positionOnAxis, const float axialOffset = 0.0)
 {
-    return float2(calculateCircleSDF(position.yz, horizontalOffset), position.x - verticalOffset);
+    return float2(sdfOfRevolving, positionOnAxis + axialOffset);
 }
 
-float2 revolutionizeY(const float3 position, const float horizontalOffset = 0.0, const float verticalOffset = 0.0)
+float3 doubleRevolve(const float sdfOfRevolving, const float2 positionOnAxes, const float2 axialOffsets = 0.0)
 {
-    return float2(calculateCircleSDF(position.xz, horizontalOffset), position.y - verticalOffset);
+    return float3(sdfOfRevolving, positionOnAxes + axialOffsets);
 }
 
-float2 revolutionizeZ(const float3 position, const float horizontalOffset = 0.0, const float verticalOffset = 0.0)
+float2 revolveInCircle(const float2 position, const float positionOnAxis,
+                       const float  radius      = 0.0,
+                       const float  axialOffset = 0.0)
 {
-    return float2(calculateCircleSDF(position.xy, horizontalOffset), position.z - verticalOffset);
+    return revolve(calculateCircleSDF(position, radius), positionOnAxis, axialOffset);
+}
+
+float2 revolveInCircleByX(const float3 position, const float radius = 0.0, const float axialOffset = 0.0)
+{
+    return revolveInCircle(position.yz, position.x, radius, axialOffset);
+}
+
+float2 revolveInCircleByY(const float3 position, const float radius = 0.0, const float axialOffset = 0.0)
+{
+    return revolveInCircle(position.xz, position.y, radius, axialOffset);
+}
+
+float2 revolveInCircleByZ(const float3 position, const float radius = 0.0, const float axialOffset = 0.0)
+{
+    return revolveInCircle(position.xy, position.z, radius, axialOffset);
 }
 
 

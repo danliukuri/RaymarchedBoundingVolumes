@@ -38,22 +38,14 @@ float extrude(const float sdf, const float4 positionOnAxes, const float4 distanc
 }
 
 
-float2 revolutionizeX(const float4 position, const float horizontalOffset = 0.0, const float verticalOffset = 0.0)
+float2 revolveInSphere(const float3 position, const float positionOnAxis,
+                       const float  radius      = 0.0,
+                       const float  axialOffset = 0.0)
 {
-    return float2(length(position.yzw) - horizontalOffset, position.x - verticalOffset);
+    return revolve(calculateSphereSDF(position, radius), positionOnAxis, axialOffset);
 }
 
-float2 revolutionizeY(const float4 position, const float horizontalOffset = 0.0, const float verticalOffset = 0.0)
+float2 revolveInSphereByW(const float4 position, const float radius = 0.0, const float axialOffset = 0.0)
 {
-    return float2(length(position.xzw) - horizontalOffset, position.y - verticalOffset);
-}
-
-float2 revolutionizeZ(const float4 position, const float horizontalOffset = 0.0, const float verticalOffset = 0.0)
-{
-    return float2(length(position.xyw) - horizontalOffset, position.z - verticalOffset);
-}
-
-float2 revolutionizeW(const float4 position, const float horizontalOffset = 0.0, const float verticalOffset = 0.0)
-{
-    return float2(length(position.xyz) - horizontalOffset, position.w - verticalOffset);
+    return revolveInSphere(position.xyz, position.w, radius, axialOffset);
 }
