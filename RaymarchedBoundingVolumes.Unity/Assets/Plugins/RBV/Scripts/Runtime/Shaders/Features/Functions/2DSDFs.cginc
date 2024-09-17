@@ -42,7 +42,7 @@ float calculateRegularPolygonSDF(float2 position, float verticesCount, float cir
     float insideDistance  = min(yProjected, 0.0);
     float cornerDistance  = circumradius * sin(halfSegmentAngle);
     float outsideDistance =
-        length(float2(max(abs(xProjected) - cornerDistance, 0.0), yProjected)) * step(0.0, yProjected);
+        length(float2(max(calculateLineSDF(xProjected, cornerDistance), 0.0), yProjected)) * step(0.0, yProjected);
 
     return outsideDistance + insideDistance;
 }
@@ -66,9 +66,9 @@ float calculateIsoscelesTrapezoidSDF(const float2 position,
                                      const float  bottomBaseHalfWidth, const float topBaseHalfWidth,
                                      const float  halfHeight)
 {
-    float absolutePositionX = abs(position.x);
-    float bottomBaseX       = absolutePositionX - bottomBaseHalfWidth;
-    float topBaseX          = absolutePositionX - topBaseHalfWidth;
+    float2 baseLinesX  = calculateTwoLinesSDF(position.x, bottomBaseHalfWidth, topBaseHalfWidth);
+    float  bottomBaseX = baseLinesX.x;
+    float  topBaseX    = baseLinesX.y;
 
     float2 bottomBase = float2(max(bottomBaseX, 0.0), -position.y - halfHeight);
     float2 topBase    = float2(max(topBaseX, 0.0), position.y - halfHeight);

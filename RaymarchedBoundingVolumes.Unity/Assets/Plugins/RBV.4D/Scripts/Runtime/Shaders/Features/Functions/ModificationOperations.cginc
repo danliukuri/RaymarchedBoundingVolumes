@@ -29,18 +29,12 @@ float4 elongateW(float4 position, const float strength)
 
 float extrudeOrigin(const float4 positionOnAxes, const float4 distanceAlongAxes)
 {
-    float4 distance        = abs(positionOnAxes) - distanceAlongAxes;
-    float  outsideDistance = length(max(distance, 0.0));
-    float  insideDistance  = min(maxAxisOf4(distance), 0.0);
-    return outsideDistance + insideDistance;
+    return cartesianProduct(calculateFourLinesSDF(positionOnAxes, distanceAlongAxes));
 }
 
 float extrude(const float sdf, const float4 positionOnAxes, const float4 distanceAlongAxes)
 {
-    float4 distance        = abs(positionOnAxes) - distanceAlongAxes;
-    float  outsideDistance = length(max(max(sdf, 0.0), max(distance, 0.0)));
-    float  insideDistance  = min(max(sdf, maxAxisOf4(distance)), 0.0);
-    return outsideDistance + insideDistance;
+    return cartesianProduct(sdf, calculateFourLinesSDF(positionOnAxes, distanceAlongAxes));
 }
 
 
