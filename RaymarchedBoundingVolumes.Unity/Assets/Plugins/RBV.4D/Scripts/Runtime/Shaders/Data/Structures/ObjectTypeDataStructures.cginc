@@ -87,3 +87,10 @@ struct CylindricalConeData
     /** @related _TrengthDefinition */
     float halfTrength;
 };
+
+struct DoubleTorusData
+{
+    float majorMajorRadius;
+    float majorMinorRadius;
+    float minorMinorRadius;
+};

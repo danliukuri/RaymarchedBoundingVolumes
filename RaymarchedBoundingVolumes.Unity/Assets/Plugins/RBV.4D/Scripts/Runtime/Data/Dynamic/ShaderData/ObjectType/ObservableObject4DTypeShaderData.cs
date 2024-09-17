@@ -32,6 +32,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 CylindricalCone.Changed += value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
                 ToroidalSphere.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
                 SphericalTorus.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                DoubleTorus.Changed     += value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
             }
             remove
             {
@@ -53,6 +54,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 CylindricalCone.Changed -= value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
                 ToroidalSphere.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
                 SphericalTorus.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                DoubleTorus.Changed     -= value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
             }
         }
 
@@ -103,9 +105,12 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<TorusShaderData> ToroidalSphere { get; set; } =
             new(TorusShaderData.Default);
-        
+
         [field: SerializeField] public ObservableValue<TorusShaderData> SphericalTorus { get; set; } =
             new(TorusShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<DoubleTorusShaderData> DoubleTorus { get; set; } =
+            new(DoubleTorusShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -195,6 +200,12 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     sphericalTorus.MajorDiameter *= fullToHalfScaleMultiplier;
                     sphericalTorus.MinorDiameter *= fullToHalfScaleMultiplier;
                     return sphericalTorus;
+                case RaymarchedObject4DType.DoubleTorus:
+                    DoubleTorusShaderData doubleTorus = DoubleTorus.Value;
+                    doubleTorus.MajorMajorDiameter *= fullToHalfScaleMultiplier;
+                    doubleTorus.MajorMinorDiameter *= fullToHalfScaleMultiplier;
+                    doubleTorus.MinorMinorDiameter *= fullToHalfScaleMultiplier;
+                    return doubleTorus;
             }
         }
     }

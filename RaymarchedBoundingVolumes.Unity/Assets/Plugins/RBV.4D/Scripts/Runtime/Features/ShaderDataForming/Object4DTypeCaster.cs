@@ -35,6 +35,7 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
             CylindricalCone         => typeof(CylindricalConeShaderData),
             ToroidalSphere          => typeof(TorusShaderData),
             SphericalTorus          => typeof(TorusShaderData),
+            DoubleTorus             => typeof(DoubleTorusShaderData),
             _                       => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

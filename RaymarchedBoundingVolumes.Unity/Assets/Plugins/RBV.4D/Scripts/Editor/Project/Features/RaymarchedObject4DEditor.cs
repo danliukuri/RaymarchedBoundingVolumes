@@ -75,7 +75,8 @@ namespace RBV.FourDimensional.Editor.Project.Features
                 [SphericalCone]           = nameof(ObservableObject4DTypeShaderData.SphericalCone),
                 [CylindricalCone]         = nameof(ObservableObject4DTypeShaderData.CylindricalCone),
                 [ToroidalSphere]          = nameof(ObservableObject4DTypeShaderData.ToroidalSphere),
-                [SphericalTorus]          = nameof(ObservableObject4DTypeShaderData.SphericalTorus)
+                [SphericalTorus]          = nameof(ObservableObject4DTypeShaderData.SphericalTorus),
+                [DoubleTorus]             = nameof(ObservableObject4DTypeShaderData.DoubleTorus)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject4DType)).Cast<RaymarchedObject4DType>()
@@ -223,6 +224,20 @@ namespace RBV.FourDimensional.Editor.Project.Features
                     _typeDataProperties[SphericalTorus]
                         .FindPropertyRelative(nameof(TorusShaderData.MinorDiameter))
                         .floatValue = TorusShaderData.Default.MinorDiameter;
+                },
+                [DoubleTorus] = () =>
+                {
+                    _typeDataProperties[DoubleTorus]
+                        .FindPropertyRelative(nameof(DoubleTorusShaderData.MajorMajorDiameter))
+                        .floatValue = DoubleTorusShaderData.Default.MajorMajorDiameter;
+
+                    _typeDataProperties[DoubleTorus]
+                        .FindPropertyRelative(nameof(DoubleTorusShaderData.MajorMinorDiameter))
+                        .floatValue = DoubleTorusShaderData.Default.MajorMinorDiameter;
+
+                    _typeDataProperties[DoubleTorus]
+                        .FindPropertyRelative(nameof(DoubleTorusShaderData.MinorMinorDiameter))
+                        .floatValue = DoubleTorusShaderData.Default.MinorMinorDiameter;
                 }
             };
 

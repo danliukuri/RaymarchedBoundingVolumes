@@ -103,6 +103,11 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
             distance = calculateSphericalTorusSDF(position4D,
                                                   sphericalTorusData.majorRadius, sphericalTorusData.minorRadius);
             break;
+        case OBJECT_4D_TYPE_DOUBLE_TORUS:
+            DoubleTorusData doubleTorusData = _RaymarchedDoubleTorusData[objectData.typeDataIndex];
+            distance = calculateDoubleTorusSDF(position4D, doubleTorusData.majorMajorRadius,
+                                               doubleTorusData.majorMinorRadius, doubleTorusData.minorMinorRadius);
+            break;
     }
     distance *= transform.scale;
 

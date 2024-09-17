@@ -20,5 +20,6 @@ namespace RBV.FourDimensional.Data.Static.Enumerations
         CylindricalCone         = RaymarchedObject4DTypeOffset + 13,
         ToroidalSphere          = RaymarchedObject4DTypeOffset + 14,
         SphericalTorus          = RaymarchedObject4DTypeOffset + 15,
+        DoubleTorus             = RaymarchedObject4DTypeOffset + 16,
     }
 }
