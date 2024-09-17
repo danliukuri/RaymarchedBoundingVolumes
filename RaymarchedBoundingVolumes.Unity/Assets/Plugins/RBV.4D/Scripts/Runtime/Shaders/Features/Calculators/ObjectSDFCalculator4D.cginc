@@ -94,9 +94,14 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
                                                    cylindricalConeData.radius, cylindricalConeData.halfTrength);
             break;
         case OBJECT_4D_TYPE_TOROIDAL_SPHERE:
-            ToroidalSphereData toroidalSphereData = _RaymarchedToroidalSphereData[objectData.typeDataIndex];
+            TorusData toroidalSphereData = _RaymarchedToroidalSphereData[objectData.typeDataIndex];
             distance = calculateToroidalSphereSDF(position4D,
                                                   toroidalSphereData.majorRadius, toroidalSphereData.minorRadius);
+            break;
+        case OBJECT_4D_TYPE_SPHERICAL_TORUS:
+            TorusData sphericalTorusData = _RaymarchedSphericalTorusData[objectData.typeDataIndex];
+            distance = calculateSphericalTorusSDF(position4D,
+                                                  sphericalTorusData.majorRadius, sphericalTorusData.minorRadius);
             break;
     }
     distance *= transform.scale;

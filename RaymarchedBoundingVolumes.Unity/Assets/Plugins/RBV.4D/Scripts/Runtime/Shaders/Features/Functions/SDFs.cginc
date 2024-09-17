@@ -87,3 +87,10 @@ float calculateToroidalSphereSDF(const float4 position, const float majorRadius,
 {
     return calculateCircleSDF(revolutionizeW(position, majorRadius), minorRadius);
 }
+
+float calculateSphericalTorusSDF(const float4 position, const float majorRadius, const float minorRadius)
+{
+    float2 revolvedAlongY = float2(calculateCircleSDF(position.xz, majorRadius), position.y);
+    float3 revolvedAlongW = float3(revolvedAlongY, position.w);
+    return calculateSphereSDF(revolvedAlongW, minorRadius);
+}

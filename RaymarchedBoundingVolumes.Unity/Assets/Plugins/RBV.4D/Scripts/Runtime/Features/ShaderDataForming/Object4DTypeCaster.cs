@@ -1,5 +1,6 @@
 ﻿using System;
 using RBV.Data.Dynamic;
+using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Data.Static.Enumerations;
 using RBV.Features.ShaderDataForming;
 using RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType;
@@ -32,7 +33,8 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
             PrismicCylinder         => typeof(PrismicCylinderShaderData),
             SphericalCone           => typeof(SphericalConeShaderData),
             CylindricalCone         => typeof(CylindricalConeShaderData),
-            ToroidalSphere          => typeof(ToroidalSphereShaderData),
+            ToroidalSphere          => typeof(TorusShaderData),
+            SphericalTorus          => typeof(TorusShaderData),
             _                       => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

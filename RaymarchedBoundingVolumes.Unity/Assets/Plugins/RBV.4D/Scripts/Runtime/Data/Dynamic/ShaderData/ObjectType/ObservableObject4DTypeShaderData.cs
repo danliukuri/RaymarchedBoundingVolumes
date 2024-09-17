@@ -30,7 +30,8 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 PrismicCylinder.Changed += value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
                 SphericalCone.Changed   += value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
                 CylindricalCone.Changed += value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
-                ToroidalSphere.Changed  += value.CastCached<IObjectTypeShaderData, ToroidalSphereShaderData>();
+                ToroidalSphere.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                SphericalTorus.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
             }
             remove
             {
@@ -50,7 +51,8 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 PrismicCylinder.Changed -= value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
                 SphericalCone.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
                 CylindricalCone.Changed -= value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
-                ToroidalSphere.Changed  -= value.CastCached<IObjectTypeShaderData, ToroidalSphereShaderData>();
+                ToroidalSphere.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                SphericalTorus.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
             }
         }
 
@@ -99,8 +101,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField] public ObservableValue<CylindricalConeShaderData> CylindricalCone { get; set; } =
             new(CylindricalConeShaderData.Default);
 
-        [field: SerializeField] public ObservableValue<ToroidalSphereShaderData> ToroidalSphere { get; set; } =
-            new(ToroidalSphereShaderData.Default);
+        [field: SerializeField] public ObservableValue<TorusShaderData> ToroidalSphere { get; set; } =
+            new(TorusShaderData.Default);
+        
+        [field: SerializeField] public ObservableValue<TorusShaderData> SphericalTorus { get; set; } =
+            new(TorusShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -181,10 +186,15 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     cylindricalCone.Trength  *= fullToHalfScaleMultiplier;
                     return cylindricalCone;
                 case RaymarchedObject4DType.ToroidalSphere:
-                    ToroidalSphereShaderData toroidalSphere = ToroidalSphere.Value;
+                    TorusShaderData toroidalSphere = ToroidalSphere.Value;
                     toroidalSphere.MajorDiameter *= fullToHalfScaleMultiplier;
                     toroidalSphere.MinorDiameter *= fullToHalfScaleMultiplier;
                     return toroidalSphere;
+                case RaymarchedObject4DType.SphericalTorus:
+                    TorusShaderData sphericalTorus = SphericalTorus.Value;
+                    sphericalTorus.MajorDiameter *= fullToHalfScaleMultiplier;
+                    sphericalTorus.MinorDiameter *= fullToHalfScaleMultiplier;
+                    return sphericalTorus;
             }
         }
     }
