@@ -106,3 +106,10 @@ float calculateTigerSDF(const float4 position, const float2 majorRadii, const fl
     float diskYw = calculateDiskSDF(position.yw, majorRadii.y);
     return addRoundness(cartesianProduct(diskXz, diskYw), minorRadius);
 }
+
+float calculateRegularDoublePrismSDF(const float4 position, const int2 verticesCount, const float2 circumradius)
+{
+    float regularPolygonXz = calculateRegularPolygonSDF(position.xz, verticesCount.x, circumradius.x);
+    float regularPolygonYw = calculateRegularPolygonSDF(position.yw, verticesCount.y, circumradius.y);
+    return cartesianProduct(regularPolygonXz, regularPolygonYw);
+}

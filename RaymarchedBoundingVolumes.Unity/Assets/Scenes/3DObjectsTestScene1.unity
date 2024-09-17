@@ -1761,11 +1761,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: transform.<Rotation>k__BackingField.value.x
-      value: 30
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: transform.<Rotation>k__BackingField.value.y
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: transform.<Rotation>k__BackingField.value.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: typeData.<Prism>k__BackingField.value.Scale.x

@@ -75,7 +75,7 @@ struct RegularPrismData
 {
     int   verticesCount;
     float circumradius;
-    float length;
+    float halfLength;
 };
 
 struct RegularPolyhedronData

@@ -100,3 +100,10 @@ struct TigerData
     float2 majorRadii;
     float  minorRadii;
 };
+
+struct RegularDoublePrismData
+{
+    int2   verticesCount;
+    float2 circumradius;
+    float2 halfLength;
+};

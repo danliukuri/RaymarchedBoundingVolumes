@@ -37,6 +37,7 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
             SphericalTorus          => typeof(TorusShaderData),
             DoubleTorus             => typeof(DoubleTorusShaderData),
             Tiger                   => typeof(TigerShaderData),
+            RegularDoublePrism      => typeof(RegularDoublePrismShaderData),
             _                       => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }

@@ -69,7 +69,7 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
         case OBJECT_3D_TYPE_REGULAR_PRISM:
             RegularPrismData regularPrismData = _RaymarchedRegularPrismData[objectData.typeDataIndex];
             distance = calculateRegularPrismSDF(position, regularPrismData.verticesCount,
-                                                regularPrismData.circumradius, regularPrismData.length);
+                                                regularPrismData.circumradius, regularPrismData.halfLength);
             break;
         case OBJECT_3D_TYPE_REGULAR_POLYHEDRON:
             RegularPolyhedronData regularPolyhedronData = _RaymarchedRegularPolyhedronData[objectData.typeDataIndex];

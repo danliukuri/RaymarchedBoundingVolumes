@@ -94,9 +94,9 @@ float calculateCappedTorusSDF(const float3 position,
 }
 
 float calculateRegularPrismSDF(const float3 position,
-                               const float  verticesCount, const float circumradius, const float length)
+                               const float  verticesCount, const float circumradius, const float halfLength)
 {
-    return extrude(calculateRegularPolygonSDF(position.xy, verticesCount, circumradius), position.z, abs(length));
+    return extrude(calculateRegularPolygonSDF(position.xz, verticesCount, circumradius), position.y, abs(halfLength));
 }
 
 float calculateRegularPolyhedronSDF(const float3 position,

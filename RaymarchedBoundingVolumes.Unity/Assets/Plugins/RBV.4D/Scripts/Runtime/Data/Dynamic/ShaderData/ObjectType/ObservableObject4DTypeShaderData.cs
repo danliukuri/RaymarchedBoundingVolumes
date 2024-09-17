@@ -27,13 +27,14 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 DoubleCylinder.Changed      += value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
                 DoubleEllipticCylinder.Changed +=
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
-                PrismicCylinder.Changed += value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
-                SphericalCone.Changed   += value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
-                CylindricalCone.Changed += value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
-                ToroidalSphere.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                SphericalTorus.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                DoubleTorus.Changed     += value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
-                Tiger.Changed           += value.CastCached<IObjectTypeShaderData, TigerShaderData>();
+                PrismicCylinder.Changed    += value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
+                SphericalCone.Changed      += value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
+                CylindricalCone.Changed    += value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
+                ToroidalSphere.Changed     += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                SphericalTorus.Changed     += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                DoubleTorus.Changed        += value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
+                Tiger.Changed              += value.CastCached<IObjectTypeShaderData, TigerShaderData>();
+                RegularDoublePrism.Changed += value.CastCached<IObjectTypeShaderData, RegularDoublePrismShaderData>();
             }
             remove
             {
@@ -50,13 +51,14 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 DoubleCylinder.Changed      -= value.CastCached<IObjectTypeShaderData, DoubleCylinderShaderData>();
                 DoubleEllipticCylinder.Changed -=
                     value.CastCached<IObjectTypeShaderData, DoubleEllipticCylinderShaderData>();
-                PrismicCylinder.Changed -= value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
-                SphericalCone.Changed   -= value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
-                CylindricalCone.Changed -= value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
-                ToroidalSphere.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                SphericalTorus.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                DoubleTorus.Changed     -= value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
-                Tiger.Changed           -= value.CastCached<IObjectTypeShaderData, TigerShaderData>();
+                PrismicCylinder.Changed    -= value.CastCached<IObjectTypeShaderData, PrismicCylinderShaderData>();
+                SphericalCone.Changed      -= value.CastCached<IObjectTypeShaderData, SphericalConeShaderData>();
+                CylindricalCone.Changed    -= value.CastCached<IObjectTypeShaderData, CylindricalConeShaderData>();
+                ToroidalSphere.Changed     -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                SphericalTorus.Changed     -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
+                DoubleTorus.Changed        -= value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
+                Tiger.Changed              -= value.CastCached<IObjectTypeShaderData, TigerShaderData>();
+                RegularDoublePrism.Changed -= value.CastCached<IObjectTypeShaderData, RegularDoublePrismShaderData>();
             }
         }
 
@@ -116,6 +118,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<TigerShaderData> Tiger { get; set; } =
             new(TigerShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<RegularDoublePrismShaderData> RegularDoublePrism { get; set; } =
+            new(RegularDoublePrismShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -216,6 +221,10 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     tiger.MajorDiameters *= fullToHalfScaleMultiplier;
                     tiger.MinorDiameter  *= fullToHalfScaleMultiplier;
                     return tiger;
+                case RaymarchedObject4DType.RegularDoublePrism:
+                    RegularDoublePrismShaderData regularDoublePrism = RegularDoublePrism.Value;
+                    regularDoublePrism.Circumdiameter *= fullToHalfScaleMultiplier;
+                    return regularDoublePrism;
             }
         }
     }

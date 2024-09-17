@@ -112,6 +112,11 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
             TigerData tigerData = _RaymarchedTigerData[objectData.typeDataIndex];
             distance = calculateTigerSDF(position4D, tigerData.majorRadii, tigerData.minorRadii);
             break;
+        case OBJECT_4D_TYPE_REGULAR_DOUBLE_PRISM:
+            RegularDoublePrismData regularDoublePrismData = _RaymarchedRegularDoublePrismData[objectData.typeDataIndex];
+            distance = calculateRegularDoublePrismSDF(position4D, regularDoublePrismData.verticesCount,
+                                                      regularDoublePrismData.circumradius);
+            break;
     }
     distance *= transform.scale;
 
