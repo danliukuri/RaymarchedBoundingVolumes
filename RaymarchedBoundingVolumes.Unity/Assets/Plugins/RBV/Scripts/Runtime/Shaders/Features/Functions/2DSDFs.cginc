@@ -19,6 +19,11 @@ float calculateEllipseSDF(const float2 position, const float2 radii)
     return normalizedDistance * outsideDistance / gradientLength;
 }
 
+float calculateDiskSDF(const float2 position, const float radius)
+{
+    return abs(calculateCircleSDF(position, radius));
+}
+
 float calculateRegularPolygonSDF(float2 position, float verticesCount, float circumradius)
 {
     float segmentAngle     = UNITY_TWO_PI / verticesCount;

@@ -21,3 +21,4 @@ uniform StructuredBuffer<CylindricalConeData>         _RaymarchedCylindricalCone
 uniform StructuredBuffer<TorusData>                   _RaymarchedToroidalSphereData;
 uniform StructuredBuffer<TorusData>                   _RaymarchedSphericalTorusData;
 uniform StructuredBuffer<DoubleTorusData>             _RaymarchedDoubleTorusData;
+uniform StructuredBuffer<TigerData>                   _RaymarchedTigerData;

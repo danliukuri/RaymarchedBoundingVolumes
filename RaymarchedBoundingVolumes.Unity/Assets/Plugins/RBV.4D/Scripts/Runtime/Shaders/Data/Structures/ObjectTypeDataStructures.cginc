@@ -94,3 +94,9 @@ struct DoubleTorusData
     float majorMinorRadius;
     float minorMinorRadius;
 };
+
+struct TigerData
+{
+    float2 majorRadii;
+    float  minorRadii;
+};

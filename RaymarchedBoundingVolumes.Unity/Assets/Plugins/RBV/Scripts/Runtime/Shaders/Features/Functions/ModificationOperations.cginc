@@ -116,3 +116,9 @@ float2 revolutionizeZ(const float3 position, const float horizontalOffset = 0.0,
 {
     return float2(calculateCircleSDF(position.xy, horizontalOffset), position.z - verticalOffset);
 }
+
+
+float addRoundness(const float sdf, const float radius)
+{
+    return sdf - radius;
+}

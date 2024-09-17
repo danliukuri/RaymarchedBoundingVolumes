@@ -33,6 +33,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 ToroidalSphere.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
                 SphericalTorus.Changed  += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
                 DoubleTorus.Changed     += value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
+                Tiger.Changed           += value.CastCached<IObjectTypeShaderData, TigerShaderData>();
             }
             remove
             {
@@ -55,6 +56,7 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                 ToroidalSphere.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
                 SphericalTorus.Changed  -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
                 DoubleTorus.Changed     -= value.CastCached<IObjectTypeShaderData, DoubleTorusShaderData>();
+                Tiger.Changed           -= value.CastCached<IObjectTypeShaderData, TigerShaderData>();
             }
         }
 
@@ -111,6 +113,9 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
 
         [field: SerializeField] public ObservableValue<DoubleTorusShaderData> DoubleTorus { get; set; } =
             new(DoubleTorusShaderData.Default);
+
+        [field: SerializeField] public ObservableValue<TigerShaderData> Tiger { get; set; } =
+            new(TigerShaderData.Default);
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject4DType)(int)type);
@@ -206,6 +211,11 @@ namespace RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType
                     doubleTorus.MajorMinorDiameter *= fullToHalfScaleMultiplier;
                     doubleTorus.MinorMinorDiameter *= fullToHalfScaleMultiplier;
                     return doubleTorus;
+                case RaymarchedObject4DType.Tiger:
+                    TigerShaderData tiger = Tiger.Value;
+                    tiger.MajorDiameters *= fullToHalfScaleMultiplier;
+                    tiger.MinorDiameter  *= fullToHalfScaleMultiplier;
+                    return tiger;
             }
         }
     }

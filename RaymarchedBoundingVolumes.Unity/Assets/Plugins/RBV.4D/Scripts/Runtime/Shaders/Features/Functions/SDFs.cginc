@@ -101,3 +101,10 @@ float calculateDoubleTorusSDF(const float4 position, const float majorMajorRadiu
     float2 revolvedAlongW = float2(calculateTorusSDF(position, majorMajorRadius, majorMinorRadius), position.w);
     return calculateCircleSDF(revolvedAlongW, minorMinorRadius);
 }
+
+float calculateTigerSDF(const float4 position, const float2 majorRadii, const float minorRadius)
+{
+    float diskXz = calculateDiskSDF(position.xz, majorRadii.x);
+    float diskYw = calculateDiskSDF(position.yw, majorRadii.y);
+    return addRoundness(cartesianProduct(diskXz, diskYw), minorRadius);
+}

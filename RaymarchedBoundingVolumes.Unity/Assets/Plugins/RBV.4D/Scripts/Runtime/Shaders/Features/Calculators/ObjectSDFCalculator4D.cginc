@@ -108,6 +108,10 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
             distance = calculateDoubleTorusSDF(position4D, doubleTorusData.majorMajorRadius,
                                                doubleTorusData.majorMinorRadius, doubleTorusData.minorMinorRadius);
             break;
+        case OBJECT_4D_TYPE_TIGER:
+            TigerData tigerData = _RaymarchedTigerData[objectData.typeDataIndex];
+            distance = calculateTigerSDF(position4D, tigerData.majorRadii, tigerData.minorRadii);
+            break;
     }
     distance *= transform.scale;
 

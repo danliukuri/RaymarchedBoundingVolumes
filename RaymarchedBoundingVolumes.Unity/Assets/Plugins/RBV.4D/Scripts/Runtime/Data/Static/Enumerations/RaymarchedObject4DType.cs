@@ -21,5 +21,6 @@ namespace RBV.FourDimensional.Data.Static.Enumerations
         ToroidalSphere          = RaymarchedObject4DTypeOffset + 14,
         SphericalTorus          = RaymarchedObject4DTypeOffset + 15,
         DoubleTorus             = RaymarchedObject4DTypeOffset + 16,
+        Tiger                   = RaymarchedObject4DTypeOffset + 17,
     }
 }
