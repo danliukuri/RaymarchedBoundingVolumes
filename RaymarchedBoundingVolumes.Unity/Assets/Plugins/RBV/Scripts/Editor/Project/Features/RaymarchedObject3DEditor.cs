@@ -58,20 +58,20 @@ namespace RBV.Editor.Project.Features
         {
             var typeDataPropertyPath = new Dictionary<RaymarchedObject3DType, string>
             {
-                [Cube]                = nameof(ObservableObject3DTypeShaderData.Cube),
-                [Sphere]              = nameof(ObservableObject3DTypeShaderData.Sphere),
-                [Ellipsoid]           = nameof(ObservableObject3DTypeShaderData.Ellipsoid),
-                [Capsule]             = nameof(ObservableObject3DTypeShaderData.Capsule),
-                [EllipsoidalCapsule]  = nameof(ObservableObject3DTypeShaderData.EllipsoidalCapsule),
-                [Cylinder]            = nameof(ObservableObject3DTypeShaderData.Cylinder),
-                [EllipsoidalCylinder] = nameof(ObservableObject3DTypeShaderData.EllipsoidalCylinder),
-                [Plane]               = nameof(ObservableObject3DTypeShaderData.Plane),
-                [Cone]                = nameof(ObservableObject3DTypeShaderData.Cone),
-                [CappedCone]          = nameof(ObservableObject3DTypeShaderData.CappedCone),
-                [Torus]               = nameof(ObservableObject3DTypeShaderData.Torus),
-                [CappedTorus]         = nameof(ObservableObject3DTypeShaderData.CappedTorus),
-                [RegularPrism]        = nameof(ObservableObject3DTypeShaderData.RegularPrism),
-                [RegularPolyhedron]   = nameof(ObservableObject3DTypeShaderData.RegularPolyhedron)
+                [Cube]              = nameof(ObservableObject3DTypeShaderData.Cube),
+                [Sphere]            = nameof(ObservableObject3DTypeShaderData.Sphere),
+                [Ellipsoid]         = nameof(ObservableObject3DTypeShaderData.Ellipsoid),
+                [Capsule]           = nameof(ObservableObject3DTypeShaderData.Capsule),
+                [EllipticCapsule]   = nameof(ObservableObject3DTypeShaderData.EllipticCapsule),
+                [Cylinder]          = nameof(ObservableObject3DTypeShaderData.Cylinder),
+                [EllipticCylinder]  = nameof(ObservableObject3DTypeShaderData.EllipticCylinder),
+                [Plane]             = nameof(ObservableObject3DTypeShaderData.Plane),
+                [Cone]              = nameof(ObservableObject3DTypeShaderData.Cone),
+                [CappedCone]        = nameof(ObservableObject3DTypeShaderData.CappedCone),
+                [Torus]             = nameof(ObservableObject3DTypeShaderData.Torus),
+                [CappedTorus]       = nameof(ObservableObject3DTypeShaderData.CappedTorus),
+                [RegularPrism]      = nameof(ObservableObject3DTypeShaderData.RegularPrism),
+                [RegularPolyhedron] = nameof(ObservableObject3DTypeShaderData.RegularPolyhedron)
             };
 
             _typeDataProperties = Enum.GetValues(typeof(RaymarchedObject3DType)).Cast<RaymarchedObject3DType>()
@@ -102,15 +102,15 @@ namespace RBV.Editor.Project.Features
                         .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Height))
                         .floatValue = RaymarchedCapsuleShaderData.Default.Height;
                 },
-                [EllipsoidalCapsule] = () =>
+                [EllipticCapsule] = () =>
                 {
-                    _typeDataProperties[EllipsoidalCapsule]
-                        .FindPropertyRelative(nameof(EllipsoidalCapsuleShaderData.Diameters))
-                        .vector3Value = EllipsoidalCapsuleShaderData.Default.Diameters;
+                    _typeDataProperties[EllipticCapsule]
+                        .FindPropertyRelative(nameof(EllipticCapsuleShaderData.Diameters))
+                        .vector3Value = EllipticCapsuleShaderData.Default.Diameters;
 
-                    _typeDataProperties[EllipsoidalCapsule]
-                        .FindPropertyRelative(nameof(EllipsoidalCapsuleShaderData.Height))
-                        .floatValue = EllipsoidalCapsuleShaderData.Default.Height;
+                    _typeDataProperties[EllipticCapsule]
+                        .FindPropertyRelative(nameof(EllipticCapsuleShaderData.Height))
+                        .floatValue = EllipticCapsuleShaderData.Default.Height;
                 },
                 [Cylinder] = () =>
                 {
@@ -122,9 +122,9 @@ namespace RBV.Editor.Project.Features
                         .FindPropertyRelative(nameof(RaymarchedCylinderShaderData.Height))
                         .floatValue = RaymarchedCylinderShaderData.Default.Height;
                 },
-                [EllipsoidalCylinder] = () => _typeDataProperties[EllipsoidalCylinder]
-                    .FindPropertyRelative(nameof(EllipsoidalCylinderShaderData.Dimensions))
-                    .vector3Value = EllipsoidalCylinderShaderData.Default.Dimensions,
+                [EllipticCylinder] = () => _typeDataProperties[EllipticCylinder]
+                    .FindPropertyRelative(nameof(EllipticCylinderShaderData.Dimensions))
+                    .vector3Value = EllipticCylinderShaderData.Default.Dimensions,
                 [Plane] = () => _typeDataProperties[Plane]
                     .FindPropertyRelative(nameof(PlaneShaderData.Dimensions))
                     .vector3Value = PlaneShaderData.Default.Dimensions,

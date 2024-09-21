@@ -2,6 +2,9 @@
 
 #include "UnityCG.cginc"
 
+#include "1DSDFs.cginc"
+#include "MathExtentions.cginc"
+
 float calculateCircleSDF(const float2 position, const float radius)
 {
     return length(position) - radius;
@@ -14,6 +17,11 @@ float calculateEllipseSDF(const float2 position, const float2 radii)
     float  outsideDistance    = normalizedDistance - 1.0;
     float  gradientLength     = length(normalizedPosition / radii);
     return normalizedDistance * outsideDistance / gradientLength;
+}
+
+float calculateDiskSDF(const float2 position, const float radius)
+{
+    return abs(calculateCircleSDF(position, radius));
 }
 
 float calculateRegularPolygonSDF(float2 position, float verticesCount, float circumradius)
@@ -34,7 +42,44 @@ float calculateRegularPolygonSDF(float2 position, float verticesCount, float cir
     float insideDistance  = min(yProjected, 0.0);
     float cornerDistance  = circumradius * sin(halfSegmentAngle);
     float outsideDistance =
-        length(float2(max(abs(xProjected) - cornerDistance, 0.0), yProjected)) * step(0.0, yProjected);
+        length(float2(max(calculateLineSDF(xProjected, cornerDistance), 0.0), yProjected)) * step(0.0, yProjected);
 
     return outsideDistance + insideDistance;
+}
+
+float calculateIsoscelesTriangleSDF(const float2 position, const float halfWidth, const float halfHeight)
+{
+    float2 adjustedPosition = float2(calculateLineSDF(position.x, halfWidth), position.y + halfHeight);
+
+    float2 edgeVector       = float2(-halfWidth, halfHeight * 2.0);
+    float  projectionFactor = clamp(dot(adjustedPosition, edgeVector) / dot2(edgeVector), 0.0, 1.0);
+    float2 projectedPoint   = adjustedPosition - edgeVector * projectionFactor;
+    float2 distanceToAxis   = float2(max(adjustedPosition.x, 0.0), -adjustedPosition.y);
+
+    float distanceToEdge = min(dot2(projectedPoint), dot2(distanceToAxis));
+    float signAdjustment = sign(max(maxAxisOf2(projectedPoint), distanceToAxis.y));
+
+    return sqrt(distanceToEdge) * signAdjustment;
+}
+
+float calculateIsoscelesTrapezoidSDF(const float2 position,
+                                     const float  bottomBaseHalfWidth, const float topBaseHalfWidth,
+                                     const float  halfHeight)
+{
+    float2 baseLinesX  = calculateTwoLinesSDF(position.x, bottomBaseHalfWidth, topBaseHalfWidth);
+    float  bottomBaseX = baseLinesX.x;
+    float  topBaseX    = baseLinesX.y;
+
+    float2 bottomBase = float2(max(bottomBaseX, 0.0), -position.y - halfHeight);
+    float2 topBase    = float2(max(topBaseX, 0.0), position.y - halfHeight);
+
+    float2 baseProjectionVector = float2(bottomBaseX, position.y + halfHeight);
+
+    float2 edgeVector       = float2(topBaseHalfWidth - bottomBaseHalfWidth, halfHeight * 2.0);
+    float  projectionFactor = clamp(dot(baseProjectionVector, edgeVector) / dot2(edgeVector), 0.0, 1.0);
+    float2 distanceToEdge   = baseProjectionVector - edgeVector * projectionFactor;
+
+    float closestDistance = sqrt(min(min(dot2(bottomBase), dot2(topBase)), dot2(distanceToEdge)));
+    float signAdjustment  = sign(max(max(bottomBase.y, topBase.y), distanceToEdge.x));
+    return closestDistance * signAdjustment;
 }

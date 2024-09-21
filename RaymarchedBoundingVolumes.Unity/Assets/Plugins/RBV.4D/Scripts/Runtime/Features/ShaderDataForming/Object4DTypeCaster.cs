@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using RBV.Data.Dynamic;
 using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Data.Static.Enumerations;
@@ -8,7 +6,7 @@ using RBV.Features.ShaderDataForming;
 using RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType;
 using RBV.FourDimensional.Data.Static;
 using RBV.FourDimensional.Data.Static.Enumerations;
-using RBV.Utilities.Extensions;
+using static RBV.FourDimensional.Data.Static.Enumerations.RaymarchedObject4DType;
 
 namespace RBV.FourDimensional.Features.ShaderDataForming
 {
@@ -21,9 +19,26 @@ namespace RBV.FourDimensional.Features.ShaderDataForming
 
         private Type GetShaderDataType(RaymarchedObject4DType type) => type switch
         {
-            RaymarchedObject4DType.Hypersphere => typeof(RaymarchedHypersphereShaderData),
-            RaymarchedObject4DType.Hypercube   => typeof(RaymarchedHypercubeShaderData),
-            _                                  => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            Hypercube               => typeof(HypercubeShaderData),
+            Hypersphere             => typeof(HypersphereShaderData),
+            Hyperellipsoid          => typeof(HyperellipsoidShaderData),
+            Hypercapsule            => typeof(HypercapsuleShaderData),
+            EllipsoidalHypercapsule => typeof(EllipsoidalHypercapsuleShaderData),
+            CubicalCylinder         => typeof(CubicalCylinderShaderData),
+            SphericalCylinder       => typeof(SphericalCylinderShaderData),
+            EllipsoidalCylinder     => typeof(EllipsoidalCylinderShaderData),
+            ConicalCylinder         => typeof(ConicalCylinderShaderData),
+            DoubleCylinder          => typeof(DoubleCylinderShaderData),
+            DoubleEllipticCylinder  => typeof(DoubleEllipticCylinderShaderData),
+            PrismicCylinder         => typeof(PrismicCylinderShaderData),
+            SphericalCone           => typeof(SphericalConeShaderData),
+            CylindricalCone         => typeof(CylindricalConeShaderData),
+            ToroidalSphere          => typeof(TorusShaderData),
+            SphericalTorus          => typeof(TorusShaderData),
+            DoubleTorus             => typeof(DoubleTorusShaderData),
+            Tiger                   => typeof(TigerShaderData),
+            RegularDoublePrism      => typeof(RegularDoublePrismShaderData),
+            _                       => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
 }

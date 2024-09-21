@@ -1,15 +1,13 @@
 ﻿#pragma once
 
+#include "1DSDFs.cginc"
 #include "2DSDFs.cginc"
 #include "ModificationOperations.cginc"
 #include "../../Data/Variables/CommonBoundingPlanesVariables.cginc"
 
 float calculateCubeSDF(const float3 position, const float3 halfDimensions)
 {
-    float3 distance        = abs(position) - halfDimensions;
-    float  outsideDistance = length(max(distance, 0.0));
-    float  insideDistance  = min(max(distance.x, max(distance.y, distance.z)), 0.0);
-    return outsideDistance + insideDistance;
+    return extrudeOrigin(position, halfDimensions);
 }
 
 float calculateSphereSDF(const float3 position, const float radius)
@@ -41,19 +39,19 @@ float calculateCapsuleSDF(const float3 position, const float halfHeight, const f
     return calculateSphereSDF(elongateY(position, halfHeight), radius);
 }
 
-float calculateEllipsoidalCapsuleSDF(const float3 position, const float halfHeight, const float3 radii)
+float calculateEllipticCapsuleSDF(const float3 position, const float halfHeight, const float3 radii)
 {
     return calculateEllipsoidSDF(elongateY(position, halfHeight), radii);
 }
 
 float calculateCylinderSDF(const float3 position, const float height, const float radius)
 {
-    return extrudeY(position, calculateCircleSDF(position.xz, radius), height);
+    return extrude(calculateCircleSDF(position.xz, radius), position.y, height);
 }
 
-float calculateEllipsoidalCylinderSDF(const float3 position, const float3 dimensions)
+float calculateEllipticCylinderSDF(const float3 position, const float3 dimensions)
 {
-    return extrudeY(position, calculateEllipseSDF(position.xz, dimensions.xz), dimensions.y);
+    return extrude(calculateEllipseSDF(position.xz, dimensions.xz), position.y, dimensions.y);
 }
 
 float calculatePlaneSDF(const float3 position, const float3 halfDimensions)
@@ -61,55 +59,20 @@ float calculatePlaneSDF(const float3 position, const float3 halfDimensions)
     return calculateCubeSDF(position, halfDimensions);
 }
 
-float calculateConeSDF(const float3 position, const float height, const float radius)
+float calculateConeSDF(const float3 position, const float halfHeight, const float radius)
 {
-    float2 baseToHeight = float2(radius / height, -1.0);
-
-    float2 projectedPosition = revolutionizeY(position, 0.0, height * 0.5);
-    float2 vectorToBase      = height * baseToHeight;
-
-    float clampedProjectionFactor =
-        clamp(dot(projectedPosition, vectorToBase) / dot(vectorToBase, vectorToBase), 0.0, 1.0);
-    float2 clampedBaseIntersection =
-        float2(clamp(projectedPosition.x / vectorToBase.x, 0.0, 1.0), 1.0);
-
-    float2 distanceToSurfaceA = projectedPosition - vectorToBase * clampedProjectionFactor;
-    float2 distanceToSurfaceB = projectedPosition - vectorToBase * clampedBaseIntersection;
-    float  distanceSquared    =
-        min(dot(distanceToSurfaceA, distanceToSurfaceA), dot(distanceToSurfaceB, distanceToSurfaceB));
-
-    float signCorrection   = sign(vectorToBase.y);
-    float sideDistance     = projectedPosition.x * vectorToBase.y - projectedPosition.y * vectorToBase.x;
-    float heightDifference = projectedPosition.y - vectorToBase.y;
-    float surfaceSign      = max(signCorrection * sideDistance, signCorrection * heightDifference);
-
-    return sqrt(distanceSquared) * sign(surfaceSign);
+    return calculateIsoscelesTriangleSDF(revolveInCircleByY(position), radius, halfHeight);
 }
 
 float calculateCappedConeSDF(const float3 position,
-                             const float  height, const float topBaseRadius, const float bottomBaseRadius)
+                             const float  halfHeight, const float topBaseRadius, const float bottomBaseRadius)
 {
-    float2 projectedPosition = revolutionizeY(position);
-
-    float2 baseParams   = float2(topBaseRadius, height);
-    float2 radiusParams = float2(topBaseRadius - bottomBaseRadius, 2.0 * height);
-
-    float  minBaseRadius      = projectedPosition.y < 0.0 ? bottomBaseRadius : topBaseRadius;
-    float  horizontalDistance = projectedPosition.x - min(projectedPosition.x, minBaseRadius);
-    float  verticalDistance   = abs(projectedPosition.y) - height;
-    float2 distanceToBase     = float2(horizontalDistance, verticalDistance);
-
-    float2 deltaPosition   = baseParams - projectedPosition;
-    float  slantFactor     = clamp(dot(deltaPosition, radiusParams) / dot(radiusParams, radiusParams), 0.0, 1.0);
-    float2 distanceToSlant = projectedPosition - baseParams + radiusParams * slantFactor;
-
-    float sign = distanceToSlant.x < 0.0 && distanceToBase.y < 0.0 ? -1.0 : 1.0;
-    return sign * sqrt(min(dot(distanceToBase, distanceToBase), dot(distanceToSlant, distanceToSlant)));
+    return calculateIsoscelesTrapezoidSDF(revolveInCircleByY(position), bottomBaseRadius, topBaseRadius, halfHeight);
 }
 
 float calculateTorusSDF(const float3 position, const float majorRadius, const float minorRadius)
 {
-    return calculateCircleSDF(revolutionizeY(position, majorRadius), minorRadius);
+    return calculateCircleSDF(revolveInCircleByY(position, majorRadius), minorRadius);
 }
 
 float calculateCappedTorusSDF(const float3 position,
@@ -131,11 +94,9 @@ float calculateCappedTorusSDF(const float3 position,
 }
 
 float calculateRegularPrismSDF(const float3 position,
-                               const float  verticesCount, const float circumradius, const float length)
+                               const float  verticesCount, const float circumradius, const float halfLength)
 {
-    float3 rotatedPosition = position.yzx;
-    float  polyhedronSDF   = calculateRegularPolygonSDF(rotatedPosition.zx, verticesCount, circumradius);
-    return extrudeY(rotatedPosition, polyhedronSDF, abs(length));
+    return extrude(calculateRegularPolygonSDF(position.xz, verticesCount, circumradius), position.y, abs(halfLength));
 }
 
 float calculateRegularPolyhedronSDF(const float3 position,

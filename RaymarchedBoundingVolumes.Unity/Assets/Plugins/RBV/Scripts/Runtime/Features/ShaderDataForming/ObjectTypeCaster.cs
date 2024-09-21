@@ -18,21 +18,21 @@ namespace RBV.Features.ShaderDataForming
 
         protected Type GetShaderDataType(RaymarchedObject3DType type) => type switch
         {
-            Cube                => typeof(RaymarchedCubeShaderData),
-            Sphere              => typeof(SphereShaderData),
-            Ellipsoid           => typeof(EllipsoidShaderData),
-            Capsule             => typeof(RaymarchedCapsuleShaderData),
-            EllipsoidalCapsule  => typeof(EllipsoidalCapsuleShaderData),
-            Cylinder            => typeof(RaymarchedCylinderShaderData),
-            EllipsoidalCylinder => typeof(EllipsoidalCylinderShaderData),
-            Plane               => typeof(PlaneShaderData),
-            Cone                => typeof(RaymarchedConeShaderData),
-            CappedCone          => typeof(CappedConeShaderData),
-            Torus               => typeof(TorusShaderData),
-            CappedTorus         => typeof(CappedTorusShaderData),
-            RegularPrism        => typeof(RegularPrismShaderData),
-            RegularPolyhedron   => typeof(RegularPolyhedronShaderData),
-            _                   => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            Cube              => typeof(RaymarchedCubeShaderData),
+            Sphere            => typeof(SphereShaderData),
+            Ellipsoid         => typeof(EllipsoidShaderData),
+            Capsule           => typeof(RaymarchedCapsuleShaderData),
+            EllipticCapsule   => typeof(EllipticCapsuleShaderData),
+            Cylinder          => typeof(RaymarchedCylinderShaderData),
+            EllipticCylinder  => typeof(EllipticCylinderShaderData),
+            Plane             => typeof(PlaneShaderData),
+            Cone              => typeof(RaymarchedConeShaderData),
+            CappedCone        => typeof(CappedConeShaderData),
+            Torus             => typeof(TorusShaderData),
+            CappedTorus       => typeof(CappedTorusShaderData),
+            RegularPrism      => typeof(RegularPrismShaderData),
+            RegularPolyhedron => typeof(RegularPolyhedronShaderData),
+            _                 => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
 }

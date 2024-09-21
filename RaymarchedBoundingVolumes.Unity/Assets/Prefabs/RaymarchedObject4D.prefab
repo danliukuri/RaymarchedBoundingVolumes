@@ -97,19 +97,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type:
-    value: 10000
+    value: 10001
   typeData:
-    <HypersphereShaderData>k__BackingField:
-      value:
-        Diameter: 1
-    <HypercubeShaderData>k__BackingField:
+    <Hypercube>k__BackingField:
       value:
         Dimensions: {x: 1, y: 1, z: 1, w: 1}
+    <Hypersphere>k__BackingField:
+      value:
+        Diameter: 1
   transform:
     <Position>k__BackingField:
       value: {x: 0, y: 0, z: 0, w: 0}
     <Rotation>k__BackingField:
-      value: {x: 0, y: 7.78, z: 37.62}
+      value: {x: 0, y: 0, z: 0}
     <Rotation4D>k__BackingField:
       value: {x: 0, y: 0, z: 0}
     <Scale>k__BackingField:
