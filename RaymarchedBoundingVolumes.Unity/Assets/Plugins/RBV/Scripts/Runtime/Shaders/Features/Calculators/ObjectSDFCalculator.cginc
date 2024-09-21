@@ -80,6 +80,6 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
     }
     distance *= transform.scale;
 
-    const SDFData sdf = {_ObjectColor.rgb, distance};
+    const SDFData sdf = {_DefaultObjectColor.rgb, distance};
     return sdf;
 }
