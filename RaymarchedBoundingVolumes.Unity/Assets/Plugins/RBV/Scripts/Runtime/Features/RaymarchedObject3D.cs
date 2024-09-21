@@ -20,10 +20,16 @@ namespace RBV.Features
             Scale = new ObservableValue<Vector3>(Vector3.one)
         };
 
+        [SerializeField] private ObservableValue<RaymarchedObjectRenderingSettingsShaderData> renderingSettings =
+            new() { Value = new RaymarchedObjectRenderingSettingsShaderData { Color = Color.white } };
+
         public override ObservableValue<RaymarchedObjectType> Type          { get; protected set; }
         public override IObservableObjectTypeShaderData       TypeData      => typeData;
         public override IObservableTransform                  Transform     => transform;
         public override TransformType                         TransformType => TransformType.ThreeDimensional;
+
+        public override ObservableValue<RaymarchedObjectRenderingSettingsShaderData> RenderingSettings =>
+            renderingSettings;
 
         public override ITransformShaderData TransformShaderData => new Transform3DShaderData
         {
@@ -41,9 +47,10 @@ namespace RBV.Features
 #if UNITY_EDITOR
         public static class FieldNames
         {
-            public const string Type      = nameof(type);
-            public const string TypeData  = nameof(typeData);
-            public const string Transform = nameof(transform);
+            public const string Type              = nameof(type);
+            public const string TypeData          = nameof(typeData);
+            public const string Transform         = nameof(transform);
+            public const string RenderingSettings = nameof(renderingSettings);
         }
 #endif
     }

@@ -22,10 +22,16 @@ namespace RBV.FourDimensional.Features
              "Warning: Non-uniform SDF scaling distorts Euclidean spaces!")]
         private new ObservableTransform4D transform = new();
 
+        [SerializeField] private ObservableValue<RaymarchedObjectRenderingSettingsShaderData> renderingSettings =
+            new() { Value = new RaymarchedObjectRenderingSettingsShaderData { Color = Color.white } };
+
         public override ObservableValue<RaymarchedObjectType> Type          { get; protected set; }
         public override IObservableObjectTypeShaderData       TypeData      => typeData;
         public override IObservableTransform                  Transform     => transform;
         public override TransformType                         TransformType => TransformType.FourDimensional;
+
+        public override ObservableValue<RaymarchedObjectRenderingSettingsShaderData> RenderingSettings =>
+            renderingSettings;
 
         public override ITransformShaderData TransformShaderData => new Transform4DShaderData
         {
@@ -44,9 +50,10 @@ namespace RBV.FourDimensional.Features
 #if UNITY_EDITOR
         public static class FieldNames
         {
-            public const string Type      = nameof(type);
-            public const string TypeData  = nameof(typeData);
-            public const string Transform = nameof(transform);
+            public const string Type              = nameof(type);
+            public const string TypeData          = nameof(typeData);
+            public const string Transform         = nameof(transform);
+            public const string RenderingSettings = nameof(renderingSettings);
         }
 #endif
     }

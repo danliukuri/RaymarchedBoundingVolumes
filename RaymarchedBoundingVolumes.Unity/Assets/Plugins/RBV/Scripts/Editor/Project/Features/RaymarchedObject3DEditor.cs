@@ -23,6 +23,7 @@ namespace RBV.Editor.Project.Features
         private SerializedProperty _typeValueProperty;
         private SerializedProperty _typeDataProperty;
         private SerializedProperty _transformProperty;
+        private SerializedProperty _renderingSettingsProperty;
 
         private Dictionary<RaymarchedObject3DType, SerializedProperty> _typeDataProperties;
         private Dictionary<RaymarchedObject3DType, Action>             _typeDataResetters;
@@ -40,10 +41,11 @@ namespace RBV.Editor.Project.Features
 
         private void Initialize()
         {
-            _typeProperty      = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Type);
-            _typeValueProperty = _typeProperty.FindPropertyRelative(_observablePropertyValuePath);
-            _typeDataProperty  = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.TypeData);
-            _transformProperty = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Transform);
+            _typeProperty              = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Type);
+            _typeValueProperty         = _typeProperty.FindPropertyRelative(_observablePropertyValuePath);
+            _typeDataProperty          = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.TypeData);
+            _transformProperty         = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.Transform);
+            _renderingSettingsProperty = serializedObject.FindProperty(RaymarchedObject3D.FieldNames.RenderingSettings);
 
             InitializeTypeDataProperties();
             InitializeTypeRelatedDataResetters();
@@ -218,6 +220,8 @@ namespace RBV.Editor.Project.Features
                 _objectTypeDataDrawer.DrawTypeDataProperty((RaymarchedObjectType)_typeValueProperty.enumValueFlag);
 
             EditorGUILayout.PropertyField(_transformProperty);
+
+            EditorGUILayout.PropertyField(_renderingSettingsProperty);
         }
     }
 }

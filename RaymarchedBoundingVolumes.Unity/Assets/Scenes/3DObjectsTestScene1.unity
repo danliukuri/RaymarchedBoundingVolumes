@@ -185,6 +185,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1052216457}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.78570396
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
       value: RaymarchedObject (3)
@@ -326,6 +338,18 @@ PrefabInstance:
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: type.value
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.80160856
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: typeData.<Ellipsoid>k__BackingField.value.Diameters.y
@@ -573,6 +597,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1052216457}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0.0059685707
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
       value: RaymarchedObject (1)
@@ -648,6 +684,18 @@ PrefabInstance:
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: type.value
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.1462264
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.18705922
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: typeData.<EllipsoidalCapsule>k__BackingField.value.Height
@@ -737,6 +785,18 @@ PrefabInstance:
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: type.value
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0.8018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.13238695
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.61256105
       objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
@@ -1075,6 +1135,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1052216457}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.5660378
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.3870913
+      objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
       value: RaymarchedObject (1)
@@ -1483,6 +1555,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1052216457}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.9816513
+      objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
       value: RaymarchedObject (2)
@@ -2065,6 +2149,18 @@ PrefabInstance:
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: type.value
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.3312107
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.1462264
       objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
@@ -3020,6 +3116,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0.06701039
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.04313727
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: transform.<Rotation>k__BackingField.value.x
       value: 68.7
       objectReference: {fileID: 0}
@@ -3204,6 +3312,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1052216457}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0.37594336
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.10849059
+      objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
       value: RaymarchedObject (3)
@@ -3521,6 +3641,18 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0.06839624
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.06839624
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: typeData.<EllipsoidalCylinder>k__BackingField.value.Dimensions.x
       value: 1
       objectReference: {fileID: 0}
@@ -3609,6 +3741,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1052216457}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.g
+      value: 0.19564271
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964048888987421672, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
+      propertyPath: renderingSettings.value.Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7077660490131413597, guid: 3450956cbe41bcf44ad1407989bcdd36, type: 3}
       propertyPath: m_Name
       value: RaymarchedObject (2)

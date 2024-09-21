@@ -13,8 +13,9 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private readonly IRaymarchingSceneDataProvider             _dataProvider;
         private readonly IRaymarchedObjectShaderPropertyIdProvider _objectShaderPropertyIdProvider;
 
-        private readonly List<RaymarchingOperation> _changedOperations = new();
-        private readonly List<RaymarchedObject>     _changedObjects    = new();
+        private readonly List<RaymarchingOperation> _changedOperations              = new();
+        private readonly List<RaymarchedObject>     _changedObjects                 = new();
+        private readonly List<RaymarchedObject>     _changedObjectRenderingSettings = new();
 
         private readonly Dictionary<TransformType, List<int>>        _changedObjectTransformData = new();
         private readonly Dictionary<RaymarchedObjectType, List<int>> _changedObjectTypeData      = new();
@@ -24,6 +25,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private bool _isOperationNodesDataChanged;
         private bool _isOperationsDataChanged;
         private bool _isObjectsDataChanged;
+        private bool _isObjectsRenderingSettingsChanged;
 
         private Dictionary<TransformType, bool>        _isObjectTransformDataChanged;
         private Dictionary<RaymarchedObjectType, bool> _isObjectTypeDataChanged;
@@ -39,9 +41,10 @@ namespace RBV.Features.RaymarchingSceneBuilding
         {
             _shaderBuffers = shaderBuffers;
 
-            _isOperationNodesDataChanged = true;
-            _isOperationsDataChanged     = true;
-            _isObjectsDataChanged        = true;
+            _isOperationNodesDataChanged       = true;
+            _isOperationsDataChanged           = true;
+            _isObjectsDataChanged              = true;
+            _isObjectsRenderingSettingsChanged = true;
             _isObjectTransformDataChanged =
                 _dataProvider.Data.ObjectsByTransformsType.Keys.ToDictionary(type => type, type => true);
             _isObjectTypeDataChanged =
@@ -50,6 +53,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _changedObjects.Clear();
             _changedOperations.Clear();
             _changedObjectTypeData.Clear();
+            _changedObjectRenderingSettings.Clear();
             return this;
         }
 
@@ -59,9 +63,10 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 operation.Changed += UpdateOperationData;
             foreach (RaymarchedObject obj in _dataProvider.Data.Objects)
             {
-                obj.Changed          += UpdateObjectData;
-                obj.TransformChanged += UpdateTransformData;
-                obj.TypeDataChanged  += UpdateObjectTypeData;
+                obj.Changed                  += UpdateObjectData;
+                obj.TransformChanged         += UpdateTransformData;
+                obj.TypeDataChanged          += UpdateObjectTypeData;
+                obj.RenderingSettingsChanged += UpdateObjectRenderingSettingsData;
             }
 
             return this;
@@ -73,9 +78,10 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 operation.Changed -= UpdateOperationData;
             foreach (RaymarchedObject obj in _dataProvider.Data.Objects)
             {
-                obj.Changed          -= UpdateObjectData;
-                obj.TransformChanged -= UpdateTransformData;
-                obj.TypeDataChanged  -= UpdateObjectTypeData;
+                obj.Changed                  -= UpdateObjectData;
+                obj.TransformChanged         -= UpdateTransformData;
+                obj.TypeDataChanged          -= UpdateObjectTypeData;
+                obj.RenderingSettingsChanged -= UpdateObjectRenderingSettingsData;
             }
 
             return this;
@@ -95,6 +101,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
             foreach (RaymarchedObjectType type in _dataProvider.Data.ObjectsByType.Keys)
                 if (_isObjectTypeDataChanged[type])
                     UpdateObjectsTypeRelatedData(type);
+            if (_isObjectsRenderingSettingsChanged)
+                UpdateObjectsRenderingSettingsData();
             return this;
         }
 
@@ -133,6 +141,13 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 _changedObjectTypeData[objectType].Add(obj.TypeDataIndex);
 
             _isObjectTypeDataChanged[objectType] = true;
+        }
+
+        private void UpdateObjectRenderingSettingsData(RaymarchedObject obj)
+        {
+            if (!_changedObjectRenderingSettings.Contains(obj))
+                _changedObjectRenderingSettings.Add(obj);
+            _isObjectsRenderingSettingsChanged = true;
         }
 
         private void UpdateOperationNodesData()
@@ -218,6 +233,23 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 _shaderBuffers.ObjectTypeRelatedData[type]);
 
             _isObjectTypeDataChanged[type] = false;
+        }
+
+        private void UpdateObjectsRenderingSettingsData()
+        {
+            foreach (RaymarchedObject changedObject in _changedObjectRenderingSettings)
+            {
+                int index = _dataProvider.Data.ObjectDataIndexes[changedObject];
+                _dataProvider.Data.ObjectsRenderingSettingsShaderData[index] = changedObject.RenderingSettings.Value;
+            }
+
+            _changedObjectRenderingSettings.Clear();
+
+            _shaderBuffers.ObjectsRenderingSettings.SetData(_dataProvider.Data.ObjectsRenderingSettingsShaderData);
+            Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchedObjectsRenderingSettings,
+                _shaderBuffers.ObjectsRenderingSettings);
+
+            _isObjectsRenderingSettingsChanged = false;
         }
     }
 }

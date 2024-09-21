@@ -12,5 +12,7 @@ namespace RBV.Data.Dynamic
 
         public Dictionary<TransformType, ComputeBuffer>        ObjectTransformData   { get; set; }
         public Dictionary<RaymarchedObjectType, ComputeBuffer> ObjectTypeRelatedData { get; set; }
+        
+        public ComputeBuffer ObjectsRenderingSettings { get; set; }
     }
 }

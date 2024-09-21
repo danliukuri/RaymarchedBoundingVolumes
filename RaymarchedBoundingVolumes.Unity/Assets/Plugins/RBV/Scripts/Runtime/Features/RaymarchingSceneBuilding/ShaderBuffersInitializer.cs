@@ -38,7 +38,9 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 ObjectTransformData =
                     new Dictionary<TransformType, ComputeBuffer>(objectsByTransformsType.Count),
                 ObjectTypeRelatedData =
-                    new Dictionary<RaymarchedObjectType, ComputeBuffer>(objectsByTypeBufferSizes.Count)
+                    new Dictionary<RaymarchedObjectType, ComputeBuffer>(objectsByTypeBufferSizes.Count),
+                ObjectsRenderingSettings =
+                    new ComputeBuffer(objectsBufferSize, Marshal.SizeOf<RaymarchedObjectRenderingSettingsShaderData>())
             };
 
             foreach (TransformType type in objectsByTransformsType.Keys)
@@ -69,6 +71,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
                     computeBuffer.Release();
                 foreach (ComputeBuffer computeBuffer in _shaderBuffers.ObjectTypeRelatedData.Values)
                     computeBuffer.Release();
+
+                _shaderBuffers.ObjectsRenderingSettings?.Release();
             }
 
             return _shaderBuffers;

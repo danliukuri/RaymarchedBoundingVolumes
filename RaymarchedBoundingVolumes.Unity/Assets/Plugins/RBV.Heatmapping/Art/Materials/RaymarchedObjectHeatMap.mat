@@ -32,4 +32,5 @@ Material:
     - _FarClippingPlane: 32
     - _MaxDetectionIterations: 32
     - _MaxDetectionOffset: 0.005
+    m_Colors: []
   m_BuildTextureStacks: []

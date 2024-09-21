@@ -5,8 +5,6 @@ Shader "RBV/RaymarchedObject"
         _MaxDetectionIterations ("Max Detection Iterations", Range(0 , 512 )) = 64
         _MaxDetectionOffset ("Max Detection Offset" , Range(0.1, 0.000001)) = 0.005
         _FarClippingPlane ("Far Clipping Plane" , Range(0 , 1024 )) = 32
-
-        _DefaultObjectColor ("Default Object Color", Color) = (1, 1, 1, 1)
     }
     SubShader
     {

@@ -48,17 +48,40 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _parentIndexesByFeatureIndex.Add(RaymarchingOperationNodeShaderData.RootNodeIndex,
                 RaymarchingOperationNodeShaderData.RootNodeIndex);
 
+            FillShaderDataByType();
+            FillRenderingSettingsShaderData();
+            FillTransformShaderData();
+
             FillTypeDataIndexes();
             FillTransformDataIndexes();
             FillShaderDataLists();
 
+            return _data;
+        }
+
+        private void FillTransformShaderData() =>
             _data.ObjectTransformsShaderDataByType = _data.ObjectsByTransformsType
                 .ToDictionary(objects => objects.Key, _transformTypeCaster.CastToShaderDataTypeArray);
 
+        private void FillShaderDataByType() =>
             _data.ObjectsShaderDataByType = _data.ObjectsByType
                 .ToDictionary(objects => objects.Key, _objectTypeCaster.CastToShaderDataTypeArray);
 
-            return _data;
+        private void FillRenderingSettingsShaderData() => _data.ObjectsRenderingSettingsShaderData =
+            _data.Objects.Select(obj => obj.RenderingSettings.Value).ToList();
+
+        private void FillTypeDataIndexes()
+        {
+            foreach (List<RaymarchedObject> objects in _data.ObjectsByType.Values)
+                for (var i = 0; i < objects.Count; i++)
+                    objects[i].TypeDataIndex = i;
+        }
+
+        private void FillTransformDataIndexes()
+        {
+            foreach (List<RaymarchedObject> objects in _data.ObjectsByTransformsType.Values)
+                for (var i = 0; i < objects.Count; i++)
+                    objects[i].TransformDataIndex = i;
         }
 
         private void FillShaderDataLists()
@@ -110,20 +133,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
             int objectsCount = _objectsIndex + operationData.DirectChildObjectsCount;
             for (int j = _objectsIndex; j < objectsCount; j++, _objectsIndex++)
                 _data.ObjectsShaderData.Add(_data.Objects[j].ShaderData);
-        }
-
-        private void FillTypeDataIndexes()
-        {
-            foreach (List<RaymarchedObject> objects in _data.ObjectsByType.Values)
-                for (var i = 0; i < objects.Count; i++)
-                    objects[i].TypeDataIndex = i;
-        }
-
-        private void FillTransformDataIndexes()
-        {
-            foreach (List<RaymarchedObject> objects in _data.ObjectsByTransformsType.Values)
-                for (var i = 0; i < objects.Count; i++)
-                    objects[i].TransformDataIndex = i;
         }
     }
 }

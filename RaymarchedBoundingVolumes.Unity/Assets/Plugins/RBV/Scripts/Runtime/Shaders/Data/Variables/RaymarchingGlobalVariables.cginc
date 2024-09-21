@@ -8,23 +8,22 @@ uniform int   _MaxDetectionIterations;
 uniform float _MaxDetectionOffset;
 uniform float _FarClippingPlane;
 
-uniform fixed4 _DefaultObjectColor;
-
 // Automatically set by Unity
 
 uniform float4 _LightColor0;
 
 // Manually set by scripts
 
-uniform int                                 _RaymarchingOperationsCount;
-uniform StructuredBuffer<OperationNodeData> _RaymarchingOperationNodes;
-uniform StructuredBuffer<OperationData>     _RaymarchingOperations;
-uniform StructuredBuffer<ObjectData>        _RaymarchedObjects;
-uniform StructuredBuffer<ObjectTransform3D> _RaymarchedObjectsThreeDimensionalTransforms;
+uniform int                                       _RaymarchingOperationsCount;
+uniform StructuredBuffer<OperationNodeData>       _RaymarchingOperationNodes;
+uniform StructuredBuffer<OperationData>           _RaymarchingOperations;
+uniform StructuredBuffer<ObjectData>              _RaymarchedObjects;
+uniform StructuredBuffer<ObjectTransform3D>       _RaymarchedObjectsThreeDimensionalTransforms;
+uniform StructuredBuffer<ObjectRenderingSettings> _RaymarchedObjectsRenderingSettings;
 
 // Default values shortcuts
 
-static SDFData _DefaultSDFData = {_DefaultObjectColor.rgb, _FarClippingPlane};
+static SDFData _DefaultSDFData = {fixed3(1, 1, 1), _FarClippingPlane};
 
 // Constants definitions
 

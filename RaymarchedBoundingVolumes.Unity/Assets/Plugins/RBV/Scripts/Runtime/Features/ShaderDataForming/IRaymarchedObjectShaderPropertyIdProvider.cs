@@ -9,9 +9,10 @@ namespace RBV.Features.ShaderDataForming
         Dictionary<TransformType, int>        ObjectTransformDataIds   { get; }
         Dictionary<RaymarchedObjectType, int> ObjectTypeRelatedDataIds { get; }
 
-        int RaymarchingOperationsCount { get; }
-        int RaymarchingOperationNodes  { get; }
-        int RaymarchingOperations      { get; }
-        int RaymarchedObjects          { get; }
+        int RaymarchingOperationsCount         { get; }
+        int RaymarchingOperationNodes          { get; }
+        int RaymarchingOperations              { get; }
+        int RaymarchedObjects                  { get; }
+        int RaymarchedObjectsRenderingSettings { get; }
     }
 }
