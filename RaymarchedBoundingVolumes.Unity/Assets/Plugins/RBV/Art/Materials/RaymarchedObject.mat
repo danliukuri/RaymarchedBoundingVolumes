@@ -29,5 +29,13 @@ Material:
     - _HeatmapVisualizationEnabled: 0
     - _MaxDetectionIterations: 36
     - _MaxDetectionOffset: 0.005
+    - _ShadowIntensity: 0.5
+    - _ShadowMaxDetectionOffset: 0.005
+    - _ShadowMaxDistance: 5
+    - _ShadowMinDistance: 0.05
+    - _ShadowsIntensity: 0.5
+    - _ShadowsMaxDetectionOffset: 0.005
+    - _ShadowsMaxDistance: 5
+    - _ShadowsMinDistance: 0.05
     m_Colors: []
   m_BuildTextureStacks: []

@@ -2,9 +2,16 @@ Shader "RBV/RaymarchedObject"
 {
     Properties
     {
-        _MaxDetectionIterations ("Max Detection Iterations", Range(0 , 512 )) = 64
-        _MaxDetectionOffset ("Max Detection Offset" , Range(0.1, 0.000001)) = 0.005
-        _FarClippingPlane ("Far Clipping Plane" , Range(0 , 1024 )) = 32
+        [Header(Raymarching)] [Space]
+        _MaxDetectionIterations    ("Max Detection Iterations", Range(0    , 512     )) = 64
+        _MaxDetectionOffset        ("Max Detection Offset"    , Range(0.1  , 0.000001)) = 0.005
+        _FarClippingPlane          ("Far Clipping Plane"      , Range(0    , 1024    )) = 32
+
+        [Header(Shadows    )] [Space]
+        _ShadowsMinDistance        ("Min Distance"            , Range(0    , 2       )) = 0.05
+        _ShadowsMaxDistance        ("Max Distance"            , Range(0    , 1024    )) = 5
+        _ShadowsIntensity          ("Intensity"               , Range(0    , 1       )) = 1
+        _ShadowsMaxDetectionOffset ("Max Detection Offset"    , Range(0.035, 0.000001)) = 0.005
     }
     SubShader
     {
@@ -39,7 +46,7 @@ Shader "RBV/RaymarchedObject"
             {
                 FragmentData output;
                 UNITY_SETUP_INSTANCE_ID(input);
-                output.vertex = UnityObjectToClipPos(input.vertex);
+                output.vertex      = UnityObjectToClipPos(input.vertex);
                 output.hitPosition = input.vertex;
                 UNITY_TRANSFER_INSTANCE_ID(input, output);
                 return output;
@@ -51,9 +58,9 @@ Shader "RBV/RaymarchedObject"
                     discard;
 
                 UNITY_SETUP_INSTANCE_ID(input)
-                const float3 rayDirection = calculateRayDirection(input.hitPosition);
+                const float3          rayDirection    = calculateRayDirection(input.hitPosition);
                 const RaymarchingData raymarchingData = raymarch(input.hitPosition, rayDirection);
-                const PixelData pixel =
+                const PixelData       pixel           =
                     {calculateShadedPixelColor(raymarchingData), calculateDepth(raymarchingData.position)};
 
                 return pixel;
