@@ -15,7 +15,7 @@ float3 applyShading(const float3 position)
     // Directional light // Lambertian shading // Diffuse
     const float3 directLight = _LightColor0 * max(dot(_WorldSpaceLightPos0.xyz, normal), 0);
     // Ambient light // Environmental lighting
-    // const float3 ambientLight = ShadeSH9(float4(normal, 1));
+    const float3 ambientLight = ShadeSH9(float4(normal, 1));
 
     // // Shadows
     // float shadow =
@@ -24,7 +24,7 @@ float3 applyShading(const float3 position)
     // // Ambient occlusion
     // float ambientOcclusion = applyAmbientOcclusion(position, normal);
 
-    return directLight; // + ambientLight * shadow * ambientOcclusion;
+    return directLight + ambientLight; // * shadow * ambientOcclusion;
 }
 
 fixed4 calculateShadedPixelColor(const RaymarchingData data)
