@@ -12,7 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - SHADOWS_TYPE_SOFT
+  - SHADOWS_TYPE_SOFT_C
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -26,7 +26,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - Shadows_Type: 2
+    - Shadows_Type: 4
     - _FarClippingPlane: 32
     - _HeatmapVisualizationEnabled: 0
     - _MaxDetectionIterations: 36
@@ -36,10 +36,10 @@ Material:
     - _ShadowMaxDistance: 5
     - _ShadowMinDistance: 0.05
     - _ShadowsIntensity: 0.5
-    - _ShadowsMaxDetectionIterations: 16
+    - _ShadowsMaxDetectionIterations: 200
     - _ShadowsMaxDetectionOffset: 0.005
-    - _ShadowsMaxDistance: 5
+    - _ShadowsMaxDistance: 10
     - _ShadowsMinDistance: 0.05
-    - _ShadowsPenumbraSize: 5
+    - _ShadowsPenumbraSize: 0.2
     m_Colors: []
   m_BuildTextureStacks: []

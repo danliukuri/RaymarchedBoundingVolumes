@@ -1,4 +1,5 @@
 ﻿#include "Calculators/SDFCalculator.cginc"
+#include "Calculators/ShadowsCalculator.cginc"
 
 float3 calculateNormal(const float3 position)
 {
@@ -7,37 +8,6 @@ float3 calculateNormal(const float3 position)
                                                                    calculateSDF(position - epsilon.yxy).distance,
                                                                    calculateSDF(position - epsilon.yyx).distance);
     return normalize(normal);
-}
-
-float calculateShadows(float3 rayOrigin, float3 rayDirection)
-{
-    static float noShadows   = 1.0f;
-    static float fullShadows = 0.0f;
-
-#ifdef SHADOWS_TYPE_NONE
-    return noShadows;
-#endif
-
-    float penumbrae      = noShadows;
-    float travelDistance = _ShadowsMinDistance;
-
-    UNITY_LOOP
-    for (int i = 0; i < _ShadowsMaxDetectionIterations && travelDistance < _ShadowsMaxDistance; i++)
-    {
-        float surfaceDistance = calculateSDF(rayOrigin + rayDirection * travelDistance).distance;
-
-        UNITY_BRANCH
-        if (surfaceDistance < _ShadowsMaxDetectionOffset)
-            return lerp(noShadows, fullShadows, _ShadowsIntensity);
-
-#ifdef SHADOWS_TYPE_SOFT
-        float currentPenumbra = _ShadowsPenumbraSize * surfaceDistance / travelDistance;
-        penumbrae             = unionSDF(penumbrae, lerp(noShadows, currentPenumbra, _ShadowsIntensity));
-#endif
-        travelDistance += surfaceDistance;
-    }
-
-    return penumbrae;
 }
 
 float3 applyShading(const float3 position)
