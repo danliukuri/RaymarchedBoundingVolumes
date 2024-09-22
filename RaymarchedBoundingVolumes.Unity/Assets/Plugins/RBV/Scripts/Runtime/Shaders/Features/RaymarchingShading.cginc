@@ -9,23 +9,31 @@ float3 calculateNormal(const float3 position)
     return normalize(normal);
 }
 
-float calculateHardShadows(float3 rayOrigin, float3 rayDirection)
+float calculateShadows(float3 rayOrigin, float3 rayDirection)
 {
-    const float noShadowsMultiplier = 1.0f;
+    static float noShadows   = 1.0f;
+    static float fullShadows = 0.0f;
+
+#ifdef SHADOWS_TYPE_NONE
+    return noShadows;
+#endif
+
+    float penumbrae      = noShadows;
+    float travelDistance = _ShadowsMinDistance;
 
     UNITY_LOOP
-    for (float travelDistance = _ShadowsMinDistance; travelDistance < _ShadowsMaxDistance;)
+    for (int i = 0; i < _ShadowsMaxDetectionIterations && travelDistance < _ShadowsMaxDistance; i++)
     {
         float surfaceDistance = calculateSDF(rayOrigin + rayDirection * travelDistance).distance;
 
         UNITY_BRANCH
         if (surfaceDistance < _ShadowsMaxDetectionOffset)
-            return noShadowsMultiplier - _ShadowsIntensity;
+            return lerp(noShadows, fullShadows, _ShadowsIntensity);
 
         travelDistance += surfaceDistance;
     }
 
-    return noShadowsMultiplier;
+    return penumbrae;
 }
 
 float3 applyShading(const float3 position)
@@ -36,7 +44,8 @@ float3 applyShading(const float3 position)
     // Ambient light // Environmental lighting
     const float3 ambientLight = ShadeSH9(float4(normal, 1));
     // Shadows
-    float shadow = calculateHardShadows(position, _WorldSpaceLightPos0.xyz);
+    const float shadow = calculateShadows(position, _WorldSpaceLightPos0.xyz);
+
     // // Ambient occlusion
     // float ambientOcclusion = applyAmbientOcclusion(position, normal);
 

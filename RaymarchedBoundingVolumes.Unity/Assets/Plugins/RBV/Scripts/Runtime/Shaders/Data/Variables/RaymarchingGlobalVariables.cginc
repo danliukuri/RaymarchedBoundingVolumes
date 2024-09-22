@@ -8,10 +8,11 @@ uniform int   _MaxDetectionIterations;
 uniform float _MaxDetectionOffset;
 uniform float _FarClippingPlane;
 
+uniform float _ShadowsMaxDetectionIterations;
+uniform float _ShadowsMaxDetectionOffset;
 uniform float _ShadowsMinDistance;
 uniform float _ShadowsMaxDistance;
 uniform float _ShadowsIntensity;
-uniform float _ShadowsMaxDetectionOffset;
 
 // Automatically set by Unity
 
