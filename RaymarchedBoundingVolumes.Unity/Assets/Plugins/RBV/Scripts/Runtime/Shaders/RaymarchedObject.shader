@@ -9,7 +9,7 @@ Shader "RBV/RaymarchedObject"
         _FarClippingPlane              ("Far Clipping Plane"      , Range(0    , 1024    )) = 32
 
         [Header(Shadows    )] [Space]
-        [KeywordEnum(None, Hard)]
+        [KeywordEnum(None, Hard, Soft)]
         Shadows_Type                   ("Type"                    , Int                   ) = 0
         [DrawIfOff(SHADOWS_TYPE_NONE)]
         _ShadowsMaxDetectionIterations ("Max Detection Iterations", Range(0    , 512     )) = 32
@@ -21,6 +21,8 @@ Shader "RBV/RaymarchedObject"
         _ShadowsMaxDistance            ("Max Distance"            , Range(0    , 1024    )) = 5
         [DrawIfOff(SHADOWS_TYPE_NONE)]
         _ShadowsIntensity              ("Intensity"               , Range(0    , 1       )) = 1
+        [DrawIfOn (SHADOWS_TYPE_SOFT)]
+        _ShadowsPenumbraSize           ("Penumbra Size"           , Range(1.25 , 32      )) = 3
     }
     SubShader
     {
@@ -42,7 +44,7 @@ Shader "RBV/RaymarchedObject"
             #pragma fragment processFragment
             #pragma multi_compile_instancing
             #pragma multi_compile RBV_4D_OFF RBV_4D_ON
-            #pragma multi_compile SHADOWS_TYPE_NONE SHADOWS_TYPE_HARD
+            #pragma multi_compile SHADOWS_TYPE_NONE SHADOWS_TYPE_HARD SHADOWS_TYPE_SOFT
 
             #include "Data/Structures/RaymarchingDataStructures.cginc"
             #include "Data/Structures/ShaderDataStructures.cginc"

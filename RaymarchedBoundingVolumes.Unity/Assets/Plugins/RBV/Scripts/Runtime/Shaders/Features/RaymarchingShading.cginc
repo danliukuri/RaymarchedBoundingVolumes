@@ -30,6 +30,10 @@ float calculateShadows(float3 rayOrigin, float3 rayDirection)
         if (surfaceDistance < _ShadowsMaxDetectionOffset)
             return lerp(noShadows, fullShadows, _ShadowsIntensity);
 
+#ifdef SHADOWS_TYPE_SOFT
+        float currentPenumbra = _ShadowsPenumbraSize * surfaceDistance / travelDistance;
+        penumbrae             = unionSDF(penumbrae, lerp(noShadows, currentPenumbra, _ShadowsIntensity));
+#endif
         travelDistance += surfaceDistance;
     }
 

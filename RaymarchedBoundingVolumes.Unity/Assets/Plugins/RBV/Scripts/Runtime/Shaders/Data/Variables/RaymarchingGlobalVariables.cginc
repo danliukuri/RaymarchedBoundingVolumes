@@ -13,6 +13,7 @@ uniform float _ShadowsMaxDetectionOffset;
 uniform float _ShadowsMinDistance;
 uniform float _ShadowsMaxDistance;
 uniform float _ShadowsIntensity;
+uniform float _ShadowsPenumbraSize;
 
 // Automatically set by Unity
 
