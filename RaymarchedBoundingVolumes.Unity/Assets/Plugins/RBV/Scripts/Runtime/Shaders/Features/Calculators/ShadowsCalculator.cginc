@@ -2,8 +2,7 @@
 
 #include <HLSLSupport.cginc>
 
-static float _NoShadows   = 1.0f;
-static float _FullShadows = 0.0f;
+#include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
 
 #ifdef SHADOWS_TYPE_HARD
 float calculateHardShadows(float3 rayOrigin, float3 rayDirection)
@@ -17,12 +16,12 @@ float calculateHardShadows(float3 rayOrigin, float3 rayDirection)
 
         UNITY_BRANCH
         if (surfaceDistance < _ShadowsMaxDetectionOffset)
-            return _FullShadows;
+            return _FullShading;
 
         travelDistance += surfaceDistance;
     }
 
-    return _NoShadows;
+    return _NoShading;
 }
 #elif SHADOWS_TYPE_SOFT_A
 /**
@@ -31,7 +30,7 @@ float calculateHardShadows(float3 rayOrigin, float3 rayDirection)
  */
 float calculateSoftShadowsA(float3 rayOrigin, float3 rayDirection)
 {
-    float shadows        = _NoShadows;
+    float shadows        = _NoShading;
     float travelDistance = _ShadowsMinDistance;
 
     UNITY_LOOP
@@ -41,7 +40,7 @@ float calculateSoftShadowsA(float3 rayOrigin, float3 rayDirection)
 
         UNITY_BRANCH
         if (surfaceDistance < _ShadowsMaxDetectionOffset)
-            return _FullShadows;
+            return _FullShading;
 
         float currentShadows = surfaceDistance / (_ShadowsPenumbraSize * travelDistance);
         shadows              = unionSDF(shadows, currentShadows);
@@ -60,7 +59,7 @@ float calculateSoftShadowsB(float3 rayOrigin, float3 rayDirection)
 {
     static float previousDistance = 1e20;
     
-    float shadows        = _NoShadows;
+    float shadows        = _NoShading;
     float travelDistance = _ShadowsMinDistance;
 
     UNITY_LOOP
@@ -70,7 +69,7 @@ float calculateSoftShadowsB(float3 rayOrigin, float3 rayDirection)
 
         UNITY_BRANCH
         if (surfaceDistance < _ShadowsMaxDetectionOffset)
-            return _FullShadows;
+            return _FullShading;
 
         float distanceAlongRay      = surfaceDistance * surfaceDistance / (2.0 * previousDistance);
         previousDistance            = surfaceDistance;
@@ -93,7 +92,7 @@ float calculateSoftShadowsC(float3 rayOrigin, float3 rayDirection)
 {
     static float absoluteShadows = -1.0f;
 
-    float shadows        = _NoShadows;
+    float shadows        = _NoShading;
     float travelDistance = _ShadowsMinDistance;
 
     UNITY_LOOP
@@ -102,14 +101,14 @@ float calculateSoftShadowsC(float3 rayOrigin, float3 rayDirection)
         float surfaceDistance = calculateSDF(rayOrigin + rayDirection * travelDistance).distance;
 
         shadows = unionSDF(shadows, surfaceDistance / (_ShadowsPenumbraSize * travelDistance));
-        travelDistance += clamp(surfaceDistance, _ShadowsMaxDetectionOffset, _NoShadows);
+        travelDistance += clamp(surfaceDistance, _ShadowsMaxDetectionOffset, _NoShading);
 
         UNITY_BRANCH
         if (shadows < absoluteShadows)
             break;
     }
 
-    return smoothstep(absoluteShadows, _NoShadows, shadows);
+    return smoothstep(absoluteShadows, _NoShading, shadows);
 }
 #endif
 
@@ -119,9 +118,9 @@ float calculateSoftShadowsC(float3 rayOrigin, float3 rayDirection)
  */
 float calculateShadows(float3 rayOrigin, float3 rayDirection)
 {
-    float shadows = _NoShadows;
+    float shadows = _NoShading;
 #ifdef SHADOWS_TYPE_NONE
-    return _NoShadows;
+    return _NoShading;
 #elif SHADOWS_TYPE_HARD
     shadows = calculateHardShadows(rayOrigin, rayDirection); 
 #elif SHADOWS_TYPE_SOFT_A
@@ -131,5 +130,5 @@ float calculateShadows(float3 rayOrigin, float3 rayDirection)
 #elif SHADOWS_TYPE_SOFT_C
     shadows = calculateSoftShadowsC(rayOrigin, rayDirection);
 #endif
-    return lerp(_NoShadows, shadows, _ShadowsIntensity);
+    return lerp(_NoShading, shadows, _ShadowsIntensity);
 }

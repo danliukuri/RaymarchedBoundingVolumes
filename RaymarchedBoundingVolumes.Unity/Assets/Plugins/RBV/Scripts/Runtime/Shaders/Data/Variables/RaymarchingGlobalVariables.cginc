@@ -8,12 +8,16 @@ uniform int   _MaxDetectionIterations;
 uniform float _MaxDetectionOffset;
 uniform float _FarClippingPlane;
 
-uniform float _ShadowsMaxDetectionIterations;
+uniform int   _ShadowsMaxDetectionIterations;
 uniform float _ShadowsMaxDetectionOffset;
 uniform float _ShadowsMinDistance;
 uniform float _ShadowsMaxDistance;
 uniform float _ShadowsIntensity;
 uniform float _ShadowsPenumbraSize;
+
+uniform int   _AOMaxDetectionIterations;
+uniform float _AOStepSize;
+uniform float _AOIntensity;
 
 // Automatically set by Unity
 
@@ -31,6 +35,8 @@ uniform StructuredBuffer<ObjectRenderingSettings> _RaymarchedObjectsRenderingSet
 // Default values shortcuts
 
 static SDFData _DefaultSDFData = {fixed3(1, 1, 1), _FarClippingPlane};
+static float _NoShading   = 1.0f;
+static float _FullShading = 0.0f;
 
 // Constants definitions
 

@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - AMBIENT_OCCLUSION_ON
   - SHADOWS_TYPE_SOFT_C
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -24,9 +25,15 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
-    m_Ints: []
+    m_Ints:
+    - Shadows_Type: 4
+    - _AOEnabled: 1
     m_Floats:
     - Shadows_Type: 4
+    - _AOEnabled: 1
+    - _AOIntensity: 0.4
+    - _AOMaxDetectionIterations: 1
+    - _AOStepSize: 0.05
     - _FarClippingPlane: 32
     - _HeatmapVisualizationEnabled: 0
     - _MaxDetectionIterations: 36
@@ -35,7 +42,7 @@ Material:
     - _ShadowMaxDetectionOffset: 0.005
     - _ShadowMaxDistance: 5
     - _ShadowMinDistance: 0.05
-    - _ShadowsIntensity: 0.5
+    - _ShadowsIntensity: 0.7
     - _ShadowsMaxDetectionIterations: 200
     - _ShadowsMaxDetectionOffset: 0.005
     - _ShadowsMaxDistance: 10
