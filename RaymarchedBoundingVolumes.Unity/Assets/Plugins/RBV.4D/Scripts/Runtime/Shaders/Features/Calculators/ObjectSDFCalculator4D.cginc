@@ -11,7 +11,7 @@
 #include "../Functions/SDFs.cginc"
 #include "Object4DRotator.cginc"
 
-SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTransform4D transform)
+float calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTransform4D transform)
 {
     position -= mul(unity_WorldToObject, float4(transform.position.xyz, 1));
     position = rotate3D(position, transform.rotation);
@@ -120,6 +120,5 @@ SDFData calculateObjectSDF4D(float3 position, ObjectData objectData, ObjectTrans
     }
     distance *= transform.scale;
 
-    const SDFData sdf = {_ObjectColor.rgb, distance};
-    return sdf;
+    return distance;
 }

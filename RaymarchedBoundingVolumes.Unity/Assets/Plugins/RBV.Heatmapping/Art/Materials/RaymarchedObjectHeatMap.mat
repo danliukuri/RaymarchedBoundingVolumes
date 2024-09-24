@@ -30,9 +30,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FarClippingPlane: 32
-    - _HeatmapVisualizationEnabled: 0
     - _MaxDetectionIterations: 32
     - _MaxDetectionOffset: 0.005
-    m_Colors:
-    - _ObjectColor: {r: 1, g: 1, b: 1, a: 1}
+    m_Colors: []
   m_BuildTextureStacks: []

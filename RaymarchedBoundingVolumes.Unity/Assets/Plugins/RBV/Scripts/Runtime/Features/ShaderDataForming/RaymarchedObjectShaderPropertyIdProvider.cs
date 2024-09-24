@@ -30,6 +30,9 @@ namespace RBV.Features.ShaderDataForming
         public int RaymarchingOperations      { get; } = PropertyToID(nameof(RaymarchingOperations));
         public int RaymarchedObjects          { get; } = PropertyToID(nameof(RaymarchedObjects));
 
+        public int RaymarchedObjectsRenderingSettings { get; } =
+            PropertyToID(nameof(RaymarchedObjectsRenderingSettings));
+
         private static int PropertyToID(string name) => Shader.PropertyToID(Prefix + name);
 
         private Dictionary<TransformType, int> CreateShaderIdsForTransformTypes() =>

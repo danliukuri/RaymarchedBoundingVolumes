@@ -12,9 +12,10 @@
 #include "../../../../RBV.4D/Scripts/Runtime/Shaders/Features/Calculators/ObjectSDFCalculator4D.cginc"
 #endif
 
-SDFData calculateObjectSDF(float3 position, ObjectData object)
+SDFData calculateObjectSDF(float3 position, ObjectData object, ObjectRenderingSettings renderingSettings)
 {
     SDFData objectSDF;
+    objectSDF.color = renderingSettings.color.rgb;
 
     UNITY_BRANCH
     switch (object.transformType)
@@ -22,12 +23,12 @@ SDFData calculateObjectSDF(float3 position, ObjectData object)
         default:
         case TRANSFORM_TYPE_THREE_DIMENSIONAL:
             ObjectTransform3D transform3D = _RaymarchedObjectsThreeDimensionalTransforms[object.transformDataIndex];
-            objectSDF = calculateObjectSDF(position, object, transform3D);
+            objectSDF.distance = calculateObjectSDF(position, object, transform3D);
             break;
 #ifdef RBV_4D_ON
         case TRANSFORM_TYPE_FOUR_DIMENSIONAL:
             ObjectTransform4D transform4D = _RaymarchedObjectsFourDimensionalTransforms[object.transformDataIndex];
-            objectSDF = calculateObjectSDF4D(position, object, transform4D);
+            objectSDF.distance = calculateObjectSDF4D(position, object, transform4D);
             break;
 #endif
     }
@@ -43,7 +44,10 @@ SDFData calculateOperationSDF(const float3        position,
     SDFData operationSdf = _DefaultSDFData;
 
     for (int i = objectsIndex; i < childObjectsCount + objectsIndex; i++)
-        operationSdf = applyOperation(operation, calculateObjectSDF(position, _RaymarchedObjects[i]), operationSdf);
+    {
+        SDFData objectSDF = calculateObjectSDF(position, _RaymarchedObjects[i], _RaymarchedObjectsRenderingSettings[i]);
+        operationSdf = applyOperation(operation, objectSDF, operationSdf);
+    }
 
     return operationSdf;
 }

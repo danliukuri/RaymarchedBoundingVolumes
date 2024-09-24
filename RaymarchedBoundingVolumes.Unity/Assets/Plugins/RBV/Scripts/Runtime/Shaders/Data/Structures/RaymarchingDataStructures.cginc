@@ -42,3 +42,8 @@ struct ObjectTransform3D
     float3 rotation;
     float3 scale;
 };
+
+struct ObjectRenderingSettings
+{
+    fixed4 color;
+};

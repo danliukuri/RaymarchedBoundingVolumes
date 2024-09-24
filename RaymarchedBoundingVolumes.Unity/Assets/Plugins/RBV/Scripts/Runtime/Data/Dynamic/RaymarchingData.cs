@@ -18,6 +18,7 @@ namespace RBV.Data.Dynamic
         public Dictionary<TransformType, List<RaymarchedObject>> ObjectsByTransformsType          { get; set; } = new();
         public Dictionary<TransformType, Array>                  ObjectTransformsShaderDataByType { get; set; } = new();
 
+
         public Dictionary<RaymarchedObjectType, List<RaymarchedObject>> ObjectsByType           { get; set; } = new();
         public Dictionary<RaymarchedObjectType, Array>                  ObjectsShaderDataByType { get; set; } = new();
 
@@ -28,5 +29,7 @@ namespace RBV.Data.Dynamic
         public List<RaymarchingOperationNodeShaderData> OperationNodesShaderData { get; set; }
         public List<RaymarchingOperationShaderData>     OperationsShaderData     { get; set; }
         public List<RaymarchedObjectShaderData>         ObjectsShaderData        { get; set; }
+
+        public List<RaymarchedObjectRenderingSettingsShaderData> ObjectsRenderingSettingsShaderData { get; set; }
     }
 }

@@ -9,7 +9,7 @@
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
 #include "../Functions/SDFs.cginc"
 
-SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransform3D transform)
+float calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransform3D transform)
 {
     position -= mul(unity_WorldToObject, float4(transform.position, 1));
     position = rotate3D(position, transform.rotation);
@@ -80,6 +80,5 @@ SDFData calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransfo
     }
     distance *= transform.scale;
 
-    const SDFData sdf = {_ObjectColor.rgb, distance};
-    return sdf;
+    return distance;
 }

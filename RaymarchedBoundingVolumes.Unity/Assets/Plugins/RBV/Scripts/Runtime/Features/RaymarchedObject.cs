@@ -15,6 +15,7 @@ namespace RBV.Features
         public event Action<RaymarchedObject> TransformChanged;
         public event Action<RaymarchedObject> TypeChanged;
         public event Action<RaymarchedObject> TypeDataChanged;
+        public event Action<RaymarchedObject> RenderingSettingsChanged;
 
         private readonly ObservableTransform<Vector3> _gameObjectTransform = new();
 
@@ -25,6 +26,8 @@ namespace RBV.Features
         public abstract IObservableObjectTypeShaderData       TypeData      { get; }
         public abstract IObservableTransform                  Transform     { get; }
         public abstract TransformType                         TransformType { get; }
+
+        public abstract ObservableValue<RaymarchedObjectRenderingSettingsShaderData> RenderingSettings { get; }
 
         public abstract ITransformShaderData TransformShaderData { get; }
 
@@ -48,6 +51,7 @@ namespace RBV.Features
             Type.Changed                 += RaiseTypeChangedEvent;
             Transform.Changed            += RaiseTransformChangedEvent;
             TypeData.Changed             += RaiseTypeDataChangedEvent;
+            RenderingSettings.Changed    += RaiseRenderingSettingsChangedEvent;
             _gameObjectTransform.Changed += RaiseTransformChangedEvent;
         }
 
@@ -58,6 +62,7 @@ namespace RBV.Features
             Type.Changed                 -= RaiseTypeChangedEvent;
             Transform.Changed            -= RaiseTransformChangedEvent;
             TypeData.Changed             -= RaiseTypeDataChangedEvent;
+            RenderingSettings.Changed    -= RaiseRenderingSettingsChangedEvent;
             _gameObjectTransform.Changed -= RaiseTransformChangedEvent;
         }
 
@@ -76,5 +81,8 @@ namespace RBV.Features
 
         private void RaiseTransformChangedEvent()                           => TransformChanged?.Invoke(this);
         private void RaiseTransformChangedEvent(ChangedValue<Vector3> data) => RaiseTransformChangedEvent();
+
+        private void RaiseRenderingSettingsChangedEvent(ChangedValue<RaymarchedObjectRenderingSettingsShaderData> data)
+            => RenderingSettingsChanged?.Invoke(this);
     }
 }
