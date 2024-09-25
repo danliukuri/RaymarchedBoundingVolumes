@@ -4,4 +4,4 @@
 
 // Manually set by scripts
 
-uniform StructuredBuffer<RadiusDefinedOperationData> _RaymarchingBlendOperationData;
+uniform StructuredBuffer<RadiusDefinedOperationData> _RaymarchingSmoothUnionOperationData;

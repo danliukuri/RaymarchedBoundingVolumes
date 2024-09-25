@@ -306,9 +306,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &60193475
@@ -359,9 +359,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &117225435
@@ -431,9 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!1001 &154369384
@@ -697,9 +697,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &211233564
@@ -1394,9 +1394,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &640658652
@@ -1467,7 +1467,7 @@ MonoBehaviour:
   <Type>k__BackingField:
     value: 1
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
 --- !u!1001 &673011455
@@ -1733,9 +1733,9 @@ MonoBehaviour:
   <Type>k__BackingField:
     value: 1
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
-        Radius: 0.3
+        Radius: 0.5
 --- !u!4 &784635055
 Transform:
   m_ObjectHideFlags: 0
@@ -1940,9 +1940,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &906790327
@@ -2011,9 +2011,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!1001 &1000421504
@@ -2279,9 +2279,9 @@ MonoBehaviour:
   <Type>k__BackingField:
     value: 1
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
-        Radius: 0.3
+        Radius: 0.5
 --- !u!4 &1102503920
 Transform:
   m_ObjectHideFlags: 0
@@ -2989,9 +2989,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &1507759138
@@ -3273,9 +3273,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 3
+    value: 2
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
 --- !u!4 &1595842950
@@ -3406,7 +3406,7 @@ MonoBehaviour:
   <Type>k__BackingField:
     value: 1
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
 --- !u!4 &1635130076
@@ -4150,9 +4150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &1804194469
@@ -4205,7 +4205,7 @@ MonoBehaviour:
   <Type>k__BackingField:
     value: 1
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
 --- !u!4 &1839113940
@@ -4520,9 +4520,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!1001 &1986311100

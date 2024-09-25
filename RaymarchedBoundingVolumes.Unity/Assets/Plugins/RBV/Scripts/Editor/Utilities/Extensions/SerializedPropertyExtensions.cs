@@ -48,8 +48,9 @@ namespace RBV.Editor.Utilities.Extensions
 
         public static void DrawProperty(this SerializedProperty property, GUIContent label, int depth)
         {
-            if (depth == default                                  && property.hasChildren &&
-                !property.GetUnderlyingType().HasPropertyDrawer() && !property.HasAttributeWithPropertyDrawer())
+            if (depth == default                                        && property.hasChildren &&
+                property.propertyType is SerializedPropertyType.Generic &&
+                !property.GetUnderlyingType().HasPropertyDrawer()       && !property.HasAttributeWithPropertyDrawer())
                 property.DrawFoldoutAndEachChildren(label, depth);
             else
                 EditorGUILayout.PropertyField(property, label);

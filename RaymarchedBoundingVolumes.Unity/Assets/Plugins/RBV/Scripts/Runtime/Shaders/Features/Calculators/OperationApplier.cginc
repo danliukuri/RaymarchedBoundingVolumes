@@ -5,7 +5,7 @@
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
 #include "../../Data/Variables/OperationTypeRelatedVariables.cginc"
 #include "../Functions/BoolianOperators.cginc"
-#include "../Functions/SmoothBoolianOperators.cginc"
+#include "../Functions/ColorCombinationOperators.cginc"
 
 fixed3 calculateColor(const SDFData sdf1, const SDFData sdf2)
 {
@@ -36,12 +36,18 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = subtractSDF(sdf1.distance, sdf2.distance);
             sdf.color = calculateColor(sdf1, sdf2);
             break;
-        case OPERATION_TYPE_BLEND:
-            sdf = blendSDF(sdf1, sdf2, _RaymarchingBlendOperationData[operation.typeDataIndex].radius);
-            break;
         case OPERATION_TYPE_INTERSECT:
             sdf.distance = intersectSDF(sdf1.distance, sdf2.distance);
             sdf.color = calculateColor(sdf1, sdf2);
+            break;
+        case OPERATION_TYPE_XOR:
+            sdf.distance = xorSDF(sdf1.distance, sdf2.distance);
+            sdf.color = calculateColor(sdf1, sdf2);
+            break;
+        case OPERATION_TYPE_SMOOTH_UNION:
+            float radius = _RaymarchingSmoothUnionOperationData[operation.typeDataIndex].radius;
+            sdf.distance = smoothUnionSDF(sdf1.distance, sdf2.distance, radius);
+            sdf.color = smoothUnionColor(sdf1, sdf2, radius);
             break;
     }
     return sdf;

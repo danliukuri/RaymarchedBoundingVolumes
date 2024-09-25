@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Data.Dynamic.ShaderData.OperationType;
 using RBV.Data.Static.Enumerations;
 using RBV.Utilities.Extensions;
@@ -16,12 +15,12 @@ namespace RBV.Features.ShaderDataForming
                                                IEnumerable<IOperationTypeShaderData> source) =>
             source.CastToArray(GetShaderDataType(type));
 
-        public bool HasCorrespondingShaderData(RaymarchingOperationType type) => type is Blend;
+        public bool HasCorrespondingShaderData(RaymarchingOperationType type) => type is SmoothUnion;
 
         public Type GetShaderDataType(RaymarchingOperationType type) => type switch
         {
-            Blend => typeof(RadiusDefinedOperationShaderData),
-            Union or Subtract or Intersect =>
+            SmoothUnion => typeof(RadiusDefinedOperationShaderData),
+            Union or Subtract or Intersect or Xor =>
                 throw new InvalidOperationException(string.Format(NoShaderData, type.ToString())),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };

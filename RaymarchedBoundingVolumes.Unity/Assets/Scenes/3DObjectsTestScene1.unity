@@ -154,7 +154,7 @@ MonoBehaviour:
   <Type>k__BackingField:
     value: 0
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
 --- !u!4 &37470480
@@ -289,9 +289,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField:
-    value: 2
+    value: 4
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
 --- !u!4 &123977992
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   <Type>k__BackingField:
     value: 0
   <TypeData>k__BackingField:
-    <Blend>k__BackingField:
+    <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
 --- !u!1001 &737687571

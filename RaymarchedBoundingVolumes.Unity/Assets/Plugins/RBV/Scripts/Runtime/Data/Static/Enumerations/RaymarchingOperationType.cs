@@ -4,7 +4,9 @@
     {
         Union     = 0,
         Subtract  = 1,
-        Blend     = 2,
-        Intersect = 3
+        Intersect = 2,
+        Xor       = 3,
+
+        SmoothUnion = 4
     }
 }

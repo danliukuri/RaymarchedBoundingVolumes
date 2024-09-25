@@ -12,19 +12,19 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         public event Action<ChangedValue<IOperationTypeShaderData>> Changed
         {
             add =>
-                Blend.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                SmoothUnion.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
             remove =>
-                Blend.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                SmoothUnion.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
         }
 
-        [field: SerializeField] public ObservableValue<RadiusDefinedOperationShaderData> Blend { get; set; } =
+        [field: SerializeField] public ObservableValue<RadiusDefinedOperationShaderData> SmoothUnion { get; set; } =
             new(RadiusDefinedOperationShaderData.Default);
 
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
-            Union or Subtract or Intersect => default(IOperationTypeShaderData),
-            RaymarchingOperationType.Blend => Blend.Value,
-            _                              => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+            Union or Subtract or Intersect or Xor => default(IOperationTypeShaderData),
+            RaymarchingOperationType.SmoothUnion  => SmoothUnion.Value,
+            _                                     => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
 }

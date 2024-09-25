@@ -7,6 +7,7 @@ using RBV.Editor.Features;
 using RBV.Editor.Utilities.Extensions;
 using RBV.Features;
 using UnityEditor;
+using static RBV.Data.Static.Enumerations.RaymarchingOperationType;
 
 namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
 {
@@ -25,12 +26,12 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
 
         protected override Dictionary<RaymarchingOperationType, string> InitializeTypeDataPropertyPaths() => new()
         {
-            [RaymarchingOperationType.Blend] = nameof(ObservableOperationTypeShaderData.Blend)
+            [SmoothUnion] = nameof(ObservableOperationTypeShaderData.SmoothUnion)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
         {
-            [RaymarchingOperationType.Blend] = () => _typeDataProperties[RaymarchingOperationType.Blend]
+            [SmoothUnion] = () => _typeDataProperties[SmoothUnion]
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius
         };
