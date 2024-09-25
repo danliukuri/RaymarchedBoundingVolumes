@@ -61,14 +61,7 @@ namespace RBV.Editor.Utilities.Extensions
 
         public static void DrawFoldoutAndEachChildren(this SerializedProperty property, GUIContent label,
                                                       int depth, Action<SerializedProperty> drawChild = default) =>
-            property.DrawFoldoutAndChildren(label, parentProperty =>
-            {
-                foreach (SerializedProperty child in parentProperty.GetDirectChildren())
-                    if (drawChild != default)
-                        drawChild.Invoke(child);
-                    else
-                        EditorGUILayout.PropertyField(child, true);
-            }, depth);
+            property.DrawFoldoutAndChildren(label, parentProperty => DrawChildren(parentProperty, drawChild), depth);
 
         public static void DrawFoldoutAndChildren(this SerializedProperty    property, GUIContent label,
                                                   Action<SerializedProperty> drawChildren) =>
@@ -82,6 +75,16 @@ namespace RBV.Editor.Utilities.Extensions
             if (property.isExpanded)
                 using (new EditorGUI.IndentLevelScope())
                     drawChildren?.Invoke(property);
+        }
+
+        public static void DrawChildren(this SerializedProperty    property,
+                                        Action<SerializedProperty> drawChild = default)
+        {
+            foreach (SerializedProperty child in property.GetDirectChildren())
+                if (drawChild != default)
+                    drawChild.Invoke(child);
+                else
+                    EditorGUILayout.PropertyField(child, true);
         }
 
         public static IEnumerable<PropertyAttribute> GetCustomAttributes(this SerializedProperty property) =>

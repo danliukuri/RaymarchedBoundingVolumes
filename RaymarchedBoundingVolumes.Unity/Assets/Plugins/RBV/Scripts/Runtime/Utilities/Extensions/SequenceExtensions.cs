@@ -35,7 +35,7 @@ namespace RBV.Utilities.Extensions
             if (elementType == null)
                 throw new ArgumentNullException(nameof(elementType));
             if (!typeof(T).IsAssignableFrom(elementType))
-                throw new ArgumentException($"Cannot cast from type {typeof(T)} to {elementType}.",
+                throw new ArgumentException($"Cannot cast from type {typeof(T).Name} to {elementType.Name}.",
                     nameof(elementType));
 
             List<T> list = source.ToList();

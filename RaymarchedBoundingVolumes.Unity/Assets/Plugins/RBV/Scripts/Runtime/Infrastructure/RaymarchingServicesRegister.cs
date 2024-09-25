@@ -26,6 +26,7 @@ namespace RBV.Infrastructure
             IServiceContainer container = InitializeServiceContainer();
 
             RegisterRaymarchingSceneTreeTraverser(container);
+            RegisterOperationTypeCaster(container);
             RegisterObjectTypeCaster(container);
             RegisterTransformTypeCaster(container);
             RegisterRaymarchingDataInitializer(container);
@@ -39,6 +40,9 @@ namespace RBV.Infrastructure
         protected virtual void RegisterRaymarchingSceneTreeTraverser(IServiceContainer container) =>
             container.RegisterAsSingle<IRaymarchingSceneTreeTraverser>(new RaymarchingSceneTreePostorderDFSTraverser());
 
+        protected virtual void RegisterOperationTypeCaster(IServiceContainer container) =>
+            container.RegisterAsSingle<IOperationTypeCaster>(new OperationTypeCaster());
+
         protected virtual void RegisterObjectTypeCaster(IServiceContainer container) =>
             container.RegisterAsSingle<IObjectTypeCaster>(new ObjectTypeCaster());
 
@@ -48,12 +52,14 @@ namespace RBV.Infrastructure
         protected virtual void RegisterRaymarchingDataInitializer(IServiceContainer container) =>
             container.RegisterAsSingle<IRaymarchingDataInitializer>(new RaymarchingDataInitializer(
                 container.Resolve<IRaymarchingSceneTreeTraverser>(),
+                container.Resolve<IOperationTypeCaster>(),
                 container.Resolve<IObjectTypeCaster>(),
                 container.Resolve<ITransformTypeCaster>()
             ));
 
         protected virtual void RegisterShaderBuffersInitializer(IServiceContainer container) =>
             container.RegisterAsSingle<IShaderBuffersInitializer>(new ShaderBuffersInitializer(
+                container.Resolve<IOperationTypeCaster>(),
                 container.Resolve<IObjectTypeCaster>(),
                 container.Resolve<ITransformTypeCaster>()
             ));

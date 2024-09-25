@@ -10,8 +10,12 @@ namespace RBV.Editor.Project.Utilities.Wrappers
     {
         private SerializedProperty _valueProperty;
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginProperty(position, label, property);
             GetValueProperty(property).DrawProperty(new GUIContent(property.displayName), property.depth);
+            EditorGUI.EndProperty();
+        }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
             -EditorGUIUtility.standardVerticalSpacing;

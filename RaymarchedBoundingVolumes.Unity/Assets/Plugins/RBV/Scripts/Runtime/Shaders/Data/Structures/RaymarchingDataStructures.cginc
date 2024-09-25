@@ -23,8 +23,8 @@ struct OperationNodeData
 
 struct OperationData
 {
-    int   type;
-    float blendStrength;
+    int type;
+    int typeDataIndex;
 };
 
 struct ObjectData

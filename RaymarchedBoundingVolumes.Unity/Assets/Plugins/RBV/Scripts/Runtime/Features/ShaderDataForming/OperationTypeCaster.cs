@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using RBV.Data.Dynamic.ShaderData.ObjectType;
+using RBV.Data.Dynamic.ShaderData.OperationType;
+using RBV.Data.Static.Enumerations;
+using RBV.Utilities.Extensions;
+using static RBV.Data.Static.Enumerations.RaymarchingOperationType;
+
+namespace RBV.Features.ShaderDataForming
+{
+    public class OperationTypeCaster : IOperationTypeCaster
+    {
+        private const string NoShaderData = "{0} operation type doesn't have corresponding shader data to pass.";
+
+        public Array CastToShaderDataTypeArray(RaymarchingOperationType              type,
+                                               IEnumerable<IOperationTypeShaderData> source) =>
+            source.CastToArray(GetShaderDataType(type));
+
+        public bool HasCorrespondingShaderData(RaymarchingOperationType type) => type is Blend;
+
+        public Type GetShaderDataType(RaymarchingOperationType type) => type switch
+        {
+            Blend => typeof(RadiusDefinedOperationShaderData),
+            Union or Subtract or Intersect =>
+                throw new InvalidOperationException(string.Format(NoShaderData, type.ToString())),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+        };
+    }
+}

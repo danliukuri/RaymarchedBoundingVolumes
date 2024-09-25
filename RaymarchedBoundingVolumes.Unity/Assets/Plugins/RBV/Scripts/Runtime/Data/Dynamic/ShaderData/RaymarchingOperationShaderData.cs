@@ -2,7 +2,7 @@
 {
     public struct RaymarchingOperationShaderData
     {
-        public int   OperationType;
-        public float BlendStrength;
+        public int OperationType;
+        public int TypeDataIndex;
     }
 }

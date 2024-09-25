@@ -2,6 +2,7 @@
 using System.Linq;
 using RBV.Data.Dynamic;
 using RBV.Data.Dynamic.ShaderData;
+using RBV.Data.Static.Enumerations;
 using RBV.Features.ShaderDataForming;
 using RBV.Utilities.Extensions;
 
@@ -10,6 +11,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
     public class RaymarchingDataInitializer : IRaymarchingDataInitializer
     {
         private readonly IRaymarchingSceneTreeTraverser _raymarchingSceneTreeTraverser;
+        private readonly IOperationTypeCaster           _operationTypeCaster;
         private readonly IObjectTypeCaster              _objectTypeCaster;
         private readonly ITransformTypeCaster           _transformTypeCaster;
 
@@ -20,10 +22,12 @@ namespace RBV.Features.RaymarchingSceneBuilding
         private Dictionary<int, int> _parentIndexesByFeatureIndex;
 
         public RaymarchingDataInitializer(IRaymarchingSceneTreeTraverser raymarchingSceneTreeTraverser,
+                                          IOperationTypeCaster           operationTypeCaster,
                                           IObjectTypeCaster              objectTypeCaster,
                                           ITransformTypeCaster           transformTypeCaster)
         {
             _raymarchingSceneTreeTraverser = raymarchingSceneTreeTraverser;
+            _operationTypeCaster           = operationTypeCaster;
             _objectTypeCaster              = objectTypeCaster;
             _transformTypeCaster           = transformTypeCaster;
         }
@@ -63,15 +67,26 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _data.ObjectTransformsShaderDataByType = _data.ObjectsByTransformsType
                 .ToDictionary(objects => objects.Key, _transformTypeCaster.CastToShaderDataTypeArray);
 
-        private void FillShaderDataByType() =>
+        private void FillShaderDataByType()
+        {
+            _data.OperationsShaderDataByType = _data.OperationsByType
+                .Where(pair => _operationTypeCaster.HasCorrespondingShaderData(pair.Key))
+                .ToDictionary(objects => objects.Key, _operationTypeCaster.CastToShaderDataTypeArray);
+
             _data.ObjectsShaderDataByType = _data.ObjectsByType
                 .ToDictionary(objects => objects.Key, _objectTypeCaster.CastToShaderDataTypeArray);
+        }
 
         private void FillRenderingSettingsShaderData() => _data.ObjectsRenderingSettingsShaderData =
             _data.Objects.Select(obj => obj.RenderingSettings.Value).ToList();
 
         private void FillTypeDataIndexes()
         {
+            foreach ((RaymarchingOperationType type, List<RaymarchingOperation> operations) in _data.OperationsByType)
+                if (_data.OperationsShaderDataByType.ContainsKey(type))
+                    for (var i = 0; i < operations.Count; i++)
+                        operations[i].TypeDataIndex = i;
+
             foreach (List<RaymarchedObject> objects in _data.ObjectsByType.Values)
                 for (var i = 0; i < objects.Count; i++)
                     objects[i].TypeDataIndex = i;

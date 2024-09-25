@@ -151,10 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13616d91a115fa74bba3cf68ef00de81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <OperationType>k__BackingField:
-    value: 2
-  <BlendStrength>k__BackingField:
-    value: 0.3
+  <Type>k__BackingField:
+    value: 0
+  <TypeData>k__BackingField:
+    <Blend>k__BackingField:
+      value:
+        Radius: 0.5
 --- !u!4 &37470480
 Transform:
   m_ObjectHideFlags: 0
@@ -286,10 +288,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13616d91a115fa74bba3cf68ef00de81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <OperationType>k__BackingField:
+  <Type>k__BackingField:
     value: 2
-  <BlendStrength>k__BackingField:
-    value: 0.3
+  <TypeData>k__BackingField:
+    <Blend>k__BackingField:
+      value:
+        Radius: 0.3
 --- !u!4 &123977992
 Transform:
   m_ObjectHideFlags: 0
@@ -1454,10 +1458,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13616d91a115fa74bba3cf68ef00de81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <OperationType>k__BackingField:
+  <Type>k__BackingField:
     value: 0
-  <BlendStrength>k__BackingField:
-    value: 0.3
+  <TypeData>k__BackingField:
+    <Blend>k__BackingField:
+      value:
+        Radius: 0.5
 --- !u!1001 &737687571
 PrefabInstance:
   m_ObjectHideFlags: 0

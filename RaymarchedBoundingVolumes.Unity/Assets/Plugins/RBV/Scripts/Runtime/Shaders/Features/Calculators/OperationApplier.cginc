@@ -3,6 +3,7 @@
 #include "../../Data/Enumerations/OperationTypeEnumeration.cginc"
 #include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
+#include "../../Data/Variables/OperationTypeRelatedVariables.cginc"
 #include "../Functions/BoolianOperators.cginc"
 #include "../Functions/SmoothBoolianOperators.cginc"
 
@@ -36,7 +37,7 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.color = calculateColor(sdf1, sdf2);
             break;
         case OPERATION_TYPE_BLEND:
-            sdf = blendSDF(sdf1, sdf2, operation.blendStrength);
+            sdf = blendSDF(sdf1, sdf2, _RaymarchingBlendOperationData[operation.typeDataIndex].radius);
             break;
         case OPERATION_TYPE_INTERSECT:
             sdf.distance = intersectSDF(sdf1.distance, sdf2.distance);
