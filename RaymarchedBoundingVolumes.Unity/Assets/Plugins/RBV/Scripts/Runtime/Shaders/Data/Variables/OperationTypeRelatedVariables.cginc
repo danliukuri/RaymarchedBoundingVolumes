@@ -5,3 +5,4 @@
 // Manually set by scripts
 
 uniform StructuredBuffer<RadiusDefinedOperationData> _RaymarchingSmoothUnionOperationData;
+uniform StructuredBuffer<RadiusDefinedOperationData> _RaymarchingSmoothSubtractOperationData;

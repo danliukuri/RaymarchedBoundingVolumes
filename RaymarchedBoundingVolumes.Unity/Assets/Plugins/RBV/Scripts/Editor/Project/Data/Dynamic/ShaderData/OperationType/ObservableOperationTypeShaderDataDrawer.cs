@@ -26,12 +26,16 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
 
         protected override Dictionary<RaymarchingOperationType, string> InitializeTypeDataPropertyPaths() => new()
         {
-            [SmoothUnion] = nameof(ObservableOperationTypeShaderData.SmoothUnion)
+            [SmoothUnion]    = nameof(ObservableOperationTypeShaderData.SmoothUnion),
+            [SmoothSubtract] = nameof(ObservableOperationTypeShaderData.SmoothSubtract)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
         {
             [SmoothUnion] = () => _typeDataProperties[SmoothUnion]
+                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
+                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
+            [SmoothSubtract] = () => _typeDataProperties[SmoothSubtract]
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius
         };

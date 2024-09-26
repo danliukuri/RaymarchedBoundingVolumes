@@ -45,9 +45,14 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.color = calculateColor(sdf1, sdf2);
             break;
         case OPERATION_TYPE_SMOOTH_UNION:
-            float radius = _RaymarchingSmoothUnionOperationData[operation.typeDataIndex].radius;
-            sdf.distance = smoothUnionSDF(sdf1.distance, sdf2.distance, radius);
-            sdf.color = smoothUnionColor(sdf1, sdf2, radius);
+            float smoothUnionRadius = _RaymarchingSmoothUnionOperationData[operation.typeDataIndex].radius;
+            sdf.distance = smoothUnionSDF(sdf1.distance, sdf2.distance, smoothUnionRadius);
+            sdf.color    = smoothUnionColor(sdf1, sdf2, smoothUnionRadius);
+            break;
+        case OPERATION_TYPE_SMOOTH_SUBTRACT:
+            float smoothSubtractRadius = _RaymarchingSmoothSubtractOperationData[operation.typeDataIndex].radius;
+            sdf.distance = smoothSubtractSDF(sdf1.distance, sdf2.distance, smoothSubtractRadius);
+            sdf.color    = smoothUnionColor(sdf1, sdf2, smoothSubtractRadius);
             break;
     }
     return sdf;
