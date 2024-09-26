@@ -75,6 +75,11 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = chamferSubtractSDF(sdf1.distance, sdf2.distance, chamferSubtractRadius);
             sdf.color = smoothUnionColor(sdf1, sdf2, chamferSubtractRadius);
             break;
+        case OPERATION_TYPE_CHAMFER_INTERSECT:
+            float chamferIntersectRadius = _RaymarchingChamferIntersectOperationData[operation.typeDataIndex].radius;
+            sdf.distance = chamferIntersectSDF(sdf1.distance, sdf2.distance, chamferIntersectRadius);
+            sdf.color = smoothUnionColor(sdf1, sdf2, chamferIntersectRadius);
+            break;
     }
     return sdf;
 }

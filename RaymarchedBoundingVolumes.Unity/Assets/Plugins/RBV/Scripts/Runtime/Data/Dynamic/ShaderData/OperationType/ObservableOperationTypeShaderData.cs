@@ -22,6 +22,8 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 ChamferUnion.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferSubtract.Changed +=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                ChamferIntersect.Changed +=
+                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
             }
             remove
             {
@@ -33,6 +35,8 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 SmoothXor.Changed    -= value.CastCached<IOperationTypeShaderData, SmoothXorOperationShaderData>();
                 ChamferUnion.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferSubtract.Changed -=
+                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                ChamferIntersect.Changed -=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
             }
         }
@@ -55,15 +59,20 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         [field: SerializeField] public ObservableValue<RadiusDefinedOperationShaderData> ChamferSubtract { get; set; } =
             new(RadiusDefinedOperationShaderData.Default);
 
+        [field: SerializeField]
+        public ObservableValue<RadiusDefinedOperationShaderData> ChamferIntersect { get; set; } =
+            new(RadiusDefinedOperationShaderData.Default);
+
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
-            Union or Subtract or Intersect or Xor    => default,
-            RaymarchingOperationType.SmoothUnion     => SmoothUnion.Value,
-            RaymarchingOperationType.SmoothSubtract  => SmoothSubtract.Value,
-            RaymarchingOperationType.SmoothIntersect => SmoothIntersect.Value,
-            RaymarchingOperationType.SmoothXor       => SmoothXor.Value,
-            RaymarchingOperationType.ChamferUnion    => ChamferUnion.Value,
-            RaymarchingOperationType.ChamferSubtract => ChamferSubtract.Value,
+            Union or Subtract or Intersect or Xor     => default,
+            RaymarchingOperationType.SmoothUnion      => SmoothUnion.Value,
+            RaymarchingOperationType.SmoothSubtract   => SmoothSubtract.Value,
+            RaymarchingOperationType.SmoothIntersect  => SmoothIntersect.Value,
+            RaymarchingOperationType.SmoothXor        => SmoothXor.Value,
+            RaymarchingOperationType.ChamferUnion     => ChamferUnion.Value,
+            RaymarchingOperationType.ChamferSubtract  => ChamferSubtract.Value,
+            RaymarchingOperationType.ChamferIntersect => ChamferIntersect.Value,
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };

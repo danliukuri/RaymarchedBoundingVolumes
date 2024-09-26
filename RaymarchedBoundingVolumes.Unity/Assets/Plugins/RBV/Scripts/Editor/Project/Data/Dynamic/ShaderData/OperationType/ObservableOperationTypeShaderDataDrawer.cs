@@ -26,12 +26,13 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
 
         protected override Dictionary<RaymarchingOperationType, string> InitializeTypeDataPropertyPaths() => new()
         {
-            [SmoothUnion]     = nameof(ObservableOperationTypeShaderData.SmoothUnion),
-            [SmoothSubtract]  = nameof(ObservableOperationTypeShaderData.SmoothSubtract),
-            [SmoothIntersect] = nameof(ObservableOperationTypeShaderData.SmoothIntersect),
-            [SmoothXor]       = nameof(ObservableOperationTypeShaderData.SmoothXor),
-            [ChamferUnion]    = nameof(ObservableOperationTypeShaderData.ChamferUnion),
-            [ChamferSubtract] = nameof(ObservableOperationTypeShaderData.ChamferSubtract)
+            [SmoothUnion]      = nameof(ObservableOperationTypeShaderData.SmoothUnion),
+            [SmoothSubtract]   = nameof(ObservableOperationTypeShaderData.SmoothSubtract),
+            [SmoothIntersect]  = nameof(ObservableOperationTypeShaderData.SmoothIntersect),
+            [SmoothXor]        = nameof(ObservableOperationTypeShaderData.SmoothXor),
+            [ChamferUnion]     = nameof(ObservableOperationTypeShaderData.ChamferUnion),
+            [ChamferSubtract]  = nameof(ObservableOperationTypeShaderData.ChamferSubtract),
+            [ChamferIntersect] = nameof(ObservableOperationTypeShaderData.ChamferIntersect)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
@@ -59,6 +60,9 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
             [ChamferSubtract] = () => _typeDataProperties[ChamferSubtract]
+                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
+                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
+            [ChamferIntersect] = () => _typeDataProperties[ChamferIntersect]
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius
         };

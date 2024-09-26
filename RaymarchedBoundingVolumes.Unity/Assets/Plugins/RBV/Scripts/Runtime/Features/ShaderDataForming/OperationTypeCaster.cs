@@ -23,12 +23,13 @@ namespace RBV.Features.ShaderDataForming
             Union or Subtract or Intersect or Xor =>
                 throw new InvalidOperationException(string.Format(NoShaderData, type.ToString())),
 
-            SmoothUnion     => typeof(RadiusDefinedOperationShaderData),
-            SmoothSubtract  => typeof(RadiusDefinedOperationShaderData),
-            SmoothIntersect => typeof(RadiusDefinedOperationShaderData),
-            SmoothXor       => typeof(SmoothXorOperationShaderData),
-            ChamferUnion    => typeof(RadiusDefinedOperationShaderData),
-            ChamferSubtract => typeof(RadiusDefinedOperationShaderData),
+            SmoothUnion      => typeof(RadiusDefinedOperationShaderData),
+            SmoothSubtract   => typeof(RadiusDefinedOperationShaderData),
+            SmoothIntersect  => typeof(RadiusDefinedOperationShaderData),
+            SmoothXor        => typeof(SmoothXorOperationShaderData),
+            ChamferUnion     => typeof(RadiusDefinedOperationShaderData),
+            ChamferSubtract  => typeof(RadiusDefinedOperationShaderData),
+            ChamferIntersect => typeof(RadiusDefinedOperationShaderData),
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
