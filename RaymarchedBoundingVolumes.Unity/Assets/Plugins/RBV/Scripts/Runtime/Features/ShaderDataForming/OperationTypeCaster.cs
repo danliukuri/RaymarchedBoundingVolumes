@@ -26,10 +26,11 @@ namespace RBV.Features.ShaderDataForming
             SmoothUnion      => typeof(RadiusDefinedOperationShaderData),
             SmoothSubtract   => typeof(RadiusDefinedOperationShaderData),
             SmoothIntersect  => typeof(RadiusDefinedOperationShaderData),
-            SmoothXor        => typeof(SmoothXorOperationShaderData),
+            SmoothXor        => typeof(RadiusDefinedXorOperationShaderData),
             ChamferUnion     => typeof(RadiusDefinedOperationShaderData),
             ChamferSubtract  => typeof(RadiusDefinedOperationShaderData),
             ChamferIntersect => typeof(RadiusDefinedOperationShaderData),
+            ChamferXor       => typeof(RadiusDefinedXorOperationShaderData),
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };

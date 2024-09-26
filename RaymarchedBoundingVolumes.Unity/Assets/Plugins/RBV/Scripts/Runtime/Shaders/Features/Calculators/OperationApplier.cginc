@@ -80,6 +80,12 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = chamferIntersectSDF(sdf1.distance, sdf2.distance, chamferIntersectRadius);
             sdf.color = smoothUnionColor(sdf1, sdf2, chamferIntersectRadius);
             break;
+        case OPERATION_TYPE_CHAMFER_XOR:
+            float chamferXorOuterRadius = _RaymarchingChamferXorOperationData[operation.typeDataIndex].outerRadius;
+            float chamferXorInnerRadius = _RaymarchingChamferXorOperationData[operation.typeDataIndex].innerRadius;
+            sdf.distance = chamferXorSDF(sdf1.distance, sdf2.distance, chamferXorOuterRadius, chamferXorInnerRadius);
+            sdf.color = smoothUnionColor(sdf1, sdf2, chamferXorOuterRadius);
+            break;
     }
     return sdf;
 }

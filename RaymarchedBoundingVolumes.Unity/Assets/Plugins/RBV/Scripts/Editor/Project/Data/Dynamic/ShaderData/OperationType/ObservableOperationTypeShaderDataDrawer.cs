@@ -32,7 +32,8 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             [SmoothXor]        = nameof(ObservableOperationTypeShaderData.SmoothXor),
             [ChamferUnion]     = nameof(ObservableOperationTypeShaderData.ChamferUnion),
             [ChamferSubtract]  = nameof(ObservableOperationTypeShaderData.ChamferSubtract),
-            [ChamferIntersect] = nameof(ObservableOperationTypeShaderData.ChamferIntersect)
+            [ChamferIntersect] = nameof(ObservableOperationTypeShaderData.ChamferIntersect),
+            [ChamferXor]       = nameof(ObservableOperationTypeShaderData.ChamferXor)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
@@ -49,12 +50,12 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             [SmoothXor] = () =>
             {
                 _typeDataProperties[SmoothXor]
-                    .FindPropertyRelative(nameof(SmoothXorOperationShaderData.OuterRadius))
-                    .floatValue = SmoothXorOperationShaderData.Default.OuterRadius;
+                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.OuterRadius))
+                    .floatValue = RadiusDefinedXorOperationShaderData.Default.OuterRadius;
 
                 _typeDataProperties[SmoothXor]
-                    .FindPropertyRelative(nameof(SmoothXorOperationShaderData.InnerRadius))
-                    .floatValue = SmoothXorOperationShaderData.Default.InnerRadius;
+                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.InnerRadius))
+                    .floatValue = RadiusDefinedXorOperationShaderData.Default.InnerRadius;
             },
             [ChamferUnion] = () => _typeDataProperties[ChamferUnion]
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
@@ -64,7 +65,17 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
             [ChamferIntersect] = () => _typeDataProperties[ChamferIntersect]
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
-                .floatValue = RadiusDefinedOperationShaderData.Default.Radius
+                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
+            [ChamferXor] = () =>
+            {
+                _typeDataProperties[ChamferXor]
+                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.OuterRadius))
+                    .floatValue = RadiusDefinedXorOperationShaderData.Default.OuterRadius;
+
+                _typeDataProperties[ChamferXor]
+                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.InnerRadius))
+                    .floatValue = RadiusDefinedXorOperationShaderData.Default.InnerRadius;
+            }
         };
     }
 }

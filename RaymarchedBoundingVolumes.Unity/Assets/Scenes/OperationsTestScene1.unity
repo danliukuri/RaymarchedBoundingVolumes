@@ -544,7 +544,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <Type>k__BackingField.value
-      value: 3
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
+      propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.InnerRadius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
+      propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.OuterRadius
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6955,7 +6963,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <Type>k__BackingField.value
-      value: 3
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
+      propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.InnerRadius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
+      propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.OuterRadius
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7247,7 +7263,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <Type>k__BackingField.value
-      value: 3
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
+      propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.InnerRadius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
+      propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.OuterRadius
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

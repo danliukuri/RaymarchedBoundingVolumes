@@ -57,3 +57,10 @@ float chamferIntersectSDF(float distance1, float distance2, float radius)
 {
     return intersectSDF(intersectSDF(distance1, distance2), (distance1 + distance2 + radius) * 0.5);
 }
+
+float chamferXorSDF(float distance1, float distance2, float outerRadius, float innerRadius)
+{
+    float smoothUnion     = chamferUnionSDF(distance1, distance2, outerRadius);
+    float smoothIntersect = chamferIntersectSDF(distance1, distance2, innerRadius);
+    return subtractSDF(smoothIntersect, smoothUnion);
+}

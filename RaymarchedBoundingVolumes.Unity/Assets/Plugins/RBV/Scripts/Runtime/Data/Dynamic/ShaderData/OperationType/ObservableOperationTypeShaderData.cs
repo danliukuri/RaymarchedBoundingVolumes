@@ -18,12 +18,13 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 SmoothIntersect.Changed +=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothXor.Changed    += value.CastCached<IOperationTypeShaderData, SmoothXorOperationShaderData>();
+                SmoothXor.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
                 ChamferUnion.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferSubtract.Changed +=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferIntersect.Changed +=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                ChamferXor.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
             }
             remove
             {
@@ -32,12 +33,13 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 SmoothIntersect.Changed -=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothXor.Changed    -= value.CastCached<IOperationTypeShaderData, SmoothXorOperationShaderData>();
+                SmoothXor.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
                 ChamferUnion.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferSubtract.Changed -=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferIntersect.Changed -=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                ChamferXor.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
             }
         }
 
@@ -50,8 +52,8 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         [field: SerializeField] public ObservableValue<RadiusDefinedOperationShaderData> SmoothIntersect { get; set; } =
             new(RadiusDefinedOperationShaderData.Default);
 
-        [field: SerializeField] public ObservableValue<SmoothXorOperationShaderData> SmoothXor { get; set; } =
-            new(SmoothXorOperationShaderData.Default);
+        [field: SerializeField] public ObservableValue<RadiusDefinedXorOperationShaderData> SmoothXor { get; set; } =
+            new(RadiusDefinedXorOperationShaderData.Default);
 
         [field: SerializeField] public ObservableValue<RadiusDefinedOperationShaderData> ChamferUnion { get; set; } =
             new(RadiusDefinedOperationShaderData.Default);
@@ -63,6 +65,9 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         public ObservableValue<RadiusDefinedOperationShaderData> ChamferIntersect { get; set; } =
             new(RadiusDefinedOperationShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<RadiusDefinedXorOperationShaderData> ChamferXor { get; set; } =
+            new(RadiusDefinedXorOperationShaderData.Default);
+
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
             Union or Subtract or Intersect or Xor     => default,
@@ -73,6 +78,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
             RaymarchingOperationType.ChamferUnion     => ChamferUnion.Value,
             RaymarchingOperationType.ChamferSubtract  => ChamferSubtract.Value,
             RaymarchingOperationType.ChamferIntersect => ChamferIntersect.Value,
+            RaymarchingOperationType.ChamferXor       => ChamferXor.Value,
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };

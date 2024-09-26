@@ -5,7 +5,7 @@ struct RadiusDefinedOperationData
     float radius;
 };
 
-struct SmoothXorOperationData
+struct RadiusDefinedXorOperationData
 {
     float outerRadius;
     float innerRadius;
