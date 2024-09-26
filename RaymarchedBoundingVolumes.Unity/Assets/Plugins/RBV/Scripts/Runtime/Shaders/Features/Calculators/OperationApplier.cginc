@@ -54,6 +54,11 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = smoothSubtractSDF(sdf1.distance, sdf2.distance, smoothSubtractRadius);
             sdf.color    = smoothUnionColor(sdf1, sdf2, smoothSubtractRadius);
             break;
+        case OPERATION_TYPE_SMOOTH_INTERSECT:
+            float smoothIntersectionRadius = _RaymarchingSmoothIntersectOperationData[operation.typeDataIndex].radius;
+            sdf.distance = smoothIntersectSDF(sdf1.distance, sdf2.distance, smoothIntersectionRadius);
+            sdf.color    = smoothUnionColor(sdf1, sdf2, smoothIntersectionRadius);
+            break;
     }
     return sdf;
 }

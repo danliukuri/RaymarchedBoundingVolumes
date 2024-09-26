@@ -7,7 +7,8 @@
         Intersect = 2,
         Xor       = 3,
 
-        SmoothUnion    = 4,
-        SmoothSubtract = 5
+        SmoothUnion     = 4,
+        SmoothSubtract  = 5,
+        SmoothIntersect = 6
     }
 }

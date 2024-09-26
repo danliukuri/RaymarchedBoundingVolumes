@@ -26,8 +26,9 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
 
         protected override Dictionary<RaymarchingOperationType, string> InitializeTypeDataPropertyPaths() => new()
         {
-            [SmoothUnion]    = nameof(ObservableOperationTypeShaderData.SmoothUnion),
-            [SmoothSubtract] = nameof(ObservableOperationTypeShaderData.SmoothSubtract)
+            [SmoothUnion]     = nameof(ObservableOperationTypeShaderData.SmoothUnion),
+            [SmoothSubtract]  = nameof(ObservableOperationTypeShaderData.SmoothSubtract),
+            [SmoothIntersect] = nameof(ObservableOperationTypeShaderData.SmoothIntersect)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
@@ -36,6 +37,9 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
             [SmoothSubtract] = () => _typeDataProperties[SmoothSubtract]
+                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
+                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
+            [SmoothIntersect] = () => _typeDataProperties[SmoothIntersect]
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius
         };

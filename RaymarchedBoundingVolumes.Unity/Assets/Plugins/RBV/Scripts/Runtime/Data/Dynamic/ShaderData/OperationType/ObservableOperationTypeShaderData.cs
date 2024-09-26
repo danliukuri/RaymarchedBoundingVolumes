@@ -16,11 +16,15 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 SmoothUnion.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 SmoothSubtract.Changed +=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                SmoothIntersect.Changed +=
+                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
             }
             remove
             {
                 SmoothUnion.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 SmoothSubtract.Changed -=
+                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
+                SmoothIntersect.Changed -=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
             }
         }
@@ -31,11 +35,15 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         [field: SerializeField] public ObservableValue<RadiusDefinedOperationShaderData> SmoothSubtract { get; set; } =
             new(RadiusDefinedOperationShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<RadiusDefinedOperationShaderData> SmoothIntersect { get; set; } =
+            new(RadiusDefinedOperationShaderData.Default);
+
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
             Union or Subtract or Intersect or Xor => default(IOperationTypeShaderData),
             RaymarchingOperationType.SmoothUnion => SmoothUnion.Value,
             RaymarchingOperationType.SmoothSubtract => SmoothSubtract.Value,
+            RaymarchingOperationType.SmoothIntersect => SmoothIntersect.Value,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
     }
