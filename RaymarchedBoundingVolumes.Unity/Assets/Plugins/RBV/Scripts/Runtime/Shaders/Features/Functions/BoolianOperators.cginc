@@ -47,3 +47,8 @@ float chamferUnionSDF(float distance1, float distance2, float radius)
 {
     return unionSDF(unionSDF(distance1, distance2), (distance1 + distance2 - radius) * sqrt(0.5));
 }
+
+float chamferSubtractSDF(float distance1, float distance2, float radius)
+{
+    return intersectSDF(subtractSDF(distance1, distance2), (-distance1 + distance2 + radius) * sqrt(0.5));
+}

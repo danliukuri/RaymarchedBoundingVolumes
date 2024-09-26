@@ -30,7 +30,8 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             [SmoothSubtract]  = nameof(ObservableOperationTypeShaderData.SmoothSubtract),
             [SmoothIntersect] = nameof(ObservableOperationTypeShaderData.SmoothIntersect),
             [SmoothXor]       = nameof(ObservableOperationTypeShaderData.SmoothXor),
-            [ChamferUnion]    = nameof(ObservableOperationTypeShaderData.ChamferUnion)
+            [ChamferUnion]    = nameof(ObservableOperationTypeShaderData.ChamferUnion),
+            [ChamferSubtract] = nameof(ObservableOperationTypeShaderData.ChamferSubtract)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
@@ -55,6 +56,9 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
                     .floatValue = SmoothXorOperationShaderData.Default.InnerRadius;
             },
             [ChamferUnion] = () => _typeDataProperties[ChamferUnion]
+                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
+                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
+            [ChamferSubtract] = () => _typeDataProperties[ChamferSubtract]
                 .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
                 .floatValue = RadiusDefinedOperationShaderData.Default.Radius
         };

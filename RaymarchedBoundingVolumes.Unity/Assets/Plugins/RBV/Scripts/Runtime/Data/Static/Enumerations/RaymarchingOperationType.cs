@@ -12,6 +12,7 @@
         SmoothIntersect = 6,
         SmoothXor       = 7,
         
-        ChamferUnion = 8,
+        ChamferUnion    = 8,
+        ChamferSubtract = 9,
     }
 }

@@ -70,6 +70,11 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = chamferUnionSDF(sdf1.distance, sdf2.distance, chamferUnionRadius);
             sdf.color = smoothUnionColor(sdf1, sdf2, chamferUnionRadius);
             break;
+        case OPERATION_TYPE_CHAMFER_SUBTRACT:
+            float chamferSubtractRadius = _RaymarchingChamferSubtractOperationData[operation.typeDataIndex].radius;
+            sdf.distance = chamferSubtractSDF(sdf1.distance, sdf2.distance, chamferSubtractRadius);
+            sdf.color = smoothUnionColor(sdf1, sdf2, chamferSubtractRadius);
+            break;
     }
     return sdf;
 }

@@ -10,3 +10,4 @@ uniform StructuredBuffer<RadiusDefinedOperationData> _RaymarchingSmoothIntersect
 uniform StructuredBuffer<SmoothXorOperationData>     _RaymarchingSmoothXorOperationData;
 
 uniform StructuredBuffer<RadiusDefinedOperationData> _RaymarchingChamferUnionOperationData;
+uniform StructuredBuffer<RadiusDefinedOperationData> _RaymarchingChamferSubtractOperationData;
