@@ -41,3 +41,9 @@ float smoothXorSDF(const float distance1, const float distance2, const float out
     float smoothIntersect = smoothIntersectSDF(distance1, distance2, innerRadius);
     return subtractSDF(smoothIntersect, smoothUnion);
 }
+
+
+float chamferUnionSDF(float distance1, float distance2, float radius)
+{
+    return unionSDF(unionSDF(distance1, distance2), (distance1 + distance2 - radius) * sqrt(0.5));
+}

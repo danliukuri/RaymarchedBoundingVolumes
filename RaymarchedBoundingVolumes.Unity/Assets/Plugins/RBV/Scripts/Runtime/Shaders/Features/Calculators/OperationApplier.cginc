@@ -65,6 +65,11 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = smoothXorSDF(sdf1.distance, sdf2.distance, smoothXorOuterRadius, smoothXorInnerRadius);
             sdf.color = smoothUnionColor(sdf1, sdf2, smoothXorOuterRadius);
             break;
+        case OPERATION_TYPE_CHAMFER_UNION:
+            float chamferUnionRadius = _RaymarchingChamferUnionOperationData[operation.typeDataIndex].radius;
+            sdf.distance = chamferUnionSDF(sdf1.distance, sdf2.distance, chamferUnionRadius);
+            sdf.color = smoothUnionColor(sdf1, sdf2, chamferUnionRadius);
+            break;
     }
     return sdf;
 }
