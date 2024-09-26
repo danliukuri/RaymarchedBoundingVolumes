@@ -9,6 +9,7 @@
 
         SmoothUnion     = 4,
         SmoothSubtract  = 5,
-        SmoothIntersect = 6
+        SmoothIntersect = 6,
+        SmoothXor       = 7
     }
 }

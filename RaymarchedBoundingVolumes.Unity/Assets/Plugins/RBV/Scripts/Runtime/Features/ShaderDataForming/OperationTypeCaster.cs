@@ -16,13 +16,14 @@ namespace RBV.Features.ShaderDataForming
             source.CastToArray(GetShaderDataType(type));
 
         public bool HasCorrespondingShaderData(RaymarchingOperationType type) =>
-            type is SmoothUnion or SmoothSubtract or SmoothIntersect;
+            type is SmoothUnion or SmoothSubtract or SmoothIntersect or SmoothXor;
 
         public Type GetShaderDataType(RaymarchingOperationType type) => type switch
         {
             SmoothUnion     => typeof(RadiusDefinedOperationShaderData),
             SmoothSubtract  => typeof(RadiusDefinedOperationShaderData),
             SmoothIntersect => typeof(RadiusDefinedOperationShaderData),
+            SmoothXor       => typeof(SmoothXorOperationShaderData),
             Union or Subtract or Intersect or Xor =>
                 throw new InvalidOperationException(string.Format(NoShaderData, type.ToString())),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)

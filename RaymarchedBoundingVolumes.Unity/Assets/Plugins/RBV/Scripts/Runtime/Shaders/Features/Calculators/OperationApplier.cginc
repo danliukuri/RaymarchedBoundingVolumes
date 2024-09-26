@@ -59,6 +59,12 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = smoothIntersectSDF(sdf1.distance, sdf2.distance, smoothIntersectionRadius);
             sdf.color    = smoothUnionColor(sdf1, sdf2, smoothIntersectionRadius);
             break;
+        case OPERATION_TYPE_SMOOTH_XOR:
+            float smoothXorOuterRadius = _RaymarchingSmoothXorOperationData[operation.typeDataIndex].outerRadius;
+            float smoothXorInnerRadius = _RaymarchingSmoothXorOperationData[operation.typeDataIndex].innerRadius;
+            sdf.distance = smoothXorSDF(sdf1.distance, sdf2.distance, smoothXorOuterRadius, smoothXorInnerRadius);
+            sdf.color = smoothUnionColor(sdf1, sdf2, smoothXorOuterRadius);
+            break;
     }
     return sdf;
 }
