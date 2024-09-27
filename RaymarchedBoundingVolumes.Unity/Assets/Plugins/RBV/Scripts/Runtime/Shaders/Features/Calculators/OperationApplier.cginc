@@ -68,23 +68,29 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
         case OPERATION_TYPE_CHAMFER_UNION:
             float chamferUnionRadius = _RaymarchingChamferUnionOperationData[operation.typeDataIndex].radius;
             sdf.distance = chamferUnionSDF(sdf1.distance, sdf2.distance, chamferUnionRadius);
-            sdf.color = smoothUnionColor(sdf1, sdf2, chamferUnionRadius);
+            sdf.color    = smoothUnionColor(sdf1, sdf2, chamferUnionRadius);
             break;
         case OPERATION_TYPE_CHAMFER_SUBTRACT:
             float chamferSubtractRadius = _RaymarchingChamferSubtractOperationData[operation.typeDataIndex].radius;
             sdf.distance = chamferSubtractSDF(sdf1.distance, sdf2.distance, chamferSubtractRadius);
-            sdf.color = smoothUnionColor(sdf1, sdf2, chamferSubtractRadius);
+            sdf.color    = smoothUnionColor(sdf1, sdf2, chamferSubtractRadius);
             break;
         case OPERATION_TYPE_CHAMFER_INTERSECT:
             float chamferIntersectRadius = _RaymarchingChamferIntersectOperationData[operation.typeDataIndex].radius;
             sdf.distance = chamferIntersectSDF(sdf1.distance, sdf2.distance, chamferIntersectRadius);
-            sdf.color = smoothUnionColor(sdf1, sdf2, chamferIntersectRadius);
+            sdf.color    = smoothUnionColor(sdf1, sdf2, chamferIntersectRadius);
             break;
         case OPERATION_TYPE_CHAMFER_XOR:
             float chamferXorOuterRadius = _RaymarchingChamferXorOperationData[operation.typeDataIndex].outerRadius;
             float chamferXorInnerRadius = _RaymarchingChamferXorOperationData[operation.typeDataIndex].innerRadius;
             sdf.distance = chamferXorSDF(sdf1.distance, sdf2.distance, chamferXorOuterRadius, chamferXorInnerRadius);
             sdf.color = smoothUnionColor(sdf1, sdf2, chamferXorOuterRadius);
+            break;
+        case OPERATION_TYPE_STAIRS_UNION:
+            float stairsUnionRadius = _RaymarchingStairsUnionOperationData[operation.typeDataIndex].radius;
+            float stairsUnionCount = _RaymarchingStairsUnionOperationData[operation.typeDataIndex].count;
+            sdf.distance           = stairsUnionSDF(sdf1.distance, sdf2.distance, stairsUnionRadius, stairsUnionCount);
+            sdf.color              = smoothUnionColor(sdf1, sdf2, stairsUnionRadius);
             break;
     }
     return sdf;

@@ -64,3 +64,15 @@ float chamferXorSDF(float distance1, float distance2, float outerRadius, float i
     float smoothIntersect = chamferIntersectSDF(distance1, distance2, innerRadius);
     return subtractSDF(smoothIntersect, smoothUnion);
 }
+
+
+float stairsUnionSDF(float distance1, float distance2, float radius, float count)
+{
+    float stepSize           = radius / (count + 1);
+    float roundedSdf2        = addRoundness(distance2, radius);
+    float distanceDifference = roundedSdf2 - distance1 + stepSize;
+    float modulatedValue     = fmod(abs(distanceDifference), 2 * stepSize);
+    float stairsSdf          = 0.5 * (roundedSdf2 + distance1 + abs(modulatedValue - stepSize));
+
+    return unionSDF(unionSDF(distance1, distance2), stairsSdf);
+}

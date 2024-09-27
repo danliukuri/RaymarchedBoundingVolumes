@@ -25,6 +25,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 ChamferIntersect.Changed +=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferXor.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
+                StairsUnion.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
             }
             remove
             {
@@ -40,6 +41,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 ChamferIntersect.Changed -=
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferXor.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
+                StairsUnion.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
             }
         }
 
@@ -68,6 +70,9 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         [field: SerializeField] public ObservableValue<RadiusDefinedXorOperationShaderData> ChamferXor { get; set; } =
             new(RadiusDefinedXorOperationShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<ColumnsOperationShaderData> StairsUnion { get; set; } =
+            new(ColumnsOperationShaderData.Default);
+
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
             Union or Subtract or Intersect or Xor     => default,
@@ -79,6 +84,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
             RaymarchingOperationType.ChamferSubtract  => ChamferSubtract.Value,
             RaymarchingOperationType.ChamferIntersect => ChamferIntersect.Value,
             RaymarchingOperationType.ChamferXor       => ChamferXor.Value,
+            RaymarchingOperationType.StairsUnion      => StairsUnion.Value,
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
