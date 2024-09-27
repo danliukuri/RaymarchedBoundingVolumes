@@ -81,3 +81,8 @@ float stairsSubtractSDF(float distance1, float distance2, float radius, float co
 {
     return -stairsUnionSDF(distance1, -distance2, radius, count - 1);
 }
+
+float stairsIntersectSDF(float distance1, float distance2, float radius, float count)
+{
+    return -stairsUnionSDF(-distance1, -distance2, radius, count);
+}

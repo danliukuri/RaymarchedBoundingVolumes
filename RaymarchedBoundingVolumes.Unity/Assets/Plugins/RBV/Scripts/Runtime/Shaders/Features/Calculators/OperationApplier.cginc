@@ -98,6 +98,13 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance = stairsSubtractSDF(sdf1.distance, sdf2.distance, stairsSubtractRadius, stairsSubtractCount);
             sdf.color = smoothUnionColor(sdf1, sdf2, stairsSubtractRadius);
             break;
+        case OPERATION_TYPE_STAIRS_INTERSECT:
+            float stairsIntersectRadius = _RaymarchingStairsIntersectOperationData[operation.typeDataIndex].radius;
+            float stairsIntersectCount = _RaymarchingStairsIntersectOperationData[operation.typeDataIndex].count;
+            sdf.distance               =
+                stairsIntersectSDF(sdf1.distance, sdf2.distance, stairsIntersectRadius, stairsIntersectCount);
+            sdf.color = smoothUnionColor(sdf1, sdf2, stairsIntersectRadius);
+            break;
     }
     return sdf;
 }

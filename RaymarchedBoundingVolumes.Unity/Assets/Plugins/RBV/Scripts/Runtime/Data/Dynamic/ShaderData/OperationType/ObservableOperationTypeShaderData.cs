@@ -27,6 +27,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 ChamferXor.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
                 StairsUnion.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
                 StairsSubtract.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
+                StairsIntersect.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
             }
             remove
             {
@@ -44,6 +45,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 ChamferXor.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
                 StairsUnion.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
                 StairsSubtract.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
+                StairsIntersect.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
             }
         }
 
@@ -78,6 +80,9 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         [field: SerializeField] public ObservableValue<ColumnsOperationShaderData> StairsSubtract { get; set; } =
             new(ColumnsOperationShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<ColumnsOperationShaderData> StairsIntersect { get; set; } =
+            new(ColumnsOperationShaderData.Default);
+
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
             Union or Subtract or Intersect or Xor     => default,
@@ -91,6 +96,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
             RaymarchingOperationType.ChamferXor       => ChamferXor.Value,
             RaymarchingOperationType.StairsUnion      => StairsUnion.Value,
             RaymarchingOperationType.StairsSubtract   => StairsSubtract.Value,
+            RaymarchingOperationType.StairsIntersect  => StairsIntersect.Value,
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };
