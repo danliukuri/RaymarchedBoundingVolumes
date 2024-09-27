@@ -92,6 +92,12 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
             sdf.distance           = stairsUnionSDF(sdf1.distance, sdf2.distance, stairsUnionRadius, stairsUnionCount);
             sdf.color              = smoothUnionColor(sdf1, sdf2, stairsUnionRadius);
             break;
+        case OPERATION_TYPE_STAIRS_SUBTRACT:
+            float stairsSubtractRadius = _RaymarchingStairsSubtractOperationData[operation.typeDataIndex].radius;
+            float stairsSubtractCount = _RaymarchingStairsSubtractOperationData[operation.typeDataIndex].count;
+            sdf.distance = stairsSubtractSDF(sdf1.distance, sdf2.distance, stairsSubtractRadius, stairsSubtractCount);
+            sdf.color = smoothUnionColor(sdf1, sdf2, stairsSubtractRadius);
+            break;
     }
     return sdf;
 }

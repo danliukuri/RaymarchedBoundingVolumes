@@ -3868,15 +3868,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <Type>k__BackingField.value
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.InnerRadius
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <TypeData>k__BackingField.<ChamferXor>k__BackingField.value.OuterRadius
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5310,11 +5310,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <Type>k__BackingField.value
-      value: 9
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
+      propertyPath: <TypeData>k__BackingField.<StairsSubtract>k__BackingField.value.Radius
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8252581538588472584, guid: 926f10da78ccd5541b665dd83450a6ad, type: 3}
       propertyPath: <TypeData>k__BackingField.<ChamferSubtract>k__BackingField.value.Radius
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

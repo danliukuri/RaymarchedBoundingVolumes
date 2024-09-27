@@ -17,6 +17,7 @@
         ChamferIntersect = 10,
         ChamferXor       = 11,
 
-        StairsUnion = 12
+        StairsUnion    = 12,
+        StairsSubtract = 13
     }
 }

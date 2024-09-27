@@ -34,7 +34,8 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             [ChamferSubtract]  = nameof(ObservableOperationTypeShaderData.ChamferSubtract),
             [ChamferIntersect] = nameof(ObservableOperationTypeShaderData.ChamferIntersect),
             [ChamferXor]       = nameof(ObservableOperationTypeShaderData.ChamferXor),
-            [StairsUnion]      = nameof(ObservableOperationTypeShaderData.StairsUnion)
+            [StairsUnion]      = nameof(ObservableOperationTypeShaderData.StairsUnion),
+            [StairsSubtract]   = nameof(ObservableOperationTypeShaderData.StairsSubtract)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
@@ -84,6 +85,16 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
                     .floatValue = ColumnsOperationShaderData.Default.Radius;
 
                 _typeDataProperties[StairsUnion]
+                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Count))
+                    .intValue = ColumnsOperationShaderData.Default.Count;
+            },
+            [StairsSubtract] = () =>
+            {
+                _typeDataProperties[StairsSubtract]
+                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Radius))
+                    .floatValue = ColumnsOperationShaderData.Default.Radius;
+
+                _typeDataProperties[StairsSubtract]
                     .FindPropertyRelative(nameof(ColumnsOperationShaderData.Count))
                     .intValue = ColumnsOperationShaderData.Default.Count;
             }

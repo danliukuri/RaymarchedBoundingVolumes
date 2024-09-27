@@ -15,3 +15,4 @@ uniform StructuredBuffer<RadiusDefinedOperationData>    _RaymarchingChamferInter
 uniform StructuredBuffer<RadiusDefinedXorOperationData> _RaymarchingChamferXorOperationData;
 
 uniform StructuredBuffer<ColumnsOperationData> _RaymarchingStairsUnionOperationData;
+uniform StructuredBuffer<ColumnsOperationData> _RaymarchingStairsSubtractOperationData;

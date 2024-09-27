@@ -26,6 +26,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferXor.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
                 StairsUnion.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
+                StairsSubtract.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
             }
             remove
             {
@@ -42,6 +43,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                     value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
                 ChamferXor.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
                 StairsUnion.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
+                StairsSubtract.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
             }
         }
 
@@ -73,6 +75,9 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         [field: SerializeField] public ObservableValue<ColumnsOperationShaderData> StairsUnion { get; set; } =
             new(ColumnsOperationShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<ColumnsOperationShaderData> StairsSubtract { get; set; } =
+            new(ColumnsOperationShaderData.Default);
+
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
             Union or Subtract or Intersect or Xor     => default,
@@ -85,6 +90,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
             RaymarchingOperationType.ChamferIntersect => ChamferIntersect.Value,
             RaymarchingOperationType.ChamferXor       => ChamferXor.Value,
             RaymarchingOperationType.StairsUnion      => StairsUnion.Value,
+            RaymarchingOperationType.StairsSubtract   => StairsSubtract.Value,
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };

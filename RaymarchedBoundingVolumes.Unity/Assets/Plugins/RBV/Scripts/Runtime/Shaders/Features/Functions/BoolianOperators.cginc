@@ -76,3 +76,8 @@ float stairsUnionSDF(float distance1, float distance2, float radius, float count
 
     return unionSDF(unionSDF(distance1, distance2), stairsSdf);
 }
+
+float stairsSubtractSDF(float distance1, float distance2, float radius, float count)
+{
+    return -stairsUnionSDF(distance1, -distance2, radius, count - 1);
+}
