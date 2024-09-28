@@ -43,22 +43,22 @@ float smoothXorSDF(const float distance1, const float distance2, const float out
 }
 
 
-float chamferUnionSDF(float distance1, float distance2, float radius)
+float chamferUnionSDF(const float distance1, const float distance2, const float radius)
 {
     return unionSDF(unionSDF(distance1, distance2), (distance1 + distance2 - radius) * sqrt(0.5));
 }
 
-float chamferSubtractSDF(float distance1, float distance2, float radius)
+float chamferSubtractSDF(const float distance1, const float distance2, const float radius)
 {
     return intersectSDF(subtractSDF(distance1, distance2), (-distance1 + distance2 + radius) * sqrt(0.5));
 }
 
-float chamferIntersectSDF(float distance1, float distance2, float radius)
+float chamferIntersectSDF(const float distance1, const float distance2, const float radius)
 {
     return intersectSDF(intersectSDF(distance1, distance2), (distance1 + distance2 + radius) * 0.5);
 }
 
-float chamferXorSDF(float distance1, float distance2, float outerRadius, float innerRadius)
+float chamferXorSDF(const float distance1, const float distance2, const float outerRadius, const float innerRadius)
 {
     float smoothUnion     = chamferUnionSDF(distance1, distance2, outerRadius);
     float smoothIntersect = chamferIntersectSDF(distance1, distance2, innerRadius);
@@ -66,7 +66,7 @@ float chamferXorSDF(float distance1, float distance2, float outerRadius, float i
 }
 
 
-float stairsUnionSDF(float distance1, float distance2, float radius, float count)
+float stairsUnionSDF(const float distance1, const float distance2, const float radius, const float count)
 {
     float stepSize           = radius / (count + 1);
     float roundedSdf2        = addRoundness(distance2, radius);
@@ -77,12 +77,21 @@ float stairsUnionSDF(float distance1, float distance2, float radius, float count
     return unionSDF(unionSDF(distance1, distance2), stairsSdf);
 }
 
-float stairsSubtractSDF(float distance1, float distance2, float radius, float count)
+float stairsSubtractSDF(const float distance1, const float distance2, const float radius, const float count)
 {
     return -stairsUnionSDF(distance1, -distance2, radius, count - 1);
 }
 
-float stairsIntersectSDF(float distance1, float distance2, float radius, float count)
+float stairsIntersectSDF(const float distance1, const float distance2, const float radius, const float count)
 {
     return -stairsUnionSDF(-distance1, -distance2, radius, count);
+}
+
+float stairsXorSDF(const float distance1, const float   distance2,
+                   const float outerRadius, const float innerRadius,
+                   const float outerCount, const float  innerCount)
+{
+    float smoothUnion     = stairsUnionSDF(distance1, distance2, outerRadius, outerCount);
+    float smoothIntersect = stairsIntersectSDF(distance1, distance2, innerRadius, innerCount);
+    return subtractSDF(smoothIntersect, smoothUnion);
 }

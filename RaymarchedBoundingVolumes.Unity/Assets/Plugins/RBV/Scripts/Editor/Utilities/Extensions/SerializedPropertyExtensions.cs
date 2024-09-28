@@ -81,11 +81,17 @@ namespace RBV.Editor.Utilities.Extensions
         public static void DrawChildren(this SerializedProperty    property,
                                         Action<SerializedProperty> drawChild = default)
         {
+            DrawChildren(property, property.depth + 1, drawChild);
+        }
+
+        public static void DrawChildren(this SerializedProperty    property, int depth,
+                                        Action<SerializedProperty> drawChild = default)
+        {
             foreach (SerializedProperty child in property.GetDirectChildren())
                 if (drawChild != default)
                     drawChild.Invoke(child);
                 else
-                    EditorGUILayout.PropertyField(child, true);
+                    child.DrawProperty(new GUIContent(child.displayName), depth);
         }
 
         public static IEnumerable<PropertyAttribute> GetCustomAttributes(this SerializedProperty property) =>

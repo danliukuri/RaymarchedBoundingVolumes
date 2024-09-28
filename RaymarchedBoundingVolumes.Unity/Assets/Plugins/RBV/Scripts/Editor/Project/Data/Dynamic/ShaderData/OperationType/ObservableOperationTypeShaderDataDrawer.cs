@@ -36,79 +36,57 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             [ChamferXor]       = nameof(ObservableOperationTypeShaderData.ChamferXor),
             [StairsUnion]      = nameof(ObservableOperationTypeShaderData.StairsUnion),
             [StairsSubtract]   = nameof(ObservableOperationTypeShaderData.StairsSubtract),
-            [StairsIntersect]  = nameof(ObservableOperationTypeShaderData.StairsIntersect)
+            [StairsIntersect]  = nameof(ObservableOperationTypeShaderData.StairsIntersect),
+            [StairsXor]        = nameof(ObservableOperationTypeShaderData.StairsXor)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
         {
-            [SmoothUnion] = () => _typeDataProperties[SmoothUnion]
-                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
-                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
-            [SmoothSubtract] = () => _typeDataProperties[SmoothSubtract]
-                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
-                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
-            [SmoothIntersect] = () => _typeDataProperties[SmoothIntersect]
-                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
-                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
-            [SmoothXor] = () =>
-            {
-                _typeDataProperties[SmoothXor]
-                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.OuterRadius))
-                    .floatValue = RadiusDefinedXorOperationShaderData.Default.OuterRadius;
-
-                _typeDataProperties[SmoothXor]
-                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.InnerRadius))
-                    .floatValue = RadiusDefinedXorOperationShaderData.Default.InnerRadius;
-            },
-            [ChamferUnion] = () => _typeDataProperties[ChamferUnion]
-                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
-                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
-            [ChamferSubtract] = () => _typeDataProperties[ChamferSubtract]
-                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
-                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
-            [ChamferIntersect] = () => _typeDataProperties[ChamferIntersect]
-                .FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius))
-                .floatValue = RadiusDefinedOperationShaderData.Default.Radius,
-            [ChamferXor] = () =>
-            {
-                _typeDataProperties[ChamferXor]
-                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.OuterRadius))
-                    .floatValue = RadiusDefinedXorOperationShaderData.Default.OuterRadius;
-
-                _typeDataProperties[ChamferXor]
-                    .FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.InnerRadius))
-                    .floatValue = RadiusDefinedXorOperationShaderData.Default.InnerRadius;
-            },
-            [StairsUnion] = () =>
-            {
-                _typeDataProperties[StairsUnion]
-                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Radius))
-                    .floatValue = ColumnsOperationShaderData.Default.Radius;
-
-                _typeDataProperties[StairsUnion]
-                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Count))
-                    .intValue = ColumnsOperationShaderData.Default.Count;
-            },
-            [StairsSubtract] = () =>
-            {
-                _typeDataProperties[StairsSubtract]
-                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Radius))
-                    .floatValue = ColumnsOperationShaderData.Default.Radius;
-
-                _typeDataProperties[StairsSubtract]
-                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Count))
-                    .intValue = ColumnsOperationShaderData.Default.Count;
-            },
-            [StairsIntersect] = () =>
-            {
-                _typeDataProperties[StairsIntersect]
-                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Radius))
-                    .floatValue = ColumnsOperationShaderData.Default.Radius;
-
-                _typeDataProperties[StairsIntersect]
-                    .FindPropertyRelative(nameof(ColumnsOperationShaderData.Count))
-                    .intValue = ColumnsOperationShaderData.Default.Count;
-            }
+            [SmoothUnion]      = () => ResetRadiusDefinedOperationDataProperty(_typeDataProperties[SmoothUnion]),
+            [SmoothSubtract]   = () => ResetRadiusDefinedOperationDataProperty(_typeDataProperties[SmoothSubtract]),
+            [SmoothIntersect]  = () => ResetRadiusDefinedOperationDataProperty(_typeDataProperties[SmoothIntersect]),
+            [SmoothXor]        = () => ResetRadiusDefinedXorOperationDataProperty(_typeDataProperties[SmoothXor]),
+            [ChamferUnion]     = () => ResetRadiusDefinedOperationDataProperty(_typeDataProperties[ChamferUnion]),
+            [ChamferSubtract]  = () => ResetRadiusDefinedOperationDataProperty(_typeDataProperties[ChamferSubtract]),
+            [ChamferIntersect] = () => ResetRadiusDefinedOperationDataProperty(_typeDataProperties[ChamferIntersect]),
+            [ChamferXor]       = () => ResetRadiusDefinedXorOperationDataProperty(_typeDataProperties[ChamferXor]),
+            [StairsUnion]      = () => ResetColumnsOperationDataProperty(_typeDataProperties[StairsUnion]),
+            [StairsSubtract]   = () => ResetColumnsOperationDataProperty(_typeDataProperties[StairsSubtract]),
+            [StairsIntersect]  = () => ResetColumnsOperationDataProperty(_typeDataProperties[StairsIntersect]),
+            [StairsXor]        = () => ResetColumnsXorOperationDataProperty(_typeDataProperties[StairsXor])
         };
+
+        private void ResetRadiusDefinedOperationDataProperty(SerializedProperty property) =>
+            property.FindPropertyRelative(nameof(RadiusDefinedOperationShaderData.Radius)).floatValue =
+                RadiusDefinedOperationShaderData.Default.Radius;
+
+        private void ResetRadiusDefinedXorOperationDataProperty(SerializedProperty property)
+        {
+            property.FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.OuterRadius)).floatValue =
+                RadiusDefinedXorOperationShaderData.Default.OuterRadius;
+
+            property.FindPropertyRelative(nameof(RadiusDefinedXorOperationShaderData.InnerRadius)).floatValue =
+                RadiusDefinedXorOperationShaderData.Default.InnerRadius;
+        }
+
+        private void ResetColumnsOperationDataProperty(SerializedProperty property)
+        {
+            property.FindPropertyRelative(nameof(ColumnsOperationShaderData.Radius)).floatValue =
+                ColumnsOperationShaderData.Default.Radius;
+
+            property.FindPropertyRelative(nameof(ColumnsOperationShaderData.Count)).intValue =
+                ColumnsOperationShaderData.Default.Count;
+        }
+
+        private void ResetColumnsXorOperationDataProperty(SerializedProperty property)
+        {
+            SerializedProperty outerStairsData =
+                property.FindPropertyRelative(nameof(ColumnsXorOperationShaderData.Outer));
+            SerializedProperty innerStairsData =
+                property.FindPropertyRelative(nameof(ColumnsXorOperationShaderData.Inner));
+
+            ResetColumnsOperationDataProperty(outerStairsData);
+            ResetColumnsOperationDataProperty(innerStairsData);
+        }
     }
 }

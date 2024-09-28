@@ -105,6 +105,16 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
                 stairsIntersectSDF(sdf1.distance, sdf2.distance, stairsIntersectRadius, stairsIntersectCount);
             sdf.color = smoothUnionColor(sdf1, sdf2, stairsIntersectRadius);
             break;
+        case OPERATION_TYPE_STAIRS_XOR:
+            float stairsXorOuterRadius = _RaymarchingStairsXorOperationData[operation.typeDataIndex].outer.radius;
+            float stairsXorInnerRadius = _RaymarchingStairsXorOperationData[operation.typeDataIndex].inner.radius;
+            float stairsXorOuterCount  = _RaymarchingStairsXorOperationData[operation.typeDataIndex].outer.count;
+            float stairsXorInnerCount  = _RaymarchingStairsXorOperationData[operation.typeDataIndex].inner.count;
+            sdf.distance               = stairsXorSDF(sdf1.distance, sdf2.distance,
+                                        stairsXorOuterRadius, stairsXorInnerRadius,
+                                        stairsXorOuterCount, stairsXorInnerCount);
+            sdf.color = smoothUnionColor(sdf1, sdf2, stairsXorOuterRadius);
+            break;
     }
     return sdf;
 }

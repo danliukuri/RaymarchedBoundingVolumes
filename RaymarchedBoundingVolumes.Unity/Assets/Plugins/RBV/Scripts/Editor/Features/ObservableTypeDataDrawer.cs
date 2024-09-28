@@ -70,7 +70,7 @@ namespace RBV.Editor.Features
 
             if (_typeDataProperties.TryGetValue(type, out SerializedProperty property))
                 if (DrawOnlyChildren())
-                    property.DrawChildren();
+                    property.DrawChildren(typeDataProperty.depth);
                 else
                     property.DrawProperty(_typeDataLabel, typeDataProperty.depth);
         }

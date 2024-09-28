@@ -16,3 +16,9 @@ struct ColumnsOperationData
     float radius;
     int   count;
 };
+
+struct ColumnsXorOperationData
+{
+    ColumnsOperationData outer;
+    ColumnsOperationData inner;
+};
