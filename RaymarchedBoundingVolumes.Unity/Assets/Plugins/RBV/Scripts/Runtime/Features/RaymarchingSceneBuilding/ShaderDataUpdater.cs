@@ -58,8 +58,12 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
             _changedObjects.Clear();
             _changedOperations.Clear();
-            _changedObjectTypeData.Clear();
             _changedObjectRenderingSettings.Clear();
+
+            _changedOperationTypeData.Clear();
+            _changedObjectTransformData.Clear();
+            _changedObjectTypeData.Clear();
+
             return this;
         }
 
@@ -89,6 +93,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 operation.Changed         -= UpdateOperationData;
                 operation.TypeDataChanged -= UpdateOperationTypeData;
             }
+
             foreach (RaymarchedObject obj in _dataProvider.Data.Objects)
             {
                 obj.Changed                  -= UpdateObjectData;

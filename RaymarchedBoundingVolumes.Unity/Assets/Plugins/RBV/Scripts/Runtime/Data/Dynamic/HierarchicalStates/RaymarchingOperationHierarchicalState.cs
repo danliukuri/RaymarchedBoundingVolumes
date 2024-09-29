@@ -16,7 +16,7 @@ namespace RBV.Data.Dynamic.HierarchicalStates
 
         public override bool Equals(object obj) => obj is RaymarchingOperationHierarchicalState other && Equals(other);
 
-        public override int GetHashCode() => HashCode.Combine(BaseState, Children);
+        public override int GetHashCode() => HashCode.Combine(BaseState, Type, Children);
 
         public static bool operator ==(RaymarchingOperationHierarchicalState left,
                                        RaymarchingOperationHierarchicalState right) => left.Equals(right);
