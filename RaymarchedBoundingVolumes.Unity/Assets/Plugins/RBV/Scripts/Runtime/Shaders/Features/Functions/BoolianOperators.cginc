@@ -95,3 +95,9 @@ float stairsXorSDF(const float distance1, const float   distance2,
     float smoothIntersect = stairsIntersectSDF(distance1, distance2, innerRadius, innerCount);
     return subtractSDF(smoothIntersect, smoothUnion);
 }
+
+
+float morphSDF(const float distance1, const float distance2, const float ratio)
+{
+    return lerp(distance2, distance1, ratio);
+}

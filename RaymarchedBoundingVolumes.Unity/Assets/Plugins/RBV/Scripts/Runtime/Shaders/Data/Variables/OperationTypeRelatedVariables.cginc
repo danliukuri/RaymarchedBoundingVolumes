@@ -18,3 +18,5 @@ uniform StructuredBuffer<ColumnsOperationData>    _RaymarchingStairsUnionOperati
 uniform StructuredBuffer<ColumnsOperationData>    _RaymarchingStairsSubtractOperationData;
 uniform StructuredBuffer<ColumnsOperationData>    _RaymarchingStairsIntersectOperationData;
 uniform StructuredBuffer<ColumnsXorOperationData> _RaymarchingStairsXorOperationData;
+
+uniform StructuredBuffer<RatioDefinedOperationData> _RaymarchingMorphOperationData;

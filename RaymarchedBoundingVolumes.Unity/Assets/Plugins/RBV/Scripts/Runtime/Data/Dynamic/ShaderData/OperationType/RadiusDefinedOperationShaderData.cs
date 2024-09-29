@@ -7,6 +7,6 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
     {
         public float Radius;
 
-        public static RadiusDefinedOperationShaderData Default { get; } = new() { Radius = 0.5f};
+        public static RadiusDefinedOperationShaderData Default { get; } = new() { Radius = 0.5f };
     }
 }

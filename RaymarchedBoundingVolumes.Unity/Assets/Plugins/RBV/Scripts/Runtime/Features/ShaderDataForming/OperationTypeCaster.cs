@@ -35,6 +35,7 @@ namespace RBV.Features.ShaderDataForming
             StairsSubtract   => typeof(ColumnsOperationShaderData),
             StairsIntersect  => typeof(ColumnsOperationShaderData),
             StairsXor        => typeof(ColumnsXorOperationShaderData),
+            Morph            => typeof(RatioDefinedOperationShaderData),
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };

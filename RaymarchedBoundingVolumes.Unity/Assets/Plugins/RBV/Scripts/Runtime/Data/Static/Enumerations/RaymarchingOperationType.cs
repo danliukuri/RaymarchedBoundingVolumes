@@ -20,6 +20,8 @@
         StairsUnion     = 12,
         StairsSubtract  = 13,
         StairsIntersect = 14,
-        StairsXor       = 15
+        StairsXor       = 15,
+
+        Morph = 16
     }
 }

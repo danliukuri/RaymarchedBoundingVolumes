@@ -29,6 +29,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 StairsSubtract.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
                 StairsIntersect.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
                 StairsXor.Changed += value.CastCached<IOperationTypeShaderData, ColumnsXorOperationShaderData>();
+                Morph.Changed += value.CastCached<IOperationTypeShaderData, RatioDefinedOperationShaderData>();
             }
             remove
             {
@@ -48,6 +49,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
                 StairsSubtract.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
                 StairsIntersect.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
                 StairsXor.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsXorOperationShaderData>();
+                Morph.Changed -= value.CastCached<IOperationTypeShaderData, RatioDefinedOperationShaderData>();
             }
         }
 
@@ -88,6 +90,9 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         [field: SerializeField] public ObservableValue<ColumnsXorOperationShaderData> StairsXor { get; set; } =
             new(ColumnsXorOperationShaderData.Default);
 
+        [field: SerializeField] public ObservableValue<RatioDefinedOperationShaderData> Morph { get; set; } =
+            new(RatioDefinedOperationShaderData.Default);
+
         public IOperationTypeShaderData GetShaderData(RaymarchingOperationType type) => type switch
         {
             Union or Subtract or Intersect or Xor     => default,
@@ -103,6 +108,7 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
             RaymarchingOperationType.StairsSubtract   => StairsSubtract.Value,
             RaymarchingOperationType.StairsIntersect  => StairsIntersect.Value,
             RaymarchingOperationType.StairsXor        => StairsXor.Value,
+            RaymarchingOperationType.Morph            => Morph.Value,
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
         };

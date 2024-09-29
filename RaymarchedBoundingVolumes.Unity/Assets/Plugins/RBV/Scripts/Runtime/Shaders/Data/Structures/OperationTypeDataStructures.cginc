@@ -22,3 +22,8 @@ struct ColumnsXorOperationData
     ColumnsOperationData outer;
     ColumnsOperationData inner;
 };
+
+struct RatioDefinedOperationData
+{
+    float ratio;
+};

@@ -37,7 +37,8 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             [StairsUnion]      = nameof(ObservableOperationTypeShaderData.StairsUnion),
             [StairsSubtract]   = nameof(ObservableOperationTypeShaderData.StairsSubtract),
             [StairsIntersect]  = nameof(ObservableOperationTypeShaderData.StairsIntersect),
-            [StairsXor]        = nameof(ObservableOperationTypeShaderData.StairsXor)
+            [StairsXor]        = nameof(ObservableOperationTypeShaderData.StairsXor),
+            [Morph]            = nameof(ObservableOperationTypeShaderData.Morph)
         };
 
         protected override Dictionary<RaymarchingOperationType, Action> InitializeTypeRelatedDataResetters() => new()
@@ -53,7 +54,8 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             [StairsUnion]      = () => ResetColumnsOperationDataProperty(_typeDataProperties[StairsUnion]),
             [StairsSubtract]   = () => ResetColumnsOperationDataProperty(_typeDataProperties[StairsSubtract]),
             [StairsIntersect]  = () => ResetColumnsOperationDataProperty(_typeDataProperties[StairsIntersect]),
-            [StairsXor]        = () => ResetColumnsXorOperationDataProperty(_typeDataProperties[StairsXor])
+            [StairsXor]        = () => ResetColumnsXorOperationDataProperty(_typeDataProperties[StairsXor]),
+            [Morph]            = () => ResetRatioDefinedOperationDataProperty(_typeDataProperties[Morph])
         };
 
         private void ResetRadiusDefinedOperationDataProperty(SerializedProperty property) =>
@@ -88,5 +90,9 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.OperationType
             ResetColumnsOperationDataProperty(outerStairsData);
             ResetColumnsOperationDataProperty(innerStairsData);
         }
+
+        private void ResetRatioDefinedOperationDataProperty(SerializedProperty property) =>
+            property.FindPropertyRelative(nameof(RatioDefinedOperationShaderData.Ratio)).floatValue =
+                RatioDefinedOperationShaderData.Default.Ratio;
     }
 }

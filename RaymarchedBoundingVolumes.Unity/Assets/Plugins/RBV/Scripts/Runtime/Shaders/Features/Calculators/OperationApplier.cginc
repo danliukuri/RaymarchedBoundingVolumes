@@ -7,12 +7,6 @@
 #include "../Functions/BoolianOperators.cginc"
 #include "../Functions/ColorCombinationOperators.cginc"
 
-fixed3 calculateColor(const SDFData sdf1, const SDFData sdf2)
-{
-    bool isSdf1Closer = sdf1.distance < sdf2.distance;
-    return sdf1.color * isSdf1Closer + sdf2.color * !isSdf1Closer;
-}
-
 SDFData applyOperation(const OperationData operation, const SDFData sdf1, const SDFData sdf2)
 {
     SDFData sdf;
@@ -20,7 +14,7 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
     if (sdf1.distance >= _FarClippingPlane || sdf2.distance >= _FarClippingPlane)
     {
         sdf.distance = unionSDF(sdf1.distance, sdf2.distance);
-        sdf.color    = calculateColor(sdf1, sdf2);
+        sdf.color    = unionColor(sdf1, sdf2);
         return sdf;
     }
 
@@ -30,19 +24,19 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
         default:
         case OPERATION_TYPE_UNION:
             sdf.distance = unionSDF(sdf1.distance, sdf2.distance);
-            sdf.color = calculateColor(sdf1, sdf2);
+            sdf.color = unionColor(sdf1, sdf2);
             break;
         case OPERATION_TYPE_SUBTRACT:
             sdf.distance = subtractSDF(sdf1.distance, sdf2.distance);
-            sdf.color = calculateColor(sdf1, sdf2);
+            sdf.color = unionColor(sdf1, sdf2);
             break;
         case OPERATION_TYPE_INTERSECT:
             sdf.distance = intersectSDF(sdf1.distance, sdf2.distance);
-            sdf.color = calculateColor(sdf1, sdf2);
+            sdf.color = unionColor(sdf1, sdf2);
             break;
         case OPERATION_TYPE_XOR:
             sdf.distance = xorSDF(sdf1.distance, sdf2.distance);
-            sdf.color = calculateColor(sdf1, sdf2);
+            sdf.color = unionColor(sdf1, sdf2);
             break;
         case OPERATION_TYPE_SMOOTH_UNION:
             float smoothUnionRadius = _RaymarchingSmoothUnionOperationData[operation.typeDataIndex].radius;
@@ -114,6 +108,11 @@ SDFData applyOperation(const OperationData operation, const SDFData sdf1, const 
                                         stairsXorOuterRadius, stairsXorInnerRadius,
                                         stairsXorOuterCount, stairsXorInnerCount);
             sdf.color = smoothUnionColor(sdf1, sdf2, stairsXorOuterRadius);
+            break;
+        case OPERATION_TYPE_MORPH:
+            float morphRatio = _RaymarchingMorphOperationData[operation.typeDataIndex].ratio;
+            sdf.distance = morphSDF(sdf1.distance, sdf2.distance, morphRatio);
+            sdf.color    = blendColor(sdf1, sdf2, morphRatio);
             break;
     }
     return sdf;
