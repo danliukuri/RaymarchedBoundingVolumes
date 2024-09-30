@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RBV.Editor.Utilities.Extensions;
+using RBV.Utilities.Extensions;
 using RBV.Utilities.Wrappers;
 using UnityEditor;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace RBV.Editor.Features
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            _isInitialized.IfNotInvoke(() => Initialize(property)).IfNotSet(true);
             Initialize(property);
             using (new EditorGUI.PropertyScope(position, label, property))
                 DrawProperty(property);
@@ -34,10 +36,6 @@ namespace RBV.Editor.Features
 
         private ObservableTypeDataDrawer<T> Initialize(SerializedProperty property)
         {
-            if (_isInitialized)
-                return this;
-            _isInitialized = true;
-
             _typeDataLabel = new GUIContent(property.displayName);
 
             _typeProperty = property.serializedObject.FindProperty(GetTypePropertyPath())

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RBV.Data.Dynamic;
 using RBV.Data.Dynamic.HierarchicalStates;
+using RBV.Utilities.Extensions;
 using RBV.Utilities.Wrappers;
 using UnityEngine.SceneManagement;
 
@@ -84,12 +85,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         public IRaymarchingSceneBuilder Update(Scene scene)
         {
-            if (_isNeededToBuildScene)
-            {
-                BuildSceneIfChanged(scene);
-                _isNeededToBuildScene = false;
-            }
-
+            _isNeededToBuildScene.IfYesInvoke(() => BuildSceneIfChanged(scene)).IfYesSet(false);
             return this;
         }
 

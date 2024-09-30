@@ -5,6 +5,8 @@ using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Data.Dynamic.ShaderData.OperationType;
 using RBV.Data.Static.Enumerations;
 using RBV.Features.ShaderDataForming;
+using RBV.Utilities.Extensions;
+using RBV.Utilities.Wrappers;
 using UnityEngine;
 
 namespace RBV.Features.RaymarchingSceneBuilding
@@ -107,25 +109,18 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         public IShaderDataUpdater Update()
         {
-            if (_isOperationNodesDataChanged)
-                UpdateOperationNodesData();
-            if (_isOperationsDataChanged)
-                UpdateOperationsData();
-            if (_isObjectsDataChanged)
-                UpdateObjectsData();
+            _isOperationNodesDataChanged.IfYesInvoke(UpdateOperationNodesData).IfYesSet(false);
+            _isOperationsDataChanged.IfYesInvoke(UpdateOperationsData).IfYesSet(false);
+            _isObjectsDataChanged.IfYesInvoke(UpdateObjectsData).IfYesSet(false);
 
-            foreach (RaymarchingOperationType type in _dataProvider.Data.OperationsShaderDataByType.Keys)
-                if (_isOperationTypeDataChanged[type])
-                    UpdateOperationsTypeData(type);
-            foreach (TransformType type in _dataProvider.Data.ObjectsByTransformsType.Keys)
-                if (_isObjectTransformDataChanged[type])
-                    UpdateObjectsTransformData(type);
-            foreach (RaymarchedObjectType type in _dataProvider.Data.ObjectsShaderDataByType.Keys)
-                if (_isObjectTypeDataChanged[type])
-                    UpdateObjectsTypeData(type);
+            _isOperationTypeDataChanged.ToForeachBuilder(_dataProvider.Data.OperationsShaderDataByType.Keys)
+                .ForeachYesInvoke(UpdateOperationsTypeData).ForeachYesSet(false).Execute();
+            _isObjectTransformDataChanged.ToForeachBuilder(_dataProvider.Data.ObjectsByTransformsType.Keys)
+                .ForeachYesInvoke(UpdateObjectsTransformData).ForeachYesSet(false).Execute();
+            _isObjectTypeDataChanged.ToForeachBuilder(_dataProvider.Data.ObjectsShaderDataByType.Keys)
+                .ForeachYesInvoke(UpdateObjectsTypeData).ForeachYesSet(false).Execute();
 
-            if (_isObjectsRenderingSettingsChanged)
-                UpdateObjectsRenderingSettingsData();
+            _isObjectsRenderingSettingsChanged.IfYesInvoke(UpdateObjectsRenderingSettingsData).IfYesSet(false);
 
             return this;
         }
@@ -191,8 +186,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _shaderBuffers.OperationNodes.SetData(_dataProvider.Data.OperationNodesShaderData);
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchingOperationNodes,
                 _shaderBuffers.OperationNodes);
-
-            _isOperationNodesDataChanged = false;
         }
 
         private void UpdateOperationsData()
@@ -207,8 +200,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 _dataProvider.Data.OperationsShaderData.Count);
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchingOperations,
                 _shaderBuffers.Operations);
-
-            _isOperationsDataChanged = false;
         }
 
         private void UpdateOperationsTypeData(RaymarchingOperationType type)
@@ -228,8 +219,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _shaderBuffers.OperationTypeData[type].SetData(_dataProvider.Data.OperationsShaderDataByType[type]);
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.OperationTypeDataIds[type],
                 _shaderBuffers.OperationTypeData[type]);
-
-            _isOperationTypeDataChanged[type] = false;
         }
 
         private void UpdateObjectsData()
@@ -244,8 +233,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
             _shaderBuffers.Objects.SetData(_dataProvider.Data.ObjectsShaderData);
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchedObjects, _shaderBuffers.Objects);
-
-            _isObjectsDataChanged = false;
         }
 
         private void UpdateObjectsTransformData(TransformType type)
@@ -267,8 +254,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 .SetData(_dataProvider.Data.ObjectTransformsShaderDataByType[type]);
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.ObjectTransformDataIds[type],
                 _shaderBuffers.ObjectTransformData[type]);
-
-            _isObjectTransformDataChanged[type] = false;
         }
 
         private void UpdateObjectsTypeData(RaymarchedObjectType type)
@@ -288,8 +273,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _shaderBuffers.ObjectTypeData[type].SetData(_dataProvider.Data.ObjectsShaderDataByType[type]);
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.ObjectTypeDataIds[type],
                 _shaderBuffers.ObjectTypeData[type]);
-
-            _isObjectTypeDataChanged[type] = false;
         }
 
         private void UpdateObjectsRenderingSettingsData()
@@ -305,8 +288,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _shaderBuffers.ObjectsRenderingSettings.SetData(_dataProvider.Data.ObjectsRenderingSettingsShaderData);
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchedObjectsRenderingSettings,
                 _shaderBuffers.ObjectsRenderingSettings);
-
-            _isObjectsRenderingSettingsChanged = false;
         }
     }
 }
