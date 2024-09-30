@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using RBV.Data.Dynamic.ShaderData.ObjectType;
+using RBV.Data.Dynamic.ShaderData.OperationType;
 
 namespace RBV.Utilities.Wrappers
 {
@@ -17,6 +19,14 @@ namespace RBV.Utilities.Wrappers
 
             return _actionsCache[source][typeof(TResult)] as Action<ChangedValue<TResult>>;
         }
+
+        public static Action<ChangedValue<TResult>> CastCached<TResult>(
+            this Action<ChangedValue<IObjectTypeShaderData>> source) where TResult : IObjectTypeShaderData =>
+            source.CastCached<IObjectTypeShaderData, TResult>();
+
+        public static Action<ChangedValue<TResult>> CastCached<TResult>(
+            this Action<ChangedValue<IOperationTypeShaderData>> source) where TResult : IOperationTypeShaderData =>
+            source.CastCached<IOperationTypeShaderData, TResult>();
 
         public static Action<ChangedValue<TResult>> CastCached<TSource, TResult>(
             this Action<ChangedValue<TSource>> source) where TResult : TSource

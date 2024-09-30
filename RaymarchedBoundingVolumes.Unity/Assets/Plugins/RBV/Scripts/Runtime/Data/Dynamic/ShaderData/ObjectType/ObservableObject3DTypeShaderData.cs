@@ -12,37 +12,37 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         {
             add
             {
-                Cube.Changed              += value.CastCached<IObjectTypeShaderData, CubeShaderData>();
-                Sphere.Changed            += value.CastCached<IObjectTypeShaderData, SphereShaderData>();
-                Ellipsoid.Changed         += value.CastCached<IObjectTypeShaderData, EllipsoidShaderData>();
-                Capsule.Changed           += value.CastCached<IObjectTypeShaderData, CapsuleShaderData>();
-                EllipticCapsule.Changed   += value.CastCached<IObjectTypeShaderData, EllipticCapsuleShaderData>();
-                Cylinder.Changed          += value.CastCached<IObjectTypeShaderData, CylinderShaderData>();
-                EllipticCylinder.Changed  += value.CastCached<IObjectTypeShaderData, EllipticCylinderShaderData>();
-                Plane.Changed             += value.CastCached<IObjectTypeShaderData, PlaneShaderData>();
-                Cone.Changed              += value.CastCached<IObjectTypeShaderData, CapsuleShaderData>();
-                CappedCone.Changed        += value.CastCached<IObjectTypeShaderData, CappedConeShaderData>();
-                Torus.Changed             += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                CappedTorus.Changed       += value.CastCached<IObjectTypeShaderData, CappedTorusShaderData>();
-                RegularPrism.Changed      += value.CastCached<IObjectTypeShaderData, RegularPrismShaderData>();
-                RegularPolyhedron.Changed += value.CastCached<IObjectTypeShaderData, RegularPolyhedronShaderData>();
+                Cube.Changed              += value.CastCached<CubeShaderData>();
+                Sphere.Changed            += value.CastCached<SphereShaderData>();
+                Ellipsoid.Changed         += value.CastCached<EllipsoidShaderData>();
+                Capsule.Changed           += value.CastCached<CapsuleShaderData>();
+                EllipticCapsule.Changed   += value.CastCached<EllipticCapsuleShaderData>();
+                Cylinder.Changed          += value.CastCached<CylinderShaderData>();
+                EllipticCylinder.Changed  += value.CastCached<EllipticCylinderShaderData>();
+                Plane.Changed             += value.CastCached<PlaneShaderData>();
+                Cone.Changed              += value.CastCached<CapsuleShaderData>();
+                CappedCone.Changed        += value.CastCached<CappedConeShaderData>();
+                Torus.Changed             += value.CastCached<TorusShaderData>();
+                CappedTorus.Changed       += value.CastCached<CappedTorusShaderData>();
+                RegularPrism.Changed      += value.CastCached<RegularPrismShaderData>();
+                RegularPolyhedron.Changed += value.CastCached<RegularPolyhedronShaderData>();
             }
             remove
             {
-                Cube.Changed              -= value.CastCached<IObjectTypeShaderData, CubeShaderData>();
-                Sphere.Changed            -= value.CastCached<IObjectTypeShaderData, SphereShaderData>();
-                Ellipsoid.Changed         -= value.CastCached<IObjectTypeShaderData, EllipsoidShaderData>();
-                Capsule.Changed           -= value.CastCached<IObjectTypeShaderData, CapsuleShaderData>();
-                EllipticCapsule.Changed   -= value.CastCached<IObjectTypeShaderData, EllipticCapsuleShaderData>();
-                Cylinder.Changed          -= value.CastCached<IObjectTypeShaderData, CylinderShaderData>();
-                EllipticCylinder.Changed  -= value.CastCached<IObjectTypeShaderData, EllipticCylinderShaderData>();
-                Plane.Changed             -= value.CastCached<IObjectTypeShaderData, PlaneShaderData>();
-                Cone.Changed              -= value.CastCached<IObjectTypeShaderData, CapsuleShaderData>();
-                CappedCone.Changed        -= value.CastCached<IObjectTypeShaderData, CappedConeShaderData>();
-                Torus.Changed             -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                CappedTorus.Changed       -= value.CastCached<IObjectTypeShaderData, CappedTorusShaderData>();
-                RegularPrism.Changed      -= value.CastCached<IObjectTypeShaderData, RegularPrismShaderData>();
-                RegularPolyhedron.Changed -= value.CastCached<IObjectTypeShaderData, RegularPolyhedronShaderData>();
+                Cube.Changed              -= value.CastCached<CubeShaderData>();
+                Sphere.Changed            -= value.CastCached<SphereShaderData>();
+                Ellipsoid.Changed         -= value.CastCached<EllipsoidShaderData>();
+                Capsule.Changed           -= value.CastCached<CapsuleShaderData>();
+                EllipticCapsule.Changed   -= value.CastCached<EllipticCapsuleShaderData>();
+                Cylinder.Changed          -= value.CastCached<CylinderShaderData>();
+                EllipticCylinder.Changed  -= value.CastCached<EllipticCylinderShaderData>();
+                Plane.Changed             -= value.CastCached<PlaneShaderData>();
+                Cone.Changed              -= value.CastCached<CapsuleShaderData>();
+                CappedCone.Changed        -= value.CastCached<CappedConeShaderData>();
+                Torus.Changed             -= value.CastCached<TorusShaderData>();
+                CappedTorus.Changed       -= value.CastCached<CappedTorusShaderData>();
+                RegularPrism.Changed      -= value.CastCached<RegularPrismShaderData>();
+                RegularPolyhedron.Changed -= value.CastCached<RegularPolyhedronShaderData>();
             }
         }
 

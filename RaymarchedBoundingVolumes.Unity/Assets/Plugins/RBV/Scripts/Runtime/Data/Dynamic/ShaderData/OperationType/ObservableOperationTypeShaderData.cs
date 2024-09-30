@@ -13,43 +13,35 @@ namespace RBV.Data.Dynamic.ShaderData.OperationType
         {
             add
             {
-                SmoothUnion.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothSubtract.Changed +=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothIntersect.Changed +=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothXor.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
-                ChamferUnion.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                ChamferSubtract.Changed +=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                ChamferIntersect.Changed +=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                ChamferXor.Changed += value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
-                StairsUnion.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
-                StairsSubtract.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
-                StairsIntersect.Changed += value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
-                StairsXor.Changed += value.CastCached<IOperationTypeShaderData, ColumnsXorOperationShaderData>();
-                Morph.Changed += value.CastCached<IOperationTypeShaderData, RatioDefinedOperationShaderData>();
+                SmoothUnion.Changed      += value.CastCached<RadiusDefinedOperationShaderData>();
+                SmoothSubtract.Changed   += value.CastCached<RadiusDefinedOperationShaderData>();
+                SmoothIntersect.Changed  += value.CastCached<RadiusDefinedOperationShaderData>();
+                SmoothXor.Changed        += value.CastCached<RadiusDefinedXorOperationShaderData>();
+                ChamferUnion.Changed     += value.CastCached<RadiusDefinedOperationShaderData>();
+                ChamferSubtract.Changed  += value.CastCached<RadiusDefinedOperationShaderData>();
+                ChamferIntersect.Changed += value.CastCached<RadiusDefinedOperationShaderData>();
+                ChamferXor.Changed       += value.CastCached<RadiusDefinedXorOperationShaderData>();
+                StairsUnion.Changed      += value.CastCached<ColumnsOperationShaderData>();
+                StairsSubtract.Changed   += value.CastCached<ColumnsOperationShaderData>();
+                StairsIntersect.Changed  += value.CastCached<ColumnsOperationShaderData>();
+                StairsXor.Changed        += value.CastCached<ColumnsXorOperationShaderData>();
+                Morph.Changed            += value.CastCached<RatioDefinedOperationShaderData>();
             }
             remove
             {
-                SmoothUnion.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothSubtract.Changed -=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothIntersect.Changed -=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                SmoothXor.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
-                ChamferUnion.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                ChamferSubtract.Changed -=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                ChamferIntersect.Changed -=
-                    value.CastCached<IOperationTypeShaderData, RadiusDefinedOperationShaderData>();
-                ChamferXor.Changed -= value.CastCached<IOperationTypeShaderData, RadiusDefinedXorOperationShaderData>();
-                StairsUnion.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
-                StairsSubtract.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
-                StairsIntersect.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsOperationShaderData>();
-                StairsXor.Changed -= value.CastCached<IOperationTypeShaderData, ColumnsXorOperationShaderData>();
-                Morph.Changed -= value.CastCached<IOperationTypeShaderData, RatioDefinedOperationShaderData>();
+                SmoothUnion.Changed      -= value.CastCached<RadiusDefinedOperationShaderData>();
+                SmoothSubtract.Changed   -= value.CastCached<RadiusDefinedOperationShaderData>();
+                SmoothIntersect.Changed  -= value.CastCached<RadiusDefinedOperationShaderData>();
+                SmoothXor.Changed        -= value.CastCached<RadiusDefinedXorOperationShaderData>();
+                ChamferUnion.Changed     -= value.CastCached<RadiusDefinedOperationShaderData>();
+                ChamferSubtract.Changed  -= value.CastCached<RadiusDefinedOperationShaderData>();
+                ChamferIntersect.Changed -= value.CastCached<RadiusDefinedOperationShaderData>();
+                ChamferXor.Changed       -= value.CastCached<RadiusDefinedXorOperationShaderData>();
+                StairsUnion.Changed      -= value.CastCached<ColumnsOperationShaderData>();
+                StairsSubtract.Changed   -= value.CastCached<ColumnsOperationShaderData>();
+                StairsIntersect.Changed  -= value.CastCached<ColumnsOperationShaderData>();
+                StairsXor.Changed        -= value.CastCached<ColumnsXorOperationShaderData>();
+                Morph.Changed            -= value.CastCached<RatioDefinedOperationShaderData>();
             }
         }
 
