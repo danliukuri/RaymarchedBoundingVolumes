@@ -1,4 +1,5 @@
 ﻿using System;
+using RBV.Utilities.Attributes;
 
 namespace RBV.Data.Dynamic.ShaderData.ObjectType
 {
@@ -6,10 +7,10 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
     public struct CappedTorusShaderData : IObjectTypeShaderData
     {
         public float CapAngle;
-        public float MajorDiameter;
-        public float MinorDiameter;
+
+        [Unwrapped] public TorusShaderData Torus;
 
         public static CappedTorusShaderData Default { get; } =
-            new() { CapAngle = 270f, MajorDiameter = 1f, MinorDiameter = 0.5f };
+            new() { CapAngle = 270f, Torus = TorusShaderData.Default };
     }
 }

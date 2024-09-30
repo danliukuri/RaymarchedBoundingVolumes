@@ -4,7 +4,6 @@
 
 #include "Object3DRotator.cginc"
 #include "../../Data/Enumerations/Object3DTypeEnumeration.cginc"
-#include "../../Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../Data/Variables/ObjectTypeRelatedVariables.cginc"
 #include "../../Data/Structures/RaymarchingDataStructures.cginc"
 #include "../Functions/SDFs.cginc"
@@ -31,15 +30,16 @@ float calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransform
             break;
         case OBJECT_3D_TYPE_CAPSULE:
             CapsuleData capsuleData = _RaymarchedCapsuleData[objectData.typeDataIndex];
-            distance = calculateCapsuleSDF(position, capsuleData.halfHeight, capsuleData.radius);
+            distance = calculateCapsuleSDF(position, capsuleData.halfHeight, capsuleData.base.radius);
             break;
         case OBJECT_3D_TYPE_ELLIPTIC_CAPSULE:
             EllipticCapsuleData ellipticCapsuleData = _RaymarchedEllipticCapsuleData[objectData.typeDataIndex];
-            distance = calculateEllipticCapsuleSDF(position, ellipticCapsuleData.halfHeight, ellipticCapsuleData.radii);
+            distance = calculateEllipticCapsuleSDF(position, ellipticCapsuleData.halfHeight,
+                                                   ellipticCapsuleData.ellipsoid.radii);
             break;
         case OBJECT_3D_TYPE_CYLINDER:
             CylinderData cylinderData = _RaymarchedCylinderData[objectData.typeDataIndex];
-            distance = calculateCylinderSDF(position, cylinderData.height, cylinderData.radius);
+            distance = calculateCylinderSDF(position, cylinderData.height, cylinderData.base.radius);
             break;
         case OBJECT_3D_TYPE_ELLIPTIC_CYLINDER:
             EllipticCylinderData ellipticCylinderData = _RaymarchedEllipticCylinderData[objectData.typeDataIndex];
@@ -49,8 +49,8 @@ float calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransform
             distance = calculatePlaneSDF(position, _RaymarchedPlaneData[objectData.typeDataIndex].halfDimensions);
             break;
         case OBJECT_3D_TYPE_CONE:
-            ConeData coneData = _RaymarchedConeData[objectData.typeDataIndex];
-            distance = calculateConeSDF(position, coneData.halfHeight, coneData.radius);
+            CapsuleData coneData = _RaymarchedConeData[objectData.typeDataIndex];
+            distance = calculateConeSDF(position, coneData.halfHeight, coneData.base.radius);
             break;
         case OBJECT_3D_TYPE_CAPPED_CONE:
             CappedConeData cappedConeData = _RaymarchedCappedConeData[objectData.typeDataIndex];
@@ -64,7 +64,7 @@ float calculateObjectSDF(float3 position, ObjectData objectData, ObjectTransform
         case OBJECT_3D_TYPE_CAPPED_TORUS:
             CappedTorusData cappedTorusData = _RaymarchedCappedTorusData[objectData.typeDataIndex];
             distance = calculateCappedTorusSDF(position, cappedTorusData.capAngle,
-                                               cappedTorusData.majorRadius, cappedTorusData.minorRadius);
+                                               cappedTorusData.torus.majorRadius, cappedTorusData.torus.minorRadius);
             break;
         case OBJECT_3D_TYPE_REGULAR_PRISM:
             RegularPrismData regularPrismData = _RaymarchedRegularPrismData[objectData.typeDataIndex];

@@ -57,43 +57,28 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
             Dictionary<RaymarchedObject3DType, SerializedProperty> typeDataProperties) => new()
         {
             [Cube] = () => typeDataProperties[Cube]
-                .FindPropertyRelative(nameof(RaymarchedCubeShaderData.Dimensions))
-                .vector3Value = RaymarchedCubeShaderData.Default.Dimensions,
-            [Sphere] = () => typeDataProperties[Sphere]
-                .FindPropertyRelative(nameof(SphereShaderData.Diameter))
-                .floatValue = SphereShaderData.Default.Diameter,
-            [Ellipsoid] = () => typeDataProperties[Ellipsoid]
-                .FindPropertyRelative(nameof(EllipsoidShaderData.Diameters))
-                .vector3Value = EllipsoidShaderData.Default.Diameters,
-            [Capsule] = () =>
-            {
-                typeDataProperties[Capsule]
-                    .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Diameter))
-                    .floatValue = RaymarchedCapsuleShaderData.Default.Diameter;
-
-                typeDataProperties[Capsule]
-                    .FindPropertyRelative(nameof(RaymarchedCapsuleShaderData.Height))
-                    .floatValue = RaymarchedCapsuleShaderData.Default.Height;
-            },
+                .FindPropertyRelative(nameof(CubeShaderData.Dimensions))
+                .vector3Value = CubeShaderData.Default.Dimensions,
+            [Sphere]    = () => ResetSphereData(typeDataProperties[Sphere]),
+            [Ellipsoid] = () => ResetEllipsoidData(typeDataProperties[Ellipsoid]),
+            [Capsule]   = () => ResetCapsuleData(typeDataProperties[Capsule]),
             [EllipticCapsule] = () =>
             {
                 typeDataProperties[EllipticCapsule]
-                    .FindPropertyRelative(nameof(EllipticCapsuleShaderData.Diameters))
-                    .vector3Value = EllipticCapsuleShaderData.Default.Diameters;
-
-                typeDataProperties[EllipticCapsule]
                     .FindPropertyRelative(nameof(EllipticCapsuleShaderData.Height))
                     .floatValue = EllipticCapsuleShaderData.Default.Height;
+
+                ResetEllipsoidData(typeDataProperties[EllipticCapsule]
+                    .FindPropertyRelative(nameof(EllipticCapsuleShaderData.Ellipsoid)));
             },
             [Cylinder] = () =>
             {
                 typeDataProperties[Cylinder]
-                    .FindPropertyRelative(nameof(RaymarchedCylinderShaderData.Diameter))
-                    .floatValue = RaymarchedCylinderShaderData.Default.Diameter;
+                    .FindPropertyRelative(nameof(CylinderShaderData.Height))
+                    .floatValue = CylinderShaderData.Default.Height;
 
-                typeDataProperties[Cylinder]
-                    .FindPropertyRelative(nameof(RaymarchedCylinderShaderData.Height))
-                    .floatValue = RaymarchedCylinderShaderData.Default.Height;
+                ResetSphereData(typeDataProperties[Cylinder]
+                    .FindPropertyRelative(nameof(CylinderShaderData.Base)));
             },
             [EllipticCylinder] = () => typeDataProperties[EllipticCylinder]
                 .FindPropertyRelative(nameof(EllipticCylinderShaderData.Dimensions))
@@ -101,16 +86,7 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
             [Plane] = () => typeDataProperties[Plane]
                 .FindPropertyRelative(nameof(PlaneShaderData.Dimensions))
                 .vector3Value = PlaneShaderData.Default.Dimensions,
-            [Cone] = () =>
-            {
-                typeDataProperties[Cone]
-                    .FindPropertyRelative(nameof(RaymarchedConeShaderData.Height))
-                    .floatValue = RaymarchedConeShaderData.Default.Height;
-
-                typeDataProperties[Cone]
-                    .FindPropertyRelative(nameof(RaymarchedConeShaderData.Diameter))
-                    .floatValue = RaymarchedConeShaderData.Default.Diameter;
-            },
+            [Cone] = () => ResetCapsuleData(typeDataProperties[Cone]),
             [CappedCone] = () =>
             {
                 typeDataProperties[Cone]
@@ -125,29 +101,15 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
                     .FindPropertyRelative(nameof(CappedConeShaderData.BottomBaseDiameter))
                     .floatValue = CappedConeShaderData.Default.BottomBaseDiameter;
             },
-            [Torus] = () =>
-            {
-                typeDataProperties[Torus]
-                    .FindPropertyRelative(nameof(TorusShaderData.MajorDiameter))
-                    .floatValue = TorusShaderData.Default.MajorDiameter;
-
-                typeDataProperties[Torus]
-                    .FindPropertyRelative(nameof(TorusShaderData.MinorDiameter))
-                    .floatValue = TorusShaderData.Default.MinorDiameter;
-            },
+            [Torus] = () => ResetTorusDataProperty(typeDataProperties[Torus]),
             [CappedTorus] = () =>
             {
                 typeDataProperties[CappedTorus]
                     .FindPropertyRelative(nameof(CappedTorusShaderData.CapAngle))
                     .floatValue = CappedTorusShaderData.Default.CapAngle;
 
-                typeDataProperties[CappedTorus]
-                    .FindPropertyRelative(nameof(CappedTorusShaderData.MajorDiameter))
-                    .floatValue = CappedTorusShaderData.Default.MajorDiameter;
-
-                typeDataProperties[CappedTorus]
-                    .FindPropertyRelative(nameof(CappedTorusShaderData.MinorDiameter))
-                    .floatValue = CappedTorusShaderData.Default.MinorDiameter;
+                ResetTorusDataProperty(typeDataProperties[CappedTorus]
+                    .FindPropertyRelative(nameof(CappedTorusShaderData.Torus)));
             },
             [RegularPrism] = () =>
             {
@@ -179,5 +141,30 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
                     .intValue = RegularPolyhedronShaderData.Default.ActiveBoundPlanesRange.End;
             }
         };
+
+        private static void ResetSphereData(SerializedProperty property) =>
+            property.FindPropertyRelative(nameof(SphereShaderData.Diameter)).floatValue =
+                SphereShaderData.Default.Diameter;
+
+        private static void ResetEllipsoidData(SerializedProperty property) =>
+            property.FindPropertyRelative(nameof(EllipsoidShaderData.Diameters)).vector3Value =
+                EllipsoidShaderData.Default.Diameters;
+
+        private static void ResetCapsuleData(SerializedProperty property)
+        {
+            property.FindPropertyRelative(nameof(CapsuleShaderData.Height)).floatValue =
+                CapsuleShaderData.Default.Height;
+
+            ResetSphereData(property.FindPropertyRelative(nameof(CapsuleShaderData.Base)));
+        }
+
+        private static void ResetTorusDataProperty(SerializedProperty property)
+        {
+            property.FindPropertyRelative(nameof(TorusShaderData.MajorDiameter)).floatValue =
+                TorusShaderData.Default.MajorDiameter;
+
+            property.FindPropertyRelative(nameof(TorusShaderData.MinorDiameter)).floatValue =
+                TorusShaderData.Default.MinorDiameter;
+        }
     }
 }

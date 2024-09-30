@@ -1,13 +1,15 @@
 ﻿using System;
+using RBV.Utilities.Attributes;
 
 namespace RBV.Data.Dynamic.ShaderData.ObjectType
 {
     [Serializable]
-    public struct RaymarchedCylinderShaderData : IObjectTypeShaderData
+    public struct CylinderShaderData : IObjectTypeShaderData
     {
         public float Height;
-        public float Diameter;
 
-        public static RaymarchedCylinderShaderData Default { get; } = new() { Diameter = 1f, Height = 1f };
+        [Unwrapped] public SphereShaderData Base;
+
+        public static CylinderShaderData Default { get; } = new() { Height = 1f, Base = SphereShaderData.Default };
     }
 }

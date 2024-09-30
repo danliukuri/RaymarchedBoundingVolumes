@@ -18,15 +18,15 @@ namespace RBV.Features.ShaderDataForming
 
         protected Type GetShaderDataType(RaymarchedObject3DType type) => type switch
         {
-            Cube              => typeof(RaymarchedCubeShaderData),
+            Cube              => typeof(CubeShaderData),
             Sphere            => typeof(SphereShaderData),
             Ellipsoid         => typeof(EllipsoidShaderData),
-            Capsule           => typeof(RaymarchedCapsuleShaderData),
+            Capsule           => typeof(CapsuleShaderData),
             EllipticCapsule   => typeof(EllipticCapsuleShaderData),
-            Cylinder          => typeof(RaymarchedCylinderShaderData),
+            Cylinder          => typeof(CylinderShaderData),
             EllipticCylinder  => typeof(EllipticCylinderShaderData),
             Plane             => typeof(PlaneShaderData),
-            Cone              => typeof(RaymarchedConeShaderData),
+            Cone              => typeof(CapsuleShaderData),
             CappedCone        => typeof(CappedConeShaderData),
             Torus             => typeof(TorusShaderData),
             CappedTorus       => typeof(CappedTorusShaderData),

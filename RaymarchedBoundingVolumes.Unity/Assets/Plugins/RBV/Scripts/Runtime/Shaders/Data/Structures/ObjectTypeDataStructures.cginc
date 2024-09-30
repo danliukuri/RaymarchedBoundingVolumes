@@ -19,20 +19,20 @@ struct EllipsoidData
 
 struct CapsuleData
 {
-    float halfHeight;
-    float radius;
+    float      halfHeight;
+    SphereData base;
 };
 
 struct EllipticCapsuleData
 {
-    float  halfHeight;
-    float3 radii;
+    float         halfHeight;
+    EllipsoidData ellipsoid;
 };
 
 struct CylinderData
 {
-    float height;
-    float radius;
+    float      height;
+    SphereData base;
 };
 
 struct EllipticCylinderData
@@ -43,12 +43,6 @@ struct EllipticCylinderData
 struct PlaneData
 {
     float3 halfDimensions;
-};
-
-struct ConeData
-{
-    float halfHeight;
-    float radius;
 };
 
 struct CappedConeData
@@ -66,9 +60,8 @@ struct TorusData
 
 struct CappedTorusData
 {
-    float capAngle;
-    float majorRadius;
-    float minorRadius;
+    float     capAngle;
+    TorusData torus;
 };
 
 struct RegularPrismData
