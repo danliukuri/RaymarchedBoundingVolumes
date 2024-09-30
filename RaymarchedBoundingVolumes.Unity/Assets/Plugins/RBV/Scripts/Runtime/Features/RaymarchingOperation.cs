@@ -2,19 +2,22 @@
 using RBV.Data.Dynamic;
 using RBV.Data.Dynamic.HierarchicalStates;
 using RBV.Data.Dynamic.ShaderData;
+using RBV.Data.Dynamic.ShaderData.OperationType;
+using RBV.Data.Static.Enumerations;
 using RBV.Infrastructure;
 using RBV.Utilities.Wrappers;
 using UnityEngine;
-using Type = RBV.Data.Static.Enumerations.RaymarchingOperationType;
 
 namespace RBV.Features
 {
     public class RaymarchingOperation : RaymarchingHierarchicalFeature<RaymarchingOperation>
     {
         public event Action<RaymarchingOperation> Changed;
+        public event Action<RaymarchingOperation> TypeChanged;
+        public event Action<RaymarchingOperation> TypeDataChanged;
 
-        [field: SerializeField] public ObservableValue<Type>  OperationType { get; private set; }
-        [field: SerializeField] public ObservableValue<float> BlendStrength { get; private set; }
+        [field: SerializeField] public ObservableValue<RaymarchingOperationType> Type     { get; private set; }
+        [field: SerializeField] public ObservableOperationTypeShaderData         TypeData { get; private set; }
 
         private IRaymarchingChildrenCalculator _raymarchingChildrenCalculator;
 
@@ -22,12 +25,17 @@ namespace RBV.Features
 
         public RaymarchingOperationShaderData ShaderData => new()
         {
-            OperationType = (int)OperationType.Value,
-            BlendStrength = BlendStrength.Value
+            OperationType = (int)Type.Value,
+            TypeDataIndex = TypeDataIndex
         };
 
         public override IRaymarchingFeatureHierarchicalState HierarchicalState =>
-            new RaymarchingOperationHierarchicalState { BaseState = base.HierarchicalState, Children = Children };
+            new RaymarchingOperationHierarchicalState
+                { BaseState = base.HierarchicalState, Type = Type.Value, Children = Children };
+
+        public IOperationTypeShaderData TypeShaderData => TypeData.GetShaderData(Type.Value);
+
+        public int TypeDataIndex { get; set; }
 
         protected override void Construct()
         {
@@ -44,19 +52,23 @@ namespace RBV.Features
         protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
-            OperationType.Changed += RaiseChangedEvent;
-            BlendStrength.Changed += RaiseChangedEvent;
+            Type.Changed     += RaiseChangedEvent;
+            Type.Changed     += RaiseTypeChangedEvent;
+            TypeData.Changed += RaiseTypeDataChangedEvent;
         }
 
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
-            OperationType.Changed -= RaiseChangedEvent;
-            BlendStrength.Changed -= RaiseChangedEvent;
+            Type.Changed     -= RaiseChangedEvent;
+            Type.Changed     -= RaiseTypeChangedEvent;
+            TypeData.Changed -= RaiseTypeDataChangedEvent;
         }
 
-        private void RaiseChangedEvent()                                  => Changed?.Invoke(this);
-        private void RaiseChangedEvent(ChangedValue<float> blendStrength) => RaiseChangedEvent();
-        private void RaiseChangedEvent(ChangedValue<Type>  type)          => RaiseChangedEvent();
+        private void RaiseChangedEvent(ChangedValue<RaymarchingOperationType>     type) => Changed?.Invoke(this);
+        private void RaiseTypeChangedEvent(ChangedValue<RaymarchingOperationType> type) => TypeChanged?.Invoke(this);
+
+        private void RaiseTypeDataChangedEvent(ChangedValue<IOperationTypeShaderData> data) =>
+            TypeDataChanged?.Invoke(this);
     }
 }

@@ -15,9 +15,13 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
         private SerializedProperty _beginProperty;
         private SerializedProperty _endProperty;
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginProperty(position, label, property);
             property.DrawFoldoutAndChildren(label, DrawChildrenProperties);
-        
+            EditorGUI.EndProperty();
+        }
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
             -EditorGUIUtility.standardVerticalSpacing;
 

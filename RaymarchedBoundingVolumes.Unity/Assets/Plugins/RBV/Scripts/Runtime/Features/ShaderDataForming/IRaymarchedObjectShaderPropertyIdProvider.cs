@@ -6,8 +6,9 @@ namespace RBV.Features.ShaderDataForming
 {
     public interface IRaymarchedObjectShaderPropertyIdProvider
     {
-        Dictionary<TransformType, int>        ObjectTransformDataIds   { get; }
-        Dictionary<RaymarchedObjectType, int> ObjectTypeRelatedDataIds { get; }
+        Dictionary<RaymarchingOperationType, int> OperationTypeDataIds   { get; }
+        Dictionary<TransformType, int>            ObjectTransformDataIds { get; }
+        Dictionary<RaymarchedObjectType, int>     ObjectTypeDataIds      { get; }
 
         int RaymarchingOperationsCount         { get; }
         int RaymarchingOperationNodes          { get; }

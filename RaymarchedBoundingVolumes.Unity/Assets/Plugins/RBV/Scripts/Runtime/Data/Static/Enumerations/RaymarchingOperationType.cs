@@ -4,7 +4,24 @@
     {
         Union     = 0,
         Subtract  = 1,
-        Blend     = 2,
-        Intersect = 3
+        Intersect = 2,
+        Xor       = 3,
+
+        SmoothUnion     = 4,
+        SmoothSubtract  = 5,
+        SmoothIntersect = 6,
+        SmoothXor       = 7,
+
+        ChamferUnion     = 8,
+        ChamferSubtract  = 9,
+        ChamferIntersect = 10,
+        ChamferXor       = 11,
+
+        StairsUnion     = 12,
+        StairsSubtract  = 13,
+        StairsIntersect = 14,
+        StairsXor       = 15,
+
+        Morph = 16
     }
 }

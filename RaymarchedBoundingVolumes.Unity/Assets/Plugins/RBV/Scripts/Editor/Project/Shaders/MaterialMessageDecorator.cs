@@ -1,5 +1,4 @@
-﻿using RBV.Editor.Utilities.Extensions;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace RBV.Editor.Project.Shaders

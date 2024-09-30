@@ -8,9 +8,13 @@ namespace RBV.Editor.Project.Utilities.Attributes
     [CustomPropertyDrawer(typeof(ChildTooltipAttribute))]
     public class ChildTooltipAttributeDrawer : PropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginProperty(position, label, property);
             property.DrawFoldoutAndEachChildren(label, child =>
                 EditorGUILayout.PropertyField(child, GetTooltip(child), true));
+            EditorGUI.EndProperty();
+        }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
             -EditorGUIUtility.standardVerticalSpacing;

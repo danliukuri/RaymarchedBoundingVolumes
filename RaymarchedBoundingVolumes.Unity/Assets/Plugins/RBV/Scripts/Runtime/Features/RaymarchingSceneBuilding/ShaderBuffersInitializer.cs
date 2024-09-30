@@ -10,23 +10,26 @@ namespace RBV.Features.RaymarchingSceneBuilding
 {
     public class ShaderBuffersInitializer : IShaderBuffersInitializer
     {
+        private readonly IOperationTypeCaster _operationTypeCaster;
         private readonly IObjectTypeCaster    _objectTypeCaster;
         private readonly ITransformTypeCaster _transformTypeCaster;
 
         private ShaderBuffers _shaderBuffers;
 
-        public ShaderBuffersInitializer(IObjectTypeCaster objectTypeCaster, ITransformTypeCaster transformTypeCaster)
+        public ShaderBuffersInitializer(IOperationTypeCaster operationTypeCaster,
+                                        IObjectTypeCaster    objectTypeCaster,
+                                        ITransformTypeCaster transformTypeCaster)
         {
+            _operationTypeCaster = operationTypeCaster;
             _objectTypeCaster    = objectTypeCaster;
             _transformTypeCaster = transformTypeCaster;
         }
 
-        public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize,
-                                               Dictionary<TransformType, List<RaymarchedObject>>
-                                                   objectsByTransformsType,
-                                               Dictionary<RaymarchedObjectType, List<RaymarchedObject>>
-                                                   objectsByTypeBufferSizes)
+        public ShaderBuffers InitializeBuffers(RaymarchingData data)
         {
+            int operationsBufferSize = data.OperationsShaderData.Count;
+            int objectsBufferSize    = data.ObjectsShaderData.Count;
+
             _shaderBuffers = new ShaderBuffers
             {
                 OperationNodes =
@@ -35,25 +38,35 @@ namespace RBV.Features.RaymarchingSceneBuilding
                     new ComputeBuffer(operationsBufferSize, Marshal.SizeOf<RaymarchingOperationShaderData>()),
                 Objects =
                     new ComputeBuffer(objectsBufferSize, Marshal.SizeOf<RaymarchedObjectShaderData>()),
+                OperationTypeData =
+                    new Dictionary<RaymarchingOperationType, ComputeBuffer>(data.OperationsShaderDataByType.Count),
                 ObjectTransformData =
-                    new Dictionary<TransformType, ComputeBuffer>(objectsByTransformsType.Count),
-                ObjectTypeRelatedData =
-                    new Dictionary<RaymarchedObjectType, ComputeBuffer>(objectsByTypeBufferSizes.Count),
+                    new Dictionary<TransformType, ComputeBuffer>(data.ObjectsByTransformsType.Count),
+                ObjectTypeData =
+                    new Dictionary<RaymarchedObjectType, ComputeBuffer>(data.ObjectsShaderDataByType.Count),
                 ObjectsRenderingSettings =
                     new ComputeBuffer(objectsBufferSize, Marshal.SizeOf<RaymarchedObjectRenderingSettingsShaderData>())
             };
 
-            foreach (TransformType type in objectsByTransformsType.Keys)
+            foreach (RaymarchingOperationType type in data.OperationsShaderDataByType.Keys)
             {
-                int size = Marshal.SizeOf(_transformTypeCaster.GetShaderDataType(type));
-                _shaderBuffers.ObjectTransformData[type] = new ComputeBuffer(objectsByTransformsType[type].Count, size);
+                int size  = Marshal.SizeOf(_operationTypeCaster.GetShaderDataType(type));
+                int count = data.OperationsShaderDataByType[type].Length;
+                _shaderBuffers.OperationTypeData[type] = new ComputeBuffer(count, size);
             }
 
-            foreach (RaymarchedObjectType type in objectsByTypeBufferSizes.Keys)
+            foreach (TransformType type in data.ObjectsByTransformsType.Keys)
             {
-                int size = Marshal.SizeOf(_objectTypeCaster.GetShaderDataType(type));
-                _shaderBuffers.ObjectTypeRelatedData[type] =
-                    new ComputeBuffer(objectsByTypeBufferSizes[type].Count, size);
+                int size  = Marshal.SizeOf(_transformTypeCaster.GetShaderDataType(type));
+                int count = data.ObjectsByTransformsType[type].Count;
+                _shaderBuffers.ObjectTransformData[type] = new ComputeBuffer(count, size);
+            }
+
+            foreach (RaymarchedObjectType type in data.ObjectsShaderDataByType.Keys)
+            {
+                int size  = Marshal.SizeOf(_objectTypeCaster.GetShaderDataType(type));
+                int count = data.ObjectsShaderDataByType[type].Length;
+                _shaderBuffers.ObjectTypeData[type] = new ComputeBuffer(count, size);
             }
 
             return _shaderBuffers;
@@ -67,9 +80,11 @@ namespace RBV.Features.RaymarchingSceneBuilding
                 _shaderBuffers.Operations?.Release();
                 _shaderBuffers.Objects?.Release();
 
+                foreach (ComputeBuffer computeBuffer in _shaderBuffers.OperationTypeData.Values)
+                    computeBuffer.Release();
                 foreach (ComputeBuffer computeBuffer in _shaderBuffers.ObjectTransformData.Values)
                     computeBuffer.Release();
-                foreach (ComputeBuffer computeBuffer in _shaderBuffers.ObjectTypeRelatedData.Values)
+                foreach (ComputeBuffer computeBuffer in _shaderBuffers.ObjectTypeData.Values)
                     computeBuffer.Release();
 
                 _shaderBuffers.ObjectsRenderingSettings?.Release();

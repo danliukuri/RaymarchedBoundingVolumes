@@ -1,16 +1,10 @@
-﻿using System.Collections.Generic;
-using RBV.Data.Dynamic;
-using RBV.Data.Static.Enumerations;
+﻿using RBV.Data.Dynamic;
 
 namespace RBV.Features.RaymarchingSceneBuilding
 {
     public interface IShaderBuffersInitializer
     {
-        public ShaderBuffers InitializeBuffers(int operationsBufferSize, int objectsBufferSize,
-                                               Dictionary<TransformType, List<RaymarchedObject>>
-                                                   objectsByTransformsType,
-                                               Dictionary<RaymarchedObjectType, List<RaymarchedObject>>
-                                                   objectsByTypeBufferSizes);
+        public ShaderBuffers InitializeBuffers(RaymarchingData raymarchingData);
 
         ShaderBuffers ReleaseBuffers();
     }

@@ -43,17 +43,17 @@ namespace RBV.Features.RaymarchingSceneBuilding
             foreach (RaymarchingFeature feature in _dataProvider.Data.Features)
                 switch (feature)
                 {
-                    case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
+                    case RaymarchingOperation operation:
                         operation.ActiveStateChanged += BuildScene;
                         operation.ParentChanged      += BuildScene;
                         operation.Reordered          += BuildScene;
+                        operation.TypeChanged        += BuildScene;
                         break;
-                    case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
+                    case RaymarchedObject obj:
                         obj.ActiveStateChanged += BuildScene;
                         obj.ParentChanged      += BuildScene;
                         obj.Reordered          += BuildScene;
-                        if (obj is RaymarchedObject raymarchedObject)
-                            raymarchedObject.TypeChanged += BuildScene;
+                        obj.TypeChanged        += BuildScene;
                         break;
                 }
 
@@ -65,17 +65,17 @@ namespace RBV.Features.RaymarchingSceneBuilding
             foreach (RaymarchingFeature feature in _dataProvider.Data.Features)
                 switch (feature)
                 {
-                    case RaymarchingHierarchicalFeature<RaymarchingOperation> operation:
+                    case RaymarchingOperation operation:
                         operation.ActiveStateChanged -= BuildScene;
                         operation.ParentChanged      -= BuildScene;
                         operation.Reordered          -= BuildScene;
+                        operation.TypeChanged        -= BuildScene;
                         break;
-                    case RaymarchingHierarchicalFeature<RaymarchedObject> obj:
+                    case RaymarchedObject obj:
                         obj.ActiveStateChanged -= BuildScene;
                         obj.ParentChanged      -= BuildScene;
                         obj.Reordered          -= BuildScene;
-                        if (obj is RaymarchedObject raymarchedObject)
-                            raymarchedObject.TypeChanged -= BuildScene;
+                        obj.TypeChanged        -= BuildScene;
                         break;
                 }
 
@@ -157,9 +157,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _dataInitializer.InitializeData(_dataProvider.Data);
 
             _shaderBuffersInitializer.ReleaseBuffers();
-            ShaderBuffers shaderBuffers = _shaderBuffersInitializer.InitializeBuffers(
-                _dataProvider.Data.OperationsShaderData.Count, _dataProvider.Data.ObjectsShaderData.Count,
-                _dataProvider.Data.ObjectsByTransformsType, _dataProvider.Data.ObjectsByType);
+            ShaderBuffers shaderBuffers = _shaderBuffersInitializer.InitializeBuffers(_dataProvider.Data);
 
             _shaderDataUpdater.Initialize(shaderBuffers);
         }

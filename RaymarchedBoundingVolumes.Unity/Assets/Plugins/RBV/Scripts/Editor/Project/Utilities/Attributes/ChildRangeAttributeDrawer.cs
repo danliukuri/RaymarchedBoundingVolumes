@@ -12,7 +12,7 @@ namespace RBV.Editor.Project.Utilities.Attributes
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var range = (ChildRangeAttribute)attribute;
-
+            EditorGUI.BeginProperty(position, label, property);
             property.DrawFoldoutAndEachChildren(label, childProperty =>
             {
                 if (range.PropertyNames.Any(propertyName => childProperty.name == propertyName ||
@@ -21,6 +21,7 @@ namespace RBV.Editor.Project.Utilities.Attributes
                 else
                     EditorGUILayout.PropertyField(childProperty, true);
             });
+            EditorGUI.EndProperty();
         }
 
         private static void DrawRange(SerializedProperty property, GUIContent label, float min, float max)
