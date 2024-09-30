@@ -157,6 +157,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &37470480
 Transform:
   m_ObjectHideFlags: 0
@@ -387,6 +433,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &123977992
 Transform:
   m_ObjectHideFlags: 0
@@ -1357,6 +1449,10 @@ PrefabInstance:
       propertyPath: typeData.<HyperEllipsoidalCapsule>k__BackingField.value.Diameters.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
+      propertyPath: typeData.<EllipsoidalHypercapsule>k__BackingField.value.Base.Diameters.w
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1693,14 +1789,6 @@ PrefabInstance:
       value: 10008
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Position>k__BackingField.value.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: transform.<Rotation>k__BackingField.value.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: transform.<Rotation4D>k__BackingField.value.x
       value: 60
       objectReference: {fileID: 0}
@@ -1715,10 +1803,6 @@ PrefabInstance:
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: typeData.<Hypercylinder>k__BackingField.value.Height
       value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
-      propertyPath: typeData.<ConicalCylinder>k__BackingField.value.Height
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8618079449180114559, guid: c9ce74b1840634342846f8c336e47840, type: 3}
       propertyPath: typeData.<ConicalCylinder>k__BackingField.value.Trength

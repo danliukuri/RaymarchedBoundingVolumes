@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using RBV.Data.Dynamic;
-using RBV.Data.Dynamic.ShaderData.ObjectType;
 using RBV.Editor.Features;
 using RBV.FourDimensional.Data.Dynamic.ShaderData.ObjectType;
 using RBV.FourDimensional.Data.Static.Enumerations;
 using RBV.FourDimensional.Features;
 using UnityEditor;
+using UnityEngine;
+using static RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType.ObservableObject3DTypeShaderDataDrawer;
 using static RBV.FourDimensional.Data.Static.Enumerations.RaymarchedObject4DType;
 
 namespace RBV.FourDimensional.Editor.Project.Data.Dynamic.ShaderData.ObjectType
@@ -63,21 +64,16 @@ namespace RBV.FourDimensional.Editor.Project.Data.Dynamic.ShaderData.ObjectType
             [Hypercube] = () => typeDataProperties[Hypercube]
                 .FindPropertyRelative(nameof(HypercubeShaderData.Dimensions))
                 .vector4Value = HypercubeShaderData.Default.Dimensions,
-            [Hypersphere] = () => typeDataProperties[Hypersphere]
-                .FindPropertyRelative(nameof(HypersphereShaderData.Diameter))
-                .floatValue = HypersphereShaderData.Default.Diameter,
-            [Hyperellipsoid] = () => typeDataProperties[Hyperellipsoid]
-                .FindPropertyRelative(nameof(HyperellipsoidShaderData.Diameters))
-                .vector4Value = HyperellipsoidShaderData.Default.Diameters,
+            [Hypersphere]    = () => ResetHypersphereData(typeDataProperties[Hypersphere]),
+            [Hyperellipsoid] = () => ResetHyperellipsoidData(typeDataProperties[Hyperellipsoid]),
             [Hypercapsule] = () =>
             {
                 typeDataProperties[Hypercapsule]
                     .FindPropertyRelative(nameof(HypercapsuleShaderData.Height))
                     .floatValue = HypercapsuleShaderData.Default.Height;
 
-                typeDataProperties[Hypercapsule]
-                    .FindPropertyRelative(nameof(HypercapsuleShaderData.Diameter))
-                    .floatValue = HypercapsuleShaderData.Default.Diameter;
+                ResetHypersphereData(typeDataProperties[Hypercapsule]
+                    .FindPropertyRelative(nameof(HypercapsuleShaderData.Base)));
             },
             [EllipsoidalHypercapsule] = () =>
             {
@@ -85,58 +81,21 @@ namespace RBV.FourDimensional.Editor.Project.Data.Dynamic.ShaderData.ObjectType
                     .FindPropertyRelative(nameof(EllipsoidalHypercapsuleShaderData.Height))
                     .floatValue = EllipsoidalHypercapsuleShaderData.Default.Height;
 
-                typeDataProperties[EllipsoidalHypercapsule]
-                    .FindPropertyRelative(nameof(EllipsoidalHypercapsuleShaderData.Diameters))
-                    .vector4Value = EllipsoidalHypercapsuleShaderData.Default.Diameters;
+                ResetHyperellipsoidData(typeDataProperties[EllipsoidalHypercapsule]
+                    .FindPropertyRelative(nameof(EllipsoidalHypercapsuleShaderData.Base)));
             },
-            [CubicalCylinder] = () =>
-            {
-                typeDataProperties[CubicalCylinder]
-                    .FindPropertyRelative(nameof(CubicalCylinderShaderData.Diameter))
-                    .floatValue = CubicalCylinderShaderData.Default.Diameter;
-
-                typeDataProperties[CubicalCylinder]
-                    .FindPropertyRelative(nameof(CubicalCylinderShaderData.Height))
-                    .floatValue = CubicalCylinderShaderData.Default.Height;
-
-                typeDataProperties[CubicalCylinder]
-                    .FindPropertyRelative(nameof(CubicalCylinderShaderData.Trength))
-                    .floatValue = CubicalCylinderShaderData.Default.Trength;
-            },
-            [SphericalCylinder] = () =>
-            {
-                typeDataProperties[SphericalCylinder]
-                    .FindPropertyRelative(nameof(SphericalCylinderShaderData.Diameter))
-                    .floatValue = SphericalCylinderShaderData.Default.Diameter;
-
-                typeDataProperties[SphericalCylinder]
-                    .FindPropertyRelative(nameof(SphericalCylinderShaderData.Trength))
-                    .floatValue = SphericalCylinderShaderData.Default.Trength;
-            },
+            [CubicalCylinder]   = () => ResetCubicalCylinderData(typeDataProperties[CubicalCylinder]),
+            [SphericalCylinder] = () => ResetSphericalCylinderData(typeDataProperties[SphericalCylinder]),
             [EllipsoidalCylinder] = () =>
             {
-                typeDataProperties[EllipsoidalCylinder]
-                    .FindPropertyRelative(nameof(EllipsoidalCylinderShaderData.Diameters))
-                    .vector4Value = EllipsoidalCylinderShaderData.Default.Diameters;
+                ResetHyperellipsoidData(typeDataProperties[EllipsoidalCylinder]
+                    .FindPropertyRelative(nameof(EllipsoidalCylinderShaderData.Base)));
 
                 typeDataProperties[EllipsoidalCylinder]
                     .FindPropertyRelative(nameof(EllipsoidalCylinderShaderData.Trength))
                     .floatValue = EllipsoidalCylinderShaderData.Default.Trength;
             },
-            [ConicalCylinder] = () =>
-            {
-                typeDataProperties[ConicalCylinder]
-                    .FindPropertyRelative(nameof(ConicalCylinderShaderData.Diameter))
-                    .floatValue = ConicalCylinderShaderData.Default.Diameter;
-
-                typeDataProperties[ConicalCylinder]
-                    .FindPropertyRelative(nameof(ConicalCylinderShaderData.Height))
-                    .floatValue = ConicalCylinderShaderData.Default.Height;
-
-                typeDataProperties[ConicalCylinder]
-                    .FindPropertyRelative(nameof(ConicalCylinderShaderData.Trength))
-                    .floatValue = ConicalCylinderShaderData.Default.Trength;
-            },
+            [ConicalCylinder] = () => ResetCubicalCylinderData(typeDataProperties[ConicalCylinder]),
             [DoubleCylinder] = () => typeDataProperties[DoubleCylinder]
                 .FindPropertyRelative(nameof(DoubleCylinderShaderData.Diameters))
                 .vector2Value = DoubleCylinderShaderData.Default.Diameters,
@@ -157,46 +116,10 @@ namespace RBV.FourDimensional.Editor.Project.Data.Dynamic.ShaderData.ObjectType
                     .FindPropertyRelative(nameof(PrismicCylinderShaderData.Length))
                     .floatValue = PrismicCylinderShaderData.Default.Length;
             },
-            [SphericalCone] = () =>
-            {
-                typeDataProperties[SphericalCone]
-                    .FindPropertyRelative(nameof(SphericalConeShaderData.Diameter))
-                    .floatValue = SphericalConeShaderData.Default.Diameter;
-
-                typeDataProperties[SphericalCone]
-                    .FindPropertyRelative(nameof(SphericalConeShaderData.Trength))
-                    .floatValue = SphericalConeShaderData.Default.Trength;
-            },
-            [CylindricalCone] = () =>
-            {
-                typeDataProperties[CylindricalCone]
-                    .FindPropertyRelative(nameof(CylindricalConeShaderData.Diameter))
-                    .floatValue = CylindricalConeShaderData.Default.Diameter;
-
-                typeDataProperties[CylindricalCone]
-                    .FindPropertyRelative(nameof(CylindricalConeShaderData.Trength))
-                    .floatValue = CylindricalConeShaderData.Default.Trength;
-            },
-            [ToroidalSphere] = () =>
-            {
-                typeDataProperties[ToroidalSphere]
-                    .FindPropertyRelative(nameof(TorusShaderData.MajorDiameter))
-                    .floatValue = TorusShaderData.Default.MajorDiameter;
-
-                typeDataProperties[ToroidalSphere]
-                    .FindPropertyRelative(nameof(TorusShaderData.MinorDiameter))
-                    .floatValue = TorusShaderData.Default.MinorDiameter;
-            },
-            [SphericalTorus] = () =>
-            {
-                typeDataProperties[SphericalTorus]
-                    .FindPropertyRelative(nameof(TorusShaderData.MajorDiameter))
-                    .floatValue = TorusShaderData.Default.MajorDiameter;
-
-                typeDataProperties[SphericalTorus]
-                    .FindPropertyRelative(nameof(TorusShaderData.MinorDiameter))
-                    .floatValue = TorusShaderData.Default.MinorDiameter;
-            },
+            [SphericalCone]   = () => ResetSphericalCylinderData(typeDataProperties[SphericalCone]),
+            [CylindricalCone] = () => ResetSphericalCylinderData(typeDataProperties[CylindricalCone]),
+            [ToroidalSphere]  = () => ResetTorusData(typeDataProperties[ToroidalSphere]),
+            [SphericalTorus]  = () => ResetTorusData(typeDataProperties[SphericalTorus]),
             [DoubleTorus] = () =>
             {
                 typeDataProperties[DoubleTorus]
@@ -232,5 +155,30 @@ namespace RBV.FourDimensional.Editor.Project.Data.Dynamic.ShaderData.ObjectType
                     .vector2Value = RegularDoublePrismShaderData.Default.Circumdiameter;
             }
         };
+
+        private static void ResetCubicalCylinderData(SerializedProperty property)
+        {
+            property.FindPropertyRelative(nameof(CubicalCylinderShaderData.Height)).floatValue =
+                CubicalCylinderShaderData.Default.Height;
+
+            ResetSphericalCylinderData(property
+                .FindPropertyRelative(nameof(CubicalCylinderShaderData.SphericalCylinder)));
+        }
+
+        private static void ResetSphericalCylinderData(SerializedProperty property)
+        {
+            ResetHypersphereData(property.FindPropertyRelative(nameof(SphericalCylinderShaderData.Base)));
+
+            property.FindPropertyRelative(nameof(SphericalCylinderShaderData.Trength)).floatValue =
+                SphericalCylinderShaderData.Default.Trength;
+        }
+
+        private static void ResetHyperellipsoidData(SerializedProperty property) =>
+            property.FindPropertyRelative(nameof(HyperellipsoidShaderData.Diameters)).vector4Value =
+                HyperellipsoidShaderData.Default.Diameters;
+
+        private static void ResetHypersphereData(SerializedProperty property) =>
+            property.FindPropertyRelative(nameof(HypersphereShaderData.Diameter)).floatValue =
+                HypersphereShaderData.Default.Diameter;
     }
 }

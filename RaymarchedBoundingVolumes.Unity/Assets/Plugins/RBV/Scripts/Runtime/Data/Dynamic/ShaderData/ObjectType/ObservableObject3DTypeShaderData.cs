@@ -93,8 +93,7 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
 
         public IObjectTypeShaderData GetShaderData(RaymarchedObject3DType type)
         {
-            const float fullToHalfScaleMultiplier =
-                IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            const float fullToHalfScaleMultiplier = IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
 
             switch (type)
             {

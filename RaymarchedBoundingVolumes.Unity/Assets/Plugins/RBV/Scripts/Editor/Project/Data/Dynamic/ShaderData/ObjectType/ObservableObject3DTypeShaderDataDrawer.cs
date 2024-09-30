@@ -101,14 +101,14 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
                     .FindPropertyRelative(nameof(CappedConeShaderData.BottomBaseDiameter))
                     .floatValue = CappedConeShaderData.Default.BottomBaseDiameter;
             },
-            [Torus] = () => ResetTorusDataProperty(typeDataProperties[Torus]),
+            [Torus] = () => ResetTorusData(typeDataProperties[Torus]),
             [CappedTorus] = () =>
             {
                 typeDataProperties[CappedTorus]
                     .FindPropertyRelative(nameof(CappedTorusShaderData.CapAngle))
                     .floatValue = CappedTorusShaderData.Default.CapAngle;
 
-                ResetTorusDataProperty(typeDataProperties[CappedTorus]
+                ResetTorusData(typeDataProperties[CappedTorus]
                     .FindPropertyRelative(nameof(CappedTorusShaderData.Torus)));
             },
             [RegularPrism] = () =>
@@ -158,7 +158,7 @@ namespace RBV.Editor.Project.Data.Dynamic.ShaderData.ObjectType
             ResetSphereData(property.FindPropertyRelative(nameof(CapsuleShaderData.Base)));
         }
 
-        private static void ResetTorusDataProperty(SerializedProperty property)
+        public static void ResetTorusData(SerializedProperty property)
         {
             property.FindPropertyRelative(nameof(TorusShaderData.MajorDiameter)).floatValue =
                 TorusShaderData.Default.MajorDiameter;

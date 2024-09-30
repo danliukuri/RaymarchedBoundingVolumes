@@ -12,12 +12,12 @@ uniform StructuredBuffer<EllipsoidalHypercapsuleData> _RaymarchedEllipsoidalHype
 uniform StructuredBuffer<CubicalCylinderData>         _RaymarchedCubicalCylinderData;
 uniform StructuredBuffer<SphericalCylinderData>       _RaymarchedSphericalCylinderData;
 uniform StructuredBuffer<EllipsoidalCylinderData>     _RaymarchedEllipsoidalCylinderData;
-uniform StructuredBuffer<ConicalCylinderData>         _RaymarchedConicalCylinderData;
+uniform StructuredBuffer<CubicalCylinderData>         _RaymarchedConicalCylinderData;
 uniform StructuredBuffer<DoubleCylinderData>          _RaymarchedDoubleCylinderData;
 uniform StructuredBuffer<DoubleEllipticCylinderData>  _RaymarchedDoubleEllipticCylinderData;
 uniform StructuredBuffer<PrismicCylinderData>         _RaymarchedPrismicCylinderData;
-uniform StructuredBuffer<SphericalConeData>           _RaymarchedSphericalConeData;
-uniform StructuredBuffer<CylindricalConeData>         _RaymarchedCylindricalConeData;
+uniform StructuredBuffer<SphericalCylinderData>       _RaymarchedSphericalConeData;
+uniform StructuredBuffer<SphericalCylinderData>       _RaymarchedCylindricalConeData;
 uniform StructuredBuffer<TorusData>                   _RaymarchedToroidalSphereData;
 uniform StructuredBuffer<TorusData>                   _RaymarchedSphericalTorusData;
 uniform StructuredBuffer<DoubleTorusData>             _RaymarchedDoubleTorusData;
