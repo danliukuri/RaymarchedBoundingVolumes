@@ -24,7 +24,7 @@ Shader "RBV/RaymarchedObject"
         _ShadowsMaxDistance            ("Max Distance"            , Range(0.1  , 1024    )) = 5
         [DrawIfOff(SHADOWS_TYPE_NONE)]
         _ShadowsIntensity              ("Intensity"               , Range(0    , 1       )) = 1
-        [DrawIfAny(SHADOWS_TYPE_SOFT_A, SHADOWS_TYPE_SOFT_B, SHADOWS_TYPE_SOFT_C)]
+        [DrawIfAnyOn(SHADOWS_TYPE_SOFT_A, SHADOWS_TYPE_SOFT_B, SHADOWS_TYPE_SOFT_C)]
         _ShadowsPenumbraSize           ("Penumbra Size"           , Range(0.025, 0.8     )) = 0.2
 
         [Header(Ambient Occlusion)] [Space]
@@ -55,18 +55,24 @@ Shader "RBV/RaymarchedObject"
             CGPROGRAM
             #pragma vertex processVertex
             #pragma fragment processFragment
+
             #pragma multi_compile_instancing
-            #pragma multi_compile RBV_4D_OFF RBV_4D_ON
-            #pragma multi_compile SHADOWS_TYPE_NONE SHADOWS_TYPE_HARD SHADOWS_TYPE_SOFT_A SHADOWS_TYPE_SOFT_B SHADOWS_TYPE_SOFT_C
-            #pragma multi_compile AMBIENT_OCCLUSION_OFF AMBIENT_OCCLUSION_ON
+            #pragma shader_feature_fragment __ RBV_HEATMAPPING_ON
+            #pragma shader_feature_fragment __ RBV_4D_ON
+            #pragma multi_compile __ SHADOWS_TYPE_HARD SHADOWS_TYPE_SOFT_A SHADOWS_TYPE_SOFT_B SHADOWS_TYPE_SOFT_C
+            #pragma multi_compile __ AMBIENT_OCCLUSION_ON
 
             #include "Data/Structures/RaymarchingDataStructures.cginc"
             #include "Data/Structures/ShaderDataStructures.cginc"
             #include "Data/Variables/RaymarchingGlobalVariables.cginc"
             #include "Features/Calculators/RayDataCalculator.cginc"
             #include "Features/Calculators/PixelDepthCalculator.cginc"
+            #ifdef RBV_HEATMAPPING_ON
+            #include "../../../../RBV.Heatmapping/Scripts/Runtime/Shaders/Features/Raymarcher.cginc"
+            #else
             #include "Features/RaymarchingShading.cginc"
             #include "Features/Raymarcher.cginc"
+            #endif
 
             FragmentData processVertex(const AppData input)
             {
@@ -86,9 +92,13 @@ Shader "RBV/RaymarchedObject"
                 UNITY_SETUP_INSTANCE_ID(input)
                 const float3          rayDirection    = calculateRayDirection(input.hitPosition);
                 const RaymarchingData raymarchingData = raymarch(input.hitPosition, rayDirection);
-                const PixelData       pixel           =
-                    {calculateShadedPixelColor(raymarchingData), calculateDepth(raymarchingData.position)};
 
+                #ifdef RBV_HEATMAPPING_ON
+                const PixelData pixel = {fixed4(raymarchingData.color, 1), calculateDepth(raymarchingData.position)};
+                #else
+                const PixelData pixel =
+                    {calculateShadedPixelColor(raymarchingData), calculateDepth(raymarchingData.position)};
+                #endif
                 return pixel;
             }
             ENDCG

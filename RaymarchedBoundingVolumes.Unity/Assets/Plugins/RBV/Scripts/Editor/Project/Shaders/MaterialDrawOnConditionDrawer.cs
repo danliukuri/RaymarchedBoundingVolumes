@@ -14,8 +14,11 @@ namespace RBV.Editor.Project.Shaders
 
         public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor) =>
             editor.target is Material material && IsConditionMet(material)
-                ? MaterialEditor.GetDefaultPropertyHeight(prop)
+                ? CalculatePropertyHeight(prop, label, editor)
                 : default;
+
+        protected virtual float CalculatePropertyHeight(MaterialProperty prop, string label, MaterialEditor editor) =>
+            MaterialEditor.GetDefaultPropertyHeight(prop);
 
         protected abstract bool IsConditionMet(Material material);
 
@@ -41,11 +44,11 @@ namespace RBV.Editor.Project.Shaders
         protected override bool IsConditionMet(Material material) => !material.IsKeywordEnabled(_shaderKeyword);
     }
 
-    public class MaterialDrawIfAnyDrawer : MaterialDrawOnConditionDrawer
+    public class MaterialDrawIfAnyOnDrawer : MaterialDrawOnConditionDrawer
     {
         private readonly string[] _shaderKeywords;
 
-        public MaterialDrawIfAnyDrawer(params string[] keywords) => _shaderKeywords = keywords;
+        public MaterialDrawIfAnyOnDrawer(params string[] keywords) => _shaderKeywords = keywords;
 
         protected override bool IsConditionMet(Material material) => _shaderKeywords.Any(material.IsKeywordEnabled);
     }

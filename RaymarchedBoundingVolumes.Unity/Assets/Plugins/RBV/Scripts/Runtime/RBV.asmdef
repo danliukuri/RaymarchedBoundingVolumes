@@ -14,6 +14,11 @@
             "name": "com.danliukuri.rbv.4d",
             "expression": "",
             "define": "RBV_4D_ON"
+        },
+        {
+            "name": "com.danliukuri.rbv.heatmapping",
+            "expression": "",
+            "define": "RBV_HEATMAPPING_ON"
         }
     ],
     "noEngineReferences": false
