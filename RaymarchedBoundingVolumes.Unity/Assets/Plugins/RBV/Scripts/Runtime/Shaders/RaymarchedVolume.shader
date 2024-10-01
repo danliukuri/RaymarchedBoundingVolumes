@@ -1,4 +1,4 @@
-Shader "RBV/RaymarchedObject"
+Shader "RBV/RaymarchedVolume"
 {
     Properties
     {
