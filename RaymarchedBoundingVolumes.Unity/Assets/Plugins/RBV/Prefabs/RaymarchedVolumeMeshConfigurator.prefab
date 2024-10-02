@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1248172193351109229}
   - component: {fileID: 2192728798937716246}
   m_Layer: 0
-  m_Name: RaymarchingVolumeMeshConfigurator
+  m_Name: RaymarchedVolumeMeshConfigurator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668810642590984971}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: -5272990235393635344, guid: 835b9cd0bc38ea34986d1f8670c1e95a, type: 3}
 --- !u!114 &2192728798937716246
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using RBV.Utilities;
+using RBV.Utilities.Extensions;
 using RBV.Utilities.Wrappers;
 using UnityEngine;
 
 namespace RBV.Features
 {
     [ExecuteInEditMode, RequireComponent(typeof(MeshFilter))]
-    public class RaymarchingVolumeMeshConfigurator : MonoBehaviour
+    public class RaymarchedVolumeMeshConfigurator : MonoBehaviour
     {
         private const           string  MeshNameFormat = "{0} (ResizedClone)";
         private static readonly Vector3 _defaultSize   = Vector3.one;
@@ -32,11 +33,7 @@ namespace RBV.Features
             if (mesh != _meshFilter.sharedMesh)
                 CreateResizedMesh();
 
-            if (_isNeededToChangeMeshSize)
-            {
-                _isNeededToChangeMeshSize = false;
-                ChangeMeshSize(size.Value);
-            }
+            _isNeededToChangeMeshSize.IfYesInvoke(() => ChangeMeshSize(size.Value)).IfYesSet(false);
         }
 
         private void OnEnable()  => size.Changed += ChangeMeshSizeDelayed;
@@ -67,21 +64,29 @@ namespace RBV.Features
             return sizeMultiplier;
         }
 
-        [ContextMenu(nameof(SetMeshForAllRaymarchedObjects))]
-        private void SetMeshForAllRaymarchedObjects()
-        {
-            GameObject[] rootGameObjects = gameObject.scene.GetRootGameObjects();
-            foreach (GameObject rootGameObject in rootGameObjects)
-                SetMeshForAllChildRaymarchedObjects(rootGameObject);
-        }
+        [ContextMenu(nameof(SetMeshForAllChildren))]
+        private void SetMeshForAllChildren() =>
+            SetMeshForAllChildren(gameObject);
+
+        [ContextMenu(nameof(SetMeshForAllChildRaymarchingOperations))]
+        private void SetMeshForAllChildRaymarchingOperations() =>
+            SetMeshForAllChildren<RaymarchingOperation>(gameObject);
 
         [ContextMenu(nameof(SetMeshForAllChildRaymarchedObjects))]
-        private void SetMeshForAllChildRaymarchedObjects() => SetMeshForAllChildRaymarchedObjects(gameObject);
+        private void SetMeshForAllChildRaymarchedObjects() =>
+            SetMeshForAllChildren<RaymarchedObject>(gameObject);
 
-        private void SetMeshForAllChildRaymarchedObjects(GameObject rootGameObject)
+        private void SetMeshForAllChildren<T>(GameObject parent) where T : Component
         {
-            foreach (RaymarchedObject raymarchedObject in rootGameObject.GetComponentsInChildren<RaymarchedObject>())
-                raymarchedObject.GetComponent<MeshFilter>().sharedMesh = mesh;
+            foreach (T component in parent.GetComponentsInChildren<T>())
+                if (component.TryGetComponent(out MeshFilter meshFilter))
+                    meshFilter.sharedMesh = mesh;
+        }
+
+        private void SetMeshForAllChildren(GameObject parent)
+        {
+            foreach (MeshFilter meshFilter in parent.GetComponentsInChildren<MeshFilter>())
+                meshFilter.sharedMesh = mesh;
         }
     }
 }
