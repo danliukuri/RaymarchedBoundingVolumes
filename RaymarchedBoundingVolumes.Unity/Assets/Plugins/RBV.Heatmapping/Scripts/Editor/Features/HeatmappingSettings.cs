@@ -64,6 +64,7 @@ namespace RBV.Heatmapping.Editor.Features
         {
             var heatmapTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(HeatmapTexturePath);
             heatmapTexture.hideFlags = HideFlags.DontSaveInEditor;
+            Shader.SetGlobalTexture(_heatmapTexturePropertyID, heatmapTexture);
             return heatmapTexture;
         }
 
