@@ -27,10 +27,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8187576220391758339}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.02, y: -0.133, z: 0.22500002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -105,6 +105,85 @@ MonoBehaviour:
     <Hypersphere>k__BackingField:
       value:
         Diameter: 1
+    <Hyperellipsoid>k__BackingField:
+      value:
+        Diameters: {x: 1, y: 1, z: 1, w: 1}
+    <Hypercapsule>k__BackingField:
+      value:
+        Height: 1
+        Base:
+          Diameter: 1
+    <EllipsoidalHypercapsule>k__BackingField:
+      value:
+        Height: 1
+        Base:
+          Diameters: {x: 1, y: 1, z: 1, w: 1}
+    <CubicalCylinder>k__BackingField:
+      value:
+        Height: 1
+        SphericalCylinder:
+          Base:
+            Diameter: 1
+          Trength: 1
+    <SphericalCylinder>k__BackingField:
+      value:
+        Base:
+          Diameter: 1
+        Trength: 1
+    <EllipsoidalCylinder>k__BackingField:
+      value:
+        Base:
+          Diameters: {x: 1, y: 1, z: 1, w: 1}
+        Trength: 1
+    <ConicalCylinder>k__BackingField:
+      value:
+        Height: 1
+        SphericalCylinder:
+          Base:
+            Diameter: 1
+          Trength: 1
+    <DoubleCylinder>k__BackingField:
+      value:
+        Diameters: {x: 1, y: 1}
+    <DoubleEllipticCylinder>k__BackingField:
+      value:
+        Diameters: {x: 1, y: 1, z: 1, w: 1}
+    <PrismicCylinder>k__BackingField:
+      value:
+        VerticesCount: 3
+        Circumdiameter: 1
+        Length: 1
+    <SphericalCone>k__BackingField:
+      value:
+        Base:
+          Diameter: 1
+        Trength: 1
+    <CylindricalCone>k__BackingField:
+      value:
+        Base:
+          Diameter: 1
+        Trength: 1
+    <ToroidalSphere>k__BackingField:
+      value:
+        MajorDiameter: 1
+        MinorDiameter: 0.5
+    <SphericalTorus>k__BackingField:
+      value:
+        MajorDiameter: 1
+        MinorDiameter: 0.5
+    <DoubleTorus>k__BackingField:
+      value:
+        MajorMajorDiameter: 1
+        MajorMinorDiameter: 0.4
+        MinorMinorDiameter: 0.1
+    <Tiger>k__BackingField:
+      value:
+        MajorDiameters: {x: 1, y: 1}
+        MinorDiameter: 0.5
+    <RegularDoublePrism>k__BackingField:
+      value:
+        VerticesCount: {x: 3, y: 3}
+        Circumdiameter: {x: 1, y: 1}
   transform:
     <Position>k__BackingField:
       value: {x: 0, y: 0, z: 0, w: 0}
@@ -114,3 +193,6 @@ MonoBehaviour:
       value: {x: 0, y: 0, z: 0}
     <Scale>k__BackingField:
       value: {x: 1, y: 1, z: 1, w: 1}
+  renderingSettings:
+    value:
+      Color: {r: 1, g: 1, b: 1, a: 1}

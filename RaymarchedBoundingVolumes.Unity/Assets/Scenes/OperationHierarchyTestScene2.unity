@@ -315,6 +315,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &60193475
 Transform:
   m_ObjectHideFlags: 0
@@ -369,6 +415,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &117225435
 Transform:
   m_ObjectHideFlags: 0
@@ -442,6 +534,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!1001 &154369384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -708,6 +846,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &211233564
 Transform:
   m_ObjectHideFlags: 0
@@ -726,6 +910,311 @@ Transform:
   - {fileID: 1618240349}
   m_Father: {fileID: 1595842950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &253823191
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.size
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 1839113939}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 2059496801}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 1753978141}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[3]
+      value: 
+      objectReference: {fileID: 1000421506}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[4]
+      value: 
+      objectReference: {fileID: 906790326}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[5]
+      value: 
+      objectReference: {fileID: 1521427055}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[6]
+      value: 
+      objectReference: {fileID: 154369386}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[7]
+      value: 
+      objectReference: {fileID: 1986311102}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[8]
+      value: 
+      objectReference: {fileID: 640658651}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[9]
+      value: 
+      objectReference: {fileID: 673011457}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[10]
+      value: 
+      objectReference: {fileID: 380843520}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[11]
+      value: 
+      objectReference: {fileID: 1138312846}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[12]
+      value: 
+      objectReference: {fileID: 784635054}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[13]
+      value: 
+      objectReference: {fileID: 60193474}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[14]
+      value: 
+      objectReference: {fileID: 678168995}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[15]
+      value: 
+      objectReference: {fileID: 1411203496}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[16]
+      value: 
+      objectReference: {fileID: 1012739151}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[17]
+      value: 
+      objectReference: {fileID: 1635130075}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[18]
+      value: 
+      objectReference: {fileID: 919149540}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[19]
+      value: 
+      objectReference: {fileID: 1715376323}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[20]
+      value: 
+      objectReference: {fileID: 754074440}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[21]
+      value: 
+      objectReference: {fileID: 8204217}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[22]
+      value: 
+      objectReference: {fileID: 136286678}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[23]
+      value: 
+      objectReference: {fileID: 2067559235}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[24]
+      value: 
+      objectReference: {fileID: 311953703}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[25]
+      value: 
+      objectReference: {fileID: 1635394067}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[26]
+      value: 
+      objectReference: {fileID: 652406330}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[27]
+      value: 
+      objectReference: {fileID: 415490455}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[28]
+      value: 
+      objectReference: {fileID: 1245710555}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[29]
+      value: 
+      objectReference: {fileID: 2048579363}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[30]
+      value: 
+      objectReference: {fileID: 846935222}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[31]
+      value: 
+      objectReference: {fileID: 1689458637}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[32]
+      value: 
+      objectReference: {fileID: 45957812}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[33]
+      value: 
+      objectReference: {fileID: 117225434}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[34]
+      value: 
+      objectReference: {fileID: 1595842949}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[35]
+      value: 
+      objectReference: {fileID: 211233563}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[36]
+      value: 
+      objectReference: {fileID: 1719886051}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[37]
+      value: 
+      objectReference: {fileID: 1762702586}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[38]
+      value: 
+      objectReference: {fileID: 1618240350}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[39]
+      value: 
+      objectReference: {fileID: 1797039762}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[40]
+      value: 
+      objectReference: {fileID: 1905582410}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[41]
+      value: 
+      objectReference: {fileID: 1204037013}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[42]
+      value: 
+      objectReference: {fileID: 186474072}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[43]
+      value: 
+      objectReference: {fileID: 1732673844}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[44]
+      value: 
+      objectReference: {fileID: 611022946}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[45]
+      value: 
+      objectReference: {fileID: 1955408842}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[46]
+      value: 
+      objectReference: {fileID: 1723951395}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[47]
+      value: 
+      objectReference: {fileID: 2098665795}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[48]
+      value: 
+      objectReference: {fileID: 172170367}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[49]
+      value: 
+      objectReference: {fileID: 1102503919}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[50]
+      value: 
+      objectReference: {fileID: 1005201691}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[51]
+      value: 
+      objectReference: {fileID: 1548283176}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[52]
+      value: 
+      objectReference: {fileID: 1526813815}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[53]
+      value: 
+      objectReference: {fileID: 1804194468}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[54]
+      value: 
+      objectReference: {fileID: 1355231730}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[55]
+      value: 
+      objectReference: {fileID: 1150010147}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[56]
+      value: 
+      objectReference: {fileID: 636646043}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[57]
+      value: 
+      objectReference: {fileID: 1507759137}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[58]
+      value: 
+      objectReference: {fileID: 797381219}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[59]
+      value: 
+      objectReference: {fileID: 1296773732}
+    - target: {fileID: 1833258607558035963, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: <Data>k__BackingField.<Features>k__BackingField.Array.data[60]
+      value: 
+      objectReference: {fileID: 1857152317}
+    - target: {fileID: 4799232072876018436, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_Name
+      value: RaymarchingEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827924045020348456, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 801eff75783e7d545b4a87ac6325338a, type: 3}
 --- !u!1001 &311953701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1409,6 +1898,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &640658652
 Transform:
   m_ObjectHideFlags: 0
@@ -1480,6 +2015,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!1001 &673011455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1754,6 +2335,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &784635055
 Transform:
   m_ObjectHideFlags: 0
@@ -1967,6 +2594,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &906790327
 Transform:
   m_ObjectHideFlags: 0
@@ -2038,6 +2711,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!1001 &1000421504
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2308,6 +3027,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &1102503920
 Transform:
   m_ObjectHideFlags: 0
@@ -2873,126 +3638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7f4f471c49b2c4aab244c42ebc5de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1491378048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1491378050}
-  - component: {fileID: 1491378051}
-  - component: {fileID: 1491378049}
-  m_Layer: 0
-  m_Name: RaymarchingConfigurator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1491378049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491378048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c5cd101dc1648be9f269c5e2ab898c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Data>k__BackingField:
-    <Features>k__BackingField:
-    - {fileID: 1839113939}
-    - {fileID: 2059496801}
-    - {fileID: 1753978141}
-    - {fileID: 1000421506}
-    - {fileID: 906790326}
-    - {fileID: 1521427055}
-    - {fileID: 154369386}
-    - {fileID: 1986311102}
-    - {fileID: 640658651}
-    - {fileID: 673011457}
-    - {fileID: 380843520}
-    - {fileID: 1138312846}
-    - {fileID: 784635054}
-    - {fileID: 60193474}
-    - {fileID: 678168995}
-    - {fileID: 1411203496}
-    - {fileID: 1012739151}
-    - {fileID: 1635130075}
-    - {fileID: 919149540}
-    - {fileID: 1715376323}
-    - {fileID: 754074440}
-    - {fileID: 8204217}
-    - {fileID: 136286678}
-    - {fileID: 2067559235}
-    - {fileID: 311953703}
-    - {fileID: 1635394067}
-    - {fileID: 652406330}
-    - {fileID: 415490455}
-    - {fileID: 1245710555}
-    - {fileID: 2048579363}
-    - {fileID: 846935222}
-    - {fileID: 1689458637}
-    - {fileID: 45957812}
-    - {fileID: 117225434}
-    - {fileID: 1595842949}
-    - {fileID: 211233563}
-    - {fileID: 1719886051}
-    - {fileID: 1762702586}
-    - {fileID: 1618240350}
-    - {fileID: 1797039762}
-    - {fileID: 1905582410}
-    - {fileID: 1204037013}
-    - {fileID: 186474072}
-    - {fileID: 1732673844}
-    - {fileID: 611022946}
-    - {fileID: 1955408842}
-    - {fileID: 1723951395}
-    - {fileID: 2098665795}
-    - {fileID: 172170367}
-    - {fileID: 1102503919}
-    - {fileID: 1005201691}
-    - {fileID: 1548283176}
-    - {fileID: 1526813815}
-    - {fileID: 1804194468}
-    - {fileID: 1355231730}
-    - {fileID: 1150010147}
-    - {fileID: 636646043}
-    - {fileID: 1507759137}
-    - {fileID: 797381219}
-    - {fileID: 1296773732}
-    - {fileID: 1857152317}
---- !u!4 &1491378050
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491378048}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1491378051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491378048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21dc511d0934558ac79f5e1d268045f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1507759136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,6 +3673,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &1507759138
 Transform:
   m_ObjectHideFlags: 0
@@ -3320,6 +4011,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &1595842950
 Transform:
   m_ObjectHideFlags: 0
@@ -3451,6 +4188,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &1635130076
 Transform:
   m_ObjectHideFlags: 0
@@ -4205,6 +4988,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &1804194469
 Transform:
   m_ObjectHideFlags: 0
@@ -4258,6 +5087,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.5
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!4 &1839113940
 Transform:
   m_ObjectHideFlags: 0
@@ -4575,6 +5450,52 @@ MonoBehaviour:
     <SmoothUnion>k__BackingField:
       value:
         Radius: 0.3
+    <SmoothSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <SmoothXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <ChamferUnion>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+    <ChamferXor>k__BackingField:
+      value:
+        OuterRadius: 0.5
+        InnerRadius: 0.5
+    <StairsUnion>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsSubtract>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsIntersect>k__BackingField:
+      value:
+        Radius: 0.5
+        Count: 3
+    <StairsXor>k__BackingField:
+      value:
+        Outer:
+          Radius: 0.5
+          Count: 3
+        Inner:
+          Radius: 0.5
+          Count: 3
+    <Morph>k__BackingField:
+      value:
+        Ratio: 0
 --- !u!1001 &1986311100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4970,7 +5891,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 337598482}
   - {fileID: 1902724391}
-  - {fileID: 1491378050}
+  - {fileID: 253823191}
   - {fileID: 1839113940}
   - {fileID: 906790327}
   - {fileID: 640658652}
