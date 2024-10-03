@@ -13,7 +13,7 @@ namespace RBV.Utilities.Wrappers
         public Dictionary<TKey, TValue> Execute()
         {
             foreach (TKey key in Keys)
-                if (Source.TryGetValue(key, out TValue value))
+                if (Source != default && Source.TryGetValue(key, out TValue value))
                     foreach (Action<TKey, TValue> step in Steps)
                         step.Invoke(key, value);
 

@@ -150,12 +150,15 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         private void BuildScene()
         {
-            _dataInitializer.InitializeData(_dataProvider.Data);
+            if (_dataProvider.Data.Objects.Any())
+            {
+                _dataInitializer.InitializeData(_dataProvider.Data);
 
-            _shaderBuffersInitializer.ReleaseBuffers();
-            ShaderBuffers shaderBuffers = _shaderBuffersInitializer.InitializeBuffers(_dataProvider.Data);
+                _shaderBuffersInitializer.ReleaseBuffers();
+                ShaderBuffers shaderBuffers = _shaderBuffersInitializer.InitializeBuffers(_dataProvider.Data);
 
-            _shaderDataUpdater.Initialize(shaderBuffers);
+                _shaderDataUpdater.Initialize(shaderBuffers);
+            }
         }
 
         private void BuildScene(RaymarchingOperation operation, ChangedValue<int> siblingIndex) => BuildNewScene();
