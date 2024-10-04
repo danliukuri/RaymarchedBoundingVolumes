@@ -1,7 +1,7 @@
 {
   "name"            : "com.danliukuri.rbv.heatmapping",
   "version"         : "1.0.0",
-  "displayName"     : "RBV.Heatmapping",
+  "displayName"     : "Raymarhced Bounding Volumes.Heatmapping",
   "description"     : "A specialized extension package for RBV designed to visualize raymarched bounding volumes using heatmaps by mapping raymarching iterations to color gradients, allowing for intuitive exploration, debugging, and analysis.",
   "documentationUrl": "https://github.com/danliukuri/RaymarchedBoundingVolumes?tab=readme-ov-file#RBVHeatmapping",
   "changelogUrl"    : "https://github.com/danliukuri/RaymarchedBoundingVolumes/releases",

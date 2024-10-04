@@ -1,0 +1,33 @@
+{
+  "name"            : "com.danliukuri.rbv",
+  "version"         : "1.0.0",
+  "displayName"     : "Raymarhced Bounding Volumes",
+  "description"     : "The core package from the RBV family built for raymarching in Unity, aimed at effective visualization and manipulation of 3D objects and their combinations.",
+  "documentationUrl": "https://github.com/danliukuri/RaymarchedBoundingVolumes?tab=readme-ov-file#RBV",
+  "changelogUrl"    : "https://github.com/danliukuri/RaymarchedBoundingVolumes/releases",
+  "licensesUrl"     : "https://github.com/danliukuri/RaymarchedBoundingVolumes?tab=MIT-1-ov-file",
+  "repository"      : "https://github.com/danliukuri/RaymarchedBoundingVolumes",
+  "homepage"        : "https://github.com/danliukuri/RaymarchedBoundingVolumes",
+  "samples"         : [
+    {
+      "displayName" : "Showcase",
+      "description" : "The simple demonstration of the RBV capabilities, represents a rather unconventional usage of the package.",
+      "path"        : "Samples~/RBV/Showcase"
+    }
+  ],
+  "keywords"        : [
+    "raymarching",
+    "bounding volumes",
+    "rbv",
+    "signed distance field",
+    "sdf",
+    "raymarching operations",
+    "visual effects",
+    "rendering"
+  ],
+  "author"          : {
+    "name" : "Yuriy Danyliuk",
+    "email": "danyliuk.yuriy@gmail.com",
+    "url"  : "https://github.com/danliukuri"
+  }
+}
