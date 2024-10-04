@@ -26,6 +26,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         private ShaderBuffers _shaderBuffers;
 
+        private bool _isShaderDisabled;
+
         private bool _isOperationNodesDataChanged;
         private bool _isOperationsDataChanged;
         private bool _isObjectsDataChanged;
@@ -40,6 +42,7 @@ namespace RBV.Features.RaymarchingSceneBuilding
         {
             _objectShaderPropertyIdProvider = objectShaderPropertyIdProvider;
             _dataProvider                   = dataProvider;
+            Initialize(default);
         }
 
         public IShaderDataUpdater Initialize(ShaderBuffers shaderBuffers)
@@ -65,7 +68,6 @@ namespace RBV.Features.RaymarchingSceneBuilding
             _changedOperationTypeData.Clear();
             _changedObjectTransformData.Clear();
             _changedObjectTypeData.Clear();
-
             return this;
         }
 
@@ -109,6 +111,10 @@ namespace RBV.Features.RaymarchingSceneBuilding
 
         public IShaderDataUpdater Update()
         {
+            _isShaderDisabled = !_isShaderDisabled && !_dataProvider.Data.Objects.Any();
+            if (_isShaderDisabled.IfYesInvoke(DisableShader).IfYesSet(false) || _shaderBuffers == default)
+                return this;
+
             _isOperationNodesDataChanged.IfYesInvoke(UpdateOperationNodesData).IfYesSet(false);
             _isOperationsDataChanged.IfYesInvoke(UpdateOperationsData).IfYesSet(false);
             _isObjectsDataChanged.IfYesInvoke(UpdateObjectsData).IfYesSet(false);
@@ -289,5 +295,8 @@ namespace RBV.Features.RaymarchingSceneBuilding
             Shader.SetGlobalBuffer(_objectShaderPropertyIdProvider.RaymarchedObjectsRenderingSettings,
                 _shaderBuffers.ObjectsRenderingSettings);
         }
+
+        private void DisableShader() =>
+            Shader.SetGlobalInteger(_objectShaderPropertyIdProvider.RaymarchingOperationsCount, default);
     }
 }
