@@ -21,6 +21,11 @@ namespace RBV.Infrastructure
 #if !RBV_HEATMAPPING_ON
             Shader.DisableKeyword("RBV_HEATMAPPING_ON");
 #endif
+#if RBV_HEATMAPPING_ON_PROJECT
+            Shader.EnableKeyword("RBV_HEATMAPPING_ON_PROJECT");
+#else
+            Shader.DisableKeyword("RBV_HEATMAPPING_ON_PROJECT");
+#endif
         }
 
         private static void Toggle4D()
@@ -29,6 +34,11 @@ namespace RBV.Infrastructure
             Shader.EnableKeyword("RBV_4D_ON");
 #else
             Shader.DisableKeyword("RBV_4D_ON");
+#endif
+#if RBV_4D_ON_PROJECT
+            Shader.EnableKeyword("RBV_4D_ON_PROJECT");
+#else
+            Shader.DisableKeyword("RBV_4D_ON_PROJECT");
 #endif
         }
     }
