@@ -8,8 +8,9 @@ namespace RBV.Heatmapping.Editor.Utilities.Extensions
 {
     public static class PathExtensions
     {
-        private const string AsmdefRootRelativePath = "../../";
-        private const string AsmdefFilter           = "t:AssemblyDefinitionAsset {0}";
+        private const string AsmdefRootRelativePath  = "../../";
+        private const string AsmdefFilter            = "t:AssemblyDefinitionAsset {0}";
+        private const string RelativePackageRootPath = "Packages/com.danliukuri.rbv.heatmapping";
 
         public static string AsmdefPath()
         {
@@ -19,13 +20,16 @@ namespace RBV.Heatmapping.Editor.Utilities.Extensions
             return asmdefPath;
         }
 
-        public static string RootPathRelativeToProject()
+        public static string AbsolutePackageRootPath() =>
+            Path.GetFullPath(Path.Combine(AsmdefPath(), AsmdefRootRelativePath));
+
+        public static string PackageRootPathRelativeToProject()
         {
-            string asmdefPath  = AsmdefPath();
-            string projectName = new DirectoryInfo(Application.dataPath).Parent?.Name;
-            return asmdefPath != default && projectName != default
-                ? Path.GetRelativePath(projectName, Path.Combine(asmdefPath, AsmdefRootRelativePath))
-                : default;
+#if !RBV_HEATMAPPING_ON_PROJECT
+            return RelativePackageRootPath;
+#endif
+            string projectName = new DirectoryInfo(Application.dataPath).Parent?.FullName;
+            return projectName != default ? Path.GetRelativePath(projectName, AbsolutePackageRootPath()) : default;
         }
     }
 }

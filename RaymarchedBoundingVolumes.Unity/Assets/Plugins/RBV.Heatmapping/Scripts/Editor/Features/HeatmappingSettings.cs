@@ -10,17 +10,18 @@ namespace RBV.Heatmapping.Editor.Features
     [InitializeOnLoad]
     internal sealed class HeatmappingSettings
 #else
-    internal sealed class HeatmappingSettings : AssetPostprocessor
+    internal sealed class HeatmappingSettings
 #endif
     {
-        private const string HeatmappingEnabledKey      = "RaymarchedBoundingVolumes/Heatmapping/Enabled";
-        private const string HeatmappingTexturePathKey  = "RaymarchedBoundingVolumes/Heatmapping/TexturePath";
-        private const string DefaultTexturePathRelative = "Art/Sprites/Heatmaps/HitmapMagma.png";
+        private const string Separator                  = "/";
         private const string PreferencePathRelative     = "Raymarched Bounding Volumes/Heatmapping";
-        private const string PreferencePath             = "Preferences/" + PreferencePathRelative;
+        private const string PreferencePath             = "Preferences"          + Separator + PreferencePathRelative;
+        private const string HeatmappingTexturePathKey  = PreferencePathRelative + Separator + "TexturePath";
+        private const string HeatmappingEnabledKey      = PreferencePathRelative + Separator + "Enabled";
+        private const string DefaultTexturePathRelative = "Art/Sprites/Heatmaps/HitmapMagma.png";
 
         private static readonly string _defaultTexturePath =
-            Path.Combine(PathExtensions.RootPathRelativeToProject(), DefaultTexturePathRelative);
+            Path.Combine(PathExtensions.PackageRootPathRelativeToProject(), DefaultTexturePathRelative);
 
         private static readonly GlobalKeyword _heatmappingEnabledShaderKeywordID =
             GlobalKeyword.Create("RBV_HEATMAPPING_ON");
@@ -62,7 +63,8 @@ namespace RBV.Heatmapping.Editor.Features
 
         private static Texture2D InitializeHeatmapTexture()
         {
-            var heatmapTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(HeatmapTexturePath);
+            var heatmapTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(
+                AssetDatabase.IsValidFolder(HeatmapTexturePath) ? HeatmapTexturePath : _defaultTexturePath);
             heatmapTexture.hideFlags = HideFlags.DontSaveInEditor;
             Shader.SetGlobalTexture(_heatmapTexturePropertyID, heatmapTexture);
             return heatmapTexture;
@@ -70,9 +72,10 @@ namespace RBV.Heatmapping.Editor.Features
 
 #if UNITY_2019_1_OR_NEWER
         [SettingsProvider]
-        private static SettingsProvider CreateProjectSettingsProvider() => new(PreferencePath, SettingsScope.User)
+        private static SettingsProvider CreateHeatmappingSettingsProvider() => new(PreferencePath, SettingsScope.User)
         {
-            guiHandler = searchContext => OnGUI()
+            guiHandler = searchContext => OnGUI(),
+            keywords   = SettingsProvider.GetSearchKeywordsFromGUIContentProperties<Styles>()
         };
 #else
         [PreferenceItem(PreferencePathRelative)]
@@ -84,12 +87,13 @@ namespace RBV.Heatmapping.Editor.Features
 
             DrawEnabledToggle();
             DrawTexture(width, padding);
+            DrawTexturePreview(width, padding);
         }
 
         private static void DrawTexture(float width, float padding)
         {
             Rect rect = EditorGUILayout.GetControlRect();
-            EditorGUI.LabelField(rect, new GUIContent("Texture"));
+            EditorGUI.LabelField(rect, Styles.Texture);
             float localPadding = padding * Mathf.Sqrt(0.5f);
             rect.xMin  += localPadding + EditorGUIUtility.labelWidth;
             rect.width =  width        - EditorGUIUtility.labelWidth - padding - (padding - localPadding);
@@ -98,9 +102,8 @@ namespace RBV.Heatmapping.Editor.Features
             var newTexture = (Texture2D)EditorGUI.ObjectField(rect, HeatmapTexture, typeof(Texture2D), false);
             if (EditorGUI.EndChangeCheck())
                 HeatmapTexture = newTexture;
-
-            DrawTexturePreview(width, padding);
         }
+
 
         private static void DrawTexturePreview(float width, float padding)
         {
@@ -123,9 +126,15 @@ namespace RBV.Heatmapping.Editor.Features
 
         private static void DrawEnabledToggle()
         {
-            bool newHeatmappingEnabledState = EditorGUILayout.Toggle(new GUIContent("Enabled"), IsHeatmappingEnabled);
+            bool newHeatmappingEnabledState = EditorGUILayout.Toggle(Styles.Enabled, IsHeatmappingEnabled);
             if (EditorGUI.EndChangeCheck())
                 IsHeatmappingEnabled = newHeatmappingEnabledState;
+        }
+
+        private class Styles
+        {
+            public static GUIContent Enabled { get; } = new("Enabled");
+            public static GUIContent Texture { get; } = new("Texture");
         }
     }
 }

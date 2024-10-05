@@ -1,6 +1,12 @@
-﻿#include "../../../../../RBV/Scripts/Runtime/Shaders/Data/Structures/RaymarchingDataStructures.cginc"
+﻿#ifdef RBV_HEATMAPPING_ON_PROJECT
+#include "../../../../../RBV/Scripts/Runtime/Shaders/Data/Structures/RaymarchingDataStructures.cginc"
 #include "../../../../../RBV/Scripts/Runtime/Shaders/Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../../../../RBV/Scripts/Runtime/Shaders/Features/Calculators/SDFCalculator.cginc"
+#else
+#include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Data/Structures/RaymarchingDataStructures.cginc"
+#include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Data/Variables/RaymarchingGlobalVariables.cginc"
+#include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Features/Calculators/SDFCalculator.cginc"
+#endif
 
 sampler2D _RbvHeatmapTexture;
 
