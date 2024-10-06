@@ -1,12 +1,46 @@
+# Raymarched Bounding Volumes
+<div align="justify">
+	<a href="#Raymarched-Bounding-Volumes"><code>Raymarched Bounding Volumes</code></a> is a collection of 
+	<code>Unity</code> packages designed to enhance the visualization and manipulation of complex geometries through
+	raymarching techniques. This repository provides the following packages:
+	<p>
+	<ul>
+		<li><a href="#RBV"><code>RBV</code></a>:
+			The core package that introduces the fundamental capabilities for raymarched bounding volumes, enabling
+			efficient rendering and manipulation of <code>3D</code> objects.
+		</li>
+		<li><a href="#RBV4D"><code>RBV.4D</code></a>:
+			An extension package that introduces four-dimensional features, allowing for dynamic exploration of
+			<code>4D</code> geometries in a familiar <code>3D</code> space, with full compatibility with
+			<a href="#Features"><code>RBV Features</code></a>.
+		</li>
+		<li><a href="#RBVHeatmapping"><code>RBV.Heatmapping</code></a>:
+			A specialized extension designed to visualize raymarched bounding volumes using heatmaps, providing
+			intuitive exploration, debugging, and performance analysis by mapping raymarching iterations to color
+			gradients.
+		</li>
+	</ul>
+	By leveraging advanced rendering methods, these packages allow for the dynamic exploration of geometrical forms. The
+	modular architecture ensures seamless integration, enabling users to customize workflows to meet specific needs
+	while maintaining compatibility with existing Unity objects and shaders. Whether creating stunning visual effects or
+	conducting intricate simulations, <a href="#Raymarched-Bounding-Volumes"><code>Raymarched Bounding Volumes</code></a>
+	equips developers with essential tools for achieving advanced graphical results.
+</div>
+<br><br><br><br><br>
+
+
+
+
+
 # RBV
 <div align="justify">
-	<a href="#RBV"><code>RBV</code></a> (short for 
-	<a href="#Raymarched-Bounding-Volumes"><code>Raymarched-Bounding-Volumes</code></a>) is a core package for raymarching
-	in Unity. It is designed for the effective visualization and manipulation of 3D objects and their combinations.
+	<a href="#RBV"><code>RBV</code></a> (short for <a href="#Raymarched-Bounding-Volumes">
+		<code>Raymarched Bounding Volumes</code></a>) is a core package for	raymarching	in Unity. It is designed for the
+	effective visualization and manipulation of 3D objects and their combinations.
 	<p><p>
-	The name <a href="#Raymarched-Bounding-Volumes"><code>Raymarched-Bounding-Volumes</code></a> comes from the idea of 
-	using bounding volumes to define the	rendering space for raymarching, which has been proven to be more effective than
-	rendering in the entire screen space
+	The name <a href="#Raymarched-Bounding-Volumes"><code>Raymarched Bounding Volumes</code></a> comes from the idea of 
+	using bounding volumes to define the	rendering space for raymarching, which has been proven to be more effective
+	than rendering in the entire screen space
 	(refer to <a href="https://github.com/danliukuri/RaymarchingRenderingSpacePerformanceTesting">
 		<code>RaymarchingRenderingSpacePerformanceTesting</code></a>).
 </div>
@@ -88,9 +122,9 @@
 		</li>
 	</ol>
 	To install samples, navigate to <code>Raymarched Bounding Volumes/Samples</code> in the <code>Package Manager</code>
-	and click	<code>Import</code> for the desired ones.
-	<p>
+	and click <code>Import</code> for the desired ones.
 	</div></li>
+	<p>
 	<li><div align="justify"><b>Download From Releases</b><ol>
 		<li>Go to the <a href="https://github.com/danliukuri/RaymarchedBoundingVolumes/releases"
 			><code>Releases Page</code></a>.</li>
@@ -129,8 +163,8 @@
 			<li><div align="justify">
 				<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV/Scripts/Runtime/Features/RaymarchingSceneBuilding/RaymarchingSceneUpdater.cs">
 					<code>RaymarchingSceneUpdater</code></a>:
-				The main loop of the package lifecycle, ensuring proper shader data updates and managing the construction of
-				the raymarching scene.
+				The main loop of the package lifecycle, ensuring proper shader data updates and managing the
+				construction of	the raymarching scene.
 			</div></li>
 		</ul>
 	</div></li>
@@ -142,8 +176,8 @@
 			<code>RaymarchingOperation</code></a> prefabs into the scene, tailoring it to suit your specific needs.
 	</div></li>
 	<li><div align="justify"><b>Configure the Visualization Space</b><br>
-		Last step is to configure the visualization space for the raymarching volume. For more details on how to do this,
-		refer to the <a href="#Volume-Mesh-Configuration"><code>Volume Mesh Configuration</code></a> section.
+		Last step is to configure the visualization space for the raymarching volume. For more details on how to do
+		this, refer to the <a href="#Volume-Mesh-Configuration"><code>Volume Mesh Configuration</code></a> section.
 	</div></li>
 </ol>
 
@@ -155,9 +189,7 @@
 	<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV/Scripts/Runtime/Features/RaymarchedVolumeMeshConfigurator.cs">
 		<code>RaymarchedVolumeMeshConfigurator</code></a> 
 	has been designed, enabling straightforward adjustments to the mesh scale.
-</div>
-<p>
-<div align="justify">
+	<p>
 	To utilize the <a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV/Scripts/Runtime/Features/RaymarchedVolumeMeshConfigurator.cs">
 		<code>RaymarchedVolumeMeshConfigurator</code></a>, follow these steps:
 </div>
@@ -180,7 +212,8 @@
 	<li><div align="justify"><b>Set the Mesh via Context Menu</b><br>
 		In the context menu of the
 		<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV/Scripts/Runtime/Features/RaymarchedVolumeMeshConfigurator.cs">
-			<code>RaymarchedVolumeMeshConfigurator</code></a> component, select one of the options to set the mesh for the children.
+			<code>RaymarchedVolumeMeshConfigurator</code></a> component, select one of the options to set the mesh for
+		the children.
 	</div></li>
 	<li><div align="justify"><b>Adjust the Mesh Size</b><br>
 		Change the size of the mesh by modifying the <code>Size</code> field in the 
@@ -276,8 +309,8 @@
  		scene.
 	</div></li>
 	<li><div align="justify"><b>4D Transformations</b><br>
-		Enables movement, rotation, and scaling of <code>4D</code> objects along the fourth spatial dimension, while remain
-		supporting such transformations in the standard three dimensions.
+		Enables movement, rotation, and scaling of <code>4D</code> objects along the fourth spatial dimension, while
+		remain supporting such transformations in the standard three dimensions.
 	</div></li>
 </ul>
 
@@ -301,7 +334,7 @@
 			<pre><code>https://github.com/danliukuri/RaymarchedBoundingVolumes.git?path=RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV.4D</code></pre>
 		</li>
 	</ol>
-	To install samples, navigate to <code>Raymarched Bounding Volumes 4D/Samples</code> in the
+	To install samples, navigate to <code>RBV.4D/Samples</code> in the
 	<code>Package Manager</code> and click <code>Import</code> for the desired ones.
 	<p>
 	</div></li>
@@ -324,6 +357,7 @@
 	<a href="#Scene-Construction"><code>Scene Construction</code></a> as in the <a href="#RBV"><code>RBV</code></a>
 	package to set up your scene. The only differences are:
 </div>
+<p>
 <ul>
 	<li><div align="justify"><b>Step 3: Add the Raymarching Engine</b><br>
 		Add the <a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV.4D/Prefabs/RaymarchingEngine4D.prefab">
@@ -333,12 +367,12 @@
 		<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV.4D/Scripts/Runtime/Infrastructure/Raymarching4DServicesRegister.cs">
 			<code>Raymarching4DServicesRegister</code></a>. This component extends
 		<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV/Scripts/Runtime/Infrastructure/RaymarchingServicesRegister.cs">
-			<code>RaymarchingServicesRegister</code></a> and additionally handling the creation of 4D-related services and
-		their	dependencies.
+			<code>RaymarchingServicesRegister</code></a> and additionally handling the creation of 4D-related services
+		and	their dependencies.
 	</div></li>
 	<li><div align="justify"><b>Step 4: Add Raymarched Objects and Operations</b><br>
-		With the <a href="#RBV4D"><code>RBV.4D</code></a> package installed, you can use <code>4D</code> objects by dragging
-		and dropping the
+		With the <a href="#RBV4D"><code>RBV.4D</code></a> package installed, you can use <code>4D</code> objects by
+		dragging and dropping the
 		<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV.4D/Prefabs/RaymarchedObject4D.prefab">
 			<code>RaymarchedObject4D</code></a> into the scene.
 	</div></li>
@@ -360,8 +394,8 @@
 	<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV.4D/Samples~/RBV.4D/Showcase/Cover.unity">
 		<code>Cover</code></a>,	where you can observe how numerous
 	<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV.4D/Prefabs/RaymarchedObject4D.prefab">
-		<code>RaymarchedObject4D</code></a> instances smoothly unite to create a cohesive composition. In this scene, you
-	can also observe how seamlessly <code>4D</code> objects interact with regular	raymarched ones.
+		<code>RaymarchedObject4D</code></a> instances smoothly unite to create a cohesive composition. In this scene,
+	you	can also observe how seamlessly <code>4D</code> objects interact with regular raymarched ones.
 <p>
 </div>
 
@@ -455,16 +489,17 @@
 	To see the <a href="#RBVHeatmapping"><code>RBV.Heatmapping</code></a> package in action, it must first be enabled
 	in the settings for all	materials that utilize the
 	<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV/Scripts/Runtime/Shaders/RaymarchedVolume.shader">
-		<code>RaymarchedVolume</code></a>
-	shader.
-</div>
-<p>
-
-1. Open the [`Unity Editor Preferences`](https://docs.unity3d.com/Manual/Preferences.html) and navigate to the
-`Raymarched Bounding Volumes/Heatmapping` settings.
-2. Enable the heatmapping feature using `Enabled` toggle field.
-
-<div align="justify">
+		<code>RaymarchedVolume</code></a> shader.
+	<p>
+	<ol>
+		<li>Open the <a href="https://docs.unity3d.com/Manual/Preferences.html">
+			<code>Unity Editor Preferences</code></a> and navigate to the
+			<code>Raymarched Bounding Volumes/Heatmapping</code> settings.
+		</li>
+		<li>
+			Enable the heatmapping feature using the <code>Enabled</code> toggle field.
+		</li>
+	</ol>
 	The texture specified in the <code>Texture</code> field will be used for the heatmap visualization. By default, the
 	<a href="RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV.Heatmapping/Art/Sprites/Heatmaps/HitmapMagma.png">
 		<code>HitmapMagma</code></a>
