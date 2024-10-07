@@ -1,7 +1,9 @@
 {
     "name": "RBV.Heatmapping.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "RBV"
+    ],
     "includePlatforms": [
         "Editor"
     ],

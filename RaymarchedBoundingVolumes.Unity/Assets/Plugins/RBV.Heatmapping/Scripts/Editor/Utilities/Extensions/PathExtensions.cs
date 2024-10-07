@@ -1,35 +1,37 @@
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using static RBV.Data.Static.PathConstants;
+using static RBV.Utilities.Extensions.PathExtensions;
 
 namespace RBV.Heatmapping.Editor.Utilities.Extensions
 {
     public static class PathExtensions
     {
-        private const string AsmdefRootRelativePath  = "../../";
-        private const string AsmdefFilter            = "t:AssemblyDefinitionAsset {0}";
-        private const string RelativePackageRootPath = "Packages/com.danliukuri.rbv.heatmapping";
+        private const string HeatmappingEditorAsmdefRootRelativePath = "../../";
 
-        public static string AsmdefPath()
+        public static string GetAsmdefPath(string asmdefGuid) =>
+            Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(asmdefGuid));
+
+        public static string AbsoluteHeatmappingPackageRootPathOrDefault()
         {
-            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-            string asmdef       = AssetDatabase.FindAssets(string.Format(AsmdefFilter, assemblyName)).First();
-            string asmdefPath   = Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(asmdef));
-            return asmdefPath;
+            string asmdef = FirstOrDefaultAsmdef(RbvHeatmappingEditorAssemblyName);
+            return asmdef != default
+                ? Path.GetFullPath(Path.Combine(GetAsmdefPath(asmdef), HeatmappingEditorAsmdefRootRelativePath))
+                : default;
         }
 
-        public static string AbsolutePackageRootPath() =>
-            Path.GetFullPath(Path.Combine(AsmdefPath(), AsmdefRootRelativePath));
-
-        public static string PackageRootPathRelativeToProject()
+        private static string RelativeToProjectPathOrDefault(string absolutePath)
         {
-#if !RBV_HEATMAPPING_ON_PROJECT
-            return RelativePackageRootPath;
-#endif
             string projectName = new DirectoryInfo(Application.dataPath).Parent?.FullName;
-            return projectName != default ? Path.GetRelativePath(projectName, AbsolutePackageRootPath()) : default;
+            return projectName != default && absolutePath != default
+                ? Path.GetRelativePath(projectName, absolutePath)
+                : default;
         }
+
+        public static string HeatmappingPackageRootPathRelativeToProjectOrDefault() =>
+            AssetDatabase.IsValidFolder(RbvHeatmappingPackageRoot)
+                ? RbvHeatmappingPackageRoot
+                : RelativeToProjectPathOrDefault(AbsoluteHeatmappingPackageRootPathOrDefault());
     }
 }

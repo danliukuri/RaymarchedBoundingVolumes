@@ -58,9 +58,10 @@ Shader "RBV/RaymarchedVolume"
 
             #pragma multi_compile_instancing
             #pragma shader_feature_fragment __ RBV_HEATMAPPING_ON
-            #pragma shader_feature_fragment __ RBV_HEATMAPPING_ON_PROJECT
             #pragma shader_feature_fragment __ RBV_4D_ON
-            #pragma shader_feature_fragment __ RBV_4D_ON_PROJECT
+            #pragma shader_feature_fragment __ RBV_IS_PACKAGE
+            #pragma shader_feature_fragment __ RBV_4D_IS_PACKAGE
+            #pragma shader_feature_fragment __ RBV_HEATMAPPING_IS_PACKAGE
             #pragma multi_compile __ SHADOWS_TYPE_HARD SHADOWS_TYPE_SOFT_A SHADOWS_TYPE_SOFT_B SHADOWS_TYPE_SOFT_C
             #pragma multi_compile __ AMBIENT_OCCLUSION_ON
 
@@ -69,11 +70,12 @@ Shader "RBV/RaymarchedVolume"
             #include "Data/Variables/RaymarchingGlobalVariables.cginc"
             #include "Features/Calculators/RayDataCalculator.cginc"
             #include "Features/Calculators/PixelDepthCalculator.cginc"
+
             #ifdef RBV_HEATMAPPING_ON
-            #ifdef RBV_HEATMAPPING_ON_PROJECT
-            #include "../../../../RBV.Heatmapping/Scripts/Runtime/Shaders/Features/Raymarcher.cginc"
-            #else
+            #ifdef RBV_HEATMAPPING_IS_PACKAGE
             #include "Packages/com.danliukuri.rbv.heatmapping/Scripts/Runtime/Shaders/Features/Raymarcher.cginc"
+            #else
+            #include "../../../../RBV.Heatmapping/Scripts/Runtime/Shaders/Features/Raymarcher.cginc"
             #endif
             #else
             #include "Features/RaymarchingShading.cginc"

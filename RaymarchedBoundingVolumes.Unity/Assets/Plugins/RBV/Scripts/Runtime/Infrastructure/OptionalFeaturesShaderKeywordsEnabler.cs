@@ -1,5 +1,8 @@
-﻿using UnityEditor;
+﻿using RBV.Utilities.Extensions;
+using UnityEditor;
 using UnityEngine;
+using static RBV.Data.Static.PackageRelatedShaderKeywords;
+using static RBV.Data.Static.PathConstants;
 
 namespace RBV.Infrastructure
 {
@@ -10,36 +13,16 @@ namespace RBV.Infrastructure
 #else
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 #endif
-        public static void Toggle()
+        public static void SetPackagesRelatedShaderKeywords()
         {
-            ToggleHeatmapping();
-            Toggle4D();
-        }
+            Shader.SetKeyword(RbvIsPackage,            AssetDatabase.IsValidFolder(RbvPackageRoot));
+            Shader.SetKeyword(Rbv4dIsPackage,          AssetDatabase.IsValidFolder(Rbv4dPackageRoot));
+            Shader.SetKeyword(RbvHeatmappingIsPackage, AssetDatabase.IsValidFolder(RbvHeatmappingPackageRoot));
 
-        private static void ToggleHeatmapping()
-        {
-#if !RBV_HEATMAPPING_ON
-            Shader.DisableKeyword("RBV_HEATMAPPING_ON");
-#endif
-#if RBV_HEATMAPPING_ON_PROJECT
-            Shader.EnableKeyword("RBV_HEATMAPPING_ON_PROJECT");
-#else
-            Shader.DisableKeyword("RBV_HEATMAPPING_ON_PROJECT");
-#endif
-        }
+            Shader.SetKeyword(Rbv4dOn, PathExtensions.FirstOrDefaultAsmdef(Rbv4dRuntimeAssemblyName) != default);
 
-        private static void Toggle4D()
-        {
-#if RBV_4D_ON
-            Shader.EnableKeyword("RBV_4D_ON");
-#else
-            Shader.DisableKeyword("RBV_4D_ON");
-#endif
-#if RBV_4D_ON_PROJECT
-            Shader.EnableKeyword("RBV_4D_ON_PROJECT");
-#else
-            Shader.DisableKeyword("RBV_4D_ON_PROJECT");
-#endif
+            if (PathExtensions.FirstOrDefaultAsmdef(RbvHeatmappingEditorAssemblyName) == default)
+                Shader.DisableKeyword(RbvHeatmappingOn);
         }
     }
 }

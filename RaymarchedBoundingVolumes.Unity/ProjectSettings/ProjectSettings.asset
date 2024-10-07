@@ -647,7 +647,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: RBV_HEATMAPPING_ON;RBV_HEATMAPPING_ON_PROJECT;RBV_4D_ON;RBV_4D_ON_PROJECT
+    Standalone: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

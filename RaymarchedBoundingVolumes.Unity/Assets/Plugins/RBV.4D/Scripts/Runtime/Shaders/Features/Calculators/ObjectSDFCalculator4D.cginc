@@ -2,10 +2,10 @@
 
 #include <UnityShaderVariables.cginc>
 
-#ifdef RBV_4D_ON_PROJECT
-#include "../../../../../../RBV/Scripts/Runtime/Shaders/Features/Calculators/Object3DRotator.cginc"
-#else
+#ifdef RBV_IS_PACKAGE
 #include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Features/Calculators/Object3DRotator.cginc"
+#else
+#include "../../../../../../RBV/Scripts/Runtime/Shaders/Features/Calculators/Object3DRotator.cginc"
 #endif
 
 #include "../../Data/Enumerations/Object4DTypeEnumeration.cginc"

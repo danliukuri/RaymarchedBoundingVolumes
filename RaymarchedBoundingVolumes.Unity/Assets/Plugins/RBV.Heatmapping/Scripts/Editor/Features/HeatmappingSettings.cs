@@ -1,8 +1,9 @@
 using System.IO;
-using RBV.Heatmapping.Editor.Utilities.Extensions;
+using RBV.Data.Static;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
+using static RBV.Data.Static.PathConstants;
+using static RBV.Heatmapping.Editor.Utilities.Extensions.PathExtensions;
 
 namespace RBV.Heatmapping.Editor.Features
 {
@@ -13,7 +14,6 @@ namespace RBV.Heatmapping.Editor.Features
     internal sealed class HeatmappingSettings
 #endif
     {
-        private const string Separator                  = "/";
         private const string PreferencePathRelative     = "Raymarched Bounding Volumes/Heatmapping";
         private const string PreferencePath             = "Preferences"          + Separator + PreferencePathRelative;
         private const string HeatmappingTexturePathKey  = PreferencePathRelative + Separator + "TexturePath";
@@ -21,10 +21,7 @@ namespace RBV.Heatmapping.Editor.Features
         private const string DefaultTexturePathRelative = "Art/Sprites/Heatmaps/HitmapMagma.png";
 
         private static readonly string _defaultTexturePath =
-            Path.Combine(PathExtensions.PackageRootPathRelativeToProject(), DefaultTexturePathRelative);
-
-        private static readonly GlobalKeyword _heatmappingEnabledShaderKeywordID =
-            GlobalKeyword.Create("RBV_HEATMAPPING_ON");
+            Path.Combine(HeatmappingPackageRootPathRelativeToProjectOrDefault(), DefaultTexturePathRelative);
 
         private static readonly int _heatmapTexturePropertyID = Shader.PropertyToID("_RbvHeatmapTexture");
 
@@ -57,7 +54,7 @@ namespace RBV.Heatmapping.Editor.Features
             set
             {
                 EditorPrefs.SetBool(HeatmappingEnabledKey, value);
-                Shader.SetKeyword(_heatmappingEnabledShaderKeywordID, value);
+                Shader.SetKeyword(PackageRelatedShaderKeywords.RbvHeatmappingOn, value);
             }
         }
 
