@@ -9,12 +9,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "com.danliukuri.rbv.4d",
-            "expression": "",
-            "define": "RBV_4D_ON"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }

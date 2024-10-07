@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.danliukuri.vector4-compact-drawer": {
+      "version": "https://github.com/danliukuri/Vector4CompactDrawer.git?path=Vector4CompactDrawer.Unity/Assets/Plugins/Vector4CompactDrawer",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4c35c06d88d82189805472d6edeb211b76b4b64d"
+    },
     "com.unity.collab-proxy": {
       "version": "2.4.4",
       "depth": 0,
@@ -109,9 +116,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"

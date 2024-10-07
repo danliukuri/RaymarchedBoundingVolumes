@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8187576220391758339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 892048923259546231}
+  - component: {fileID: 585302989470730293}
+  - component: {fileID: 4614622043117846568}
+  - component: {fileID: 8618079449180114559}
+  m_Layer: 0
+  m_Name: RaymarchedObject4D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &892048923259546231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8187576220391758339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &585302989470730293
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8187576220391758339}
+  m_Mesh: {fileID: -5272990235393635344, guid: 835b9cd0bc38ea34986d1f8670c1e95a, type: 3}
+--- !u!23 &4614622043117846568
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8187576220391758339}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 2
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8e94878796f6b3147ab1737321221202, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8618079449180114559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8187576220391758339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4388558ebcdf4a0b8ea8623c3aaf6f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type:
+    value: 10001
+  typeData:
+    <Hypercube>k__BackingField:
+      value:
+        Dimensions: {x: 1, y: 1, z: 1, w: 1}
+    <Hypersphere>k__BackingField:
+      value:
+        Diameter: 1
+    <Hyperellipsoid>k__BackingField:
+      value:
+        Diameters: {x: 1, y: 1, z: 1, w: 1}
+    <Hypercapsule>k__BackingField:
+      value:
+        Height: 1
+        Base:
+          Diameter: 1
+    <EllipsoidalHypercapsule>k__BackingField:
+      value:
+        Height: 1
+        Base:
+          Diameters: {x: 1, y: 1, z: 1, w: 1}
+    <CubicalCylinder>k__BackingField:
+      value:
+        Height: 1
+        SphericalCylinder:
+          Base:
+            Diameter: 1
+          Trength: 1
+    <SphericalCylinder>k__BackingField:
+      value:
+        Base:
+          Diameter: 1
+        Trength: 1
+    <EllipsoidalCylinder>k__BackingField:
+      value:
+        Base:
+          Diameters: {x: 1, y: 1, z: 1, w: 1}
+        Trength: 1
+    <ConicalCylinder>k__BackingField:
+      value:
+        Height: 1
+        SphericalCylinder:
+          Base:
+            Diameter: 1
+          Trength: 1
+    <DoubleCylinder>k__BackingField:
+      value:
+        Diameters: {x: 1, y: 1}
+    <DoubleEllipticCylinder>k__BackingField:
+      value:
+        Diameters: {x: 1, y: 1, z: 1, w: 1}
+    <PrismicCylinder>k__BackingField:
+      value:
+        VerticesCount: 3
+        Circumdiameter: 1
+        Length: 1
+    <SphericalCone>k__BackingField:
+      value:
+        Base:
+          Diameter: 1
+        Trength: 1
+    <CylindricalCone>k__BackingField:
+      value:
+        Base:
+          Diameter: 1
+        Trength: 1
+    <ToroidalSphere>k__BackingField:
+      value:
+        MajorDiameter: 1
+        MinorDiameter: 0.5
+    <SphericalTorus>k__BackingField:
+      value:
+        MajorDiameter: 1
+        MinorDiameter: 0.5
+    <DoubleTorus>k__BackingField:
+      value:
+        MajorMajorDiameter: 1
+        MajorMinorDiameter: 0.4
+        MinorMinorDiameter: 0.1
+    <Tiger>k__BackingField:
+      value:
+        MajorDiameters: {x: 1, y: 1}
+        MinorDiameter: 0.5
+    <RegularDoublePrism>k__BackingField:
+      value:
+        VerticesCount: {x: 3, y: 3}
+        Circumdiameter: {x: 1, y: 1}
+  transform:
+    <Position>k__BackingField:
+      value: {x: 0, y: 0, z: 0, w: 0}
+    <Rotation>k__BackingField:
+      value: {x: 0, y: 0, z: 0}
+    <Rotation4D>k__BackingField:
+      value: {x: 0, y: 0, z: 0}
+    <Scale>k__BackingField:
+      value: {x: 1, y: 1, z: 1, w: 1}
+  renderingSettings:
+    value:
+      Color: {r: 1, g: 1, b: 1, a: 1}

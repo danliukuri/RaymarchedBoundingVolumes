@@ -12,42 +12,42 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         {
             add
             {
-                Cube.Changed              += value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
-                Sphere.Changed            += value.CastCached<IObjectTypeShaderData, SphereShaderData>();
-                Ellipsoid.Changed         += value.CastCached<IObjectTypeShaderData, EllipsoidShaderData>();
-                Capsule.Changed           += value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
-                EllipticCapsule.Changed   += value.CastCached<IObjectTypeShaderData, EllipticCapsuleShaderData>();
-                Cylinder.Changed          += value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
-                EllipticCylinder.Changed  += value.CastCached<IObjectTypeShaderData, EllipticCylinderShaderData>();
-                Plane.Changed             += value.CastCached<IObjectTypeShaderData, PlaneShaderData>();
-                Cone.Changed              += value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
-                CappedCone.Changed        += value.CastCached<IObjectTypeShaderData, CappedConeShaderData>();
-                Torus.Changed             += value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                CappedTorus.Changed       += value.CastCached<IObjectTypeShaderData, CappedTorusShaderData>();
-                RegularPrism.Changed      += value.CastCached<IObjectTypeShaderData, RegularPrismShaderData>();
-                RegularPolyhedron.Changed += value.CastCached<IObjectTypeShaderData, RegularPolyhedronShaderData>();
+                Cube.Changed              += value.CastCached<CubeShaderData>();
+                Sphere.Changed            += value.CastCached<SphereShaderData>();
+                Ellipsoid.Changed         += value.CastCached<EllipsoidShaderData>();
+                Capsule.Changed           += value.CastCached<CapsuleShaderData>();
+                EllipticCapsule.Changed   += value.CastCached<EllipticCapsuleShaderData>();
+                Cylinder.Changed          += value.CastCached<CylinderShaderData>();
+                EllipticCylinder.Changed  += value.CastCached<EllipticCylinderShaderData>();
+                Plane.Changed             += value.CastCached<PlaneShaderData>();
+                Cone.Changed              += value.CastCached<CapsuleShaderData>();
+                CappedCone.Changed        += value.CastCached<CappedConeShaderData>();
+                Torus.Changed             += value.CastCached<TorusShaderData>();
+                CappedTorus.Changed       += value.CastCached<CappedTorusShaderData>();
+                RegularPrism.Changed      += value.CastCached<RegularPrismShaderData>();
+                RegularPolyhedron.Changed += value.CastCached<RegularPolyhedronShaderData>();
             }
             remove
             {
-                Cube.Changed              -= value.CastCached<IObjectTypeShaderData, RaymarchedCubeShaderData>();
-                Sphere.Changed            -= value.CastCached<IObjectTypeShaderData, SphereShaderData>();
-                Ellipsoid.Changed         -= value.CastCached<IObjectTypeShaderData, EllipsoidShaderData>();
-                Capsule.Changed           -= value.CastCached<IObjectTypeShaderData, RaymarchedCapsuleShaderData>();
-                EllipticCapsule.Changed   -= value.CastCached<IObjectTypeShaderData, EllipticCapsuleShaderData>();
-                Cylinder.Changed          -= value.CastCached<IObjectTypeShaderData, RaymarchedCylinderShaderData>();
-                EllipticCylinder.Changed  -= value.CastCached<IObjectTypeShaderData, EllipticCylinderShaderData>();
-                Plane.Changed             -= value.CastCached<IObjectTypeShaderData, PlaneShaderData>();
-                Cone.Changed              -= value.CastCached<IObjectTypeShaderData, RaymarchedConeShaderData>();
-                CappedCone.Changed        -= value.CastCached<IObjectTypeShaderData, CappedConeShaderData>();
-                Torus.Changed             -= value.CastCached<IObjectTypeShaderData, TorusShaderData>();
-                CappedTorus.Changed       -= value.CastCached<IObjectTypeShaderData, CappedTorusShaderData>();
-                RegularPrism.Changed      -= value.CastCached<IObjectTypeShaderData, RegularPrismShaderData>();
-                RegularPolyhedron.Changed -= value.CastCached<IObjectTypeShaderData, RegularPolyhedronShaderData>();
+                Cube.Changed              -= value.CastCached<CubeShaderData>();
+                Sphere.Changed            -= value.CastCached<SphereShaderData>();
+                Ellipsoid.Changed         -= value.CastCached<EllipsoidShaderData>();
+                Capsule.Changed           -= value.CastCached<CapsuleShaderData>();
+                EllipticCapsule.Changed   -= value.CastCached<EllipticCapsuleShaderData>();
+                Cylinder.Changed          -= value.CastCached<CylinderShaderData>();
+                EllipticCylinder.Changed  -= value.CastCached<EllipticCylinderShaderData>();
+                Plane.Changed             -= value.CastCached<PlaneShaderData>();
+                Cone.Changed              -= value.CastCached<CapsuleShaderData>();
+                CappedCone.Changed        -= value.CastCached<CappedConeShaderData>();
+                Torus.Changed             -= value.CastCached<TorusShaderData>();
+                CappedTorus.Changed       -= value.CastCached<CappedTorusShaderData>();
+                RegularPrism.Changed      -= value.CastCached<RegularPrismShaderData>();
+                RegularPolyhedron.Changed -= value.CastCached<RegularPolyhedronShaderData>();
             }
         }
 
-        [field: SerializeField] public ObservableValue<RaymarchedCubeShaderData> Cube { get; set; } =
-            new(RaymarchedCubeShaderData.Default);
+        [field: SerializeField] public ObservableValue<CubeShaderData> Cube { get; set; } =
+            new(CubeShaderData.Default);
 
         [field: SerializeField] public ObservableValue<SphereShaderData> Sphere { get; set; } =
             new(SphereShaderData.Default);
@@ -55,14 +55,14 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField] public ObservableValue<EllipsoidShaderData> Ellipsoid { get; set; } =
             new(EllipsoidShaderData.Default);
 
-        [field: SerializeField] public ObservableValue<RaymarchedCapsuleShaderData> Capsule { get; set; } =
-            new(RaymarchedCapsuleShaderData.Default);
+        [field: SerializeField] public ObservableValue<CapsuleShaderData> Capsule { get; set; } =
+            new(CapsuleShaderData.Default);
 
         [field: SerializeField] public ObservableValue<EllipticCapsuleShaderData> EllipticCapsule { get; set; } =
             new(EllipticCapsuleShaderData.Default);
 
-        [field: SerializeField] public ObservableValue<RaymarchedCylinderShaderData> Cylinder { get; set; } =
-            new(RaymarchedCylinderShaderData.Default);
+        [field: SerializeField] public ObservableValue<CylinderShaderData> Cylinder { get; set; } =
+            new(CylinderShaderData.Default);
 
         [field: SerializeField] public ObservableValue<EllipticCylinderShaderData> EllipticCylinder { get; set; } =
             new(EllipticCylinderShaderData.Default);
@@ -70,8 +70,8 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         [field: SerializeField] public ObservableValue<PlaneShaderData> Plane { get; set; } =
             new(PlaneShaderData.Default);
 
-        [field: SerializeField] public ObservableValue<RaymarchedConeShaderData> Cone { get; set; } =
-            new(RaymarchedConeShaderData.Default);
+        [field: SerializeField] public ObservableValue<CapsuleShaderData> Cone { get; set; } =
+            new(CapsuleShaderData.Default);
 
         [field: SerializeField] public ObservableValue<CappedConeShaderData> CappedCone { get; set; } =
             new(CappedConeShaderData.Default);
@@ -91,87 +91,118 @@ namespace RBV.Data.Dynamic.ShaderData.ObjectType
         public IObjectTypeShaderData GetShaderData(RaymarchedObjectType type) =>
             GetShaderData((RaymarchedObject3DType)(int)type);
 
-        public IObjectTypeShaderData GetShaderData(RaymarchedObject3DType type)
+        public IObjectTypeShaderData GetShaderData(RaymarchedObject3DType type) => type switch
         {
-            const float fullToHalfScaleMultiplier =
-                IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            RaymarchedObject3DType.Cube              => Scale(Cube.Value),
+            RaymarchedObject3DType.Sphere            => Scale(Sphere.Value),
+            RaymarchedObject3DType.Ellipsoid         => Scale(Ellipsoid.Value),
+            RaymarchedObject3DType.Capsule           => Scale(Capsule.Value),
+            RaymarchedObject3DType.EllipticCapsule   => Scale(EllipticCapsule.Value),
+            RaymarchedObject3DType.Cylinder          => Scale(Cylinder.Value),
+            RaymarchedObject3DType.EllipticCylinder  => Scale(EllipticCylinder.Value),
+            RaymarchedObject3DType.Plane             => Scale(Plane.Value),
+            RaymarchedObject3DType.Cone              => Scale(Cone.Value),
+            RaymarchedObject3DType.CappedCone        => Scale(CappedCone.Value),
+            RaymarchedObject3DType.Torus             => Scale(Torus.Value),
+            RaymarchedObject3DType.CappedTorus       => Scale(CappedTorus.Value),
+            RaymarchedObject3DType.RegularPrism      => Scale(RegularPrism.Value),
+            RaymarchedObject3DType.RegularPolyhedron => Scale(RegularPolyhedron.Value),
 
-            switch (type)
-            {
-                case RaymarchedObject3DType.Cube:
-                    RaymarchedCubeShaderData cube = Cube.Value;
-                    cube.Dimensions *= fullToHalfScaleMultiplier;
-                    return cube;
-                case RaymarchedObject3DType.Sphere:
-                    SphereShaderData sphere = Sphere.Value;
-                    sphere.Diameter *= fullToHalfScaleMultiplier;
-                    return sphere;
-                case RaymarchedObject3DType.Ellipsoid:
-                    EllipsoidShaderData ellipsoid = Ellipsoid.Value;
-                    ellipsoid.Diameters *= fullToHalfScaleMultiplier;
-                    return ellipsoid;
-                case RaymarchedObject3DType.Capsule:
-                    RaymarchedCapsuleShaderData capsule = Capsule.Value;
-                    capsule.Height   *= fullToHalfScaleMultiplier;
-                    capsule.Diameter *= fullToHalfScaleMultiplier;
-                    return capsule;
-                case RaymarchedObject3DType.EllipticCapsule:
-                    EllipticCapsuleShaderData ellipticCapsule = EllipticCapsule.Value;
-                    ellipticCapsule.Height    *= fullToHalfScaleMultiplier;
-                    ellipticCapsule.Diameters *= fullToHalfScaleMultiplier;
-                    return ellipticCapsule;
-                case RaymarchedObject3DType.Cylinder:
-                    RaymarchedCylinderShaderData cylinder = Cylinder.Value;
-                    cylinder.Diameter *= fullToHalfScaleMultiplier;
-                    return cylinder;
-                case RaymarchedObject3DType.EllipticCylinder:
-                    EllipticCylinderShaderData ellipticCylinder = EllipticCylinder.Value;
-                    ellipticCylinder.Dimensions = new Vector3(
-                        ellipticCylinder.Dimensions.x * fullToHalfScaleMultiplier,
-                        ellipticCylinder.Dimensions.y,
-                        ellipticCylinder.Dimensions.z * fullToHalfScaleMultiplier
-                    );
-                    return ellipticCylinder;
-                case RaymarchedObject3DType.Plane:
-                    PlaneShaderData plane = Plane.Value;
-                    plane.Dimensions   *= PlaneShaderData.ScaleMultiplier;
-                    plane.Dimensions.y =  PlaneShaderData.Thickness;
-                    plane.Dimensions   *= fullToHalfScaleMultiplier;
-                    return plane;
-                case RaymarchedObject3DType.Cone:
-                    RaymarchedConeShaderData cone = Cone.Value;
-                    cone.Height   *= fullToHalfScaleMultiplier;
-                    cone.Diameter *= fullToHalfScaleMultiplier;
-                    return cone;
-                case RaymarchedObject3DType.CappedCone:
-                    CappedConeShaderData cappedCone = CappedCone.Value;
-                    cappedCone.Height             *= fullToHalfScaleMultiplier;
-                    cappedCone.TopBaseDiameter    *= fullToHalfScaleMultiplier;
-                    cappedCone.BottomBaseDiameter *= fullToHalfScaleMultiplier;
-                    return cappedCone;
-                case RaymarchedObject3DType.Torus:
-                    TorusShaderData torus = Torus.Value;
-                    torus.MajorDiameter *= fullToHalfScaleMultiplier;
-                    torus.MinorDiameter *= fullToHalfScaleMultiplier;
-                    return torus;
-                case RaymarchedObject3DType.CappedTorus:
-                    CappedTorusShaderData cappedTorus = CappedTorus.Value;
-                    cappedTorus.CapAngle      *= Mathf.Deg2Rad * fullToHalfScaleMultiplier;
-                    cappedTorus.MajorDiameter *= fullToHalfScaleMultiplier;
-                    cappedTorus.MinorDiameter *= fullToHalfScaleMultiplier;
-                    return cappedTorus;
-                case RaymarchedObject3DType.RegularPrism:
-                    RegularPrismShaderData regularPrism = RegularPrism.Value;
-                    regularPrism.Circumdiameter *= fullToHalfScaleMultiplier;
-                    regularPrism.Length         *= fullToHalfScaleMultiplier;
-                    return regularPrism;
-                case RaymarchedObject3DType.RegularPolyhedron:
-                    RegularPolyhedronShaderData regularPolyhedron = RegularPolyhedron.Value;
-                    regularPolyhedron.InscribedDiameter *= fullToHalfScaleMultiplier;
-                    return regularPolyhedron;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, default);
-            }
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, default)
+        };
+
+        private static CubeShaderData Scale(CubeShaderData cube)
+        {
+            cube.Dimensions *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return cube;
+        }
+
+        private static SphereShaderData Scale(SphereShaderData sphere)
+        {
+            sphere.Diameter *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return sphere;
+        }
+
+        private static EllipsoidShaderData Scale(EllipsoidShaderData ellipsoid)
+        {
+            ellipsoid.Diameters *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return ellipsoid;
+        }
+
+        private static CapsuleShaderData Scale(CapsuleShaderData capsule)
+        {
+            capsule.Height = ScaleCapsuleHeightData(capsule.Height);
+            capsule.Base   = Scale(capsule.Base);
+            return capsule;
+        }
+
+        private static float ScaleCapsuleHeightData(float height) =>
+            height * IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+
+        private static EllipticCapsuleShaderData Scale(EllipticCapsuleShaderData ellipticCapsule)
+        {
+            ellipticCapsule.Height    = ScaleCapsuleHeightData(ellipticCapsule.Height);
+            ellipticCapsule.Ellipsoid = Scale(ellipticCapsule.Ellipsoid);
+            return ellipticCapsule;
+        }
+
+        private static CylinderShaderData Scale(CylinderShaderData cylinder)
+        {
+            cylinder.Base = Scale(cylinder.Base);
+            return cylinder;
+        }
+
+        private static EllipticCylinderShaderData Scale(EllipticCylinderShaderData ellipticCylinder)
+        {
+            ellipticCylinder.Dimensions = new Vector3(
+                ellipticCylinder.Dimensions.x * IObservableObjectTypeShaderData.FullToHalfScaleMultiplier,
+                ellipticCylinder.Dimensions.y,
+                ellipticCylinder.Dimensions.z * IObservableObjectTypeShaderData.FullToHalfScaleMultiplier
+            );
+            return ellipticCylinder;
+        }
+
+        private static PlaneShaderData Scale(PlaneShaderData plane)
+        {
+            plane.Dimensions   *= PlaneShaderData.ScaleMultiplier;
+            plane.Dimensions.y =  PlaneShaderData.Thickness;
+            plane.Dimensions   *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return plane;
+        }
+
+        private static CappedConeShaderData Scale(CappedConeShaderData cappedCone)
+        {
+            cappedCone.Height             =  ScaleCapsuleHeightData(cappedCone.Height);
+            cappedCone.TopBaseDiameter    *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            cappedCone.BottomBaseDiameter *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return cappedCone;
+        }
+
+        private static TorusShaderData Scale(TorusShaderData torus)
+        {
+            torus.MajorDiameter *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            torus.MinorDiameter *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return torus;
+        }
+
+        private static CappedTorusShaderData Scale(CappedTorusShaderData cappedTorus)
+        {
+            cappedTorus.CapAngle *= Mathf.Deg2Rad * IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            cappedTorus.Torus    =  Scale(cappedTorus.Torus);
+            return cappedTorus;
+        }
+
+        private static RegularPrismShaderData Scale(RegularPrismShaderData regularPrism)
+        {
+            regularPrism.Circumdiameter *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            regularPrism.Length         *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return regularPrism;
+        }
+
+        private static RegularPolyhedronShaderData Scale(RegularPolyhedronShaderData regularPolyhedron)
+        {
+            regularPolyhedron.InscribedDiameter *= IObservableObjectTypeShaderData.FullToHalfScaleMultiplier;
+            return regularPolyhedron;
         }
     }
 }

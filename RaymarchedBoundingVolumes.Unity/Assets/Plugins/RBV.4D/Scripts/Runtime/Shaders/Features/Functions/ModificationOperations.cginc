@@ -1,6 +1,10 @@
 ﻿#pragma once
 
+#ifdef RBV_IS_PACKAGE
+#include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Features/Functions/ModificationOperations.cginc"
+#else
 #include "../../../../../../RBV/Scripts/Runtime/Shaders/Features/Functions/ModificationOperations.cginc"
+#endif
 
 float4 elongateX(float4 position, const float strength)
 {

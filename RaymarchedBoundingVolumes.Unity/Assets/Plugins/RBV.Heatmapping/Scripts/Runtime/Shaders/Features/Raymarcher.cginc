@@ -1,8 +1,14 @@
-﻿#include "../../../../../RBV/Scripts/Runtime/Shaders/Data/Structures/RaymarchingDataStructures.cginc"
+﻿#ifdef RBV_IS_PACKAGE
+#include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Data/Structures/RaymarchingDataStructures.cginc"
+#include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Data/Variables/RaymarchingGlobalVariables.cginc"
+#include "Packages/com.danliukuri.rbv/Scripts/Runtime/Shaders/Features/Calculators/SDFCalculator.cginc"
+#else
+#include "../../../../../RBV/Scripts/Runtime/Shaders/Data/Structures/RaymarchingDataStructures.cginc"
 #include "../../../../../RBV/Scripts/Runtime/Shaders/Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../../../../RBV/Scripts/Runtime/Shaders/Features/Calculators/SDFCalculator.cginc"
+#endif
 
-sampler2D _HeatmapTexture;
+sampler2D _RbvHeatmapTexture;
 
 RaymarchingData raymarch(const float3 rayOrigin, const float3 rayDirection)
 {
@@ -24,6 +30,6 @@ RaymarchingData raymarch(const float3 rayOrigin, const float3 rayDirection)
         }
     }
 
-    result.color = tex2D(_HeatmapTexture, half2((half)iterationIndex / _MaxDetectionIterations, 1));
+    result.color = tex2D(_RbvHeatmapTexture, half2((half)iterationIndex / _MaxDetectionIterations, 1));
     return result;
 }

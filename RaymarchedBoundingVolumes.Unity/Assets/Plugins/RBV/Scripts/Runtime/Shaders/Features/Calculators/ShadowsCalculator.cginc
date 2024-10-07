@@ -119,9 +119,7 @@ float calculateSoftShadowsC(float3 rayOrigin, float3 rayDirection)
 float calculateShadows(float3 rayOrigin, float3 rayDirection)
 {
     float shadows = _NoShading;
-#ifdef SHADOWS_TYPE_NONE
-    return _NoShading;
-#elif SHADOWS_TYPE_HARD
+#ifdef SHADOWS_TYPE_HARD
     shadows = calculateHardShadows(rayOrigin, rayDirection); 
 #elif SHADOWS_TYPE_SOFT_A
     shadows = calculateSoftShadowsA(rayOrigin, rayDirection);
@@ -129,6 +127,8 @@ float calculateShadows(float3 rayOrigin, float3 rayDirection)
     shadows = calculateSoftShadowsB(rayOrigin, rayDirection);
 #elif SHADOWS_TYPE_SOFT_C
     shadows = calculateSoftShadowsC(rayOrigin, rayDirection);
+#else
+    return _NoShading;
 #endif
     return lerp(_NoShading, shadows, _ShadowsIntensity);
 }

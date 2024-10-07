@@ -8,8 +8,13 @@
 #include "../../Data/Macros/Stack.cginc"
 
 #ifdef RBV_4D_ON
+#ifdef RBV_4D_IS_PACKAGE
+#include "Packages/com.danliukuri.rbv.4d/Scripts/Runtime/Shaders/Data/Variables/RaymarchingGlobalVariables.cginc"
+#include "Packages/com.danliukuri.rbv.4d/Scripts/Runtime/Shaders/Features/Calculators/ObjectSDFCalculator4D.cginc"
+#else
 #include "../../../../RBV.4D/Scripts/Runtime/Shaders/Data/Variables/RaymarchingGlobalVariables.cginc"
 #include "../../../../RBV.4D/Scripts/Runtime/Shaders/Features/Calculators/ObjectSDFCalculator4D.cginc"
+#endif
 #endif
 
 SDFData calculateObjectSDF(float3 position, ObjectData object, ObjectRenderingSettings renderingSettings)

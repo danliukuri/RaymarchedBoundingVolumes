@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.danliukuri.vector4-compact-drawer": "https://github.com/danliukuri/Vector4CompactDrawer.git?path=Vector4CompactDrawer.Unity/Assets/Plugins/Vector4CompactDrawer",
     "com.unity.collab-proxy": "2.4.4",
     "com.unity.feature.development": "1.0.1",
     "com.unity.textmeshpro": "3.0.6",

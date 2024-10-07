@@ -1,0 +1,37 @@
+{
+  "name"            : "com.danliukuri.rbv.4d",
+  "version"         : "1.0.0",
+  "displayName"     : "RBV.4D",
+  "description"     : "An extension package for RBV that introduce four-dimensional features. It enables the visualization and manipulation of 4D objects within raymarched volumes by slicing through these objects along a fourth spatial dimension and projecting them into 3D, while leveraging all the techniques provided by the core RBV package. This functionality allows for dynamic exploration of 4D geometry in a familiar 3D space.",
+  "documentationUrl": "https://github.com/danliukuri/RaymarchedBoundingVolumes?tab=readme-ov-file#RBV4D",
+  "changelogUrl"    : "https://github.com/danliukuri/RaymarchedBoundingVolumes/releases",
+  "licensesUrl"     : "https://github.com/danliukuri/RaymarchedBoundingVolumes?tab=MIT-1-ov-file",
+  "repository"      : "https://github.com/danliukuri/RaymarchedBoundingVolumes",
+  "homepage"        : "https://github.com/danliukuri/RaymarchedBoundingVolumes",
+  "samples"         : [
+    {
+      "displayName" : "Showcase",
+      "description" : "The simple demonstration of the RBV.4D capabilities, represents a rather unconventional usage of the package.",
+      "path"        : "Samples~/RBV.4D/Showcase"
+    }
+  ],
+  "keywords"        : [
+    "raymarching",
+    "bounding volumes",
+    "rbv",
+    "4d",
+    "fourth-dimension",
+    "4d geometry",
+    "4d projection",
+    "4D transformations",
+    "hypercube",
+    "tesseract",
+    "hypersphere",
+    "glome"
+  ],
+  "author"          : {
+    "name" : "Yuriy Danyliuk",
+    "email": "danyliuk.yuriy@gmail.com",
+    "url"  : "https://github.com/danliukuri"
+  }
+}

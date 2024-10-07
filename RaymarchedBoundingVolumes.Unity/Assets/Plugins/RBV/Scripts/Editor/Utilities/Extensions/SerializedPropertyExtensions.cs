@@ -62,7 +62,8 @@ namespace RBV.Editor.Utilities.Extensions
 
         public static void DrawFoldoutAndEachChildren(this SerializedProperty property, GUIContent label,
                                                       int depth, Action<SerializedProperty> drawChild = default) =>
-            property.DrawFoldoutAndChildren(label, parentProperty => DrawChildren(parentProperty, drawChild), depth);
+            property.DrawFoldoutAndChildren(label, parentProperty => DrawChildren(parentProperty, depth, drawChild),
+                depth);
 
         public static void DrawFoldoutAndChildren(this SerializedProperty    property, GUIContent label,
                                                   Action<SerializedProperty> drawChildren) =>
@@ -79,10 +80,8 @@ namespace RBV.Editor.Utilities.Extensions
         }
 
         public static void DrawChildren(this SerializedProperty    property,
-                                        Action<SerializedProperty> drawChild = default)
-        {
+                                        Action<SerializedProperty> drawChild = default) =>
             DrawChildren(property, property.depth + 1, drawChild);
-        }
 
         public static void DrawChildren(this SerializedProperty    property, int depth,
                                         Action<SerializedProperty> drawChild = default)

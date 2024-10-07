@@ -17,42 +17,32 @@ struct HyperellipsoidData
 
 struct HypercapsuleData
 {
-    float halfHeight;
-    float radius;
+    float           halfHeight;
+    HypersphereData base;
 };
 
 struct EllipsoidalHypercapsuleData
 {
-    float  halfHeight;
-    float4 radii;
-};
-
-struct CubicalCylinderData
-{
-    float radius;
-    float halfHeight;
-    /** @related _TrengthDefinition */
-    float halfTrength;
+    float              halfHeight;
+    HyperellipsoidData base;
 };
 
 struct SphericalCylinderData
 {
-    float radius;
+    HypersphereData base;
     /** @related _TrengthDefinition */
     float halfTrength;
+};
+
+struct CubicalCylinderData
+{
+    float                 halfHeight;
+    SphericalCylinderData sphericalCylinder;
 };
 
 struct EllipsoidalCylinderData
 {
-    float3 radii;
-    /** @related _TrengthDefinition */
-    float halfTrength;
-};
-
-struct ConicalCylinderData
-{
-    float radius;
-    float halfHeight;
+    HyperellipsoidData base;
     /** @related _TrengthDefinition */
     float halfTrength;
 };
@@ -72,20 +62,6 @@ struct PrismicCylinderData
     int   verticesCount;
     float circumradius;
     float halfLength;
-};
-
-struct SphericalConeData
-{
-    float radius;
-    /** @related _TrengthDefinition */
-    float halfTrength;
-};
-
-struct CylindricalConeData
-{
-    float radius;
-    /** @related _TrengthDefinition */
-    float halfTrength;
 };
 
 struct DoubleTorusData

@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using RBV.Utilities.Extensions;
 using UnityEngine;
 
 namespace RBV.Infrastructure
@@ -12,14 +13,7 @@ namespace RBV.Infrastructure
         private void OnEnable()  => EditorInitializeIfNotAlreadyDid();
         private void OnDisable() => EditorDeinitialize();
 
-        private void EditorInitializeIfNotAlreadyDid()
-        {
-            if (!_isInitialized)
-            {
-                Initialize();
-                _isInitialized = true;
-            }
-        }
+        private void EditorInitializeIfNotAlreadyDid() => _isInitialized.IfNotInvoke(Initialize).IfNotSet(true);
 
         private void EditorDeinitialize()
         {
