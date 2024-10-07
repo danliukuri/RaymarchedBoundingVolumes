@@ -121,7 +121,7 @@
 			<pre><code>https://github.com/danliukuri/RaymarchedBoundingVolumes.git?path=RaymarchedBoundingVolumes.Unity/Assets/Plugins/RBV</code></pre>
 		</li>
 	</ol>
-	To install samples, navigate to <code>Raymarched Bounding Volumes/Samples</code> in the <code>Package Manager</code>
+	To install samples, navigate to <code>RBV/Samples</code> in the <code>Package Manager</code>
 	and click <code>Import</code> for the desired ones.
 	</div></li>
 	<p>
